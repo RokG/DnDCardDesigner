@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardDesigner.Data", "..\CardDesigner.DataAccess\CardDesigner.Data.csproj", "{9C550A39-4410-40FA-97EF-0502C3F8352F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardDesigner.Data", "..\CardDesigner.DataAccess\CardDesigner.Data.csproj", "{9C550A39-4410-40FA-97EF-0502C3F8352F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardDesigner.Domain", "..\CardDesigner.Models\CardDesigner.Domain.csproj", "{D345EC52-B0B6-45D4-B96D-70A66DBE3772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardDesigner.UI", "..\CardDesigner.UI\CardDesigner.UI.csproj", "{56E4BBD3-46C4-4227-BA7F-30C89F9FEAD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardDesigner.UI", "..\CardDesigner.UI\CardDesigner.UI.csproj", "{56E4BBD3-46C4-4227-BA7F-30C89F9FEAD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardDesigner.Domain", "..\CardDesigner.Domain\CardDesigner.Domain.csproj", "{CF242984-2F7F-4813-B8F5-8F51B6FCD37E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{9C550A39-4410-40FA-97EF-0502C3F8352F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C550A39-4410-40FA-97EF-0502C3F8352F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C550A39-4410-40FA-97EF-0502C3F8352F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D345EC52-B0B6-45D4-B96D-70A66DBE3772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D345EC52-B0B6-45D4-B96D-70A66DBE3772}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D345EC52-B0B6-45D4-B96D-70A66DBE3772}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D345EC52-B0B6-45D4-B96D-70A66DBE3772}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56E4BBD3-46C4-4227-BA7F-30C89F9FEAD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56E4BBD3-46C4-4227-BA7F-30C89F9FEAD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56E4BBD3-46C4-4227-BA7F-30C89F9FEAD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56E4BBD3-46C4-4227-BA7F-30C89F9FEAD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF242984-2F7F-4813-B8F5-8F51B6FCD37E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF242984-2F7F-4813-B8F5-8F51B6FCD37E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF242984-2F7F-4813-B8F5-8F51B6FCD37E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF242984-2F7F-4813-B8F5-8F51B6FCD37E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
