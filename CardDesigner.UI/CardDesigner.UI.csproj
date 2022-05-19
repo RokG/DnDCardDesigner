@@ -8,9 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controls\" />
-    <Folder Include="Resources\" />
-    <Folder Include="Styles\" />
+    <Compile Remove="Controls\**" />
+    <Compile Remove="Resources\**" />
+    <Compile Remove="Styles\**" />
+    <EmbeddedResource Remove="Controls\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <EmbeddedResource Remove="Styles\**" />
+    <None Remove="Controls\**" />
+    <None Remove="Resources\**" />
+    <None Remove="Styles\**" />
+    <Page Remove="Controls\**" />
+    <Page Remove="Resources\**" />
+    <Page Remove="Styles\**" />
   </ItemGroup>
 
   <ItemGroup>
