@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CardDesigner.Domain.Models
 {
-    public class CardDeck
+    public class CardDeckModel
     {
         private readonly List<ICard> _cards;
 
@@ -15,7 +15,7 @@ namespace CardDesigner.Domain.Models
 
         public List<ICard> Cards { get; set; } = new List<ICard>();
 
-        public CardDeck(string name, DeckType type)
+        public CardDeckModel(string name, DeckType type)
         {
             Name = name;
             _cards = new();

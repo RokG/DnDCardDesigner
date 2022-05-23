@@ -14,15 +14,15 @@ namespace CardDesigner.UI.ViewModels
     {
         #region Fields
 
-        private readonly Character _character;
+        private readonly CharacterModel _character;
 
         #endregion Fields
 
         #region Properties
 
-        private CardDeck? _selectedDeck;
+        private CardDeckModel? _selectedDeck;
 
-        public CardDeck? SelectedDeck
+        public CardDeckModel? SelectedDeck
         {
             get => _selectedDeck;
             set => SetProperty(ref _selectedDeck, value);
@@ -53,7 +53,7 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion Actions, Events, Commands
 
-        public CardCreatorViewModel(Character character, NavigationService navigationService)
+        public CardCreatorViewModel(CharacterModel character, NavigationService navigationService)
         {
             Name = nameof(CardCreatorViewModel).Replace("ViewModel", "");
 
@@ -62,8 +62,8 @@ namespace CardDesigner.UI.ViewModels
             AddCardCommand = new AddCardCommand(this, character, navigationService);
             DoNavigateCommand = new NavigateCommand(navigationService);
 
-            SelectedDeck = new CardDeck(DeckType.Spells.ToString(), DeckType.Spells);
-            SelectedCard = new SpellCard() { Name = "blabla" };
+            SelectedDeck = new CardDeckModel(DeckType.Spells.ToString(), DeckType.Spells);
+            SelectedCard = new SpellCardModel() { Name = "blabla" };
         }
     }
 }

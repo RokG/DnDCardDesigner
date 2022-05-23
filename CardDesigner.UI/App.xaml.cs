@@ -13,12 +13,12 @@ namespace CardDesigner.UI
     /// </summary>
     public partial class App : Application
     {
-        private readonly Character _character;
+        private readonly CharacterModel _character;
         private readonly NavigationStore _navigationStore;
 
         public App()
         {
-            _character = new Character("Gimble Locklen");
+            _character = new CharacterModel("Gimble Locklen");
             _navigationStore = new NavigationStore();
         }
 

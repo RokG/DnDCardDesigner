@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardDesigner.Domain.Models
 {
-    public class ItemCard
+    public class ItemCardModel
     {
         public int ID { get; set; }
     }

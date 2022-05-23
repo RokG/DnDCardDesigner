@@ -2,7 +2,7 @@
 
 namespace CardDesigner.Domain.Models
 {
-    public class SpellCard : ICard, ISpell
+    public class SpellCardModel : ICard, ISpell
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;

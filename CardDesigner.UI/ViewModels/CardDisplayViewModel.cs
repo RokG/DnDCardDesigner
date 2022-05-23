@@ -8,7 +8,7 @@ namespace CardDesigner.UI.ViewModels
 {
     public class CardDisplayViewModel : ViewModelBase
     {
-        private readonly Character _character;
+        private readonly CharacterModel _character;
 
         private string _cardName;
 
@@ -24,7 +24,7 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion Actions, Events, Commands
 
-        public CardDisplayViewModel(Character character, NavigationService navigationService)
+        public CardDisplayViewModel(CharacterModel character, NavigationService navigationService)
         {
             Name = nameof(CardDisplayViewModel).Replace("ViewModel", "");
 

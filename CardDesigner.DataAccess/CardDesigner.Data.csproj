@@ -13,4 +13,13 @@
     <Page Remove="Entities\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CardDesigner.Domain\CardDesigner.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

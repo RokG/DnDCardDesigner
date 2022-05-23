@@ -14,10 +14,10 @@ namespace CardDesigner.UI.Commands
     public class AddCardCommand : CommandBase
     {
         private readonly CardCreatorViewModel _cardCreatorViewModel;
-        private readonly Character _character;
+        private readonly CharacterModel _character;
         private readonly NavigationService _navigationService;
 
-        public AddCardCommand(CardCreatorViewModel cardCreatorViewModel, Character character, NavigationService navigationService)
+        public AddCardCommand(CardCreatorViewModel cardCreatorViewModel, CharacterModel character, NavigationService navigationService)
         {
             _cardCreatorViewModel = cardCreatorViewModel;
             _character = character;
@@ -41,7 +41,7 @@ namespace CardDesigner.UI.Commands
 
         public override void Execute(object? parameter)
         {
-            _character.AddCardToDeck(new SpellCard() { Name = "asdadad" }, _cardCreatorViewModel.DesiredType);
+            _character.AddCardToDeck(new SpellCardModel() { Name = "asdadad" }, _cardCreatorViewModel.DesiredType);
 
             _navigationService.Navigate();
         }

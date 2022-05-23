@@ -9,7 +9,7 @@ namespace CardDesigner.Domain.Stores
 {
     public class CardDesignerStore
     {
-        public SpellCard Card { get; set; }
+        public SpellCardModel Card { get; set; }
 
         private readonly Lazy<Task> _initializeLazy;
 
@@ -20,7 +20,7 @@ namespace CardDesigner.Domain.Stores
 
         private async Task Initialize()
         {
-            Card = new SpellCard();
+            Card = new SpellCardModel();
             Card.Name = "My first card";
         }
     }
