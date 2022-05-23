@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CardDesigner.DataAccess\CardDesigner.Data.csproj" />
+    <ProjectReference Include="..\CardDesigner.DataAccess\CardDesigner.DataAccess.csproj" />
     <ProjectReference Include="..\CardDesigner.Domain\CardDesigner.Domain.csproj" />
   </ItemGroup>
 
