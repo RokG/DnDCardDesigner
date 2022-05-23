@@ -1,7 +1,8 @@
 ﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
+using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
-using InvoiceMe.Domain.Stores;
 using System;
 using System.Windows;
 
@@ -36,12 +37,12 @@ namespace CardDesigner.UI
 
         private CardDisplayViewModel CreateCardDisplayViewModel()
         {
-            return new CardDisplayViewModel(_character, _navigationStore, CreateCardCreatorViewModel);
+            return new CardDisplayViewModel(_character, new NavigationService(_navigationStore, CreateCardCreatorViewModel));
         }
 
         private CardCreatorViewModel CreateCardCreatorViewModel()
         {
-            return new CardCreatorViewModel(_character, _navigationStore, CreateCardDisplayViewModel);
+            return new CardCreatorViewModel(_character, new NavigationService(_navigationStore, CreateCardDisplayViewModel));
         }
     }
 }

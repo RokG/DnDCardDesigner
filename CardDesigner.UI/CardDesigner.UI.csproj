@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CardDesigner.Domain\CardDesigner.Domain.csproj" />
-    <ProjectReference Include="..\CardDesigner.Models\CardDesigner.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using CardDesigner.Domain.Interfaces;
 using System;
 
-namespace InvoiceMe.Domain.Stores
+namespace CardDesigner.Domain.Stores
 {
     public class NavigationStore
     {

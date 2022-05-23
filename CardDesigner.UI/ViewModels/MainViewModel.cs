@@ -1,8 +1,5 @@
 ﻿using CardDesigner.Domain.Interfaces;
-using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
-using InvoiceMe.Domain.Stores;
-using System.ComponentModel;
 
 namespace CardDesigner.UI.ViewModels
 {

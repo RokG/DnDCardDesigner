@@ -1,5 +1,6 @@
 ﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
 using CardDesigner.UI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace CardDesigner.UI.Commands
     {
         private readonly CardCreatorViewModel _cardCreatorViewModel;
         private readonly Character _character;
+        private readonly NavigationService _navigationService;
 
-        public AddCardCommand(CardCreatorViewModel cardCreatorViewModel, Character character)
+        public AddCardCommand(CardCreatorViewModel cardCreatorViewModel, Character character, NavigationService navigationService)
         {
             _cardCreatorViewModel = cardCreatorViewModel;
             _character = character;
+            _navigationService = navigationService;
             _cardCreatorViewModel.PropertyChanged += PropertyChangedEventHandle;
         }
 
@@ -39,6 +42,8 @@ namespace CardDesigner.UI.Commands
         public override void Execute(object? parameter)
         {
             _character.AddCardToDeck(new SpellCard() { Name = "asdadad" }, _cardCreatorViewModel.DesiredType);
+
+            _navigationService.Navigate();
         }
     }
 }
