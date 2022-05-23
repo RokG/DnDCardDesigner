@@ -1,12 +1,5 @@
-﻿using CardDesigner.Domain.Models;
-using System;
-using CardDesigner.Domain.Enums;
-
-using System.Collections.Generic;
+﻿using CardDesigner.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CardDesigner.Domain.Entities
 {
@@ -16,9 +9,7 @@ namespace CardDesigner.Domain.Entities
         public int ID { get; set; }
 
         public string Title { get; set; } = string.Empty;
-
         public Character Character { get; set; }
-
         public string Description { get; set; }
         public string Name { get; set; }
         public int Level { get; set; }

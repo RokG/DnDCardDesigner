@@ -4,10 +4,8 @@ using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CardDesigner.DataAccess.Services

@@ -1,8 +1,5 @@
 ﻿using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Services;
-using CardDesigner.Domain.Stores;
-using CardDesigner.UI.ViewModels;
-using System;
 
 namespace CardDesigner.UI.Commands
 {

@@ -1,5 +1,4 @@
-﻿using CardDesigner.Domain;
-using CardDesigner.Domain.Interfaces;
+﻿using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Stores;
 using System;
 

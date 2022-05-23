@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using CardDesigner.DataAccess.DbContexts;
-using CardDesigner.DataAccess.Services;
-using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Mapper;
-using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
-using CardDesigner.Domain.Stores;
 using CardDesigner.UI.HostBuilder;
 using CardDesigner.UI.ViewModels;
 using Microsoft.EntityFrameworkCore;

@@ -29,10 +29,10 @@
             <StackPanel>
                 <Button
                     Height="60"
-                    Command="{Binding CardDisplayNavigationCommand}" />
+                    Command="{Binding CardCreatorNavigationCommand}" />
                 <Button
                     Height="60"
-                    Command="{Binding CardViewNavigationCommand}" />
+                    Command="{Binding CardDisplayNavigationCommand}" />
             </StackPanel>
         </Grid>
 

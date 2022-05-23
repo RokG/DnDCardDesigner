@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CardDesigner.Domain.Mapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using CardDesigner.Domain.Mapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CardDesigner.DataAccess.DbContexts
 {

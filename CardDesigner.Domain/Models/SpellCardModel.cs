@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CardDesigner.Domain.Enums;
+﻿using CardDesigner.Domain.Enums;
 
 namespace CardDesigner.Domain.Models
 {

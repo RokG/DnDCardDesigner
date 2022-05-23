@@ -1,7 +1,5 @@
 ﻿using CardDesigner.Domain.Models;
-using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
-using CardDesigner.UI.Commands;
 using System.Linq;
 using System.Windows.Input;
 
@@ -28,12 +26,6 @@ namespace CardDesigner.UI.ViewModels
         public CardDisplayViewModel(CardDesignerStore cardDesignerStore)
         {
             Name = nameof(CardDisplayViewModel).Replace("ViewModel", "");
-
-            //_character = character;
-
-            //DoNavigateCommand = new NavigateCommand(navigationService);
-
-            //UpdateCardView();
         }
 
         private void UpdateCardView()

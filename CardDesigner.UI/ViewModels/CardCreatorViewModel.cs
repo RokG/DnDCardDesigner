@@ -1,11 +1,6 @@
 ﻿using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
-using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
-using CardDesigner.UI.Commands;
-using System;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels

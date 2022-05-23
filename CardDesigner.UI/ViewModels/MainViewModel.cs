@@ -11,8 +11,8 @@ namespace CardDesigner.UI.ViewModels
         private readonly NavigationStore _navigationStore;
         private readonly CardDesignerStore _cardDesignerStore;
 
+        public ICommand CardCreatorNavigationCommand { get; }
         public ICommand CardDisplayNavigationCommand { get; }
-        public ICommand CardViewNavigationCommand { get; }
 
         public MainViewModel(NavigationStore navigationStore,
             CardDesignerStore cardDesignerStore,
@@ -25,7 +25,7 @@ namespace CardDesigner.UI.ViewModels
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
             CardDisplayNavigationCommand = new NavigateCommand<CardDisplayViewModel>(cardDisplayNavigationService);
-            CardViewNavigationCommand = new NavigateCommand<CardCreatorViewModel>(cardCreatorNavigationService);
+            CardCreatorNavigationCommand = new NavigateCommand<CardCreatorViewModel>(cardCreatorNavigationService);
         }
 
         private void OnCurrentViewModelChanged()
