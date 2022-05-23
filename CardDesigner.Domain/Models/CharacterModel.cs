@@ -1,5 +1,4 @@
-﻿using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Exceptions;
+﻿using CardDesigner.Domain.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 

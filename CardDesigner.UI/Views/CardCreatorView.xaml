@@ -9,7 +9,7 @@
             MethodName="GetValues"
             ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enums:DeckType" />
+                <x:Type TypeName="enums:MagicSchool" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>

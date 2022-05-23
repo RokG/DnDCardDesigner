@@ -1,4 +1,4 @@
-﻿namespace CardDesigner.Domain.Models
+﻿namespace CardDesigner.Domain.Enums
 {
     public enum DurationType
     {

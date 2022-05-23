@@ -1,9 +1,9 @@
-﻿using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
 using System;
+using CardDesigner.Domain.Enums;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -27,7 +27,7 @@ namespace CardDesigner.UI.Commands
 
         private void PropertyChangedEventHandle(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CardCreatorViewModel.DesiredType))
+            if (e.PropertyName == nameof(CardCreatorViewModel.MagicShoolType))
             {
                 OnCanExecuteChanged();
             }
@@ -35,7 +35,7 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return _cardCreatorViewModel.DesiredType == DeckType.Spells && base.CanExecute(parameter);
+            return _cardCreatorViewModel.MagicShoolType == MagicSchool.Abjuration && base.CanExecute(parameter);
             //return true;
         }
 
