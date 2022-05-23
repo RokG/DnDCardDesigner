@@ -1,11 +1,12 @@
-﻿using CardDesigner.Data.DbContexts;
-using CardDesigner.Domain.Enums;
+﻿using AutoMapper;
+using CardDesigner.DataAccess.DbContexts;
+using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Mapper;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Windows;
 
 namespace CardDesigner.UI
@@ -18,9 +19,11 @@ namespace CardDesigner.UI
         private const string CONNECTION_STRING = "Data Source=carddesign.db";
         private readonly CharacterModel _character;
         private readonly NavigationStore _navigationStore;
+        private readonly IMapper _mapper;
 
         public App()
         {
+            _mapper = CardDesignerMapper.CreateMapper();
             _character = new CharacterModel("Gimble Locklen");
             _navigationStore = new NavigationStore();
         }
@@ -28,9 +31,14 @@ namespace CardDesigner.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             var options = new DbContextOptionsBuilder().UseSqlite(CONNECTION_STRING).Options;
-            CardDesignerDbContext dbContext = new CardDesignerDbContext(options);
+            using (CardDesignerDbContext dbContext = new CardDesignerDbContext(options, _mapper))
+            {
+                // Uncomment this to test character creation
+                //Character createdClient = dbContext.Characters.Add(new Character() { ID = 0, Name = "gorge" }).Entity;
+                //dbContext.SaveChangesAsync();
 
-            dbContext.Database.Migrate();
+                dbContext.Database.Migrate();
+            }
 
             _navigationStore.CurrentViewModel = CreateCardCreatorViewModel();
 

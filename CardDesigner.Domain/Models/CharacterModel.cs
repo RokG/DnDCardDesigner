@@ -31,12 +31,12 @@ namespace CardDesigner.Domain.Models
             }
         }
 
-        public List<ICard> GetCharacterDeckCards(DeckType deckType)
+        public List<SpellCardModel> GetCharacterDeckCards()
         {
-            return GetCharacterDeck(deckType).Cards;
+            return GetCharacterDeck(DeckType.Spells).SpellCards;
         }
 
-        public void AddCardToDeck(ICard card, DeckType deckType)
+        public void AddCardToDeck(SpellCardModel card, DeckType deckType)
         {
             //foreach (ICard existingCard in GetCharacterDeckCards(deckType))
             //{
@@ -46,7 +46,7 @@ namespace CardDesigner.Domain.Models
             //    }
             //}
 
-            GetCharacterDeckCards(deckType).Add(card);
+            GetCharacterDeckCards().Add(card);
         }
     }
 }

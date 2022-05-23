@@ -14,10 +14,14 @@ namespace CardDesigner.Domain.Entities
         [Key]
         public int ID { get; set; }
 
-        //public DeckType Type { get; set; }
+        public DeckType Type { get; set; }
 
         public string Name { get; set; }
 
-        //public List<SpellCard> Cards { get; set; } = new List<SpellCard>();
+        public Character Character { get; set; }
+
+        public List<SpellCard> SpellCards { get; set; } = new List<SpellCard>();
+        public List<FeatCard> FeatCards { get; set; } = new List<FeatCard>();
+        public List<ItemCard> ItemCards { get; set; } = new List<ItemCard>();
     }
 }

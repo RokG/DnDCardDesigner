@@ -12,7 +12,6 @@ namespace CardDesigner.Domain.Models
         public bool HasVerbalComponent { get; set; }
         public bool HasSemanticComponent { get; set; }
         public bool HasMaterialComponent { get; set; }
-        public List<string> MaterialComponents { get; set; } = new List<string>();
         public int CastingTimeValue { get; set; }
         public CastingTimeType CastingTimeType { get; set; }
         public int RangeValue { get; set; }

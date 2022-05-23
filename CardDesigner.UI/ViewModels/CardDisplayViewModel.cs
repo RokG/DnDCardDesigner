@@ -37,7 +37,7 @@ namespace CardDesigner.UI.ViewModels
 
         private void UpdateCardView()
         {
-            var a = _character.GetCharacterDeckCards(Domain.Enums.DeckType.Spells);
+            var a = _character.GetCharacterDeckCards();
             CardName = a.FirstOrDefault().Name;
         }
     }

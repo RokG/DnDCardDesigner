@@ -13,7 +13,9 @@ namespace CardDesigner.Domain.Models
 
         public int ID { get; set; }
 
-        public List<ICard> Cards { get; set; } = new List<ICard>();
+        public List<SpellCardModel> SpellCards { get; set; } = new List<SpellCardModel>();
+        public List<ItemCardModel> ItemCards { get; set; } = new List<ItemCardModel>();
+        public List<FeatCardModel> FeatCards { get; set; } = new List<FeatCardModel>();
 
         public CardDeckModel(string name, DeckType type)
         {

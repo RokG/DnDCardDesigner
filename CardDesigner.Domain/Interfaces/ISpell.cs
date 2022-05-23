@@ -22,8 +22,6 @@ namespace CardDesigner.Domain.Models
 
         public bool IsConcentration { get; set; }
 
-        public List<string> MaterialComponents { get; set; }
-
         public int CastingTimeValue { get; set; }
 
         public CastingTimeType CastingTimeType { get; set; }
