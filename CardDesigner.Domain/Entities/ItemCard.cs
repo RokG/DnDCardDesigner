@@ -11,5 +11,7 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
+
+        public Character Character { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace CardDesigner.UI.Commands
 
         public override void Execute(object? parameter)
         {
-            _character.AddCardToDeck(new SpellCardModel() { Name = "asdadad" }, _cardCreatorViewModel.DesiredType);
+            _character.AddSpellCardToDeck(new SpellCardModel() { Name = "asdadad" });
 
             _navigationService.Navigate();
         }

@@ -11,42 +11,32 @@ namespace CardDesigner.Domain.Models
 
         public int ID { get; set; }
 
-        public List<CardDeckModel> Decks { get; set; } = new List<CardDeckModel>();
+        public List<SpellCardModel> SpellCards { get; set; } = new List<SpellCardModel>();
+        public List<ItemCardModel> ItemCards { get; set; } = new List<ItemCardModel>();
 
         public CharacterModel(string name)
         {
             Name = name;
         }
 
-        public CardDeckModel GetCharacterDeck(DeckType deckType)
+        public List<SpellCardModel> GetCharacterSpellDeck()
         {
-            if (Decks.FirstOrDefault(c => c.Type == deckType) == null)
-            {
-                Decks.Add(new CardDeckModel(deckType.ToString(), deckType));
-                return Decks.First(d => d.Type == deckType);
-            }
-            else
-            {
-                return Decks.First(c => c.Type == deckType);
-            }
+            return SpellCards;
         }
 
-        public List<SpellCardModel> GetCharacterDeckCards()
+        public List<ItemCardModel> GetCharacterItemDeck()
         {
-            return GetCharacterDeck(DeckType.Spells).SpellCards;
+            return ItemCards;
         }
 
-        public void AddCardToDeck(SpellCardModel card, DeckType deckType)
+        public void AddSpellCardToDeck(SpellCardModel card)
         {
-            //foreach (ICard existingCard in GetCharacterDeckCards(deckType))
-            //{
-            //    if (existingCard.Conflicts(card))
-            //    {
-            //        throw new CardDeckConflictException(existingCard, card);
-            //    }
-            //}
+            GetCharacterSpellDeck().Add(card);
+        }
 
-            GetCharacterDeckCards().Add(card);
+        public void AddItemCardToDeck(ItemCardModel card)
+        {
+            GetCharacterItemDeck().Add(card);
         }
     }
 }

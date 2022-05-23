@@ -22,10 +22,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label
-            Grid.Row="0"
-            Background="red"
-            Content="{Binding SelectedDeck.Name}" />
-        <Label
             Grid.Row="1"
             Background="Pink"
             Content="{Binding SelectedCard.Name}" />

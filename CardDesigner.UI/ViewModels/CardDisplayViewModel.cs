@@ -37,7 +37,7 @@ namespace CardDesigner.UI.ViewModels
 
         private void UpdateCardView()
         {
-            var a = _character.GetCharacterDeckCards();
+            var a = _character.GetCharacterSpellDeck();
             CardName = a.FirstOrDefault().Name;
         }
     }

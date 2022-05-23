@@ -20,14 +20,6 @@ namespace CardDesigner.UI.ViewModels
 
         #region Properties
 
-        private CardDeckModel? _selectedDeck;
-
-        public CardDeckModel? SelectedDeck
-        {
-            get => _selectedDeck;
-            set => SetProperty(ref _selectedDeck, value);
-        }
-
         private DeckType _desiredType;
 
         public DeckType DesiredType
@@ -62,7 +54,6 @@ namespace CardDesigner.UI.ViewModels
             AddCardCommand = new AddCardCommand(this, character, navigationService);
             DoNavigateCommand = new NavigateCommand(navigationService);
 
-            SelectedDeck = new CardDeckModel(DeckType.Spells.ToString(), DeckType.Spells);
             SelectedCard = new SpellCardModel() { Name = "blabla" };
         }
     }

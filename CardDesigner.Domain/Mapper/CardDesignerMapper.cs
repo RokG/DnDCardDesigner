@@ -16,8 +16,8 @@ namespace CardDesigner.Domain.Mapper
             MapperConfiguration config = new(cfg =>
             {
                 cfg.CreateMap<CharacterModel, Character>();
-                cfg.CreateMap<CardDeckModel, CardDeck>();
                 cfg.CreateMap<SpellCardModel, SpellCard>();
+                cfg.CreateMap<ItemCardModel, ItemCard>();
             });
 
             return config.CreateMapper();

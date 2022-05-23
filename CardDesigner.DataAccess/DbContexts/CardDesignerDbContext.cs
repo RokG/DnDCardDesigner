@@ -14,19 +14,20 @@ namespace CardDesigner.DataAccess.DbContexts
         }
 
         public DbSet<Character> Characters { get; set; }
-        public DbSet<CardDeck> CardDecks { get; set; }
+        public DbSet<SpellCard> SpellCards { get; set; }
+        public DbSet<ItemCard> ItemCards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Character>()
-                .HasMany(c => c.Decks)
+                .HasMany(c => c.SpellCards)
                 .WithOne(c => c.Character)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<CardDeck>()
-               .HasMany(c => c.SpellCards)
-               .WithOne(c => c.Deck)
-               .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Character>()
+                .HasMany(c => c.ItemCards)
+                .WithOne(c => c.Character)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

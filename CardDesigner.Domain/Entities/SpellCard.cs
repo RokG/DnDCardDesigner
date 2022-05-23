@@ -15,6 +15,8 @@ namespace CardDesigner.Domain.Entities
 
         public string Title { get; set; } = string.Empty;
 
+        public Character Character { get; set; }
+
         public string Description { get; set; }
         public string Name { get; set; }
         public int Level { get; set; }
@@ -30,6 +32,5 @@ namespace CardDesigner.Domain.Entities
         public bool HasSomaticComponent { get; set; }
         public bool IsRitual { get; set; }
         public bool IsConcentration { get; set; }
-        public CardDeck Deck { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace CardDesigner.Domain.Entities
 
         public string Name { get; set; }
 
-        public List<CardDeck> Decks { get; set; } = new List<CardDeck>();
+        public List<SpellCard> SpellCards { get; set; } = new List<SpellCard>();
+        public List<ItemCard> ItemCards { get; set; } = new List<ItemCard>();
     }
 }
