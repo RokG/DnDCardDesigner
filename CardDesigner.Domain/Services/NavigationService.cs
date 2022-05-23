@@ -5,12 +5,12 @@ using System;
 
 namespace CardDesigner.Domain.Services
 {
-    public class NavigationService
+    public class NavigationService<TViewModel> where TViewModel : IViewModelBase
     {
         private readonly NavigationStore _navigationStore;
-        private readonly Func<IViewModelBase> _createViewModel;
+        private readonly Func<TViewModel> _createViewModel;
 
-        public NavigationService(NavigationStore navigationStore, Func<IViewModelBase> createViewModel)
+        public NavigationService(NavigationStore navigationStore, Func<TViewModel> createViewModel)
         {
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;

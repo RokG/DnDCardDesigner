@@ -17,6 +17,31 @@
             </DataTemplate>
         </Grid.Resources>
 
-        <ContentControl Content="{Binding CurrentViewModel}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="9*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  SidePanel column  -->
+        <Grid
+            Grid.Column="0"
+            Background="#2F3E46">
+            <StackPanel>
+                <Button
+                    Height="60"
+                    Command="{Binding CardDisplayNavigationCommand}" />
+                <Button
+                    Height="60"
+                    Command="{Binding CardViewNavigationCommand}" />
+            </StackPanel>
+        </Grid>
+
+        <!--  Main Content column  -->
+        <Grid
+            Grid.Column="1"
+            Background="#2F3E46">
+
+            <ContentPresenter Content="{Binding CurrentViewModel}" />
+        </Grid>
     </Grid>
 </Window>

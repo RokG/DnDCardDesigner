@@ -1,5 +1,6 @@
 ﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
+using CardDesigner.Domain.Stores;
 using CardDesigner.UI.Commands;
 using System.Linq;
 using System.Windows.Input;
@@ -24,21 +25,26 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion Actions, Events, Commands
 
-        public CardDisplayViewModel(CharacterModel character, NavigationService navigationService)
+        public CardDisplayViewModel(CardDesignerStore cardDesignerStore)
         {
             Name = nameof(CardDisplayViewModel).Replace("ViewModel", "");
 
-            _character = character;
+            //_character = character;
 
-            DoNavigateCommand = new NavigateCommand(navigationService);
+            //DoNavigateCommand = new NavigateCommand(navigationService);
 
-            UpdateCardView();
+            //UpdateCardView();
         }
 
         private void UpdateCardView()
         {
             var a = _character.GetCharacterSpellDeck();
             CardName = a.FirstOrDefault().Name;
+        }
+
+        public static CardDisplayViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        {
+            return new(cardDesignerStore);
         }
     }
 }

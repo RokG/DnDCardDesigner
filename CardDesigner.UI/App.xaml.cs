@@ -1,12 +1,17 @@
 ﻿using AutoMapper;
 using CardDesigner.DataAccess.DbContexts;
+using CardDesigner.DataAccess.Services;
 using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Mapper;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
+using CardDesigner.UI.HostBuilder;
 using CardDesigner.UI.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Windows;
 
 namespace CardDesigner.UI
@@ -16,49 +21,51 @@ namespace CardDesigner.UI
     /// </summary>
     public partial class App : Application
     {
-        private const string CONNECTION_STRING = "Data Source=carddesign.db";
-        private readonly CharacterModel _character;
-        private readonly NavigationStore _navigationStore;
-        private readonly IMapper _mapper;
+        private readonly IHost _host;
 
         public App()
         {
-            _mapper = CardDesignerMapper.CreateMapper();
-            _character = new CharacterModel("Gimble Locklen");
-            _navigationStore = new NavigationStore();
+            _host = Host
+                .CreateDefaultBuilder()
+                .AddNavigationServices()
+                .AddDatabaseAccess()
+                .AddViewModels()
+                .AddStores()
+                .ConfigureServices((hostContext, services) =>
+                {
+                    // Have to change properties of appSettings.json to Copy if newer (RMB on .json => Properties)
+                    string connectionString = hostContext.Configuration.GetConnectionString("Default");
+
+                    // register mapper
+                    services.AddSingleton(CardDesignerMapper.CreateMapper());
+
+                    // register db context
+                    services.AddSingleton((s) => new CardDesignerDbContextFactory(connectionString, s.GetRequiredService<IMapper>()));
+
+                    // register main view
+                    services.AddSingleton(s => new MainWindow()
+                    {
+                        DataContext = s.GetRequiredService<MainViewModel>()
+                    });
+                }).Build();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var options = new DbContextOptionsBuilder().UseSqlite(CONNECTION_STRING).Options;
-            using (CardDesignerDbContext dbContext = new CardDesignerDbContext(options, _mapper))
-            {
-                // Uncomment this to test character creation
-                //Character createdClient = dbContext.Characters.Add(new Character() { ID = 0, Name = "gorge" }).Entity;
-                //dbContext.SaveChangesAsync();
+            _host.Start();
 
-                dbContext.Database.Migrate();
-            }
+            // initialize db
+            CardDesignerDbContextFactory invoiceMeDbContextFactory = _host.Services.GetRequiredService<CardDesignerDbContextFactory>();
 
-            _navigationStore.CurrentViewModel = CreateCardCreatorViewModel();
+            using CardDesignerDbContext dbContext = invoiceMeDbContextFactory.CreateDbContext();
+            dbContext.Database.Migrate();
 
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(_navigationStore)
-            };
+            // Navigate to home view
+            _host.Services.GetRequiredService<NavigationService<CardCreatorViewModel>>().Navigate();
 
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
             base.OnStartup(e);
-        }
-
-        private CardDisplayViewModel CreateCardDisplayViewModel()
-        {
-            return new CardDisplayViewModel(_character, new NavigationService(_navigationStore, CreateCardCreatorViewModel));
-        }
-
-        private CardCreatorViewModel CreateCardCreatorViewModel()
-        {
-            return new CardCreatorViewModel(_character, new NavigationService(_navigationStore, CreateCardDisplayViewModel));
         }
     }
 }

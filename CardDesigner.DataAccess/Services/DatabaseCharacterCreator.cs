@@ -2,13 +2,14 @@
 using CardDesigner.DataAccess.DbContexts;
 using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardDesigner.DataAccess.Services.CharacterCreator
+namespace CardDesigner.DataAccess.Services
 {
     public class DatabaseCharacterCreator : ICharacterCreator
     {

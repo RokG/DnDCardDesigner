@@ -1,15 +1,16 @@
-﻿using CardDesigner.Domain.Services;
+﻿using CardDesigner.Domain.Interfaces;
+using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
 using System;
 
 namespace CardDesigner.UI.Commands
 {
-    public class NavigateCommand : CommandBase
+    public class NavigateCommand<TViewModel> : CommandBase where TViewModel : IViewModelBase
     {
-        private readonly NavigationService _navigationService;
+        private readonly NavigationService<TViewModel> _navigationService;
 
-        public NavigateCommand(NavigationService navigationService)
+        public NavigateCommand(NavigationService<TViewModel> navigationService)
         {
             _navigationService = navigationService;
         }

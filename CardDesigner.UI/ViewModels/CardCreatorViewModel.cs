@@ -45,16 +45,19 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion Actions, Events, Commands
 
-        public CardCreatorViewModel(CharacterModel character, NavigationService navigationService)
+        public CardCreatorViewModel(CardDesignerStore cardDesignerStore)
         {
             Name = nameof(CardCreatorViewModel).Replace("ViewModel", "");
 
-            _character = character;
-
-            AddCardCommand = new AddCardCommand(this, character, navigationService);
-            DoNavigateCommand = new NavigateCommand(navigationService);
+            //AddCardCommand = new AddCardCommand(this, character, navigationService);
+            //DoNavigateCommand = new NavigateCommand(navigationService);
 
             SelectedCard = new SpellCardModel() { Name = "blabla" };
+        }
+
+        public static CardCreatorViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        {
+            return new(cardDesignerStore);
         }
     }
 }
