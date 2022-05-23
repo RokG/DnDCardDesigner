@@ -20,7 +20,7 @@ namespace CardDesigner.UI.Commands
 
         private void PropertyChangedEventHandle(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CardCreatorViewModel.MagicShoolType))
+            if (e.PropertyName == nameof(CardCreatorViewModel.MagicSchoolType))
             {
                 OnCanExecuteChanged();
             }
@@ -28,7 +28,7 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return _cardCreatorViewModel.MagicShoolType == MagicSchool.Abjuration && base.CanExecute(parameter);
+            return _cardCreatorViewModel.MagicSchoolType == MagicSchool.Abjuration && base.CanExecute(parameter);
             //return true;
         }
 

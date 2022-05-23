@@ -15,12 +15,12 @@ namespace CardDesigner.UI.ViewModels
 
         #region Properties
 
-        private MagicSchool _magicShoolType;
+        private MagicSchool _magicSchoolType;
 
-        public MagicSchool MagicShoolType
+        public MagicSchool MagicSchoolType
         {
-            get => _magicShoolType;
-            set => SetProperty(ref _magicShoolType, value);
+            get => _magicSchoolType;
+            set => SetProperty(ref _magicSchoolType, value);
         }
 
         private ICard? _selectedCard;

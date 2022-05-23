@@ -38,6 +38,6 @@
             Grid.Row="3"
             ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
             SelectedIndex="0"
-            SelectedItem="{Binding DesiredType}" />
+            SelectedItem="{Binding MagicSchoolType}" />
     </Grid>
 </UserControl>
