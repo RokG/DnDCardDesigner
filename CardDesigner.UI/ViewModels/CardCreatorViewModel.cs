@@ -4,6 +4,7 @@ using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CardDesigner.UI.Commands;
 using InvoiceMe.Domain.Stores;
+using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -14,6 +15,7 @@ namespace CardDesigner.UI.ViewModels
         #region Fields
 
         private readonly NavigationStore _navigationStore;
+        private readonly Character _character;
 
         #endregion Fields
 
@@ -52,14 +54,18 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion Actions, Events, Commands
 
-        public CardCreatorViewModel(NavigationStore navigationStore)
+        public CardCreatorViewModel(Character character, NavigationStore navigationStore, Func<CardDisplayViewModel> createViewModel)
         {
             Name = nameof(CardCreatorViewModel).Replace("ViewModel", "");
+
+            _character = character;
+            _navigationStore = navigationStore;
+
+            AddCardCommand = new AddCardCommand(this, character);
+            DoNavigateCommand = new NavigateCommand(navigationStore, createViewModel);
+
             SelectedDeck = new CardDeck(DeckType.Spells.ToString(), DeckType.Spells);
             SelectedCard = new SpellCard() { Name = "blabla" };
-            _navigationStore = navigationStore;
-            AddCardCommand = new AddCardCommand(this, new Character("aa"));
-            DoNavigateCommand = new NavigateCommand(_navigationStore);
         }
     }
 }

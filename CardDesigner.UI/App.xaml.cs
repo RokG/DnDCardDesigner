@@ -2,6 +2,7 @@
 using CardDesigner.Domain.Models;
 using CardDesigner.UI.ViewModels;
 using InvoiceMe.Domain.Stores;
+using System;
 using System.Windows;
 
 namespace CardDesigner.UI
@@ -22,7 +23,7 @@ namespace CardDesigner.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = new CardCreatorViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = CreateCardCreatorViewModel();
 
             MainWindow = new MainWindow()
             {
@@ -31,6 +32,16 @@ namespace CardDesigner.UI
 
             MainWindow.Show();
             base.OnStartup(e);
+        }
+
+        private CardDisplayViewModel CreateCardDisplayViewModel()
+        {
+            return new CardDisplayViewModel(_character, _navigationStore, CreateCardCreatorViewModel);
+        }
+
+        private CardCreatorViewModel CreateCardCreatorViewModel()
+        {
+            return new CardCreatorViewModel(_character, _navigationStore, CreateCardDisplayViewModel);
         }
     }
 }

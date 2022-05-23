@@ -3,7 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:CardDesigner.UI.Views">
     <Grid Background="red">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Border
             Margin="5"
             BorderBrush="pink"
@@ -17,5 +20,10 @@
                     Background="Gray" />
             </Viewbox>
         </Border>
+
+        <Button
+            Grid.Row="1"
+            Command="{Binding DoNavigateCommand, UpdateSourceTrigger=PropertyChanged}"
+            Content="Navigate" />
     </Grid>
 </UserControl>
