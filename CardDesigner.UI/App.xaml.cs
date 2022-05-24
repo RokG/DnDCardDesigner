@@ -63,5 +63,11 @@ namespace CardDesigner.UI
             MainWindow.Show();
             base.OnStartup(e);
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _host.Dispose();
+            base.OnExit(e);
+        }
     }
 }
