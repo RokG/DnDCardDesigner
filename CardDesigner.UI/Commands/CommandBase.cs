@@ -7,14 +7,14 @@ namespace CardDesigner.UI.Commands
     //https://www.youtube.com/watch?v=bYPU8X8f2xU&t=0s
     public abstract class CommandBase : ICommand
     {
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler CanExecuteChanged;
 
-        public virtual bool CanExecute(object? parameter)
+        public virtual bool CanExecute(object parameter)
         {
             return true;
         }
 
-        public abstract void Execute(object? parameter);
+        public abstract void Execute(object parameter);
 
         protected void OnCanExecuteChanged()
         {

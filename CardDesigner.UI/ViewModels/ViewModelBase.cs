@@ -8,7 +8,7 @@ namespace CardDesigner.UI.ViewModels
     {
         public string Name { get; set; } = string.Empty;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
         {

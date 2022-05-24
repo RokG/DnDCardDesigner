@@ -18,7 +18,7 @@ namespace CardDesigner.UI.Commands
             _cardCreatorViewModel.PropertyChanged += PropertyChangedEventHandle;
         }
 
-        private void PropertyChangedEventHandle(object? sender, PropertyChangedEventArgs e)
+        private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(CardCreatorViewModel.MagicSchoolType))
             {
@@ -26,13 +26,13 @@ namespace CardDesigner.UI.Commands
             }
         }
 
-        public override bool CanExecute(object? parameter)
+        public override bool CanExecute(object parameter)
         {
             return _cardCreatorViewModel.MagicSchoolType == MagicSchool.Abjuration && base.CanExecute(parameter);
             //return true;
         }
 
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             Debug.Write("Something");
         }

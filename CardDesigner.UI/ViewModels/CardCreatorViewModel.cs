@@ -23,9 +23,9 @@ namespace CardDesigner.UI.ViewModels
             set => SetProperty(ref _magicSchoolType, value);
         }
 
-        private ICard? _selectedCard;
+        private ICard _selectedCard;
 
-        public ICard? SelectedCard
+        public ICard SelectedCard
         {
             get => _selectedCard;
             set => SetProperty(ref _selectedCard, value);
