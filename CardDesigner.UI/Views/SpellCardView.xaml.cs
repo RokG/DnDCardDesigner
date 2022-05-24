@@ -18,9 +18,9 @@ namespace CardDesigner.UI.Views
     /// <summary>
     /// Interaction logic for CardDesignerView.xaml
     /// </summary>
-    public partial class CardCreatorView : UserControl
+    public partial class SpellCardView : UserControl
     {
-        public CardCreatorView()
+        public SpellCardView()
         {
             InitializeComponent();
         }

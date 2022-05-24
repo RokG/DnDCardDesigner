@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
-    public class CardCreatorViewModel : ViewModelBase
+    public class SpellCardViewModel : ViewModelBase
     {
         #region Private fields
 
@@ -42,9 +42,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public CardCreatorViewModel(CardDesignerStore cardDesignerStore)
+        public SpellCardViewModel(CardDesignerStore cardDesignerStore)
         {
-            Name = nameof(CardCreatorViewModel).Replace("ViewModel", "");
+            Name = nameof(SpellCardViewModel).Replace("ViewModel", "");
 
             SelectedCharacter = new CharacterModel("Genlamin") {ID = 1 };
 
@@ -62,7 +62,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static CardCreatorViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
         {
             return new(cardDesignerStore);
         }

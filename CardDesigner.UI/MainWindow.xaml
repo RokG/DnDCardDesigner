@@ -9,11 +9,14 @@
     Height="450">
     <Grid>
         <Grid.Resources>
-            <DataTemplate DataType="{x:Type vms:CardCreatorViewModel}">
-                <views:CardCreatorView />
+            <DataTemplate DataType="{x:Type vms:SpellCardViewModel}">
+                <views:SpellCardView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:CardDisplayViewModel}">
-                <views:CardDisplayView />
+            <DataTemplate DataType="{x:Type vms:ItemCardViewModel}">
+                <views:ItemCardView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CharacterViewModel}">
+                <views:CharacterView />
             </DataTemplate>
         </Grid.Resources>
 
@@ -29,10 +32,13 @@
             <StackPanel>
                 <Button
                     Height="60"
-                    Command="{Binding CardCreatorNavigationCommand}" />
+                    Command="{Binding CharacterNavigationCommand}" />
                 <Button
                     Height="60"
-                    Command="{Binding CardDisplayNavigationCommand}" />
+                    Command="{Binding SpellCardNavigationCommand}" />
+                <Button
+                    Height="60"
+                    Command="{Binding ItemCardNavigationCommand}" />
             </StackPanel>
         </Grid>
 

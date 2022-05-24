@@ -8,10 +8,10 @@ namespace CardDesigner.UI.Commands
 {
     public class AddCardCommand : CommandBase
     {
-        private readonly CardCreatorViewModel _cardCreatorViewModel;
+        private readonly SpellCardViewModel _cardCreatorViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public AddCardCommand(CardCreatorViewModel cardCreatorViewModel, CardDesignerStore cardDesignerStore)
+        public AddCardCommand(SpellCardViewModel cardCreatorViewModel, CardDesignerStore cardDesignerStore)
         {
             _cardCreatorViewModel = cardCreatorViewModel;
             _cardDesignerStore = cardDesignerStore;
@@ -20,7 +20,7 @@ namespace CardDesigner.UI.Commands
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CardCreatorViewModel.MagicSchoolType))
+            if (e.PropertyName == nameof(SpellCardViewModel.MagicSchoolType))
             {
                 OnCanExecuteChanged();
             }

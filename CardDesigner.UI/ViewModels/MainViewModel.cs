@@ -23,8 +23,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Actions, Commands, Events
 
-        public ICommand CardCreatorNavigationCommand { get; }
-        public ICommand CardDisplayNavigationCommand { get; }
+        public ICommand CharacterNavigationCommand { get; }
+        public ICommand SpellCardNavigationCommand { get; }
+        public ICommand ItemCardNavigationCommand { get; }
 
         #endregion
 
@@ -39,16 +40,18 @@ namespace CardDesigner.UI.ViewModels
         /// <param name="cardCreatorNavigationService"></param>
         public MainViewModel(NavigationStore navigationStore,
             CardDesignerStore cardDesignerStore,
-            NavigationService<CardDisplayViewModel> cardDisplayNavigationService,
-            NavigationService<CardCreatorViewModel> cardCreatorNavigationService)
+            NavigationService<ItemCardViewModel> cardDisplayNavigationService,
+            NavigationService<SpellCardViewModel> cardCreatorNavigationService,
+            NavigationService<CharacterViewModel> characterNavigationService)
         {
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
-            CardDisplayNavigationCommand = new NavigateCommand<CardDisplayViewModel>(cardDisplayNavigationService);
-            CardCreatorNavigationCommand = new NavigateCommand<CardCreatorViewModel>(cardCreatorNavigationService);
+            ItemCardNavigationCommand = new NavigateCommand<ItemCardViewModel>(cardDisplayNavigationService);
+            SpellCardNavigationCommand = new NavigateCommand<SpellCardViewModel>(cardCreatorNavigationService);
+            CharacterNavigationCommand = new NavigateCommand<CharacterViewModel>(characterNavigationService);
         }
 
         #endregion

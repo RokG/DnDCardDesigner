@@ -5,9 +5,9 @@ namespace CardDesigner.UI.Views
     /// <summary>
     /// Interaction logic for CardDisplayView.xaml
     /// </summary>
-    public partial class CardDisplayView : UserControl
+    public partial class ItemCardView : UserControl
     {
-        public CardDisplayView()
+        public ItemCardView()
         {
             InitializeComponent();
         }

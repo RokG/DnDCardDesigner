@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
-    public class CardDisplayViewModel : ViewModelBase
+    public class ItemCardViewModel : ViewModelBase
     {
         #region Private fields
 
@@ -32,9 +32,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public CardDisplayViewModel(CardDesignerStore cardDesignerStore)
+        public ItemCardViewModel(CardDesignerStore cardDesignerStore)
         {
-            Name = nameof(CardDisplayViewModel).Replace("ViewModel", "");
+            Name = nameof(ItemCardViewModel).Replace("ViewModel", "");
         }
 
         #endregion
@@ -45,7 +45,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static CardDisplayViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        public static ItemCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
         {
             return new(cardDesignerStore);
         }

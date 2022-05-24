@@ -12,8 +12,9 @@ namespace CardDesigner.UI.HostBuilder
             hostBuilder.ConfigureServices(services =>
             {
                 // registrer navigation services
-                services.AddSingleton<NavigationService<CardCreatorViewModel>>();
-                services.AddSingleton<NavigationService<CardDisplayViewModel>>();
+                services.AddSingleton<NavigationService<CharacterViewModel>>();
+                services.AddSingleton<NavigationService<SpellCardViewModel>>();
+                services.AddSingleton<NavigationService<ItemCardViewModel>>();
             });
 
             return hostBuilder;
