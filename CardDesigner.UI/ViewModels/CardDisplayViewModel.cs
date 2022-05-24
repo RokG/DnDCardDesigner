@@ -7,15 +7,22 @@ namespace CardDesigner.UI.ViewModels
 {
     public class CardDisplayViewModel : ViewModelBase
     {
+        #region Private fields
+
         private readonly CharacterModel _character;
 
-        private string _cardName;
+        #endregion
 
+        #region Properties
+
+        private string _cardName;
         public string CardName
         {
             get => _cardName;
             set => SetProperty(ref _cardName, value);
         }
+
+        #endregion
 
         #region Actions, Events, Commands
 
@@ -23,20 +30,32 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion Actions, Events, Commands
 
+        #region Constructor
+
         public CardDisplayViewModel(CardDesignerStore cardDesignerStore)
         {
             Name = nameof(CardDisplayViewModel).Replace("ViewModel", "");
         }
 
+        #endregion
+
+        #region Private methods
+
         private void UpdateCardView()
         {
-            var a = _character.GetCharacterSpellDeck();
+            System.Collections.Generic.List<SpellCardModel> a = _character.GetCharacterSpellDeck();
             CardName = a.FirstOrDefault().Name;
         }
+
+        #endregion
+
+        #region Public methods
 
         public static CardDisplayViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
         {
             return new(cardDesignerStore);
         }
+
+        #endregion
     }
 }

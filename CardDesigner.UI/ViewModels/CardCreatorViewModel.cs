@@ -7,16 +7,15 @@ namespace CardDesigner.UI.ViewModels
 {
     public class CardCreatorViewModel : ViewModelBase
     {
-        #region Fields
+        #region Private fields
 
         private readonly CharacterModel _character;
 
-        #endregion Fields
+        #endregion
 
         #region Properties
 
         private MagicSchool _magicSchoolType;
-
         public MagicSchool MagicSchoolType
         {
             get => _magicSchoolType;
@@ -24,7 +23,6 @@ namespace CardDesigner.UI.ViewModels
         }
 
         private ICard _selectedCard;
-
         public ICard SelectedCard
         {
             get => _selectedCard;
@@ -40,6 +38,8 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion Actions, Events, Commands
 
+        #region Constructor
+
         public CardCreatorViewModel(CardDesignerStore cardDesignerStore)
         {
             Name = nameof(CardCreatorViewModel).Replace("ViewModel", "");
@@ -50,9 +50,20 @@ namespace CardDesigner.UI.ViewModels
             SelectedCard = new SpellCardModel() { Name = "blabla" };
         }
 
+        #endregion
+
+        #region Private methods
+
+        #endregion
+
+        #region Public methods
+
         public static CardCreatorViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
         {
             return new(cardDesignerStore);
         }
+
+        #endregion
+
     }
 }
