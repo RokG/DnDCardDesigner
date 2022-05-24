@@ -20,6 +20,13 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
         public IEnumerable<CharacterModel> Characters => _characters;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="characterCreator"></param>
+        /// <param name="characterProvider"></param>
+        /// <param name="spellCardCreator"></param>
+        /// <param name="spellCardProvider"></param>
         public CardDesignerStore(
             ICharacterCreator characterCreator,
             ICharacterProvider characterProvider,
@@ -38,6 +45,10 @@ namespace CardDesigner.Domain.Stores
             _spellCards = new();
         }
 
+        /// <summary>
+        /// Initialize store method
+        /// </summary>
+        /// <returns></returns>
         private async Task Initialize()
         {
             IEnumerable<SpellCardModel> spellCards = await _spellCardProvider.GetAllSpellCards();
@@ -50,6 +61,10 @@ namespace CardDesigner.Domain.Stores
             _spellCards.AddRange(spellCards);
         }
 
+        /// <summary>
+        /// Load method
+        /// </summary>
+        /// <returns></returns>
         public async Task Load()
         {
             await _initializeLazy.Value;

@@ -7,7 +7,6 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
-
         public string Name { get; set; }
         public List<SpellCard> SpellCards { get; set; } = new List<SpellCard>();
         public List<ItemCard> ItemCards { get; set; } = new List<ItemCard>();

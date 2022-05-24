@@ -6,6 +6,10 @@ namespace CardDesigner.Domain.Mapper
 {
     public static class CardDesignerMapper
     {
+        /// <summary>
+        /// Create map of Entity - Model
+        /// </summary>
+        /// <returns></returns>
         public static IMapper CreateMapper()
         {
             MapperConfiguration config = new(cfg =>
