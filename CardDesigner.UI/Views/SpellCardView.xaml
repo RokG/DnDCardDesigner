@@ -13,31 +13,62 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    <Grid Background="AliceBlue">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="8*" />
         </Grid.RowDefinitions>
-        <Label
-            Grid.Row="1"
-            Background="Pink"
-            Content="{Binding SelectedCard.Name}" />
-        <Button
-            Grid.Row="2"
-            Command="{Binding DoNavigateCommand, UpdateSourceTrigger=PropertyChanged}"
-            Content="Navigate" />
-        <Button
-            Grid.Row="4"
-            Command="{Binding AddCardCommand, UpdateSourceTrigger=PropertyChanged}"
-            Content="Add card" />
-        <ListBox
-            Name="myComboBox"
-            Grid.Row="3"
-            ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
-            SelectedIndex="0"
-            SelectedItem="{Binding MagicSchoolType}" />
+
+
+        <StackPanel
+            Grid.Row="0"
+            Orientation="Horizontal">
+            <Label Content="{Binding SelectedCard.Name}" />
+            <Label Content="Item card background" />
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem Content="StyleMagicItems" />
+                <ComboBoxItem Content="StylePotions" />
+                <ComboBoxItem Content="StyleCustomItems1" />
+            </ComboBox>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Background="Brown">
+                <Label
+                    Grid.Row="1"
+                    Background="Pink"
+                    Content="{Binding SelectedCard.Name}" />
+                <Button
+                    Grid.Row="2"
+                    Command="{Binding DoNavigateCommand, UpdateSourceTrigger=PropertyChanged}"
+                    Content="Navigate" />
+                <Button
+                    Grid.Row="4"
+                    Command="{Binding AddCardCommand, UpdateSourceTrigger=PropertyChanged}"
+                    Content="Add card" />
+                <ListBox
+                    Name="myComboBox"
+                    Grid.Row="3"
+                    ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
+                    SelectedIndex="0"
+                    SelectedItem="{Binding MagicSchoolType}" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <Viewbox Margin="10">
+                    <Canvas
+                        Width="571"
+                        Height="889"
+                        Margin="20"
+                        Background="DarkBlue" />
+                </Viewbox>
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </UserControl>

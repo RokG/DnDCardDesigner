@@ -3,9 +3,61 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:CardDesigner.UI.Views">
     <Grid Background="yellow">
-        <Label
-            Margin="10"
-            Padding="30"
-            Content="RRRR" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="9*" />
+        </Grid.RowDefinitions>
+        <Border
+            BorderBrush="Black"
+            BorderThickness="1">
+
+            <DockPanel LastChildFill="False">
+                <Label
+                    Content="Character:"
+                    DockPanel.Dock="Left" />
+                <ComboBox
+                    DockPanel.Dock="Left"
+                    SelectedIndex="0">
+                    <ComboBoxItem Content="Character1" />
+                    <ComboBoxItem Content="Character2" />
+                    <ComboBoxItem Content="Character3" />
+                </ComboBox>
+                <Button
+                    Content="Edit"
+                    DockPanel.Dock="Right" />
+                <Button
+                    Content="Add"
+                    DockPanel.Dock="Right" />
+                <Button
+                    Content="Save"
+                    DockPanel.Dock="Right" />
+            </DockPanel>
+        </Border>
+        <Border Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <Label Content="Character Cards back side" />
+                    <ComboBox SelectedIndex="0">
+                        <ComboBoxItem Content="DruidSpells" />
+                        <ComboBoxItem Content="WizardSpells" />
+                        <ComboBoxItem Content="CustomBackground1" />
+                    </ComboBox>
+                    <Viewbox Margin="10">
+                        <Canvas
+                            Width="571"
+                            Height="889"
+                            Margin="20"
+                            Background="DarkBlue" />
+                    </Viewbox>
+                </StackPanel>
+
+
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

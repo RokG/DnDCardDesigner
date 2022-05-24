@@ -5,8 +5,8 @@
     xmlns:views="clr-namespace:CardDesigner.UI.Views"
     xmlns:vms="clr-namespace:CardDesigner.UI.ViewModels"
     Title="CardDesigner"
-    Width="800"
-    Height="450">
+    Width="950"
+    Height="850">
     <Grid>
         <Grid.Resources>
             <DataTemplate DataType="{x:Type vms:SpellCardViewModel}">
@@ -21,32 +21,30 @@
         </Grid.Resources>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="9*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!--  SidePanel column  -->
-        <Grid
-            Grid.Column="0"
-            Background="#2F3E46">
+        <Grid Grid.Column="0">
             <StackPanel>
                 <Button
                     Height="60"
-                    Command="{Binding CharacterNavigationCommand}" />
+                    Command="{Binding CharacterNavigationCommand}"
+                    Content="Character selector" />
                 <Button
                     Height="60"
-                    Command="{Binding SpellCardNavigationCommand}" />
+                    Command="{Binding SpellCardNavigationCommand}"
+                    Content="Spell card designer" />
                 <Button
                     Height="60"
-                    Command="{Binding ItemCardNavigationCommand}" />
+                    Command="{Binding ItemCardNavigationCommand}"
+                    Content="Item card designer" />
             </StackPanel>
         </Grid>
 
         <!--  Main Content column  -->
-        <Grid
-            Grid.Column="1"
-            Background="#2F3E46">
-
+        <Grid Grid.Column="1">
             <ContentPresenter Content="{Binding CurrentViewModel}" />
         </Grid>
     </Grid>
