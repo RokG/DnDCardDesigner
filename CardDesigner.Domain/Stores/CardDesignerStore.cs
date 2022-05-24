@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -69,5 +70,26 @@ namespace CardDesigner.Domain.Stores
         {
             await _initializeLazy.Value;
         }
+
+        public async Task AddCardToCharacter(CharacterModel character, ICard card)
+        {
+            switch (card.Type)
+            {
+                case CardType.Spell:
+                    {
+                        SpellCardModel spellCardModel = (SpellCardModel)card;
+                        spellCardModel.Owner = character;
+                        await _spellCardCreator.CreateSpellCard(spellCardModel);
+                    }
+                    break;
+                case CardType.Item:
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
+
     }
 }

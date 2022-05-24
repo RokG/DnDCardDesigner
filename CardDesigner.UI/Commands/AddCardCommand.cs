@@ -34,7 +34,7 @@ namespace CardDesigner.UI.Commands
 
         public override void Execute(object parameter)
         {
-            Debug.Write("Something");
+            _cardDesignerStore.AddCardToCharacter(_cardCreatorViewModel.SelectedCharacter, _cardCreatorViewModel.SelectedCard);
         }
     }
 }

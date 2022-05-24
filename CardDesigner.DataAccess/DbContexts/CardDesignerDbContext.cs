@@ -32,13 +32,18 @@ namespace CardDesigner.DataAccess.DbContexts
         {
             modelBuilder.Entity<Character>()
                 .HasMany(c => c.SpellCards)
-                .WithOne(c => c.Character)
+                .WithOne(c => c.Owner)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Character>()
                 .HasMany(c => c.ItemCards)
-                .WithOne(c => c.Character)
+                .WithOne(c => c.Owner)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SpellCard>()
+               .HasOne(c => c.Owner)
+               .WithMany(c => c.SpellCards)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

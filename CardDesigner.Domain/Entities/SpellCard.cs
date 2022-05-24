@@ -8,9 +8,9 @@ namespace CardDesigner.Domain.Entities
         [Key]
         public int ID { get; set; }
         public string Title { get; set; } = string.Empty;
-        public Character Character { get; set; }
-        public string Description { get; set; }
+        public Character Owner { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public int Level { get; set; }
         public MagicSchool School { get; set; }
         public bool HasVerbalComponent { get; set; }
@@ -24,5 +24,6 @@ namespace CardDesigner.Domain.Entities
         public bool HasSomaticComponent { get; set; }
         public bool IsRitual { get; set; }
         public bool IsConcentration { get; set; }
+        public CardType Type { get; set; }
     }
 }

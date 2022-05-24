@@ -5,6 +5,6 @@ namespace CardDesigner.Domain.Services
 {
     public interface ISpellCardCreator
     {
-        Task<SpellCardModel> CreateSpellCard(SpellCardModel spellCard);
+        Task CreateSpellCard(SpellCardModel spellCard);
     }
 }

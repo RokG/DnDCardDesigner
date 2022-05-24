@@ -41,12 +41,6 @@ namespace CardDesigner.UI.ViewModels
 
         #region Private methods
 
-        private void UpdateCardView()
-        {
-            System.Collections.Generic.List<SpellCardModel> a = _character.GetCharacterSpellDeck();
-            CardName = a.FirstOrDefault().Name;
-        }
-
         #endregion
 
         #region Public methods

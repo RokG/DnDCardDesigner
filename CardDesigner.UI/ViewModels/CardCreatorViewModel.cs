@@ -1,6 +1,7 @@
 ﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
+using CardDesigner.UI.Commands;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -28,6 +29,7 @@ namespace CardDesigner.UI.ViewModels
             get => _selectedCard;
             set => SetProperty(ref _selectedCard, value);
         }
+        public CharacterModel SelectedCharacter { get; set; }
 
         #endregion Properties
 
@@ -44,10 +46,12 @@ namespace CardDesigner.UI.ViewModels
         {
             Name = nameof(CardCreatorViewModel).Replace("ViewModel", "");
 
-            //AddCardCommand = new AddCardCommand(this, character, navigationService);
+            SelectedCharacter = new CharacterModel("Genlamin") {ID = 1 };
+
+            AddCardCommand = new AddCardCommand(this, cardDesignerStore);
             //DoNavigateCommand = new NavigateCommand(navigationService);
 
-            SelectedCard = new SpellCardModel() { Name = "blabla" };
+            SelectedCard = new SpellCardModel() { Name = "blabla", ID = 1};
         }
 
         #endregion

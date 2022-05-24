@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CardDesigner.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace CardDesigner.Domain.Entities
 {
@@ -6,6 +7,12 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
-        public Character Character { get; set; }
+        public string Title { get; set; }
+        public Character Owner { get; set; }
+        public string Name { get; set; }
+        public CardType Type { get; set; }
+
+
+
     }
 }

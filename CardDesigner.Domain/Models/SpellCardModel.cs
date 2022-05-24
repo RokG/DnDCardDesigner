@@ -4,7 +4,9 @@ namespace CardDesigner.Domain.Models
 {
     public class SpellCardModel : ICard, ISpell
     {
+        public int ID { get; set; }
         public string Title { get; set; } = string.Empty;
+        public CharacterModel Owner { get; set; }
         public string Description { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public int Level { get; set; }
@@ -20,6 +22,6 @@ namespace CardDesigner.Domain.Models
         public bool HasSomaticComponent { get; set; }
         public bool IsRitual { get; set; }
         public bool IsConcentration { get; set; }
-        public int ID { get; set; }
+        public CardType Type { get; set; }
     }
 }
