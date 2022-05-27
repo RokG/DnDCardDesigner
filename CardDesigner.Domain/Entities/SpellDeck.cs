@@ -19,6 +19,6 @@ namespace CardDesigner.Domain.Entities
         public List<SpellDeckSpellCard> SpellDeckSpellCards { get; set; }
 
         public DeckType Type { get; set; }
-        public Character Character { get; set; }
+        public ICollection<Character> Characters { get; set; }
     }
 }

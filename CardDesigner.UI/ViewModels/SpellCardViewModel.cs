@@ -54,7 +54,7 @@ namespace CardDesigner.UI.ViewModels
         {
             Name = nameof(SpellCardViewModel).Replace("ViewModel", "");
 
-            SelectedCharacter = new CharacterModel(RandomString(6));
+            SelectedCharacter = new CharacterModel() { Name = RandomString(6) };
             SelectedSpellCard = new SpellCardModel() { Name = RandomString(6) };
             SelectedSpellDeck = new SpellDeckModel() { Name = "aababa"};
 

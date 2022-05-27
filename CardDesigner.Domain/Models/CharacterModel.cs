@@ -8,13 +8,6 @@ namespace CardDesigner.Domain.Models
 
         public string Name { get; set; }
 
-        public List<SpellDeckModel> SpellDecks { get; set; } = new List<SpellDeckModel>();
-
-        public List<SpellDeckModel> ItemDecks { get; set; } = new List<SpellDeckModel>();
-
-        public CharacterModel(string name)
-        {
-            Name = name;
-        }
+        public SpellDeckModel SpellDeck { get; set; }
     }
 }

@@ -15,6 +15,6 @@ namespace CardDesigner.Domain.Models
         public ICollection<SpellCardModel> SpellCards { get; set; }
 
         public DeckType Type { get; set; }
-        public CharacterModel Character { get; set; }
+        public ICollection<CharacterModel> Characters { get; set; }
     }
 }
