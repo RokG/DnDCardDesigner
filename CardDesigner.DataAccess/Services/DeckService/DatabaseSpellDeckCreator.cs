@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CardDesigner.DataAccess.Services
 {
-    public class DatabaseCharacterCreator : ICharacterCreator
+    public class DatabaseSpellDeckCreator : ISpellDeckCreator
     {
         #region Private fields
 
@@ -21,27 +21,22 @@ namespace CardDesigner.DataAccess.Services
         /// </summary>
         /// <param name="dbContextFactory">Database context factory</param>
         /// <param name="mapper">Mapper object</param>
-        public DatabaseCharacterCreator(CardDesignerDbContextFactory dbContextFactory, IMapper mapper)
+        public DatabaseSpellDeckCreator(CardDesignerDbContextFactory dbContextFactory, IMapper mapper)
         {
             _dbContextFactory = dbContextFactory;
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Get all characters from database
-        /// </summary>
-        /// <returns></returns>
-        public async Task CreateCharacter(CharacterModel character)
+        public async Task CreateSpellDeck(SpellDeckModel spellDeck)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                Character characterEntity = _mapper.Map<Character>(character);
+                SpellDeck spellCardEntity = _mapper.Map<SpellDeck>(spellDeck);
 
-                Character createdClient = dbContext.Characters.Add(characterEntity).Entity;
+                SpellDeck createdCardEntity = dbContext.SpellDecks.Add(spellCardEntity).Entity;
                 await dbContext.SaveChangesAsync();
-
-                //return _mapper.Map<CharacterModel>(createdClient);
             }
         }
+
     }
 }

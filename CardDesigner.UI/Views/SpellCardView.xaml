@@ -49,8 +49,16 @@
                     Content="Navigate" />
                 <Button
                     Grid.Row="4"
+                    Command="{Binding CreateCharacterCommand, UpdateSourceTrigger=PropertyChanged}"
+                    Content="Add Character" />
+                <Button
+                    Grid.Row="4"
+                    Command="{Binding CreateSpellDeckCommand, UpdateSourceTrigger=PropertyChanged}"
+                    Content="Add SpellDeck" />
+                <Button
+                    Grid.Row="4"
                     Command="{Binding AddCardCommand, UpdateSourceTrigger=PropertyChanged}"
-                    Content="Add card" />
+                    Content="Add SpellCard" />
                 <ListBox
                     Name="myComboBox"
                     Grid.Row="3"

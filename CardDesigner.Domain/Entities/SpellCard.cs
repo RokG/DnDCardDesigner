@@ -1,4 +1,5 @@
 ﻿using CardDesigner.Domain.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CardDesigner.Domain.Entities
@@ -7,8 +8,11 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
+
+        public ICollection<SpellDeck> SpellDecks { get; set; }
+        public List<SpellDeckSpellCard> SpellDeckSpellCards { get; set; }
+        
         public string Title { get; set; } = string.Empty;
-        public Character Owner { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Level { get; set; }

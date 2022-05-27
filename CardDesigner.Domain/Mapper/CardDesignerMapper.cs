@@ -16,6 +16,7 @@ namespace CardDesigner.Domain.Mapper
             {
                 cfg.CreateMap<CharacterModel, Character>();
                 cfg.CreateMap<SpellCardModel, SpellCard>();
+                cfg.CreateMap<SpellDeckModel, SpellDeck>();
                 cfg.CreateMap<ItemCardModel, ItemCard>();
             });
 

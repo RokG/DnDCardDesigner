@@ -1,9 +1,16 @@
 ﻿# Markdown File
 
-To populate a database:
+To create a migration and database
+- Prerequisites
+-- Delete Migration folder if necesary
+-- Delete all .db files
 - In Package manager console:
--- Set default project to .Data
--- Set .Data project as startup project
+-- Set default project to .DataAccess
 -- Run **add-migration initial**
 -- Run *update-database*
--- Changing startup project could be avoided by UI project referencing EntityFrameworkCore
+
+Adding Creator/Provider services
+-- Add Service Interfaces to Domain project
+-- Add Service Classes to DataAccess project
+-- Implement newly added Services to Domain project Store
+-- Implement newly added Services to UI project HostBuildee

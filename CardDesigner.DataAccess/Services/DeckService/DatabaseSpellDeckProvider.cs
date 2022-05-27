@@ -3,11 +3,14 @@ using CardDesigner.DataAccess.DbContexts;
 using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CardDesigner.DataAccess.Services
 {
-    public class DatabaseCharacterCreator : ICharacterCreator
+    public class DatabaseSpellDeckProvider : ISpellDeckProvider
     {
         #region Private fields
 
@@ -21,26 +24,19 @@ namespace CardDesigner.DataAccess.Services
         /// </summary>
         /// <param name="dbContextFactory">Database context factory</param>
         /// <param name="mapper">Mapper object</param>
-        public DatabaseCharacterCreator(CardDesignerDbContextFactory dbContextFactory, IMapper mapper)
+        public DatabaseSpellDeckProvider(CardDesignerDbContextFactory dbContextFactory, IMapper mapper)
         {
             _dbContextFactory = dbContextFactory;
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Get all characters from database
-        /// </summary>
-        /// <returns></returns>
-        public async Task CreateCharacter(CharacterModel character)
+        public async Task<IEnumerable<SpellDeckModel>> GetAllDecks()
         {
-            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
-                Character characterEntity = _mapper.Map<Character>(character);
+                IEnumerable<SpellDeck> characterEntities = await context.SpellDecks.ToListAsync();
 
-                Character createdClient = dbContext.Characters.Add(characterEntity).Entity;
-                await dbContext.SaveChangesAsync();
-
-                //return _mapper.Map<CharacterModel>(createdClient);
+                return characterEntities.Select(c => _mapper.Map<SpellDeckModel>(c));
             }
         }
     }

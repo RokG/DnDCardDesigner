@@ -6,7 +6,6 @@ namespace CardDesigner.Domain.Models
     {
         public int ID { get; set; }
         public string Title { get; set; } = string.Empty;
-        public CharacterModel Owner { get; set; }
         public string Description { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public int Level { get; set; }

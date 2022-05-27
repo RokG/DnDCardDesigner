@@ -16,6 +16,8 @@ namespace CardDesigner.UI.HostBuilder
                 services.AddSingleton<ICharacterProvider, DatabaseCharacterProvider>();
                 services.AddSingleton<ISpellCardCreator, DatabaseSpellCardCreator>();
                 services.AddSingleton<ISpellCardProvider, DatabaseSpellCardProvider>();
+                services.AddSingleton<ISpellDeckCreator, DatabaseSpellDeckCreator>();
+                services.AddSingleton<ISpellDeckProvider, DatabaseSpellDeckProvider>();
             });
 
             return hostBuilder;

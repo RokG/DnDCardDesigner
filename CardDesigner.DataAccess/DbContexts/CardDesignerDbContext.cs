@@ -21,8 +21,10 @@ namespace CardDesigner.DataAccess.DbContexts
         // Database objects
 
         public DbSet<Character> Characters { get; set; }
+        public DbSet<SpellDeck> SpellDecks { get; set; }
         public DbSet<SpellCard> SpellCards { get; set; }
-        public DbSet<ItemCard> ItemCards { get; set; }
+
+        //https://stackoverflow.com/questions/19342908/how-to-create-a-many-to-many-mapping-in-entity-framework
 
         /// <summary>
         /// Link database objects
@@ -31,19 +33,63 @@ namespace CardDesigner.DataAccess.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Character>()
-                .HasMany(c => c.SpellCards)
-                .WithOne(c => c.Owner)
+                .HasMany(c => c.SpellDecks)
+                .WithOne(c => c.Character)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Character>()
-                .HasMany(c => c.ItemCards)
-                .WithOne(c => c.Owner)
+            modelBuilder.Entity<SpellDeck>()
+                .HasOne(c => c.Character)
+                .WithMany(c => c.SpellDecks)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SpellDeckSpellCard>()
+                .HasKey(t => new { t.SpellCardID, t.SpellDeckID });
+
+            //modelBuilder.Entity<SpellCardSpellDeck>()
+            //.HasOne(pt => pt.SpellDeck)
+            //.WithMany(p => p.DeckSpellCards)
+            //.HasForeignKey(pt => pt.SpellDeckID);
+
+            //modelBuilder.Entity<SpellCardSpellDeck>()
+            //.HasOne(pt => pt.SpellCard)
+            //.WithMany(p => p.DeckSpellCards)
+            //.HasForeignKey(pt => pt.SpellCardID);
 
             modelBuilder.Entity<SpellCard>()
-               .HasOne(c => c.Owner)
-               .WithMany(c => c.SpellCards)
-               .OnDelete(DeleteBehavior.Restrict);
+                .HasMany(c => c.SpellDecks)
+                .WithMany(c => c.SpellCards)
+                .UsingEntity<SpellDeckSpellCard>(
+                    j => j
+                        .HasOne(t => t.SpellDeck)
+                        .WithMany(c => c.SpellDeckSpellCards)
+                        .HasForeignKey(c => c.SpellDeckID),
+                    j => j
+                        .HasOne(t => t.SpellCard)
+                        .WithMany(c => c.SpellDeckSpellCards)
+                        .HasForeignKey(c => c.SpellCardID),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.SpellDeckID, t.SpellCardID });
+                    });
+
+
+
+            //modelBuilder.Entity<SpellDeck>()
+            //    .HasMany(c => c.SpellCards)
+            //    .WithMany(c => c.SpellDecks)
+            //    .UsingEntity<SpellDeckSpellCard>(
+            //        j => j
+            //            .HasOne(t => t.SpellCard)
+            //            .WithMany(c => c.SpellDeckSpellCards)
+            //            .HasForeignKey(c => c.SpellCardID),
+            //        j => j
+            //            .HasOne(t => t.SpellDeck)
+            //            .WithMany(c => c.SpellDeckSpellCards)
+            //            .HasForeignKey(c => c.SpellDeckID),
+            //        j =>
+            //            {
+            //                j.HasKey(t => new { t.SpellCardID });
+            //            });
         }
     }
 }

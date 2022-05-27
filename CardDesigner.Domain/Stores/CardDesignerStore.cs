@@ -15,6 +15,8 @@ namespace CardDesigner.Domain.Stores
         private readonly ICharacterProvider _characterProvider;
         private readonly ISpellCardCreator _spellCardCreator;
         private readonly ISpellCardProvider _spellCardProvider;
+        private readonly ISpellDeckCreator _spellDeckCreator;
+        private readonly ISpellDeckProvider _spellDeckProvider;
 
         private readonly List<SpellCardModel> _spellCards;
         private readonly List<CharacterModel> _characters;
@@ -32,13 +34,17 @@ namespace CardDesigner.Domain.Stores
             ICharacterCreator characterCreator,
             ICharacterProvider characterProvider,
             ISpellCardCreator spellCardCreator,
-            ISpellCardProvider spellCardProvider)
+            ISpellCardProvider spellCardProvider,
+            ISpellDeckCreator spellDeckCreator,
+            ISpellDeckProvider spellDeckProvider)
         {
             _initializeLazy = new Lazy<Task>(Initialize);
             _characterCreator = characterCreator;
             _characterProvider = characterProvider;
             _spellCardCreator = spellCardCreator;
             _spellCardProvider = spellCardProvider;
+            _spellDeckCreator = spellDeckCreator;
+            _spellDeckProvider = spellDeckProvider;
 
             _initializeLazy = new Lazy<Task>(Initialize);
 
@@ -78,7 +84,6 @@ namespace CardDesigner.Domain.Stores
                 case CardType.Spell:
                     {
                         SpellCardModel spellCardModel = (SpellCardModel)card;
-                        spellCardModel.Owner = character;
                         await _spellCardCreator.CreateSpellCard(spellCardModel);
                     }
                     break;
@@ -91,5 +96,19 @@ namespace CardDesigner.Domain.Stores
 
         }
 
+        public async Task CreateCharacter(CharacterModel character)
+        {
+            await _characterCreator.CreateCharacter(character);
+        }
+
+        public async Task CreateSpellDeck(SpellDeckModel spellDeck)
+        {
+            await _spellDeckCreator.CreateSpellDeck(spellDeck);
+        }
+
+        public async Task CreateSpellCard(SpellCardModel spellCard)
+        {
+            await _spellCardCreator.CreateSpellCard(spellCard);
+        }
     }
 }

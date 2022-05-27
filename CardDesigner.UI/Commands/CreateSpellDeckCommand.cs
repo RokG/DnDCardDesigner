@@ -8,12 +8,12 @@ using System.Linq;
 
 namespace CardDesigner.UI.Commands
 {
-    public class AddCardCommand : CommandBase
+    public class CreateSpellDeckCommand : CommandBase
     {
         private readonly SpellCardViewModel _cardCreatorViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public AddCardCommand(SpellCardViewModel cardCreatorViewModel, CardDesignerStore cardDesignerStore)
+        public CreateSpellDeckCommand(SpellCardViewModel cardCreatorViewModel, CardDesignerStore cardDesignerStore)
         {
             _cardCreatorViewModel = cardCreatorViewModel;
             _cardDesignerStore = cardDesignerStore;
@@ -30,22 +30,19 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _cardCreatorViewModel.MagicSchoolType == MagicSchool.Alteration && base.CanExecute(parameter);
+            return _cardCreatorViewModel.MagicSchoolType == MagicSchool.Abjuration && base.CanExecute(parameter);
             //return true;
         }
 
         public override void Execute(object parameter)
         {
-            _cardCreatorViewModel.AddRandomCard();
-            _cardDesignerStore.CreateSpellCard(_cardCreatorViewModel.SelectedSpellCard);
+            _cardCreatorViewModel.AddRandomDeck();
+            _cardCreatorViewModel.AddRandomCardToDeck();
+            _cardCreatorViewModel.AddRandomCardToDeck();
+            _cardCreatorViewModel.AddRandomCardToDeck();
+            _cardDesignerStore.CreateSpellDeck(_cardCreatorViewModel.SelectedSpellDeck);
         }
 
-        public static string RandomString(int length)
-        {
-            Random random = new Random();
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
+        
     }
 }
