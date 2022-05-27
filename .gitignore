@@ -355,3 +355,5 @@ MigrationBackup/
 *.db
 *.db-shm
 *.db-wal
+/DatabaseShortcut.lnk
+/Output
