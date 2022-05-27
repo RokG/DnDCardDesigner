@@ -38,26 +38,7 @@ namespace CardDesigner.UI.ViewModels
         public SpellCardModel SelectedSpellCard { get; set; }
         public SpellDeckModel SelectedSpellDeck { get; set; }
 
-        private List<SpellCardModel> _allSpellCards;
-        public List<SpellCardModel> AllSpellCards
-        {
-            get => _allSpellCards;
-            set => SetProperty(ref _allSpellCards, value);
-        }
-
-        private List<SpellDeckModel> _allSpellDecks;
-        public List<SpellDeckModel> AllSpellDecks
-        {
-            get => _allSpellDecks;
-            set => SetProperty(ref _allSpellDecks, value);
-        }
-
-        private List<CharacterModel> _characters;
-        public List<CharacterModel> AllCharacters
-        {
-            get => _characters;
-            set => SetProperty(ref _characters, value);
-        }
+        
 
         #endregion Properties
 
@@ -93,15 +74,15 @@ namespace CardDesigner.UI.ViewModels
             //DoNavigateCommand = new NavigateCommand(navigationService);
 
             // Temporary: Create a testing character
-            //CharacterModel characterModel = new CharacterModel() { Name = RandomString(6) };
-            //SpellDeckModel spellDeckModel = new SpellDeckModel() { Name = RandomString(6) };
-            //spellDeckModel.SpellCards = new List<SpellCardModel>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    spellDeckModel.SpellCards.Add(new SpellCardModel() { Name = RandomString(6) });
+            CharacterModel characterModel = new CharacterModel() { Name = RandomString(6) };
+            SpellDeckModel spellDeckModel = new SpellDeckModel() { Name = RandomString(6) };
+            spellDeckModel.SpellCards = new List<SpellCardModel>();
+            for (int i = 0; i < 10; i++)
+            {
+                spellDeckModel.SpellCards.Add(new SpellCardModel() { Name = RandomString(6) });
 
-            //}
-            //cardDesignerStore.CreateCharacter(characterModel);
+            }
+            cardDesignerStore.CreateCharacter(characterModel);
         }
 
         #endregion
@@ -146,20 +127,8 @@ namespace CardDesigner.UI.ViewModels
 
         public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
         {
-            SpellCardViewModel viewModel = new(cardDesignerStore);
+            return new(cardDesignerStore);
 
-            viewModel.LoadData();
-
-            return viewModel;
-        }
-
-        private async void LoadData()
-        {
-            await _cardDesignerStore.Load();
-
-            AllCharacters = new(_cardDesignerStore.Characters);
-            AllSpellCards = new(_cardDesignerStore.SpellCards);
-            AllSpellDecks = new(_cardDesignerStore.SpellDecks);
         }
 
         #endregion

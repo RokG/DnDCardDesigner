@@ -19,7 +19,6 @@
             <RowDefinition Height="8*" />
         </Grid.RowDefinitions>
 
-
         <StackPanel
             Grid.Row="0"
             Orientation="Horizontal">

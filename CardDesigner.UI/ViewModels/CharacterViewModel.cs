@@ -14,6 +14,7 @@ namespace CardDesigner.UI.ViewModels
         #region Private fields
 
         private readonly CharacterModel _character;
+        private readonly CardDesignerStore _cardDesignerStore;
 
         #endregion
 
@@ -24,6 +25,27 @@ namespace CardDesigner.UI.ViewModels
         {
             get => _cardName;
             set => SetProperty(ref _cardName, value);
+        }
+
+        private List<SpellCardModel> _allSpellCards;
+        public List<SpellCardModel> AllSpellCards
+        {
+            get => _allSpellCards;
+            set => SetProperty(ref _allSpellCards, value);
+        }
+
+        private List<SpellDeckModel> _allSpellDecks;
+        public List<SpellDeckModel> AllSpellDecks
+        {
+            get => _allSpellDecks;
+            set => SetProperty(ref _allSpellDecks, value);
+        }
+
+        private List<CharacterModel> _characters;
+        public List<CharacterModel> AllCharacters
+        {
+            get => _characters;
+            set => SetProperty(ref _characters, value);
         }
 
         #endregion
@@ -39,6 +61,8 @@ namespace CardDesigner.UI.ViewModels
         public CharacterViewModel(CardDesignerStore cardDesignerStore)
         {
             Name = nameof(CharacterViewModel).Replace("ViewModel", "");
+
+            _cardDesignerStore = cardDesignerStore;
         }
 
         #endregion
@@ -51,7 +75,19 @@ namespace CardDesigner.UI.ViewModels
 
         public static CharacterViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
         {
-            return new(cardDesignerStore);
+            CharacterViewModel viewModel = new(cardDesignerStore);
+            viewModel.LoadData();
+
+            return viewModel;
+        }
+
+        private async void LoadData()
+        {
+            await _cardDesignerStore.Load();
+
+            AllCharacters = new(_cardDesignerStore.Characters);
+            AllSpellCards = new(_cardDesignerStore.SpellCards);
+            AllSpellDecks = new(_cardDesignerStore.SpellDecks);
         }
 
         #endregion
