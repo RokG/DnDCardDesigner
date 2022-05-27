@@ -1,5 +1,4 @@
-﻿using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -19,8 +18,11 @@ namespace CardDesigner.Domain.Stores
         private readonly ISpellDeckProvider _spellDeckProvider;
 
         private readonly List<SpellCardModel> _spellCards;
+        private readonly List<SpellDeckModel> _spellDecks;
         private readonly List<CharacterModel> _characters;
+
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
+        public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
         public IEnumerable<CharacterModel> Characters => _characters;
 
         /// <summary>
@@ -38,7 +40,6 @@ namespace CardDesigner.Domain.Stores
             ISpellDeckCreator spellDeckCreator,
             ISpellDeckProvider spellDeckProvider)
         {
-            _initializeLazy = new Lazy<Task>(Initialize);
             _characterCreator = characterCreator;
             _characterProvider = characterProvider;
             _spellCardCreator = spellCardCreator;
@@ -50,6 +51,7 @@ namespace CardDesigner.Domain.Stores
 
             _characters = new();
             _spellCards = new();
+            _spellDecks = new();
         }
 
         /// <summary>
@@ -59,13 +61,16 @@ namespace CardDesigner.Domain.Stores
         private async Task Initialize()
         {
             IEnumerable<SpellCardModel> spellCards = await _spellCardProvider.GetAllSpellCards();
+            IEnumerable<SpellDeckModel> spellDecks = await _spellDeckProvider.GetAllSpellDecks();
             IEnumerable<CharacterModel> characters = await _characterProvider.GetAllCharacters();
 
-            _characters.Clear();
             _spellCards.Clear();
+            _spellDecks.Clear();
+            _characters.Clear();
 
-            _characters.AddRange(characters);
             _spellCards.AddRange(spellCards);
+            _spellDecks.AddRange(spellDecks);
+            _characters.AddRange(characters);
         }
 
         /// <summary>
@@ -77,38 +82,32 @@ namespace CardDesigner.Domain.Stores
             await _initializeLazy.Value;
         }
 
-        public async Task AddCardToCharacter(CharacterModel character, ICard card)
-        {
-            switch (card.Type)
-            {
-                case CardType.Spell:
-                    {
-                        SpellCardModel spellCardModel = (SpellCardModel)card;
-                        await _spellCardCreator.CreateSpellCard(spellCardModel);
-                    }
-                    break;
-                case CardType.Item:
-                    break;
-                default:
-                    break;
-            }
-
-
-        }
+        #region Character methods
 
         public async Task CreateCharacter(CharacterModel character)
         {
             await _characterCreator.CreateCharacter(character);
         }
 
+        #endregion
+
+        #region SpellDeck methods
+
         public async Task CreateSpellDeck(SpellDeckModel spellDeck)
         {
             await _spellDeckCreator.CreateSpellDeck(spellDeck);
         }
 
+        #endregion
+
+        #region SpellCard methods
+
         public async Task CreateSpellCard(SpellCardModel spellCard)
         {
             await _spellCardCreator.CreateSpellCard(spellCard);
         }
+
+        #endregion
+
     }
 }

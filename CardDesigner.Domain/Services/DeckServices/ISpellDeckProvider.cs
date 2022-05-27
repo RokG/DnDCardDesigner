@@ -9,7 +9,7 @@ namespace CardDesigner.Domain.Services
 {
     public interface ISpellDeckProvider
     {
-        public Task<IEnumerable<SpellDeckModel>> GetAllDecks();
+        public Task<IEnumerable<SpellDeckModel>> GetAllSpellDecks();
 
     }
 }

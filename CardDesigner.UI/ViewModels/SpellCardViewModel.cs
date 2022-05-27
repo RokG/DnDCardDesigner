@@ -14,6 +14,7 @@ namespace CardDesigner.UI.ViewModels
         #region Private fields
 
         private readonly CharacterModel _character;
+        private readonly CardDesignerStore _cardDesignerStore;
 
         #endregion
 
@@ -33,9 +34,30 @@ namespace CardDesigner.UI.ViewModels
             set => SetProperty(ref _selectedCard, value);
         }
         public CharacterModel SelectedCharacter { get; set; }
-        public SpellCardModel ConstantCard = new SpellCardModel() {Name = "bbb", ID = 1 };
+        public SpellCardModel ConstantCard = new SpellCardModel() { Name = "bbb", ID = 1 };
         public SpellCardModel SelectedSpellCard { get; set; }
         public SpellDeckModel SelectedSpellDeck { get; set; }
+
+        private List<SpellCardModel> _allSpellCards;
+        public List<SpellCardModel> AllSpellCards
+        {
+            get => _allSpellCards;
+            set => SetProperty(ref _allSpellCards, value);
+        }
+
+        private List<SpellDeckModel> _allSpellDecks;
+        public List<SpellDeckModel> AllSpellDecks
+        {
+            get => _allSpellDecks;
+            set => SetProperty(ref _allSpellDecks, value);
+        }
+
+        private List<CharacterModel> _characters;
+        public List<CharacterModel> AllCharacters
+        {
+            get => _characters;
+            set => SetProperty(ref _characters, value);
+        }
 
         #endregion Properties
 
@@ -54,18 +76,32 @@ namespace CardDesigner.UI.ViewModels
         {
             Name = nameof(SpellCardViewModel).Replace("ViewModel", "");
 
+            _cardDesignerStore = cardDesignerStore;
+
             SelectedCharacter = new CharacterModel() { Name = RandomString(6) };
             SelectedSpellCard = new SpellCardModel() { Name = RandomString(6) };
-            SelectedSpellDeck = new SpellDeckModel() { Name = "aababa"};
+            SelectedSpellDeck = new SpellDeckModel() { Name = "aababa" };
 
-            SelectedSpellDeck.SpellCards = new List<SpellCardModel>();
-            SelectedSpellDeck.SpellCards.Add(SelectedSpellCard);
+            SelectedSpellDeck.SpellCards = new List<SpellCardModel>
+            {
+                SelectedSpellCard
+            };
 
             AddCardCommand = new AddCardCommand(this, cardDesignerStore);
             CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
             CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
             //DoNavigateCommand = new NavigateCommand(navigationService);
 
+            // Temporary: Create a testing character
+            //CharacterModel characterModel = new CharacterModel() { Name = RandomString(6) };
+            //SpellDeckModel spellDeckModel = new SpellDeckModel() { Name = RandomString(6) };
+            //spellDeckModel.SpellCards = new List<SpellCardModel>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    spellDeckModel.SpellCards.Add(new SpellCardModel() { Name = RandomString(6) });
+
+            //}
+            //cardDesignerStore.CreateCharacter(characterModel);
         }
 
         #endregion
@@ -91,7 +127,7 @@ namespace CardDesigner.UI.ViewModels
         public void AddRandomDeck()
         {
             Random random = new Random();
-            SelectedSpellDeck = new SpellDeckModel() { Name = RandomString(6) , ID = random.Next() };
+            SelectedSpellDeck = new SpellDeckModel() { Name = RandomString(6), ID = random.Next() };
             SelectedSpellDeck.SpellCards = new List<SpellCardModel>();
         }
 
@@ -110,7 +146,20 @@ namespace CardDesigner.UI.ViewModels
 
         public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
         {
-            return new(cardDesignerStore);
+            SpellCardViewModel viewModel = new(cardDesignerStore);
+
+            viewModel.LoadData();
+
+            return viewModel;
+        }
+
+        private async void LoadData()
+        {
+            await _cardDesignerStore.Load();
+
+            AllCharacters = new(_cardDesignerStore.Characters);
+            AllSpellCards = new(_cardDesignerStore.SpellCards);
+            AllSpellDecks = new(_cardDesignerStore.SpellDecks);
         }
 
         #endregion

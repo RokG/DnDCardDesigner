@@ -30,7 +30,7 @@ namespace CardDesigner.DataAccess.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<SpellDeckModel>> GetAllDecks()
+        public async Task<IEnumerable<SpellDeckModel>> GetAllSpellDecks()
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
