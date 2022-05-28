@@ -10,7 +10,7 @@ namespace CardDesigner.UI.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
+        protected void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -23,7 +23,7 @@ namespace CardDesigner.UI.ViewModels
             }
 
             storage = value;
-            OnPropertyChanged(propertyName);
+            RaisePropertyChanged(propertyName);
 
             return true;
         }

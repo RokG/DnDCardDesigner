@@ -30,7 +30,7 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Constructor
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -60,7 +60,7 @@ namespace CardDesigner.UI.ViewModels
 
         private void OnCurrentViewModelChanged()
         {
-            OnPropertyChanged(nameof(CurrentViewModel));
+            RaisePropertyChanged(nameof(CurrentViewModel));
         }
 
         #endregion
