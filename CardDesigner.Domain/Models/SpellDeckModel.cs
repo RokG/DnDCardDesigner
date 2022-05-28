@@ -16,5 +16,6 @@ namespace CardDesigner.Domain.Models
 
         public DeckType Type { get; set; }
         public ICollection<CharacterModel> Characters { get; set; }
+
     }
 }

@@ -74,16 +74,16 @@ namespace CardDesigner.UI.ViewModels
             //DoNavigateCommand = new NavigateCommand(navigationService);
 
             // Temporary: Create a testing character
-            //CharacterModel characterModel = new CharacterModel() { Name = RandomString(6) };
-            //SpellDeckModel spellDeckModel = new SpellDeckModel() { Name = RandomString(6) };
-            //spellDeckModel.SpellCards = new List<SpellCardModel>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    spellDeckModel.SpellCards.Add(new SpellCardModel() { Name = RandomString(6) });
+            CharacterModel characterModel = new CharacterModel() { Name = RandomString(6) };
+            SpellDeckModel spellDeckModel = new SpellDeckModel() { Name = RandomString(6) };
+            spellDeckModel.SpellCards = new List<SpellCardModel>();
+            for (int i = 0; i < 10; i++)
+            {
+                spellDeckModel.SpellCards.Add(new SpellCardModel() { Name = RandomString(6) });
 
-            //}
-            //characterModel.SpellDeck = spellDeckModel;
-            //cardDesignerStore.CreateCharacter(characterModel);
+            }
+            characterModel.SpellDeck = spellDeckModel;
+            cardDesignerStore.CreateCharacter(characterModel);
         }
 
         #endregion

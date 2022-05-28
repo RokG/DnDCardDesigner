@@ -1,10 +1,6 @@
 ﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -13,18 +9,40 @@ namespace CardDesigner.UI.ViewModels
     {
         #region Private fields
 
-        private readonly CharacterModel _character;
         private readonly CardDesignerStore _cardDesignerStore;
 
         #endregion
 
         #region Properties
 
-        private string _cardName;
-        public string CardName
+        private CharacterModel _selectedCharacter;
+        public CharacterModel SelectedCharacter
         {
-            get => _cardName;
-            set => SetProperty(ref _cardName, value);
+            get => _selectedCharacter;
+            set
+            {
+                SetProperty(ref _selectedCharacter, value);
+                if (SelectedCharacter.SpellDeck != null)
+                {
+                    SelectedSpellDeck = new List<SpellDeckModel>();
+                    SelectedSpellDeck.Add(SelectedCharacter.SpellDeck);
+                    SelectedSpellDeckCards = new List<SpellCardModel>(SelectedCharacter.SpellDeck.SpellCards);
+                }
+            }
+        }
+
+        private List<SpellDeckModel> _selectedSpellDeck;
+        public List<SpellDeckModel> SelectedSpellDeck
+        {
+            get => _selectedSpellDeck;
+            set => SetProperty(ref _selectedSpellDeck, value);
+        }
+
+        private List<SpellCardModel> _selectedSpellDeckCards;
+        public List<SpellCardModel> SelectedSpellDeckCards
+        {
+            get => _selectedSpellDeckCards;
+            set => SetProperty(ref _selectedSpellDeckCards, value);
         }
 
         private List<SpellCardModel> _allSpellCards;

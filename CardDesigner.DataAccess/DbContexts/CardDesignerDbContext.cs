@@ -37,10 +37,10 @@ namespace CardDesigner.DataAccess.DbContexts
                 .WithMany(c => c.Characters)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Entity<SpellDeck>()
-            //    .HasMany(c => c.Characters)
-            //    .HasOne(c => c.SpellDeck)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<SpellDeck>()
+                .HasMany(c => c.Characters)
+                .WithOne(c=>c.SpellDeck)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SpellDeckSpellCard>()
                 .HasKey(t => new { t.SpellCardID, t.SpellDeckID });
