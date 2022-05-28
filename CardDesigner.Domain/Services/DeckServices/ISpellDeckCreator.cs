@@ -9,7 +9,7 @@ namespace CardDesigner.Domain.Services
 {
     public interface ISpellDeckCreator
     {
-        Task CreateSpellDeck(SpellDeckModel spellDeck);
+        Task<SpellDeckModel> CreateSpellDeck(SpellDeckModel spellDeck);
 
     }
 }

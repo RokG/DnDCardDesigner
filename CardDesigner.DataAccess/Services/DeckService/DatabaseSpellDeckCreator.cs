@@ -27,14 +27,16 @@ namespace CardDesigner.DataAccess.Services
             _mapper = mapper;
         }
 
-        public async Task CreateSpellDeck(SpellDeckModel spellDeck)
+        public async Task<SpellDeckModel> CreateSpellDeck(SpellDeckModel spellDeck)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                SpellDeck spellCardEntity = _mapper.Map<SpellDeck>(spellDeck);
+                SpellDeck spellDeckEntity = _mapper.Map<SpellDeck>(spellDeck);
 
-                SpellDeck createdCardEntity = dbContext.SpellDecks.Add(spellCardEntity).Entity;
+                SpellDeck createdSpellDeckEntity = dbContext.SpellDecks.Add(spellDeckEntity).Entity;
                 await dbContext.SaveChangesAsync();
+
+                return _mapper.Map<SpellDeckModel>(createdSpellDeckEntity);
             }
         }
 

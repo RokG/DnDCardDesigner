@@ -8,83 +8,70 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="9*" />
         </Grid.RowDefinitions>
+        <!--  header area  -->
         <Border BorderBrush="Black" BorderThickness="1">
-
-            <DockPanel LastChildFill="False">
-                <Label Content="Character:" DockPanel.Dock="Left" />
-                <ComboBox DockPanel.Dock="Left" SelectedIndex="0">
-                    <ComboBoxItem Content="Character1" />
-                    <ComboBoxItem Content="Character2" />
-                    <ComboBoxItem Content="Character3" />
-                </ComboBox>
-                <Button Content="Edit" DockPanel.Dock="Right" />
-                <Button Content="Add" DockPanel.Dock="Right" />
-                <Button Content="Save" DockPanel.Dock="Right" />
-            </DockPanel>
+            <Label Content="Character overview" FontSize="36" />
         </Border>
+        <!--  body area  -->
         <Border Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0">
-                    <Label Content="Character Cards back side" />
-                    <ComboBox SelectedIndex="0">
-                        <ComboBoxItem Content="DruidSpells" />
-                        <ComboBoxItem Content="WizardSpells" />
-                        <ComboBoxItem Content="CustomBackground1" />
-                    </ComboBox>
-                    <Viewbox Margin="10">
-                        <Canvas
-                            Width="571"
-                            Height="889"
-                            Margin="20"
-                            Background="DarkBlue" />
-                    </Viewbox>
-                </StackPanel>
-
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <ListBox
-                        Grid.Row="0"
-                        ItemsSource="{Binding AllCharacters}"
-                        SelectedItem="{Binding SelectedCharacter}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding ID}" />
-                                    <Label Content="{Binding Name}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <ListBox Grid.Row="1" ItemsSource="{Binding SelectedSpellDeck}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding ID}" />
-                                    <Label Content="{Binding Name}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                <!--  Character overview  -->
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Character: " />
+                        <ComboBox ItemsSource="{Binding AllCharacters}" SelectedItem="{Binding SelectedCharacter}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{Binding Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Spell deck: " />
+                        <Label Content="{Binding SelectedSpellDeck.Name}" />
+                    </StackPanel>
+                    <Label Content="Cards in deck : " />
                     <ListBox Grid.Row="2" ItemsSource="{Binding SelectedSpellDeckCards}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding ID}" />
                                     <Label Content="{Binding Name}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                </Grid>
+                </StackPanel>
+
+                <!--  Card overview  -->
+                <TabControl Grid.Column="1">
+                    <TabItem Header="Card back side">
+                        <StackPanel>
+                            <Label Content="Character Cards back side" />
+                            <ComboBox SelectedIndex="0">
+                                <ComboBoxItem Content="DruidSpells" />
+                                <ComboBoxItem Content="WizardSpells" />
+                                <ComboBoxItem Content="CustomBackground1" />
+                            </ComboBox>
+                            <Viewbox Margin="10">
+                                <Canvas
+                                    Width="571"
+                                    Height="889"
+                                    Margin="20"
+                                    Background="DarkBlue" />
+                            </Viewbox>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Card Front side" />
+                    <TabItem Header="Card Front side background" />
+                </TabControl>
 
             </Grid>
         </Border>

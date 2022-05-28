@@ -31,16 +31,16 @@ namespace CardDesigner.DataAccess.Services
         /// Get all characters from database
         /// </summary>
         /// <returns></returns>
-        public async Task CreateCharacter(CharacterModel character)
+        public async Task<CharacterModel> CreateCharacter(CharacterModel character)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
                 Character characterEntity = _mapper.Map<Character>(character);
 
-                Character createdClient = dbContext.Characters.Add(characterEntity).Entity;
+                Character createdCharacterEntity = dbContext.Characters.Add(characterEntity).Entity;
                 await dbContext.SaveChangesAsync();
 
-                //return _mapper.Map<CharacterModel>(createdClient);
+                return _mapper.Map<CharacterModel>(createdCharacterEntity);
             }
         }
     }

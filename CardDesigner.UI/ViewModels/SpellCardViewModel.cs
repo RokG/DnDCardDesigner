@@ -13,7 +13,6 @@ namespace CardDesigner.UI.ViewModels
     {
         #region Private fields
 
-        private readonly CharacterModel _character;
         private readonly CardDesignerStore _cardDesignerStore;
 
         #endregion

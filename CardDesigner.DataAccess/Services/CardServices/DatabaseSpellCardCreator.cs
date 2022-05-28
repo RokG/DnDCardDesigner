@@ -31,14 +31,16 @@ namespace CardDesigner.DataAccess.Services
         /// Get all characters from database
         /// </summary>
         /// <returns></returns>
-        public async Task CreateSpellCard(SpellCardModel spellCard)
+        public async Task<SpellCardModel> CreateSpellCard(SpellCardModel spellCard)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
                 SpellCard spellCardEntity = _mapper.Map<SpellCard>(spellCard);
 
-                SpellCard createdCardEntity = dbContext.SpellCards.Add(spellCardEntity).Entity;
+                SpellCard createdSpellCardEntity = dbContext.SpellCards.Add(spellCardEntity).Entity;
                 await dbContext.SaveChangesAsync();
+
+                return _mapper.Map<SpellCardModel>(createdSpellCardEntity);
             }
         }
     }

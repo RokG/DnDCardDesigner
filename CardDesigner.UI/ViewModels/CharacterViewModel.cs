@@ -24,15 +24,14 @@ namespace CardDesigner.UI.ViewModels
                 SetProperty(ref _selectedCharacter, value);
                 if (SelectedCharacter.SpellDeck != null)
                 {
-                    SelectedSpellDeck = new List<SpellDeckModel>();
-                    SelectedSpellDeck.Add(SelectedCharacter.SpellDeck);
+                    SelectedSpellDeck = SelectedCharacter.SpellDeck;
                     SelectedSpellDeckCards = new List<SpellCardModel>(SelectedCharacter.SpellDeck.SpellCards);
                 }
             }
         }
 
-        private List<SpellDeckModel> _selectedSpellDeck;
-        public List<SpellDeckModel> SelectedSpellDeck
+        private SpellDeckModel _selectedSpellDeck;
+        public SpellDeckModel SelectedSpellDeck
         {
             get => _selectedSpellDeck;
             set => SetProperty(ref _selectedSpellDeck, value);

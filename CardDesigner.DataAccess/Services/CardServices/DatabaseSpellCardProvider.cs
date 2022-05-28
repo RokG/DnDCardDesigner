@@ -38,7 +38,10 @@ namespace CardDesigner.DataAccess.Services
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<SpellCard> characterEntities = await context.SpellCards.ToListAsync();
+                IEnumerable<SpellCard> characterEntities = await 
+                    context.SpellCards
+                    .Include(sc=>sc.SpellDecks)
+                    .ToListAsync();
 
                 return characterEntities.Select(c => _mapper.Map<SpellCardModel>(c));
             }

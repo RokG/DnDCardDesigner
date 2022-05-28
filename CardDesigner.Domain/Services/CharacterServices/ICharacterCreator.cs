@@ -5,6 +5,6 @@ namespace CardDesigner.Domain.Services
 {
     public interface ICharacterCreator
     {
-        Task CreateCharacter(CharacterModel character);
+        Task<CharacterModel> CreateCharacter(CharacterModel character);
     }
 }
