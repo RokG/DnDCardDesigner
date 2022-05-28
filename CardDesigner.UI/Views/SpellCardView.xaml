@@ -23,7 +23,6 @@
         <StackPanel
             Grid.Row="0"
             Orientation="Horizontal">
-            <Label Content="{Binding SelectedCard.Name}" />
             <Label Content="Item card background" />
             <ComboBox SelectedIndex="0">
                 <ComboBoxItem Content="StyleMagicItems" />

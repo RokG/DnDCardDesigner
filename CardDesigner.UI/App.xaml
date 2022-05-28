@@ -8,7 +8,12 @@
             <ResourceDictionary.MergedDictionaries>
 
                 <!--  Styles  -->
-                <ResourceDictionary Source="Styles/LabelStyles.xaml" />
+                <ResourceDictionary Source="Styles/Colors.xaml" />
+
+                <!--  Styles  -->
+                <ResourceDictionary Source="Styles/StaticItemStyles.xaml" />
+                <ResourceDictionary Source="Styles/ControlItemStyles.xaml" />
+                <ResourceDictionary Source="Styles/ListItemStyles.xaml" />
 
                 <!--  Icons  -->
                 <ResourceDictionary Source="Resources/Icons/EditButton.xaml" />

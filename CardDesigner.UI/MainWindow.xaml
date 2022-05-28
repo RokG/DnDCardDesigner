@@ -32,7 +32,7 @@
                 <Button
                     Height="60"
                     Command="{Binding CharacterNavigationCommand}"
-                    Content="{StaticResource EditIcon}" />
+                    Content="Character overview" />
                 <Button
                     Height="60"
                     Command="{Binding SpellCardNavigationCommand}"
@@ -40,7 +40,7 @@
                 <Button
                     Height="60"
                     Command="{Binding ItemCardNavigationCommand}"
-                    Content="Item card designer" />
+                    Content="{StaticResource EditIcon}" />
             </StackPanel>
         </Grid>
 
