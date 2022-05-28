@@ -8,10 +8,16 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="9*" />
         </Grid.RowDefinitions>
+
         <!--  header area  -->
-        <Border BorderBrush="Black" BorderThickness="1">
-            <Label Content="Character overview" FontSize="36" />
+        <Border
+            BorderBrush="Black"
+            BorderThickness="1">
+            <Label
+                Content="Character overview"
+                FontSize="36" />
         </Border>
+
         <!--  body area  -->
         <Border Grid.Row="1">
             <Grid>
@@ -24,7 +30,9 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Character: " />
-                        <ComboBox ItemsSource="{Binding AllCharacters}" SelectedItem="{Binding SelectedCharacter}">
+                        <ComboBox
+                            ItemsSource="{Binding AllCharacters}"
+                            SelectedItem="{Binding SelectedCharacter}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -39,7 +47,9 @@
                         <Label Content="{Binding SelectedSpellDeck.Name}" />
                     </StackPanel>
                     <Label Content="Cards in deck : " />
-                    <ListBox Grid.Row="2" ItemsSource="{Binding SelectedSpellDeckCards}">
+                    <ListBox
+                        Grid.Row="2"
+                        ItemsSource="{Binding SelectedSpellDeckCards}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -53,20 +63,14 @@
                 <!--  Card overview  -->
                 <TabControl Grid.Column="1">
                     <TabItem Header="Card back side">
-                        <StackPanel>
+                        <StackPanel Background="blue">
                             <Label Content="Character Cards back side" />
                             <ComboBox SelectedIndex="0">
                                 <ComboBoxItem Content="DruidSpells" />
                                 <ComboBoxItem Content="WizardSpells" />
                                 <ComboBoxItem Content="CustomBackground1" />
                             </ComboBox>
-                            <Viewbox Margin="10">
-                                <Canvas
-                                    Width="571"
-                                    Height="889"
-                                    Margin="20"
-                                    Background="DarkBlue" />
-                            </Viewbox>
+
                         </StackPanel>
                     </TabItem>
                     <TabItem Header="Card Front side" />

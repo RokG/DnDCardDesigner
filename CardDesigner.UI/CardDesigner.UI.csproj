@@ -10,13 +10,13 @@
 
   <ItemGroup>
     <Compile Remove="Controls\**" />
-    <Compile Remove="Resources\**" />
     <EmbeddedResource Remove="Controls\**" />
-    <EmbeddedResource Remove="Resources\**" />
     <None Remove="Controls\**" />
-    <None Remove="Resources\**" />
     <Page Remove="Controls\**" />
-    <Page Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\dnd-icon-13.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,13 +36,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="appSettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Resource Include="Resources\Images\dnd-icon-13.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Styles\" />
+    <None Update="appSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
