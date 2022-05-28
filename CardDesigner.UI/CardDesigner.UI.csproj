@@ -5,7 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <UseWPF>true</UseWPF>
-    <OutputPath>E:\Coding\CardDesigner\Output\</OutputPath>
+    <OutputPath>$(SolutionDir.Substring(0,3))Coding\CardDesigner\Output\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
