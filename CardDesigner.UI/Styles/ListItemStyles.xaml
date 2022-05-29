@@ -8,34 +8,33 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="24" />
             </Grid.ColumnDefinitions>
             <!--  border over entire combobox  -->
             <Border x:Name="Border"
                 Grid.ColumnSpan="2"
-                Background="red"
-                BorderBrush="Black"
+                Background="{StaticResource BaseBackgroundBrush}"
+                BorderBrush="{StaticResource BaseEdgeBrush}"
                 BorderThickness="1"
                 CornerRadius="2" />
             <!--  Border over text  -->
             <Border
                 Grid.Column="0"
                 Margin="1"
-                Background="Yellow"
+                BorderThickness="0"
                 CornerRadius="2,0,0,2" />
             <!--  Dropdown arrow symbol  -->
             <Path x:Name="Arrow"
                 Grid.Column="1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Data="M 0 0 L 4 4 L 8 0 Z"
-                Fill="Blue" />
+                Data="M 0 0 L 6 6 L 12 0 Z"
+                Fill="{StaticResource BaseForegroundBrush}" />
         </Grid>
     </ControlTemplate>
 
     <ControlTemplate x:Key="ComboBoxLabel" TargetType="{x:Type Label}">
         <Border x:Name="PART_ContentHost"
-            Background="Violet"
             Focusable="False" />
     </ControlTemplate>
 
@@ -43,6 +42,7 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="MinWidth" Value="120" />
+        <Setter Property="Foreground" Value="{StaticResource BaseForegroundBrush}" />
         <Setter Property="MinHeight" Value="20" />
         <Setter Property="Template">
             <Setter.Value>
@@ -57,16 +57,12 @@
                         <ContentPresenter x:Name="ContentSite"
                             Margin="3,3,23,3"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Stretch"
+                            VerticalAlignment="Center"
                             Content="{TemplateBinding SelectionBoxItem}"
                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                             IsHitTestVisible="False" />
                         <Label x:Name="PART_EditableLabel"
-                            Margin="3,3,23,3"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom"
-                            Background="Transparent"
                             Focusable="True"
                             Style="{x:Null}"
                             Template="{StaticResource ComboBoxLabel}"
@@ -80,14 +76,16 @@
                             <Grid x:Name="DropDown"
                                 MinWidth="{TemplateBinding ActualWidth}"
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                Background="Transparent"
                                 SnapsToDevicePixels="True">
                                 <Border x:Name="DropDownBorder"
-                                    Background="Transparent"
-                                    BorderBrush="pink"
+                                    Background="{StaticResource BaseBackgroundBrush}"
+                                    BorderBrush="{StaticResource BaseForegroundBrush}"
                                     BorderThickness="1" />
                                 <ScrollViewer
                                     Margin="4,6,4,6"
-                                    SnapsToDevicePixels="True">
+                                    SnapsToDevicePixels="True"
+                                    VerticalScrollBarVisibility="Hidden">
                                     <StackPanel
                                         IsItemsHost="True"
                                         KeyboardNavigation.DirectionalNavigation="Contained" />
@@ -110,20 +108,22 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="{x:Type ComboBoxItem}">
-        <!--<Style.Resources>
-            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Magenta" />
-        </Style.Resources>
-        <Setter Property="Background" Value="Yellow" />-->
-        <Setter Property="Background" Value="Turquoise" />
+        <Setter Property="Foreground" Value="{StaticResource BaseForegroundBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Border x:Name="Border"
                         Padding="2"
-                        Background="Transparent"
+                        BorderThickness="0,0,0,1"
                         SnapsToDevicePixels="true">
                         <ContentPresenter />
                     </Border>
@@ -132,14 +132,10 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="Magenta" />
-                <Setter Property="Foreground" Value="Magenta" />
-                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Foreground" Value="{StaticResource BaseHighlightBrush}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="Magenta" />
-                <Setter Property="Foreground" Value="Magenta" />
-                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="Foreground" Value="{StaticResource BaseHighlightBrush}" />
                 <Setter Property="FontWeight" Value="Bold" />
             </Trigger>
         </Style.Triggers>

@@ -3,15 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--  Label styles  -->
-
     <Style TargetType="{x:Type Label}">
         <Setter Property="Background" Value="{StaticResource BaseBackgroundBrush}" />
         <Setter Property="Foreground" Value="{StaticResource BaseForegroundBrush}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Padding" Value="10,10,10,10" />
-        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="FontFamily" Value="YU Gothic" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{StaticResource BaseDisabledBrush}" />
