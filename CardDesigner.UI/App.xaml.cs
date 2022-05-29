@@ -51,9 +51,9 @@ namespace CardDesigner.UI
             _host.Start();
 
             // initialize db
-            CardDesignerDbContextFactory invoiceMeDbContextFactory = _host.Services.GetRequiredService<CardDesignerDbContextFactory>();
+            CardDesignerDbContextFactory cardDesignerDbContextFactory = _host.Services.GetRequiredService<CardDesignerDbContextFactory>();
 
-            using CardDesignerDbContext dbContext = invoiceMeDbContextFactory.CreateDbContext();
+            using CardDesignerDbContext dbContext = cardDesignerDbContextFactory.CreateDbContext();
             dbContext.Database.Migrate();
 
             // Navigate to home view

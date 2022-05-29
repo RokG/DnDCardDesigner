@@ -11,7 +11,6 @@ namespace CardDesigner.UI.HostBuilder
         {
             hostBuilder.ConfigureServices(services =>
             {
-                // register invoice services
                 services.AddSingleton<ICharacterCreator, DatabaseCharacterCreator>();
                 services.AddSingleton<ICharacterProvider, DatabaseCharacterProvider>();
                 services.AddSingleton<ISpellCardCreator, DatabaseSpellCardCreator>();
