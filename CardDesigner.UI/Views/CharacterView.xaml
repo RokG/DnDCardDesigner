@@ -31,17 +31,11 @@
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Character: " />
                         <ComboBox
-                            Width="100" Height="40"
+                            Width="100"
+                            Height="40"
+                            DisplayMemberPath="Name"
                             ItemsSource="{Binding AllCharacters}"
-                            SelectedItem="{Binding SelectedCharacter}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="{Binding Name}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                            SelectedItem="{Binding SelectedCharacter}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Spell deck: " />

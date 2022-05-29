@@ -1,6 +1,7 @@
 ﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -25,7 +26,7 @@ namespace CardDesigner.UI.ViewModels
                 if (SelectedCharacter.SpellDeck != null)
                 {
                     SelectedSpellDeck = SelectedCharacter.SpellDeck;
-                    SelectedSpellDeckCards = new List<SpellCardModel>(SelectedCharacter.SpellDeck.SpellCards);
+                    SelectedSpellDeckCards = new ObservableCollection<SpellCardModel>(SelectedCharacter.SpellDeck.SpellCards);
                 }
             }
         }
@@ -37,29 +38,29 @@ namespace CardDesigner.UI.ViewModels
             set => SetProperty(ref _selectedSpellDeck, value);
         }
 
-        private List<SpellCardModel> _selectedSpellDeckCards;
-        public List<SpellCardModel> SelectedSpellDeckCards
+        private ObservableCollection<SpellCardModel> _selectedSpellDeckCards;
+        public ObservableCollection<SpellCardModel> SelectedSpellDeckCards
         {
             get => _selectedSpellDeckCards;
             set => SetProperty(ref _selectedSpellDeckCards, value);
         }
 
-        private List<SpellCardModel> _allSpellCards;
-        public List<SpellCardModel> AllSpellCards
+        private ObservableCollection<SpellCardModel> _allSpellCards;
+        public ObservableCollection<SpellCardModel> AllSpellCards
         {
             get => _allSpellCards;
             set => SetProperty(ref _allSpellCards, value);
         }
 
-        private List<SpellDeckModel> _allSpellDecks;
-        public List<SpellDeckModel> AllSpellDecks
+        private ObservableCollection<SpellDeckModel> _allSpellDecks;
+        public ObservableCollection<SpellDeckModel> AllSpellDecks
         {
             get => _allSpellDecks;
             set => SetProperty(ref _allSpellDecks, value);
         }
 
-        private List<CharacterModel> _characters;
-        public List<CharacterModel> AllCharacters
+        private ObservableCollection<CharacterModel> _characters;
+        public ObservableCollection<CharacterModel> AllCharacters
         {
             get => _characters;
             set => SetProperty(ref _characters, value);
