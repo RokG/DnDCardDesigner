@@ -2,6 +2,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!--
+        Styles for elements that have some sort of connection to arrays of items
+        - ListBox
+        - ListView
+        - ComboBox
+    -->
+
     <!--  Combobox style  -->
 
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
