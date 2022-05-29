@@ -19,26 +19,25 @@
         <Setter Property="FontFamily" Value="YU Gothic" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontWeight" Value="SemiBold" />
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{StaticResource BaseDisabledBrush}" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
     <!--  Window styles  -->
 
     <Style TargetType="{x:Type Window}">
         <Setter Property="Background" Value="{StaticResource BaseBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource BaseForegroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BaseBorderBrush}" />
+        <Setter Property="BorderThickness" Value="3" />
     </Style>
-
 
     <!--  UserControl Styles  -->
 
     <Style TargetType="{x:Type UserControl}">
         <Setter Property="Background" Value="{StaticResource BaseBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource BaseForegroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BaseBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
     </Style>
-
 
     <!--  Grid Styles  -->
 
@@ -49,8 +48,7 @@
     <!--  Border Styles  -->
 
     <Style TargetType="{x:Type Border}">
-        <Setter Property="BorderBrush" Value="{StaticResource BaseEdgeBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{StaticResource BaseBorderBrush}" />
     </Style>
 
 </ResourceDictionary>

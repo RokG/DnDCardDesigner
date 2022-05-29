@@ -4,21 +4,50 @@
 
     <!--  Color definitions  -->
 
-    <Color x:Key="BaseBackgroundColor">#444444</Color>
-    <Color x:Key="BaseControlBackgroundColor">#666666</Color>
-    <Color x:Key="BaseHighlightColor">#888888</Color>
-    <Color x:Key="BaseForegroundColor">#aaaadd</Color>
-    <Color x:Key="BaseDisabledColor">#444466</Color>
-    <Color x:Key="BaseForegroundDisabledColor">#222244</Color>
-    <Color x:Key="BaseEdgeColor">#8888bb</Color>
+    <Color x:Key="BaseDark">#222222</Color>
+    <Color x:Key="BaseLight">#dddddd</Color>
+
+    <Color x:Key="BaseBackgroundColorDark">#333333</Color>
+    <Color x:Key="BaseBackgroundColorNormal">#444444</Color>
+    <Color x:Key="BaseBackgroundColorLight">#555555</Color>
+
+    <Color x:Key="BaseForegroundColorDark">#aaaaaa</Color>
+    <Color x:Key="BaseForegroundColorNormal">#bbbbbb</Color>
+    <Color x:Key="BaseForegroundColorLight">#cccccc</Color>
+
+    <Color x:Key="BaseBorderColorDark">#666666</Color>
+    <Color x:Key="BaseBorderColorNormal">#777777</Color>
+    <Color x:Key="BaseBorderColorLight">#888888</Color>
 
     <!--  Color brushes  -->
+    <SolidColorBrush x:Key="BaseDarkBrush" Color="{StaticResource BaseDark}" />
+    <SolidColorBrush x:Key="BaseLightBrush" Color="{StaticResource BaseLight}" />
 
-    <SolidColorBrush x:Key="BaseBackgroundBrush" Color="{StaticResource BaseBackgroundColor}" />
-    <SolidColorBrush x:Key="BaseControlBackgroundBrush" Color="{StaticResource BaseControlBackgroundColor}" />
-    <SolidColorBrush x:Key="BaseHighlightBrush" Color="{StaticResource BaseHighlightColor}" />
-    <SolidColorBrush x:Key="BaseForegroundBrush" Color="{StaticResource BaseForegroundColor}" />
-    <SolidColorBrush x:Key="BaseDisabledBrush" Color="{StaticResource BaseDisabledColor}" />
-    <SolidColorBrush x:Key="BaseForegroundDisabledBrush" Color="{StaticResource BaseForegroundDisabledColor}" />
-    <SolidColorBrush x:Key="BaseEdgeBrush" Color="{StaticResource BaseEdgeColor}" />
+    <SolidColorBrush x:Key="BaseBackgroundBrush" Color="{StaticResource BaseBackgroundColorDark}" />
+    <SolidColorBrush x:Key="BaseForegroundBrush" Color="{StaticResource BaseForegroundColorDark}" />
+    <SolidColorBrush x:Key="BaseBorderBrush" Color="{StaticResource BaseBorderColorDark}" />
+
+    <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource BaseBackgroundColorNormal}" />
+    <SolidColorBrush x:Key="ControlForegroundBrush" Color="{StaticResource BaseForegroundColorNormal}" />
+    <SolidColorBrush x:Key="ControlBorderBrush" Color="{StaticResource BaseBorderColorNormal}" />
+
+    <SolidColorBrush x:Key="ControlDisabledBackgroundBrush" Color="{StaticResource BaseBackgroundColorDark}" />
+    <SolidColorBrush x:Key="ControlDisabledForegroundBrush" Color="{StaticResource BaseBorderColorDark}" />
+    <SolidColorBrush x:Key="ControlDisabledBorderBrush" Color="{StaticResource BaseBorderColorDark}" />
+
+    <SolidColorBrush x:Key="ControlHighlightBackgroundBrush" Color="{StaticResource BaseBackgroundColorLight}" />
+    <SolidColorBrush x:Key="ControlHighlightForegroundBrush" Color="{StaticResource BaseForegroundColorLight}" />
+    <SolidColorBrush x:Key="ControlHighlightBorderBrush" Color="{StaticResource BaseBorderColorLight}" />
+
+    <SolidColorBrush x:Key="ListBackgroundBrush" Color="{StaticResource BaseBackgroundColorDark}" />
+    <SolidColorBrush x:Key="ListForegroundBrush" Color="{StaticResource BaseForegroundColorDark}" />
+    <SolidColorBrush x:Key="ListBorderBrush" Color="{StaticResource BaseBorderColorDark}" />
+
+    <SolidColorBrush x:Key="ListHighlightBackgroundBrush" Color="{StaticResource BaseBackgroundColorNormal}" />
+    <SolidColorBrush x:Key="ListHighlightForegroundBrush" Color="{StaticResource BaseForegroundColorNormal}" />
+    <SolidColorBrush x:Key="ListHighlightBorderBrush" Color="{StaticResource BaseBorderColorNormal}" />
+
+    <SolidColorBrush x:Key="ListSelectedBackgroundBrush" Color="{StaticResource BaseBackgroundColorLight}" />
+    <SolidColorBrush x:Key="ListSelectedForegroundBrush" Color="{StaticResource BaseForegroundColorLight}" />
+    <SolidColorBrush x:Key="ListSelectedBorderBrush" Color="{StaticResource BaseBorderColorLight}" />
 </ResourceDictionary>
