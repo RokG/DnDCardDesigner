@@ -12,8 +12,8 @@
 
     <!--  Label styles  -->
     <Style TargetType="{x:Type Label}">
-        <Setter Property="Background" Value="{StaticResource BaseBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource BaseForegroundBrush}" />
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundLight}" />
+        <Setter Property="Foreground" Value="{StaticResource WindowForeground}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Padding" Value="10,10,10,10" />
         <Setter Property="FontFamily" Value="YU Gothic" />
@@ -24,31 +24,29 @@
     <!--  Window styles  -->
 
     <Style TargetType="{x:Type Window}">
-        <Setter Property="Background" Value="{StaticResource BaseBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource BaseForegroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource BaseBorderBrush}" />
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundLight}" />
+        <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
         <Setter Property="BorderThickness" Value="3" />
     </Style>
 
     <!--  UserControl Styles  -->
 
     <Style TargetType="{x:Type UserControl}">
-        <Setter Property="Background" Value="{StaticResource BaseBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource BaseForegroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource BaseBorderBrush}" />
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundLight}" />
+        <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
         <Setter Property="BorderThickness" Value="1" />
     </Style>
 
     <!--  Grid Styles  -->
 
     <Style TargetType="{x:Type Grid}">
-        <Setter Property="Background" Value="{StaticResource BaseBackgroundBrush}" />
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundLight}" />
     </Style>
 
     <!--  Border Styles  -->
 
     <Style TargetType="{x:Type Border}">
-        <Setter Property="BorderBrush" Value="{StaticResource BaseBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
     </Style>
 
 </ResourceDictionary>

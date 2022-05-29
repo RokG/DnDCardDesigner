@@ -7,7 +7,7 @@
     Title="DnD Card Designer"
     Width="950"
     Height="850"
-    BorderBrush="{StaticResource BaseBorderBrush}"
+    BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3"
     Icon="/Resources/Images/dnd-icon-13.png">
     <Grid>
@@ -31,7 +31,7 @@
         <!--  SidePanel column  -->
         <Grid
             Grid.Column="0"
-            Background="{StaticResource BaseDarkBrush}">
+            Background="{StaticResource WindowBackgroundDark}">
             <DockPanel LastChildFill="False">
                 <Button
                     Height="60"

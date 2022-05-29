@@ -15,9 +15,9 @@
     <Style TargetType="{x:Type Button}">
         <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="10" />
-        <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource ControlForegroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{StaticResource ButtonNormalBGND}" />
+        <Setter Property="Foreground" Value="{StaticResource ButtonNormalFGND}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBRDR}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Template">
@@ -34,15 +34,15 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ControlHighlightBackgroundBrush}" />
-                            <Setter Property="Foreground" Value="{StaticResource ControlHighlightForegroundBrush}" />
-                            <Setter Property="BorderBrush" Value="{StaticResource ControlHighlightBorderBrush}" />
+                            <Setter Property="Background" Value="{StaticResource ButtonHighlightBGND}" />
+                            <Setter Property="Foreground" Value="{StaticResource ButtonHighlightFGND}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource ButtonHighlightBRDR}" />
                             <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" Value="{StaticResource ControlDisabledBackgroundBrush}" />
-                            <Setter Property="Foreground" Value="{StaticResource ControlDisabledForegroundBrush}" />
-                            <Setter Property="BorderBrush" Value="{StaticResource ControlDisabledBorderBrush}" />
+                            <Setter Property="Background" Value="{StaticResource ButtonDisabledBGND}" />
+                            <Setter Property="Foreground" Value="{StaticResource ButtonDisabledFGND}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource ButtonDisabledBRDR}" />
                             <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -56,6 +56,8 @@
         </Style.Resources>
     </Style>
 
+    <!--  TextBox  -->
+
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -63,11 +65,9 @@
         <Setter Property="TextWrapping" Value="NoWrap" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="MinWidth" Value="120" />
-        <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource ControlForegroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ListAreaFGND}" />
         <Setter Property="MinHeight" Value="20" />
-        <Setter Property="CaretBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="CaretBrush" Value="{StaticResource ListItemHighlightFGND}" />
         <Setter Property="AllowDrop" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
@@ -75,8 +75,8 @@
                     <Border
                         Name="Border"
                         Padding="2"
-                        Background="{StaticResource ControlBackgroundBrush}"
-                        BorderBrush="{StaticResource ControlBorderBrush}"
+                        Background="{StaticResource ListAreaBGND}"
+                        BorderBrush="{StaticResource ListAreaBRDR}"
                         BorderThickness="1"
                         CornerRadius="2">
                         <ScrollViewer x:Name="PART_ContentHost"

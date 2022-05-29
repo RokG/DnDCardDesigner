@@ -3,51 +3,91 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--  Color definitions  -->
+    <Color x:Key="Unimplemented">Magenta</Color>
 
-    <Color x:Key="BaseDark">#222222</Color>
-    <Color x:Key="BaseLight">#dddddd</Color>
+    <Color x:Key="Gray000">#000000</Color>
+    <Color x:Key="Gray010">#191919</Color>
+    <Color x:Key="Gray015">#262626</Color>
+    <Color x:Key="Gray020">#333333</Color>
+    <Color x:Key="Gray030">#4C4C4C</Color>
+    <Color x:Key="Gray040">#666666</Color>
+    <Color x:Key="Gray050">#7F7F7F</Color>
+    <Color x:Key="Gray060">#999999</Color>
+    <Color x:Key="Gray070">#B2B2B2</Color>
+    <Color x:Key="Gray080">#CCCCCC</Color>
+    <Color x:Key="Gray090">#E5E5E5</Color>
+    <Color x:Key="Gray100">#ffffff</Color>
 
-    <Color x:Key="BaseBackgroundColorDark">#333333</Color>
-    <Color x:Key="BaseBackgroundColorNormal">#444444</Color>
-    <Color x:Key="BaseBackgroundColorLight">#555555</Color>
+    <!--  Blue theme  -->
+    <!--
+    <Color x:Key="ThemeColorDARK">#1288aa</Color>
+    <Color x:Key="ThemeColorNORM">#45bbee</Color>
+    <Color x:Key="ThemeColorLGHT">#56CCFF</Color>
+    -->
 
-    <Color x:Key="BaseForegroundColorDark">#aaaaaa</Color>
-    <Color x:Key="BaseForegroundColorNormal">#bbbbbb</Color>
-    <Color x:Key="BaseForegroundColorLight">#cccccc</Color>
+    <!--  Orange theme  -->
 
-    <Color x:Key="BaseBorderColorDark">#666666</Color>
-    <Color x:Key="BaseBorderColorNormal">#777777</Color>
-    <Color x:Key="BaseBorderColorLight">#888888</Color>
+    <Color x:Key="ThemeColorDARK">#aa8812</Color>
+    <Color x:Key="ThemeColorNORM">#eebb45</Color>
+    <Color x:Key="ThemeColorLGHT">#FFCC56</Color>
+
+
+    <!--  Lime theme  -->
+    <!--
+    <Color x:Key="ThemeColorDARK">#88aa12</Color>
+    <Color x:Key="ThemeColorNORM">#bbee45</Color>
+    <Color x:Key="ThemeColorLGHT">#CCFF56</Color>
+    -->
+
+    <!--  Mint theme  -->
+    <!--<Color x:Key="ThemeColorDARK">#12aa88</Color>
+    <Color x:Key="ThemeColorNORM">#45eebb</Color>
+    <Color x:Key="ThemeColorLGHT">#56FFCC</Color>-->
+
+
+    <!--  Button colors  -->
+    <SolidColorBrush x:Key="WindowBackgroundDark" Color="{StaticResource Gray015}" />
+    <SolidColorBrush x:Key="WindowBackgroundLight" Color="{StaticResource Gray020}" />
+    <SolidColorBrush x:Key="WindowForeground" Color="{StaticResource Gray060}" />
+    <SolidColorBrush x:Key="WindowBorder" Color="{StaticResource Gray030}" />
+
+    <!--  Button colors  -->
+    <SolidColorBrush x:Key="ButtonNormalBGND" Color="{StaticResource Gray030}" />
+    <SolidColorBrush x:Key="ButtonNormalFGND" Color="{StaticResource ThemeColorNORM}" />
+    <SolidColorBrush x:Key="ButtonNormalBRDR" Color="{StaticResource Gray050}" />
+
+    <SolidColorBrush x:Key="ButtonDisabledBGND" Color="{StaticResource Gray020}" />
+    <SolidColorBrush x:Key="ButtonDisabledFGND" Color="{StaticResource ThemeColorDARK}" />
+    <SolidColorBrush x:Key="ButtonDisabledBRDR" Color="{StaticResource Gray030}" />
+
+    <SolidColorBrush x:Key="ButtonHighlightBGND" Color="{StaticResource Gray040}" />
+    <SolidColorBrush x:Key="ButtonHighlightFGND" Color="{StaticResource ThemeColorLGHT}" />
+    <SolidColorBrush x:Key="ButtonHighlightBRDR" Color="{StaticResource Gray060}" />
+
+    <SolidColorBrush x:Key="ButtonClickedBGND" Color="{StaticResource ThemeColorLGHT}" />
+    <SolidColorBrush x:Key="ButtonClickedFGND" Color="{StaticResource Gray030}" />
+    <SolidColorBrush x:Key="ButtonClickedBRDR" Color="{StaticResource Gray050}" />
+
+    <!--  List colors  -->
+    <SolidColorBrush x:Key="ListAreaBGND" Color="{StaticResource Gray010}" />
+    <SolidColorBrush x:Key="ListAreaFGND" Color="{StaticResource ThemeColorNORM}" />
+    <SolidColorBrush x:Key="ListAreaBRDR" Color="{StaticResource Gray050}" />
+
+    <SolidColorBrush x:Key="ListItemDisabledBGND" Color="{StaticResource Unimplemented}" />
+    <SolidColorBrush x:Key="ListItemDisabledFGND" Color="{StaticResource ThemeColorDARK}" />
+    <SolidColorBrush x:Key="ListItemDisabledBRDR" Color="{StaticResource Unimplemented}" />
+
+    <SolidColorBrush x:Key="ListItemNormalBGND" Color="{StaticResource Gray010}" />
+    <SolidColorBrush x:Key="ListItemNormalFGND" Color="{StaticResource Gray050}" />
+    <SolidColorBrush x:Key="ListItemNormalBRDR" Color="{StaticResource Gray030}" />
+
+    <SolidColorBrush x:Key="ListItemHighlightBGND" Color="{StaticResource Gray020}" />
+    <SolidColorBrush x:Key="ListItemHighlightFGND" Color="{StaticResource ThemeColorNORM}" />
+    <SolidColorBrush x:Key="ListItemHighlightBRDR" Color="{StaticResource Gray040}" />
+
+    <SolidColorBrush x:Key="ListItemSelectedBGND" Color="{StaticResource Gray030}" />
+    <SolidColorBrush x:Key="ListItemSelectedFGND" Color="{StaticResource ThemeColorLGHT}" />
+    <SolidColorBrush x:Key="ListItemSelectedBRDR" Color="{StaticResource Gray050}" />
 
     <!--  Color brushes  -->
-    <SolidColorBrush x:Key="BaseDarkBrush" Color="{StaticResource BaseDark}" />
-    <SolidColorBrush x:Key="BaseLightBrush" Color="{StaticResource BaseLight}" />
-
-    <SolidColorBrush x:Key="BaseBackgroundBrush" Color="{StaticResource BaseBackgroundColorDark}" />
-    <SolidColorBrush x:Key="BaseForegroundBrush" Color="{StaticResource BaseForegroundColorDark}" />
-    <SolidColorBrush x:Key="BaseBorderBrush" Color="{StaticResource BaseBorderColorDark}" />
-
-    <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource BaseBackgroundColorNormal}" />
-    <SolidColorBrush x:Key="ControlForegroundBrush" Color="{StaticResource BaseForegroundColorNormal}" />
-    <SolidColorBrush x:Key="ControlBorderBrush" Color="{StaticResource BaseBorderColorNormal}" />
-
-    <SolidColorBrush x:Key="ControlDisabledBackgroundBrush" Color="{StaticResource BaseBackgroundColorDark}" />
-    <SolidColorBrush x:Key="ControlDisabledForegroundBrush" Color="{StaticResource BaseBorderColorDark}" />
-    <SolidColorBrush x:Key="ControlDisabledBorderBrush" Color="{StaticResource BaseBorderColorDark}" />
-
-    <SolidColorBrush x:Key="ControlHighlightBackgroundBrush" Color="{StaticResource BaseBackgroundColorLight}" />
-    <SolidColorBrush x:Key="ControlHighlightForegroundBrush" Color="{StaticResource BaseForegroundColorLight}" />
-    <SolidColorBrush x:Key="ControlHighlightBorderBrush" Color="{StaticResource BaseBorderColorLight}" />
-
-    <SolidColorBrush x:Key="ListBackgroundBrush" Color="{StaticResource BaseBackgroundColorDark}" />
-    <SolidColorBrush x:Key="ListForegroundBrush" Color="{StaticResource BaseForegroundColorDark}" />
-    <SolidColorBrush x:Key="ListBorderBrush" Color="{StaticResource BaseBorderColorDark}" />
-
-    <SolidColorBrush x:Key="ListHighlightBackgroundBrush" Color="{StaticResource BaseBackgroundColorNormal}" />
-    <SolidColorBrush x:Key="ListHighlightForegroundBrush" Color="{StaticResource BaseForegroundColorNormal}" />
-    <SolidColorBrush x:Key="ListHighlightBorderBrush" Color="{StaticResource BaseBorderColorNormal}" />
-
-    <SolidColorBrush x:Key="ListSelectedBackgroundBrush" Color="{StaticResource BaseBackgroundColorLight}" />
-    <SolidColorBrush x:Key="ListSelectedForegroundBrush" Color="{StaticResource BaseForegroundColorLight}" />
-    <SolidColorBrush x:Key="ListSelectedBorderBrush" Color="{StaticResource BaseBorderColorLight}" />
 </ResourceDictionary>

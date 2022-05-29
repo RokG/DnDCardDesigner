@@ -20,8 +20,8 @@
             <!--  border over entire combobox  -->
             <Border x:Name="Border"
                 Grid.ColumnSpan="2"
-                Background="{StaticResource ControlBackgroundBrush}"
-                BorderBrush="{StaticResource ControlBorderBrush}"
+                Background="{StaticResource ButtonNormalBGND}"
+                BorderBrush="{StaticResource ButtonNormalBRDR}"
                 BorderThickness="1"
                 CornerRadius="2" />
             <!--  Border over text  -->
@@ -36,7 +36,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Data="M 0 0 L 6 6 L 12 0 Z"
-                Fill="{StaticResource ControlForegroundBrush}" />
+                Fill="{StaticResource ButtonNormalFGND}" />
         </Grid>
     </ControlTemplate>
 
@@ -51,7 +51,7 @@
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Margin" Value="4" />
         <Setter Property="MinWidth" Value="120" />
-        <Setter Property="Foreground" Value="{StaticResource ControlForegroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ListItemSelectedFGND}" />
         <Setter Property="MinHeight" Value="20" />
         <Setter Property="Template">
             <Setter.Value>
@@ -64,7 +64,7 @@
                             IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                             Template="{StaticResource ComboBoxToggleButton}" />
                         <ContentPresenter x:Name="ContentSite"
-                            Margin="6,3,23,3"
+                            Margin="6,3,40,3"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding SelectionBoxItem}"
@@ -88,8 +88,8 @@
                                 Background="Transparent"
                                 SnapsToDevicePixels="True">
                                 <Border x:Name="DropDownBorder"
-                                    Background="{StaticResource ControlBackgroundBrush}"
-                                    BorderBrush="{StaticResource ControlForegroundBrush}"
+                                    Background="{StaticResource ListAreaBGND}"
+                                    BorderBrush="{StaticResource ListAreaBRDR}"
                                     BorderThickness="1" />
                                 <ScrollViewer
                                     Margin="4,6,4,6"
@@ -125,7 +125,8 @@
     </Style>
 
     <Style TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="Foreground" Value="{StaticResource ListForegroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ListItemNormalFGND}" />
+        <Setter Property="Background" Value="{StaticResource ListItemNormalBGND}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Margin" Value="4,2" />
         <Setter Property="Template">
@@ -133,25 +134,28 @@
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Border x:Name="Border"
                         Padding="2"
-                        BorderThickness="0,0,0,1"
+                        Background="{StaticResource ListItemNormalBGND}"
+                        BorderBrush="{StaticResource ListItemNormalFGND}"
+                        BorderThickness="0"
                         SnapsToDevicePixels="true">
                         <ContentPresenter />
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemHighlightBGND}" />
+                            <Setter Property="Foreground" Value="{StaticResource ListItemHighlightFGND}" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                            <Setter Property="Margin" Value="6,2" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource ListItemSelectedFGND}" />
+                            <Setter Property="Margin" Value="8,2" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource ListHighlightForegroundBrush}" />
-                <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="Margin" Value="6,2" />
-            </Trigger>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource ListHighlightForegroundBrush}" />
-                <Setter Property="Margin" Value="8,2" />
-                <Setter Property="FontWeight" Value="Bold" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
     <!--  Listbox style  -->
@@ -169,8 +173,8 @@
                 <ControlTemplate TargetType="ListBox">
                     <Border
                         Name="Border"
-                        Background="{StaticResource ListBackgroundBrush}"
-                        BorderBrush="{StaticResource ListBorderBrush}"
+                        Background="{StaticResource ListAreaBGND}"
+                        BorderBrush="{StaticResource ListAreaBRDR}"
                         BorderThickness="1"
                         CornerRadius="2">
                         <ScrollViewer
@@ -193,7 +197,9 @@
 
     <Style TargetType="{x:Type ListBoxItem}">
         <Setter Property="Margin" Value="4,2" />
-        <Setter Property="Foreground" Value="{StaticResource ListForegroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ListItemNormalFGND}" />
+        <Setter Property="Background" Value="{StaticResource ListItemNormalBGND}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ListItemNormalBRDR}" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
@@ -201,43 +207,44 @@
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="Border"
                         Padding="2"
+                        Background="{StaticResource ListItemNormalBGND}"
+                        BorderBrush="{StaticResource ListItemNormalFGND}"
                         BorderThickness="0"
                         SnapsToDevicePixels="true">
-                        <Border.Background>
-                            <SolidColorBrush Color="Transparent" />
-                        </Border.Background>
                         <ContentPresenter />
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemHighlightBGND}" />
+                            <Setter Property="Foreground" Value="{StaticResource ListItemHighlightFGND}" />
+                            <Setter Property="Margin" Value="6,2" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource ListItemSelectedFGND}" />
+                            <Setter Property="Margin" Value="8,2" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource ListHighlightForegroundBrush}" />
-                <Setter Property="Margin" Value="6,2" />
-                <Setter Property="FontWeight" Value="SemiBold" />
-            </Trigger>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource ListHighlightForegroundBrush}" />
-                <Setter Property="Margin" Value="8,2" />
-                <Setter Property="FontWeight" Value="Bold" />
-            </Trigger>
-        </Style.Triggers>
+
     </Style>
 
     <!--  Tab style  -->
 
     <Style TargetType="{x:Type TabControl}">
         <Setter Property="Margin" Value="4" />
-        <Setter Property="Background" Value="{StaticResource ListHighlightBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource ListHighlightForegroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ListHighlightBorderBrush}" />
+        <Setter Property="Background" Value="{StaticResource ListAreaBGND}" />
+        <Setter Property="Foreground" Value="{StaticResource ListAreaFGND}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ListAreaBRDR}" />
     </Style>
 
     <Style TargetType="{x:Type TabItem}">
-        <Setter Property="Background" Value="{StaticResource ListBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource ListForegroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ListBorderBrush}" />
+        <Setter Property="Background" Value="{StaticResource ListItemNormalBGND}" />
+        <Setter Property="Foreground" Value="{StaticResource ListItemNormalFGND}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ListItemNormalBRDR}" />
         <Setter Property="FontSize" Value="18" />
         <Setter Property="Padding" Value="6" />
         <Setter Property="Template">
@@ -247,7 +254,7 @@
                         <Border
                             Name="Border"
                             Margin="2,2,2,0"
-                            Background="{StaticResource ListBackgroundBrush}"
+                            Background="{StaticResource ListAreaBGND}"
                             BorderThickness="1,1,1,0"
                             CornerRadius="8,8,0,0">
                             <ContentPresenter
@@ -259,17 +266,16 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListHighlightBackgroundBrush}" />
-                            <Setter Property="Foreground" Value="{StaticResource ListHighlightForegroundBrush}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ListHighlightBorderBrush}" />
-                            <Setter Property="FontWeight" Value="SemiBold" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemHighlightBGND}" />
+                            <Setter Property="Foreground" Value="{StaticResource ListItemHighlightFGND}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ListItemHighlightBRDR}" />
                             <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListSelectedBackgroundBrush}" />
-                            <Setter Property="Foreground" Value="{StaticResource ListSelectedForegroundBrush}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ListSelectedBorderBrush}" />
-                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemSelectedBGND}" />
+                            <Setter Property="Foreground" Value="{StaticResource ListItemSelectedFGND}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ListItemSelectedBRDR}" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
                             <Setter TargetName="Border" Property="Margin" Value="0" />
                         </Trigger>
                     </ControlTemplate.Triggers>

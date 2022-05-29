@@ -4,7 +4,7 @@
     xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    BorderBrush="{StaticResource BaseBorderBrush}"
+    BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
         <ObjectDataProvider x:Key="EnumDataSource"
