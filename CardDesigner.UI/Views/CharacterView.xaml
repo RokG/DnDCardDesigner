@@ -31,6 +31,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Character: " />
                         <ComboBox
+                            Width="100" Height="40"
                             ItemsSource="{Binding AllCharacters}"
                             SelectedItem="{Binding SelectedCharacter}">
                             <ComboBox.ItemTemplate>
