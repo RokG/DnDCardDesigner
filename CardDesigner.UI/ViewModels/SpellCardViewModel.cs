@@ -68,21 +68,22 @@ namespace CardDesigner.UI.ViewModels
             };
 
             AddCardCommand = new AddCardCommand(this, cardDesignerStore);
-            CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
+            //CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
             CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
-            //DoNavigateCommand = new NavigateCommand(navigationService);
+        //DoNavigateCommand = new NavigateCommand(navigationService);
 
-            // Temporary: Create a testing character
-            CharacterModel characterModel = new CharacterModel() { Name = RandomString(6) };
-            SpellDeckModel spellDeckModel = new SpellDeckModel() { Name = RandomString(6) };
-            spellDeckModel.SpellCards = new List<SpellCardModel>();
-            for (int i = 0; i < 10; i++)
-            {
-                spellDeckModel.SpellCards.Add(new SpellCardModel() { Name = RandomString(6) });
+        //Temporary: Create a testing character
 
-            }
-            characterModel.SpellDeck = spellDeckModel;
-            cardDesignerStore.CreateCharacter(characterModel);
+            //CharacterModel characterModel = new CharacterModel() { Name = RandomString(6) };
+            //SpellDeckModel spellDeckModel = new SpellDeckModel() { Name = RandomString(6) };
+            //spellDeckModel.SpellCards = new List<SpellCardModel>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    spellDeckModel.SpellCards.Add(new SpellCardModel() { Name = RandomString(6) });
+
+            //}
+            //characterModel.SpellDeck = spellDeckModel;
+            //cardDesignerStore.CreateCharacter(characterModel);
         }
 
         #endregion

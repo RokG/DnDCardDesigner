@@ -31,7 +31,9 @@
 
                     <controls:AddEditItem
                         Title="Characters"
+                        AddedItemName="{Binding AddedItemName, Mode=TwoWay}"
                         ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
+                        SaveCommand="{Binding CreateCharacterCommand}"
                         SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}" />
 
                     <Label Content="Spell deck: " />

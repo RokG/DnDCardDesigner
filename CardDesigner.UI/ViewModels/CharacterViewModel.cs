@@ -1,7 +1,8 @@
 ﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
-using System.Collections.Generic;
+using CardDesigner.UI.Commands;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -15,6 +16,13 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Properties
+
+        private string _addedItemName;
+        public string AddedItemName
+        {
+            get => _addedItemName;
+            set => SetProperty(ref _addedItemName, value);
+        }
 
         private CharacterModel _selectedCharacter;
         public CharacterModel SelectedCharacter
@@ -71,6 +79,7 @@ namespace CardDesigner.UI.ViewModels
         #region Actions, Events, Commands
 
         public ICommand DoNavigateCommand { get; }
+        public ICommand CreateCharacterCommand { get; }
 
         #endregion Actions, Events, Commands
 
@@ -81,6 +90,7 @@ namespace CardDesigner.UI.ViewModels
             Name = nameof(CharacterViewModel).Replace("ViewModel", "");
 
             _cardDesignerStore = cardDesignerStore;
+            CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
         }
 
         #endregion

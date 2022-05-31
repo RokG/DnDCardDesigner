@@ -1,7 +1,9 @@
 ﻿using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,6 +20,16 @@ namespace CardDesigner.UI.Controls
             InitializeComponent();
         }
 
+        public bool IsEditEnabled
+        {
+            get { return (bool)GetValue(IsEditEnabledProperty); }
+            set { SetValue(IsEditEnabledProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsEditEnabled.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsEditEnabledProperty =
+            DependencyProperty.Register(nameof(IsEditEnabled), typeof(bool), typeof(AddEditItem), new PropertyMetadata(false));
+
         public Visibility EditMode
         {
             get => (Visibility)GetValue(EditModeProperty);
@@ -27,32 +39,32 @@ namespace CardDesigner.UI.Controls
         public static readonly DependencyProperty EditModeProperty =
             DependencyProperty.Register(nameof(EditMode), typeof(Visibility), typeof(AddEditItem), new PropertyMetadata(Visibility.Collapsed));
 
-        public ObservableCollection<CharacterModel> ItemsSource
+        public ObservableCollection<ISelectableItem> ItemsSource
         {
-            get => (ObservableCollection<CharacterModel>)GetValue(ListOfObjectsProperty);
+            get => (ObservableCollection<ISelectableItem>)GetValue(ListOfObjectsProperty);
             set => SetValue(ListOfObjectsProperty, value);
         }
 
         public static readonly DependencyProperty ListOfObjectsProperty =
-            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<CharacterModel>), typeof(AddEditItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<ISelectableItem>), typeof(AddEditItem), new PropertyMetadata(null));
 
-        public CharacterModel SelectedItem
+        public ISelectableItem SelectedItem
         {
-            get => (CharacterModel)GetValue(SelectedItemProperty);
+            get => (ISelectableItem)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
 
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register(nameof(SelectedItem), typeof(CharacterModel), typeof(AddEditItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectedItem), typeof(ISelectableItem), typeof(AddEditItem), new PropertyMetadata(null));
 
-        public string PlaceholderText
+        public string AddedItemName
         {
             get => (string)GetValue(PlaceholderTextProperty);
             set => SetValue(PlaceholderTextProperty, value);
         }
 
         public static readonly DependencyProperty PlaceholderTextProperty =
-            DependencyProperty.Register(nameof(PlaceholderText), typeof(string), typeof(AddEditItem), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register(nameof(AddedItemName), typeof(string), typeof(AddEditItem), new PropertyMetadata(string.Empty));
 
         public ICommand SaveCommand
         {
@@ -79,17 +91,25 @@ namespace CardDesigner.UI.Controls
             EditMode = Visibility.Visible;
             if (sender == EditButton)
             {
-                PlaceholderText = SelectedItem.Name;
+                AddedItemName = SelectedItem.Name;
             }
             if (sender == AddButton)
             {
-                PlaceholderText = string.Empty;
+                AddedItemName = string.Empty;
             }
         }
 
         private void CloseEditMode(object sender, RoutedEventArgs e)
         {
             EditMode = Visibility.Collapsed;
+        }
+
+        private void SourceItemControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelectedItem != null)
+            {
+                IsEditEnabled = true;
+            }
         }
     }
 }
