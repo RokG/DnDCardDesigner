@@ -17,8 +17,8 @@
         <ComboBox x:Name="SourceItemControl"
             Height="40"
             DisplayMemberPath="Name"
-            ItemsSource="{Binding ItemsSource, ElementName=AddEditItemControl, Mode=TwoWay}"
-            SelectedItem="{Binding SelectedItem, ElementName=AddEditItemControl, Mode=TwoWay}"
+            ItemsSource="{Binding ItemsSource, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding SelectedItem, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             SelectionChanged="SourceItemControl_SelectionChanged" />
         <StackPanel
             Orientation="Horizontal"

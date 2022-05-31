@@ -10,19 +10,19 @@ namespace CardDesigner.UI.Commands
 {
     public class CreateSpellDeckCommand : CommandBase
     {
-        private readonly SpellCardViewModel _cardCreatorViewModel;
+        private readonly CharacterViewModel _characterViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public CreateSpellDeckCommand(SpellCardViewModel cardCreatorViewModel, CardDesignerStore cardDesignerStore)
+        public CreateSpellDeckCommand(CharacterViewModel characterViewModel, CardDesignerStore cardDesignerStore)
         {
-            _cardCreatorViewModel = cardCreatorViewModel;
+            _characterViewModel = characterViewModel;
             _cardDesignerStore = cardDesignerStore;
-            _cardCreatorViewModel.PropertyChanged += PropertyChangedEventHandle;
+            _characterViewModel.PropertyChanged += PropertyChangedEventHandle;
         }
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(SpellCardViewModel.MagicSchoolType))
+            if (e.PropertyName == nameof(CharacterViewModel.AddedSpellDeckName))
             {
                 OnCanExecuteChanged();
             }
@@ -30,19 +30,13 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _cardCreatorViewModel.MagicSchoolType == MagicSchool.Abjuration && base.CanExecute(parameter);
-            //return true;
+            return _characterViewModel.AddedSpellDeckName != string.Empty
+                && !_characterViewModel.AllSpellDecks.Where(c => c.Name == _characterViewModel.AddedSpellDeckName).Any();
         }
 
         public override void Execute(object parameter)
         {
-            _cardCreatorViewModel.AddRandomDeck();
-            _cardCreatorViewModel.AddRandomCardToDeck();
-            _cardCreatorViewModel.AddRandomCardToDeck();
-            _cardCreatorViewModel.AddRandomCardToDeck();
-            _cardDesignerStore.CreateSpellDeck(_cardCreatorViewModel.SelectedSpellDeck);
+            _cardDesignerStore.CreateSpellDeck(new SpellDeckModel() { Name = _characterViewModel.AddedSpellDeckName });
         }
-
-        
     }
 }

@@ -17,13 +17,20 @@ namespace CardDesigner.UI.ViewModels
 
         #region Properties
 
-        private string _addedItemName;
-        public string AddedItemName
+        private string _addedCharacterName;
+        public string AddedCharacterName
         {
-            get => _addedItemName;
-            set => SetProperty(ref _addedItemName, value);
+            get => _addedCharacterName;
+            set => SetProperty(ref _addedCharacterName, value);
         }
 
+        private string _addedSpellDeckName;
+        public string AddedSpellDeckName
+        {
+            get => _addedSpellDeckName;
+            set => SetProperty(ref _addedSpellDeckName, value);
+
+        }
         private CharacterModel _selectedCharacter;
         public CharacterModel SelectedCharacter
         {
@@ -31,10 +38,9 @@ namespace CardDesigner.UI.ViewModels
             set
             {
                 SetProperty(ref _selectedCharacter, value);
-                if (SelectedCharacter.SpellDeck != null)
+                if (value.SpellDeck != null)
                 {
-                    SelectedSpellDeck = SelectedCharacter.SpellDeck;
-                    SelectedSpellDeckCards = new ObservableCollection<SpellCardModel>(SelectedCharacter.SpellDeck.SpellCards);
+                    SelectedSpellDeck = AllSpellDecks.Where(s => s.ID == value.SpellDeck.ID).FirstOrDefault();
                 }
             }
         }
@@ -43,7 +49,11 @@ namespace CardDesigner.UI.ViewModels
         public SpellDeckModel SelectedSpellDeck
         {
             get => _selectedSpellDeck;
-            set => SetProperty(ref _selectedSpellDeck, value);
+            set
+            {
+                SetProperty(ref _selectedSpellDeck, value);
+                SelectedSpellDeckCards = new ObservableCollection<SpellCardModel>(value.SpellCards);
+            }
         }
 
         private ObservableCollection<SpellCardModel> _selectedSpellDeckCards;
@@ -80,6 +90,7 @@ namespace CardDesigner.UI.ViewModels
 
         public ICommand DoNavigateCommand { get; }
         public ICommand CreateCharacterCommand { get; }
+        public ICommand CreateSpellDeckCommand { get; }
 
         #endregion Actions, Events, Commands
 
@@ -91,6 +102,7 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
             CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
+            CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
         }
 
         #endregion

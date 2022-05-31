@@ -22,7 +22,7 @@ namespace CardDesigner.UI.Commands
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CharacterViewModel.AddedItemName))
+            if (e.PropertyName == nameof(CharacterViewModel.AddedCharacterName))
             {
                 OnCanExecuteChanged();
             }
@@ -30,14 +30,21 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _characterViewModel.AddedItemName != string.Empty
-                && !_characterViewModel.AllCharacters.Where(c=>c.Name == _characterViewModel.AddedItemName).Any();
+            return _characterViewModel.AddedCharacterName != string.Empty
+                && !_characterViewModel.AllCharacters.Where(c=>c.Name == _characterViewModel.AddedCharacterName).Any();
         }
 
         public override void Execute(object parameter)
         {
             Debug.WriteLine("Added Character");
-            _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = _characterViewModel.AddedItemName });
+            _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = _characterViewModel.AddedCharacterName });
+
+            //_cardDesignerStore.Load();
+
+            //_characterViewModel.AllCharacters = new(_cardDesignerStore.Characters);
+            //_characterViewModel.AllSpellCards = new(_cardDesignerStore.SpellCards);
+            //_characterViewModel.AllSpellDecks = new(_cardDesignerStore.SpellDecks);
+
         }
     }
 }

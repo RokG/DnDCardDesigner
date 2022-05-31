@@ -104,7 +104,7 @@ namespace CardDesigner.UI.Controls
             EditMode = Visibility.Collapsed;
         }
 
-        private void SourceItemControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+                private void SourceItemControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SelectedItem != null)
             {

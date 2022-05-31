@@ -31,13 +31,21 @@
 
                     <controls:AddEditItem
                         Title="Characters"
-                        AddedItemName="{Binding AddedItemName, Mode=TwoWay}"
+                        Margin="0,20"
+                        AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
                         ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
                         SaveCommand="{Binding CreateCharacterCommand}"
                         SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}" />
 
-                    <Label Content="Spell deck: " />
-                    <Label Content="{Binding SelectedSpellDeck.Name}" />
+                    <controls:AddEditItem
+                        Title="Spell Deck"
+                        Margin="0,20"
+                        AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
+                        ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
+                        SaveCommand="{Binding CreateSpellDeckCommand}"
+                        SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}" />
+
+                    <Button Content="Assign deck to character" />
 
                     <Border BorderThickness="0,0,0,3" />
 

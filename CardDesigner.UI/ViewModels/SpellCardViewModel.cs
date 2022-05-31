@@ -69,7 +69,7 @@ namespace CardDesigner.UI.ViewModels
 
             AddCardCommand = new AddCardCommand(this, cardDesignerStore);
             //CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
-            CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
+            //CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
         //DoNavigateCommand = new NavigateCommand(navigationService);
 
         //Temporary: Create a testing character
