@@ -42,6 +42,10 @@ namespace CardDesigner.UI.ViewModels
                 {
                     SelectedSpellDeck = AllSpellDecks.Where(s => s.ID == value.SpellDeck.ID).FirstOrDefault();
                 }
+                else
+                {
+                    SelectedSpellDeck = null;
+                }
             }
         }
 
@@ -52,7 +56,14 @@ namespace CardDesigner.UI.ViewModels
             set
             {
                 SetProperty(ref _selectedSpellDeck, value);
-                SelectedSpellDeckCards = new ObservableCollection<SpellCardModel>(value.SpellCards);
+                if (value != null)
+                {
+                    SelectedSpellDeckCards = new ObservableCollection<SpellCardModel>(value.SpellCards);
+                }
+                else
+                {
+                    SelectedSpellDeckCards = null;
+                }
             }
         }
 
