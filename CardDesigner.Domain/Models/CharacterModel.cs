@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using CardDesigner.Domain.Interfaces;
+using System.Collections.Generic;
 
 namespace CardDesigner.Domain.Models
 {
-    public class CharacterModel
+    public class CharacterModel : ISelectableItem
     {
         public int ID { get; set; }
 

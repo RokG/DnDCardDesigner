@@ -1,8 +1,9 @@
 ﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Interfaces;
 
 namespace CardDesigner.Domain.Models
 {
-    public class SpellCardModel : ICard, ISpell
+    public class SpellCardModel : ICard, ISpell, ISelectableItem
     {
         public int ID { get; set; }
         public string Title { get; set; } = string.Empty;

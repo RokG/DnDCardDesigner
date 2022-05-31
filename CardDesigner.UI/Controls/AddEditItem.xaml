@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="CardDesigner.UI.Controls.AddEditItem" x:Name="AddEditItemControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CardDesigner.UI.Controls">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2v" />
+    </UserControl.Resources>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="{Binding Title, ElementName=AddEditItemControl}" />
+            <Button x:Name="AddButton"
+                Click="OpenEditMode"
+                Content="New" />
+            <Button x:Name="EditButton"
+                Click="OpenEditMode"
+                Content="Edit" />
+        </StackPanel>
+        <ComboBox x:Name="dgv"
+            Height="40"
+            DisplayMemberPath="Name"
+            ItemsSource="{Binding ItemsSource, ElementName=AddEditItemControl, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedItem, ElementName=AddEditItemControl, Mode=TwoWay}" />
+        <StackPanel
+            Orientation="Horizontal"
+            Visibility="{Binding EditMode, ElementName=AddEditItemControl}">
+            <TextBox Text="{Binding PlaceholderText, ElementName=AddEditItemControl}" />
+            <Button x:Name="SaveButton"
+                Click="CloseEditMode"
+                Command="{Binding SaveCommand, ElementName=AddEditItemControl}"
+                Content="Save" />
+            <Button
+                Click="CloseEditMode"
+                Content="Cancel" />
+        </StackPanel>
+        <Border BorderThickness="0,0,0,3" />
+    </StackPanel>
+</UserControl>
