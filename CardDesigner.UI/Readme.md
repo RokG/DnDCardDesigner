@@ -9,3 +9,9 @@
 - HostBuilder:
 -- AddNavigationServiceExtension: register navigation service, take other veiw models as example
 -- AddViewModelsExtension: Add Transient, Singleton and static method, like for existing ViewModels
+
+# Creating commands
+- Commands: Create new class similar to other command classes
+-- Update PropertyChangedEventHandle method
+-- Update CanExecute method
+-- Update Execute method

@@ -12,6 +12,7 @@ namespace CardDesigner.Domain.Stores
 
         private readonly ICharacterCreator _characterCreator;
         private readonly ICharacterProvider _characterProvider;
+        private readonly ICharacterEditor _characterUpdater;
         private readonly ISpellCardCreator _spellCardCreator;
         private readonly ISpellCardProvider _spellCardProvider;
         private readonly ISpellDeckCreator _spellDeckCreator;
@@ -34,6 +35,7 @@ namespace CardDesigner.Domain.Stores
         /// <param name="spellCardProvider"></param>
         public CardDesignerStore(
             ICharacterCreator characterCreator,
+            ICharacterEditor characterUpdater,
             ICharacterProvider characterProvider,
             ISpellCardCreator spellCardCreator,
             ISpellCardProvider spellCardProvider,
@@ -42,6 +44,7 @@ namespace CardDesigner.Domain.Stores
         {
             _characterCreator = characterCreator;
             _characterProvider = characterProvider;
+            _characterUpdater = characterUpdater;
             _spellCardCreator = spellCardCreator;
             _spellCardProvider = spellCardProvider;
             _spellDeckCreator = spellDeckCreator;
@@ -87,6 +90,11 @@ namespace CardDesigner.Domain.Stores
         public async Task CreateCharacter(CharacterModel character)
         {
             await _characterCreator.CreateCharacter(character);
+        }
+
+        public async Task UpdateCharacter(CharacterModel character)
+        {
+            await _characterUpdater.UpdateCharacter(character);
         }
 
         #endregion

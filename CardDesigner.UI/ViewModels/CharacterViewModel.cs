@@ -102,6 +102,7 @@ namespace CardDesigner.UI.ViewModels
         public ICommand DoNavigateCommand { get; }
         public ICommand CreateCharacterCommand { get; }
         public ICommand CreateSpellDeckCommand { get; }
+        public ICommand UpdateCharacterCommand { get; }
 
         #endregion Actions, Events, Commands
 
@@ -114,6 +115,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
             CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
+            CreateCharacterCommand = new AddDeckToCharacterCommand(this, cardDesignerStore);
         }
 
         #endregion

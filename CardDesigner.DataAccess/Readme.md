@@ -13,4 +13,4 @@ Adding Creator/Provider services
 -- Add Service Interfaces to Domain project
 -- Add Service Classes to DataAccess project
 -- Implement newly added Services to Domain project Store
--- Implement newly added Services to UI project HostBuildee
+-- Implement newly added Services to UI project HostBuilder (AddDatabaseAccess)
