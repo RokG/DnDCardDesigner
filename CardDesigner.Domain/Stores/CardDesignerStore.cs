@@ -26,6 +26,8 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
         public IEnumerable<CharacterModel> Characters => _characters;
 
+        public event Action<CharacterModel> CharacterCreated;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -89,12 +91,19 @@ namespace CardDesigner.Domain.Stores
 
         public async Task CreateCharacter(CharacterModel character)
         {
-            await _characterCreator.CreateCharacter(character);
+            CharacterModel createdCharacter = await _characterCreator.CreateCharacter(character);
+            _characters.Add(createdCharacter);
+            OnCharacterCreated(createdCharacter);
         }
 
         public async Task UpdateCharacter(CharacterModel character)
         {
             await _characterUpdater.UpdateCharacter(character);
+        }
+
+        private void OnCharacterCreated(CharacterModel character)
+        {
+            CharacterCreated?.Invoke(character);
         }
 
         #endregion

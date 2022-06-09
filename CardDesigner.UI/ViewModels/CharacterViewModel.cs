@@ -116,6 +116,8 @@ namespace CardDesigner.UI.ViewModels
             CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
             CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
             UpdateCharacterCommand = new AddDeckToCharacterCommand(this, cardDesignerStore);
+
+            _cardDesignerStore.CharacterCreated += OnCharacterCreated;
         }
 
         #endregion
@@ -141,6 +143,11 @@ namespace CardDesigner.UI.ViewModels
             AllCharacters = new(_cardDesignerStore.Characters);
             AllSpellCards = new(_cardDesignerStore.SpellCards);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
+        }
+
+        private void OnCharacterCreated(CharacterModel character)
+        {
+            AllCharacters.Add(character);
         }
 
         #endregion
