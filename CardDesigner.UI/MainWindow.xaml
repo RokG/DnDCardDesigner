@@ -36,17 +36,22 @@
                 <Button
                     Height="60"
                     Command="{Binding CharacterNavigationCommand}"
-                    Content="Card deck overview"
-                    DockPanel.Dock="Top" />
-                <Button
-                    Height="60"
-                    Command="{Binding SpellCardNavigationCommand}"
-                    Content="Spell card designer"
+                    Content="Character overview"
                     DockPanel.Dock="Top" />
                 <Button
                     Height="60"
                     Command="{Binding ItemCardNavigationCommand}"
-                    Content="Item card desginer"
+                    Content="Character creator"
+                    DockPanel.Dock="Top" />
+                <Button
+                    Height="60"
+                    Command="{Binding SpellCardNavigationCommand}"
+                    Content="Card creator"
+                    DockPanel.Dock="Top" />
+                <Button
+                    Height="60"
+                    Command="{Binding ItemCardNavigationCommand}"
+                    Content="Deck creator"
                     DockPanel.Dock="Top" />
                 <Grid
                     Background="Transparent"

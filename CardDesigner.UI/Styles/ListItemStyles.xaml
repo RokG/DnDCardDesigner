@@ -51,6 +51,7 @@
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Margin" Value="4" />
         <Setter Property="MinWidth" Value="120" />
+        <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="Foreground" Value="{StaticResource ListItemSelectedFGND}" />
         <Setter Property="MinHeight" Value="20" />
         <Setter Property="Template">
@@ -236,15 +237,45 @@
 
     <Style TargetType="{x:Type TabControl}">
         <Setter Property="Margin" Value="4" />
-        <Setter Property="Background" Value="{StaticResource ListAreaBGND}" />
-        <Setter Property="Foreground" Value="{StaticResource ListAreaFGND}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ListAreaBRDR}" />
+        <Setter Property="Background" Value="{StaticResource TabItemSelectedBGND}" />
+        <Setter Property="BorderBrush" Value="{StaticResource TabItemNormalBRDR}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <Grid UseLayoutRounding="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="31" />
+                            <RowDefinition Height="1" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TabPanel
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Panel.ZIndex="1"
+                            IsItemsHost="True" />
+                        <Border
+                            Grid.Row="1"
+                            Grid.RowSpan="2"
+                            Panel.ZIndex="0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="0,5,5,5">
+                            <ContentPresenter
+                                Margin="4"
+                                ContentSource="SelectedContent" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
     </Style>
 
     <Style TargetType="{x:Type TabItem}">
-        <Setter Property="Background" Value="{StaticResource ListItemNormalBGND}" />
-        <Setter Property="Foreground" Value="{StaticResource ListItemNormalFGND}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ListItemNormalBRDR}" />
+        <Setter Property="Background" Value="{StaticResource TabItemNormalBGND}" />
+        <Setter Property="Foreground" Value="{StaticResource TabItemNormalFGND}" />
+        <Setter Property="BorderBrush" Value="{StaticResource TabItemNormalBRDR}" />
         <Setter Property="FontSize" Value="18" />
         <Setter Property="Padding" Value="6" />
         <Setter Property="Template">
@@ -253,8 +284,8 @@
                     <Grid>
                         <Border
                             Name="Border"
-                            Margin="2,2,2,0"
-                            Background="{StaticResource ListAreaBGND}"
+                            Margin="0,2,2,0"
+                            Background="{StaticResource TabAreaBGND}"
                             BorderThickness="1,1,1,0"
                             CornerRadius="8,8,0,0">
                             <ContentPresenter
@@ -266,15 +297,15 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemHighlightBGND}" />
-                            <Setter Property="Foreground" Value="{StaticResource ListItemHighlightFGND}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ListItemHighlightBRDR}" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource TabItemHighlightBGND}" />
+                            <Setter Property="Foreground" Value="{StaticResource TabItemHighlightFGND}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TabItemHighlightBRDR}" />
                             <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemSelectedBGND}" />
-                            <Setter Property="Foreground" Value="{StaticResource ListItemSelectedFGND}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ListItemSelectedBRDR}" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource TabItemSelectedBGND}" />
+                            <Setter Property="Foreground" Value="{StaticResource TabItemSelectedFGND}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TabItemSelectedBRDR}" />
                             <Setter Property="FontWeight" Value="SemiBold" />
                             <Setter TargetName="Border" Property="Margin" Value="0" />
                         </Trigger>

@@ -69,5 +69,26 @@
     <SolidColorBrush x:Key="ListItemSelectedFGND" Color="{StaticResource Color303}" />
     <SolidColorBrush x:Key="ListItemSelectedBRDR" Color="{StaticResource Color203}" />
 
+    <!--  Tab colors  -->
+    <SolidColorBrush x:Key="TabAreaBGND" Color="{StaticResource Color203}" />
+    <SolidColorBrush x:Key="TabAreaFGND" Color="{StaticResource ThemeColorNORM}" />
+    <SolidColorBrush x:Key="TabAreaBRDR" Color="{StaticResource Color101}" />
+
+    <SolidColorBrush x:Key="TabItemDisabledBGND" Color="{StaticResource Unimplemented}" />
+    <SolidColorBrush x:Key="TabItemDisabledFGND" Color="{StaticResource ThemeColorDARK}" />
+    <SolidColorBrush x:Key="TabItemDisabledBRDR" Color="{StaticResource Unimplemented}" />
+
+    <SolidColorBrush x:Key="TabItemNormalBGND" Color="{StaticResource Color203}" />
+    <SolidColorBrush x:Key="TabItemNormalFGND" Color="{StaticResource Color101}" />
+    <SolidColorBrush x:Key="TabItemNormalBRDR" Color="{StaticResource Color201}" />
+
+    <SolidColorBrush x:Key="TabItemHighlightBGND" Color="{StaticResource Color203}" />
+    <SolidColorBrush x:Key="TabItemHighlightFGND" Color="{StaticResource Color303}" />
+    <SolidColorBrush x:Key="TabItemHighlightBRDR" Color="{StaticResource Color202}" />
+
+    <SolidColorBrush x:Key="TabItemSelectedBGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="TabItemSelectedFGND" Color="{StaticResource Color303}" />
+    <SolidColorBrush x:Key="TabItemSelectedBRDR" Color="{StaticResource Color101}" />
+
     <!--  Color brushes  -->
 </ResourceDictionary>

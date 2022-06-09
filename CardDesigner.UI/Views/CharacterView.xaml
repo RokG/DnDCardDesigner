@@ -13,9 +13,12 @@
 
         <!--  header area  -->
         <Border BorderThickness="0,0,0,1">
-            <Label
-                Content="Character card deck overview"
-                FontSize="32" />
+            <StackPanel>
+                <Label
+                    Content="Character overview"
+                    FontSize="32" />
+                <Label Content="View Characters, Decks and Card styles. Assign Decks to Characters" />
+            </StackPanel>
         </Border>
 
         <!--  body area  -->
@@ -47,16 +50,17 @@
                         Command="{Binding UpdateCharacterCommand}"
                         Content="Assign deck to character" />
 
-                    <Border BorderThickness="0,0,0,3" />
-
-                    <Label Content="Cards in deck : " />
-                    <ListBox
-                        Grid.Row="2"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding SelectedSpellDeckCards}" />
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label Content="Cards in deck : " />
+                            <ListBox
+                                Grid.Row="2"
+                                MinHeight="200"
+                                DisplayMemberPath="Name"
+                                ItemsSource="{Binding SelectedSpellDeckCards}" />
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
-
-                <!--  Character overview  -->
 
                 <!--  Card overview  -->
                 <TabControl Grid.Column="1">
