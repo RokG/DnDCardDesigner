@@ -36,8 +36,8 @@
     <SolidColorBrush x:Key="ButtonNormalFGND" Color="{StaticResource ThemeColorNORM}" />
     <SolidColorBrush x:Key="ButtonNormalBRDR" Color="{StaticResource ThemeColorDARK}" />
 
-    <SolidColorBrush x:Key="ButtonDisabledBGND" Color="{StaticResource Color102}" />
-    <SolidColorBrush x:Key="ButtonDisabledFGND" Color="{StaticResource Color103}" />
+    <SolidColorBrush x:Key="ButtonDisabledBGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="ButtonDisabledFGND" Color="{StaticResource Color101}" />
     <SolidColorBrush x:Key="ButtonDisabledBRDR" Color="{StaticResource Color101}" />
 
     <SolidColorBrush x:Key="ButtonHighlightBGND" Color="{StaticResource Color202}" />
