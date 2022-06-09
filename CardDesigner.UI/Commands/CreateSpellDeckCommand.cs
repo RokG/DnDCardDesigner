@@ -1,8 +1,6 @@
-﻿using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
-using System;
 using System.ComponentModel;
 using System.Linq;
 

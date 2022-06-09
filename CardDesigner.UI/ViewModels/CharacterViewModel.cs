@@ -115,7 +115,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
             CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
-            CreateCharacterCommand = new AddDeckToCharacterCommand(this, cardDesignerStore);
+            UpdateCharacterCommand = new AddDeckToCharacterCommand(this, cardDesignerStore);
         }
 
         #endregion

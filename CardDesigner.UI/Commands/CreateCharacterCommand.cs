@@ -1,9 +1,7 @@
-﻿using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 
 namespace CardDesigner.UI.Commands
@@ -13,9 +11,9 @@ namespace CardDesigner.UI.Commands
         private readonly CharacterViewModel _characterViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public CreateCharacterCommand(CharacterViewModel viewModel, CardDesignerStore cardDesignerStore)
+        public CreateCharacterCommand(CharacterViewModel characterViewModel, CardDesignerStore cardDesignerStore)
         {
-            _characterViewModel = viewModel;
+            _characterViewModel = characterViewModel;
             _cardDesignerStore = cardDesignerStore;
             _characterViewModel.PropertyChanged += PropertyChangedEventHandle;
         }
@@ -31,12 +29,11 @@ namespace CardDesigner.UI.Commands
         public override bool CanExecute(object parameter)
         {
             return _characterViewModel.AddedCharacterName != string.Empty
-                && !_characterViewModel.AllCharacters.Where(c=>c.Name == _characterViewModel.AddedCharacterName).Any();
+                && !_characterViewModel.AllCharacters.Where(c => c.Name == _characterViewModel.AddedCharacterName).Any();
         }
 
         public override void Execute(object parameter)
         {
-            Debug.WriteLine("Added Character");
             _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = _characterViewModel.AddedCharacterName });
 
             //_cardDesignerStore.Load();

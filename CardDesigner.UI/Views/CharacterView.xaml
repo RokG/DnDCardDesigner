@@ -45,7 +45,9 @@
                         SaveCommand="{Binding CreateSpellDeckCommand}"
                         SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}" />
 
-                    <Button Content="Assign deck to character" Command="{Binding CreateCharacterCommand}" />
+                    <Button
+                        Command="{Binding UpdateCharacterCommand}"
+                        Content="Assign deck to character" />
 
                     <Border BorderThickness="0,0,0,3" />
 
