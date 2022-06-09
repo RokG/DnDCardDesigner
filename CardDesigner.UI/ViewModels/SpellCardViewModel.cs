@@ -5,6 +5,7 @@ using CardDesigner.UI.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -54,7 +55,7 @@ namespace CardDesigner.UI.ViewModels
 
         public SpellCardViewModel(CardDesignerStore cardDesignerStore)
         {
-            Name = nameof(SpellCardViewModel).Replace("ViewModel", "");
+            Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
 
             _cardDesignerStore = cardDesignerStore;
 
@@ -68,22 +69,6 @@ namespace CardDesigner.UI.ViewModels
             };
 
             AddCardCommand = new AddCardCommand(this, cardDesignerStore);
-            //CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
-            //CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
-        //DoNavigateCommand = new NavigateCommand(navigationService);
-
-        //Temporary: Create a testing character
-
-            //CharacterModel characterModel = new CharacterModel() { Name = RandomString(6) };
-            //SpellDeckModel spellDeckModel = new SpellDeckModel() { Name = RandomString(6) };
-            //spellDeckModel.SpellCards = new List<SpellCardModel>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    spellDeckModel.SpellCards.Add(new SpellCardModel() { Name = RandomString(6) });
-
-            //}
-            //characterModel.SpellDeck = spellDeckModel;
-            //cardDesignerStore.CreateCharacter(characterModel);
         }
 
         #endregion

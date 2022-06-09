@@ -27,6 +27,7 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<CharacterModel> Characters => _characters;
 
         public event Action<CharacterModel> CharacterCreated;
+        public event Action<SpellDeckModel> SpellDekcCreated;
 
         /// <summary>
         /// Constructor
@@ -112,9 +113,15 @@ namespace CardDesigner.Domain.Stores
 
         public async Task CreateSpellDeck(SpellDeckModel spellDeck)
         {
-            await _spellDeckCreator.CreateSpellDeck(spellDeck);
+            SpellDeckModel createdSpellDeck = await _spellDeckCreator.CreateSpellDeck(spellDeck);
+            _spellDecks.Add(createdSpellDeck);
+            OnCharacterSpellDeck(createdSpellDeck);
         }
 
+        private void OnCharacterSpellDeck(SpellDeckModel spellDeck)
+        {
+            SpellDekcCreated?.Invoke(spellDeck);
+        }
         #endregion
 
         #region SpellCard methods

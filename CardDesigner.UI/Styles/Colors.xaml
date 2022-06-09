@@ -44,6 +44,9 @@
     <Color x:Key="ThemeColorNORM">#45eebb</Color>
     <Color x:Key="ThemeColorLGHT">#56FFCC</Color>-->
 
+    <SolidColorBrush x:Key="ThemeColorDark" Color="{StaticResource ThemeColorDARK}" />
+    <SolidColorBrush x:Key="ThemeColorNormal" Color="{StaticResource ThemeColorNORM}" />
+    <SolidColorBrush x:Key="ThemeColorLight" Color="{StaticResource ThemeColorLGHT}" />
 
     <!--  Button colors  -->
     <SolidColorBrush x:Key="WindowBackgroundDark" Color="{StaticResource Gray015}" />

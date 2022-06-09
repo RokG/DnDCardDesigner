@@ -3,6 +3,7 @@ using CardDesigner.Domain.Stores;
 using CardDesigner.UI.Commands;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -110,7 +111,7 @@ namespace CardDesigner.UI.ViewModels
 
         public CharacterViewModel(CardDesignerStore cardDesignerStore)
         {
-            Name = nameof(CharacterViewModel).Replace("ViewModel", "");
+            Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
 
             _cardDesignerStore = cardDesignerStore;
             CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
@@ -118,6 +119,7 @@ namespace CardDesigner.UI.ViewModels
             UpdateCharacterCommand = new AddDeckToCharacterCommand(this, cardDesignerStore);
 
             _cardDesignerStore.CharacterCreated += OnCharacterCreated;
+            _cardDesignerStore.SpellDekcCreated += OnSpellDeckCreated;
         }
 
         #endregion
@@ -148,8 +150,14 @@ namespace CardDesigner.UI.ViewModels
         private void OnCharacterCreated(CharacterModel character)
         {
             AllCharacters.Add(character);
+            SelectedCharacter = character;
         }
 
+        private void OnSpellDeckCreated(SpellDeckModel spellDeck)
+        {
+            AllSpellDecks.Add(spellDeck);
+            SelectedSpellDeck = spellDeck;
+        }
         #endregion
     }
 }

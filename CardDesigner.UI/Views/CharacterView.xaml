@@ -31,7 +31,6 @@
 
                     <controls:AddEditItem
                         Title="Characters"
-                        Margin="0,20"
                         AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
                         ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
                         SaveCommand="{Binding CreateCharacterCommand}"
@@ -39,7 +38,6 @@
 
                     <controls:AddEditItem
                         Title="Spell Deck"
-                        Margin="0,20"
                         AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
                         ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
                         SaveCommand="{Binding CreateSpellDeckCommand}"

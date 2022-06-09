@@ -1,6 +1,7 @@
 ﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -33,7 +34,7 @@ namespace CardDesigner.UI.ViewModels
 
         public ItemCardViewModel(CardDesignerStore cardDesignerStore)
         {
-            Name = nameof(ItemCardViewModel).Replace("ViewModel", "");
+            Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
         }
 
         #endregion

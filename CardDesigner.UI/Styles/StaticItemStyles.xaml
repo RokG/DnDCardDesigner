@@ -21,6 +21,15 @@
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
+    <Style x:Key="HeaderLabel" BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{StaticResource ThemeColorNormal}" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+
+    <Style x:Key="SubtitleLabel" BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
     <!--  Window styles  -->
 
     <Style TargetType="{x:Type Window}">
@@ -47,6 +56,13 @@
 
     <Style TargetType="{x:Type Border}">
         <Setter Property="BorderBrush" Value="{StaticResource WindowBorder}" />
+    </Style>
+
+    <Style x:Key="VisibleBorder" BasedOn="{StaticResource {x:Type Border}}" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="Margin" Value="3" />
     </Style>
 
 </ResourceDictionary>
