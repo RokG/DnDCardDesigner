@@ -35,6 +35,7 @@
                     <controls:AddEditItem
                         Title="Characters"
                         AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
+                        DeleteCommand="{Binding DeleteCharacterCommand}"
                         ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
                         SaveCommand="{Binding CreateCharacterCommand}"
                         SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}" />
@@ -42,6 +43,7 @@
                     <controls:AddEditItem
                         Title="Spell Deck"
                         AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
+                        DeleteCommand="{Binding DeleteSpellDeckCommand}"
                         ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
                         SaveCommand="{Binding CreateSpellDeckCommand}"
                         SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}" />

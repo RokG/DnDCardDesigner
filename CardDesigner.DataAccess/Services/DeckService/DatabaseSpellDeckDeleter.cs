@@ -3,14 +3,13 @@ using CardDesigner.DataAccess.DbContexts;
 using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CardDesigner.DataAccess.Services
 {
-    public class DatabaseCharacterEditor : ICharacterEditor
+    public class DatabaseSpellDeckDeleter : ISpellDeckDeleter
     {
         #region Private fields
 
@@ -24,35 +23,22 @@ namespace CardDesigner.DataAccess.Services
         /// </summary>
         /// <param name="dbContextFactory">Database context factory</param>
         /// <param name="mapper">Mapper object</param>
-        public DatabaseCharacterEditor(CardDesignerDbContextFactory dbContextFactory, IMapper mapper)
+        public DatabaseSpellDeckDeleter(CardDesignerDbContextFactory dbContextFactory, IMapper mapper)
         {
             _dbContextFactory = dbContextFactory;
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Get all characters from database
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> UpdateCharacter(CharacterModel character)
+        public async Task<bool> DeleteSpellDeck(SpellDeckModel spellDeck)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
                 try
                 {
-                    // Get character from database
-                    Character characterEntity = dbContext.Characters
-                        .Include(d => d.SpellDeck)
-                        .Single(d => d.ID == character.ID);
-
-                    // Get spell deck from database
-                    SpellDeck charEntity = dbContext.SpellDecks.Single(c => c.Name == character.SpellDeck.Name);
-                        characterEntity.SpellDeck = charEntity;
-
-                    // Update database
-                    if (dbContext.Characters.Contains(characterEntity))
+                    SpellDeck spellDeckEntity = _mapper.Map<SpellDeck>(spellDeck);
+                    if (dbContext.SpellDecks.Contains(spellDeckEntity))
                     {
-                        dbContext.Characters.Update(characterEntity);
+                        dbContext.SpellDecks.Remove(spellDeckEntity);
                         await dbContext.SaveChangesAsync();
                         return true;
                     }
@@ -60,7 +46,6 @@ namespace CardDesigner.DataAccess.Services
                 }
                 catch (Exception)
                 {
-
                     return false;
                 }
             }

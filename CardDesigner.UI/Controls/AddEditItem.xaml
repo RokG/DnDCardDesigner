@@ -21,7 +21,9 @@
                     Content="Edit"
                     IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}" />
                 <Button x:Name="DeleteButton"
-                    Content="Delete" />
+                    Command="{Binding DeleteCommand, ElementName=AddEditItemControl}"
+                    Content="Delete"
+                    IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}" />
             </StackPanel>
             <!--  Selection  -->
             <ComboBox x:Name="SourceItemControl"

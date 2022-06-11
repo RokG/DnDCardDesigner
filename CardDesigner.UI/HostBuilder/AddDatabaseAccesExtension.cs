@@ -12,12 +12,17 @@ namespace CardDesigner.UI.HostBuilder
             hostBuilder.ConfigureServices(services =>
             {
                 services.AddSingleton<ICharacterCreator, DatabaseCharacterCreator>();
-                services.AddSingleton<ICharacterEditor, DatabaseCharacterEditor>();
+                services.AddSingleton<ICharacterUpdater, DatabaseCharacterUpdater>();
+                services.AddSingleton<ICharacterDeleter, DatabaseCharacterDeleter>();
                 services.AddSingleton<ICharacterProvider, DatabaseCharacterProvider>();
-                services.AddSingleton<ISpellCardCreator, DatabaseSpellCardCreator>();
-                services.AddSingleton<ISpellCardProvider, DatabaseSpellCardProvider>();
+
                 services.AddSingleton<ISpellDeckCreator, DatabaseSpellDeckCreator>();
                 services.AddSingleton<ISpellDeckProvider, DatabaseSpellDeckProvider>();
+                services.AddSingleton<ISpellDeckUpdater, DatabaseSpellDeckUpdater>();
+                services.AddSingleton<ISpellDeckDeleter, DatabaseSpellDeckDeleter>();
+
+                services.AddSingleton<ISpellCardCreator, DatabaseSpellCardCreator>();
+                services.AddSingleton<ISpellCardProvider, DatabaseSpellCardProvider>();
             });
 
             return hostBuilder;

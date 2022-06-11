@@ -39,13 +39,16 @@ namespace CardDesigner.UI.ViewModels
             set
             {
                 SetProperty(ref _selectedCharacter, value);
-                if (value.SpellDeck != null)
+                if (value != null)
                 {
-                    SelectedSpellDeck = AllSpellDecks.Where(s => s.ID == value.SpellDeck.ID).FirstOrDefault();
-                }
-                else
-                {
-                    SelectedSpellDeck = null;
+                    if (value.SpellDeck != null)
+                    {
+                        SelectedSpellDeck = AllSpellDecks.Where(s => s.ID == value.SpellDeck.ID).FirstOrDefault();
+                    }
+                    else
+                    {
+                        SelectedSpellDeck = null;
+                    }
                 }
             }
         }
@@ -102,8 +105,10 @@ namespace CardDesigner.UI.ViewModels
 
         public ICommand DoNavigateCommand { get; }
         public ICommand CreateCharacterCommand { get; }
-        public ICommand CreateSpellDeckCommand { get; }
         public ICommand UpdateCharacterCommand { get; }
+        public ICommand DeleteCharacterCommand { get; }
+        public ICommand CreateSpellDeckCommand { get; }
+        public ICommand DeleteSpellDeckCommand { get; }
 
         #endregion Actions, Events, Commands
 
@@ -115,11 +120,16 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
             CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
-            CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
             UpdateCharacterCommand = new AddDeckToCharacterCommand(this, cardDesignerStore);
+            DeleteCharacterCommand = new DeleteCharacterCommand(this, cardDesignerStore);
+
+            CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
+            DeleteSpellDeckCommand = new DeleteSpellDeckCommand(this, cardDesignerStore);
 
             _cardDesignerStore.CharacterCreated += OnCharacterCreated;
-            _cardDesignerStore.SpellDekcCreated += OnSpellDeckCreated;
+            _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
+            _cardDesignerStore.SpellDeckCreated += OnSpellDeckCreated;
+            _cardDesignerStore.SpellDeckDeleted += OnSpellDeckDeleted;
         }
 
         #endregion
@@ -153,10 +163,22 @@ namespace CardDesigner.UI.ViewModels
             SelectedCharacter = character;
         }
 
+        private void OnCharacterDeleted(CharacterModel character)
+        {
+            AllCharacters.Remove(SelectedCharacter);
+            SelectedCharacter = AllCharacters.FirstOrDefault();
+        }
+
         private void OnSpellDeckCreated(SpellDeckModel spellDeck)
         {
             AllSpellDecks.Add(spellDeck);
             SelectedSpellDeck = spellDeck;
+        }
+
+        private void OnSpellDeckDeleted(SpellDeckModel spellDeck)
+        {
+            AllSpellDecks.Remove(SelectedSpellDeck);
+            SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
         }
         #endregion
     }

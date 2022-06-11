@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace CardDesigner.Domain.Services
 {
-    public interface ISpellDeckCreator
+    public interface ICharacterDeleter
     {
-        Task<SpellDeckModel> CreateSpellDeck(SpellDeckModel spellDeck);
+        Task<bool> DeleteCharacter(CharacterModel character);
     }
 }

@@ -12,11 +12,16 @@ namespace CardDesigner.Domain.Stores
 
         private readonly ICharacterCreator _characterCreator;
         private readonly ICharacterProvider _characterProvider;
-        private readonly ICharacterEditor _characterUpdater;
+        private readonly ICharacterUpdater _characterUpdater;
+        private readonly ICharacterDeleter _characterDeleter;
+
+        private readonly ISpellDeckCreator _spellDeckCreator;
+        private readonly ISpellDeckUpdater _spellDeckUpdater;
+        private readonly ISpellDeckDeleter _spellDeckDeleter;
+        private readonly ISpellDeckProvider _spellDeckProvider;
+
         private readonly ISpellCardCreator _spellCardCreator;
         private readonly ISpellCardProvider _spellCardProvider;
-        private readonly ISpellDeckCreator _spellDeckCreator;
-        private readonly ISpellDeckProvider _spellDeckProvider;
 
         private readonly List<SpellCardModel> _spellCards;
         private readonly List<SpellDeckModel> _spellDecks;
@@ -27,7 +32,12 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<CharacterModel> Characters => _characters;
 
         public event Action<CharacterModel> CharacterCreated;
-        public event Action<SpellDeckModel> SpellDekcCreated;
+        public event Action<CharacterModel> CharacterUpdated;
+        public event Action<CharacterModel> CharacterDeleted;
+
+        public event Action<SpellDeckModel> SpellDeckCreated;
+        public event Action<SpellDeckModel> SpellDeckUpdated;
+        public event Action<SpellDeckModel> SpellDeckDeleted;
 
         /// <summary>
         /// Constructor
@@ -38,19 +48,25 @@ namespace CardDesigner.Domain.Stores
         /// <param name="spellCardProvider"></param>
         public CardDesignerStore(
             ICharacterCreator characterCreator,
-            ICharacterEditor characterUpdater,
+            ICharacterUpdater characterUpdater,
+            ICharacterDeleter characterDeleter,
             ICharacterProvider characterProvider,
             ISpellCardCreator spellCardCreator,
             ISpellCardProvider spellCardProvider,
             ISpellDeckCreator spellDeckCreator,
+            ISpellDeckUpdater spellDeckUpdater,
+            ISpellDeckDeleter spellDeckDeleter,
             ISpellDeckProvider spellDeckProvider)
         {
             _characterCreator = characterCreator;
             _characterProvider = characterProvider;
             _characterUpdater = characterUpdater;
+            _characterDeleter = characterDeleter;
             _spellCardCreator = spellCardCreator;
             _spellCardProvider = spellCardProvider;
             _spellDeckCreator = spellDeckCreator;
+            _spellDeckUpdater = spellDeckUpdater;
+            _spellDeckDeleter = spellDeckDeleter;
             _spellDeckProvider = spellDeckProvider;
 
             _initializeLazy = new Lazy<Task>(Initialize);
@@ -97,14 +113,36 @@ namespace CardDesigner.Domain.Stores
             OnCharacterCreated(createdCharacter);
         }
 
+        public async Task DeleteCharacter(CharacterModel character)
+        {
+            bool success = await _characterDeleter.DeleteCharacter(character);
+            if (success)
+            { 
+            OnCharacterDeleted(character);
+            }
+        }
+
         public async Task UpdateCharacter(CharacterModel character)
         {
-            await _characterUpdater.UpdateCharacter(character);
+            bool success = await _characterUpdater.UpdateCharacter(character);
+            if (success)
+            { 
+            OnCharacterUpdated(character);
+            }
         }
 
         private void OnCharacterCreated(CharacterModel character)
         {
             CharacterCreated?.Invoke(character);
+        }
+
+        private void OnCharacterUpdated(CharacterModel character)
+        {
+            CharacterUpdated?.Invoke(character);
+        }
+        private void OnCharacterDeleted(CharacterModel character)
+        {
+            CharacterDeleted?.Invoke(character);
         }
 
         #endregion
@@ -115,12 +153,41 @@ namespace CardDesigner.Domain.Stores
         {
             SpellDeckModel createdSpellDeck = await _spellDeckCreator.CreateSpellDeck(spellDeck);
             _spellDecks.Add(createdSpellDeck);
-            OnCharacterSpellDeck(createdSpellDeck);
+            OnSpellDeckCreated(createdSpellDeck);
         }
 
-        private void OnCharacterSpellDeck(SpellDeckModel spellDeck)
+        public async Task UpdateSpellDeck(SpellDeckModel spellDeck)
         {
-            SpellDekcCreated?.Invoke(spellDeck);
+            bool success = await _spellDeckUpdater.UpdateSpellDeck(spellDeck);
+            if (success)
+            { 
+            OnSpellDeckUpdated(spellDeck);
+            }
+        }
+
+        public async Task DeleteSpellDeck(SpellDeckModel spellDeck)
+        {
+            bool success = await _spellDeckDeleter.DeleteSpellDeck(spellDeck);
+            if (success)
+            {
+                _spellDecks.Remove(spellDeck);
+                OnSpellDeckDeleted(spellDeck);
+            }
+        }
+
+        private void OnSpellDeckCreated(SpellDeckModel spellDeck)
+        {
+            SpellDeckCreated?.Invoke(spellDeck);
+        }
+
+        private void OnSpellDeckUpdated(SpellDeckModel spellDeck)
+        {
+            SpellDeckUpdated?.Invoke(spellDeck);
+        }
+
+        private void OnSpellDeckDeleted(SpellDeckModel spellDeck)
+        {
+            SpellDeckDeleted?.Invoke(spellDeck);
         }
         #endregion
 

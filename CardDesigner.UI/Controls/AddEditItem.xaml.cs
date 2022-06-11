@@ -20,6 +20,8 @@ namespace CardDesigner.UI.Controls
             InitializeComponent();
         }
 
+        #region Properties
+
         public bool IsEditEnabled
         {
             get { return (bool)GetValue(IsEditEnabledProperty); }
@@ -75,7 +77,14 @@ namespace CardDesigner.UI.Controls
         public static readonly DependencyProperty SaveCommandProperty =
             DependencyProperty.Register(nameof(SaveCommand), typeof(ICommand), typeof(AddEditItem), new PropertyMetadata(null));
 
-        public ISelectableItem SelectedItemMid { get; set; }
+        public ICommand DeleteCommand
+        {
+            get => (ICommand)GetValue(DeleteCommandProperty);
+            set => SetValue(DeleteCommandProperty, value);
+        }
+
+        public static readonly DependencyProperty DeleteCommandProperty =
+            DependencyProperty.Register(nameof(DeleteCommand), typeof(ICommand), typeof(AddEditItem), new PropertyMetadata(null));
 
         public string Title
         {
@@ -85,6 +94,10 @@ namespace CardDesigner.UI.Controls
 
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register(nameof(Title), typeof(string), typeof(AddEditItem), new PropertyMetadata(string.Empty));
+
+        #endregion
+
+        #region Methods
 
         private void OpenEditMode(object sender, RoutedEventArgs e)
         {
@@ -104,12 +117,14 @@ namespace CardDesigner.UI.Controls
             EditMode = Visibility.Collapsed;
         }
 
-                private void SourceItemControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SourceItemControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SelectedItem != null)
             {
                 IsEditEnabled = true;
             }
-        }
+        } 
+
+        #endregion
     }
 }
