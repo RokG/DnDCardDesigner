@@ -3,6 +3,10 @@ using CardDesigner.DataAccess.DbContexts;
 using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CardDesigner.DataAccess.Services
@@ -27,9 +31,37 @@ namespace CardDesigner.DataAccess.Services
             _mapper = mapper;
         }
 
-        public Task<bool> UpdateSpellDeck(SpellDeckModel spellDeck)
+        public async Task<SpellDeckModel> UpdateSpellDeck(SpellDeckModel spellDeck)
         {
-            throw new System.NotImplementedException();
+            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            {
+                try
+                {
+                    // Get spell deck from database
+                    SpellDeck spellDeckEntity = dbContext.SpellDecks
+                        .Include(sd=>sd.SpellCards)
+                        .Single(sc => sc.ID == spellDeck.ID);
+
+                    // Loop over cards in source deck
+                    foreach (SpellCardModel spellCard in spellDeck.SpellCards)
+                    {
+                        // If any card is new, add it to the list
+                        if (!spellDeckEntity.SpellCards.Where(sd => sd.ID == spellCard.ID).Any())
+                        {
+                            SpellCard spellCardEntity = _mapper.Map<SpellCard>(spellCard);
+                            spellDeckEntity.SpellCards.Add(spellCardEntity);
+                        }
+                    }
+
+                    await dbContext.SaveChangesAsync();
+
+                    return null;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
         }
     }
 }

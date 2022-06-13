@@ -60,7 +60,7 @@
                         SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}" />
 
                     <Button
-                        Command="{Binding UpdateCharacterCommand}"
+                        Command="{Binding UpdateSpellDeckCommand}"
                         Content="Assign card to deck" />
 
                     <Border Style="{StaticResource VisibleBorder}">
@@ -73,6 +73,8 @@
                                 ItemsSource="{Binding SelectedSpellDeckCards}" />
                         </StackPanel>
                     </Border>
+
+
                 </StackPanel>
 
                 <!--  Card overview  -->

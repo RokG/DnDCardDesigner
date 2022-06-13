@@ -5,6 +5,6 @@ namespace CardDesigner.Domain.Services
 {
     public interface ISpellDeckUpdater
     {
-        Task<bool> UpdateSpellDeck(SpellDeckModel spellDeck);
+        Task<SpellDeckModel> UpdateSpellDeck(SpellDeckModel spellDeck);
     }
 }

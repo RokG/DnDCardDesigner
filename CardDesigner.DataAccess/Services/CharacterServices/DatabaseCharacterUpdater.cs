@@ -46,8 +46,8 @@ namespace CardDesigner.DataAccess.Services
                         .Single(d => d.ID == character.ID);
 
                     // Get spell deck from database
-                    SpellDeck charEntity = dbContext.SpellDecks.Single(c => c.Name == character.SpellDeck.Name);
-                    characterEntity.SpellDeck = charEntity;
+                    SpellDeck deckEntity = dbContext.SpellDecks.Single(c => c.Name == character.SpellDeck.Name);
+                    characterEntity.SpellDeck = deckEntity;
 
                     // Update database
                     if (dbContext.Characters.Contains(characterEntity))

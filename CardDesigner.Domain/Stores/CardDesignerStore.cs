@@ -139,10 +139,10 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateSpellDeck(SpellDeckModel spellDeck)
         {
-            bool success = await _spellDeckUpdater.UpdateSpellDeck(spellDeck);
-            if (success)
+            if (await _spellDeckUpdater.UpdateSpellDeck(spellDeck) is SpellDeckModel updatedSpellDeck)
             {
-                OnSpellDeckUpdated(spellDeck);
+                await UpdateSpellDecksFromDb();
+                OnSpellDeckUpdated(updatedSpellDeck);
             }
         }
 

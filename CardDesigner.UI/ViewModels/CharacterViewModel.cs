@@ -130,6 +130,7 @@ namespace CardDesigner.UI.ViewModels
         public ICommand DeleteCharacterCommand { get; }
 
         public ICommand CreateSpellDeckCommand { get; }
+        public ICommand UpdateSpellDeckCommand { get; }
         public ICommand DeleteSpellDeckCommand { get; }
 
         public ICommand CreateSpellCardCommand { get; }
@@ -148,6 +149,7 @@ namespace CardDesigner.UI.ViewModels
             DeleteCharacterCommand = new DeleteCharacterCommand(this, cardDesignerStore);
 
             CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
+            UpdateSpellDeckCommand = new AddCardToSpellDeckCommand(this, cardDesignerStore);
             DeleteSpellDeckCommand = new DeleteSpellDeckCommand(this, cardDesignerStore);
 
             CreateSpellCardCommand = new CreateSpellCardCommand(this, cardDesignerStore);
