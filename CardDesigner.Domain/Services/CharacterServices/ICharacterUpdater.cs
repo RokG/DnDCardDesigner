@@ -5,6 +5,6 @@ namespace CardDesigner.Domain.Services
 {
     public interface ICharacterUpdater
     {
-        Task<bool> UpdateCharacter(CharacterModel character);
+        Task<CharacterModel> UpdateCharacter(CharacterModel character);
     }
 }

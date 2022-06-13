@@ -1,17 +1,19 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
+using System;
 using System.ComponentModel;
 using System.Linq;
 
 namespace CardDesigner.UI.Commands
 {
-    public class DeleteCharacterCommand : CommandBase
+    public class CreateSpellCardCommand : CommandBase
     {
         private readonly CharacterViewModel _characterViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public DeleteCharacterCommand(CharacterViewModel characterViewModel, CardDesignerStore cardDesignerStore)
+        public CreateSpellCardCommand(CharacterViewModel characterViewModel, CardDesignerStore cardDesignerStore)
         {
             _characterViewModel = characterViewModel;
             _cardDesignerStore = cardDesignerStore;
@@ -20,7 +22,7 @@ namespace CardDesigner.UI.Commands
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CharacterViewModel.AddedCharacterName))
+            if (e.PropertyName == nameof(CharacterViewModel.SelectedSpellDeck))
             {
                 OnCanExecuteChanged();
             }
@@ -28,13 +30,20 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _characterViewModel.AddedCharacterName != string.Empty
-                && !_characterViewModel.AllCharacters.Where(c => c.Name == _characterViewModel.AddedCharacterName).Any();
+            return _characterViewModel.SelectedSpellDeck != null;
         }
 
         public override void Execute(object parameter)
         {
-            _cardDesignerStore.DeleteCharacter(_characterViewModel.SelectedCharacter);
+            _cardDesignerStore.CreateSpellCard(new SpellCardModel() { Name = RandomString(7) });
+        }
+
+        public static string RandomString(int length)
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

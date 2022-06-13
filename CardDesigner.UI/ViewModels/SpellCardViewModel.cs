@@ -44,9 +44,6 @@ namespace CardDesigner.UI.ViewModels
 
         #region Actions, Events, Commands
 
-        public ICommand AddCardCommand { get; }
-        public ICommand CreateCharacterCommand { get; }
-        public ICommand CreateSpellDeckCommand { get; }
         public ICommand DoNavigateCommand { get; }
 
         #endregion Actions, Events, Commands
@@ -59,16 +56,16 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
 
-            SelectedCharacter = new CharacterModel() { Name = RandomString(6) };
-            SelectedSpellCard = new SpellCardModel() { Name = RandomString(6) };
-            SelectedSpellDeck = new SpellDeckModel() { Name = "aababa" };
+            //SelectedCharacter = new CharacterModel() { Name = RandomString(6) };
+            //SelectedSpellCard = new SpellCardModel() { Name = RandomString(6) };
+            //SelectedSpellDeck = new SpellDeckModel() { Name = "aababa" };
 
-            SelectedSpellDeck.SpellCards = new List<SpellCardModel>
-            {
-                SelectedSpellCard
-            };
+            //SelectedSpellDeck.SpellCards = new List<SpellCardModel>
+            //{
+            //    SelectedSpellCard
+            //};
 
-            AddCardCommand = new AddCardCommand(this, cardDesignerStore);
+            //AddCardCommand = new CreateCardCommand(this, cardDesignerStore);
         }
 
         #endregion

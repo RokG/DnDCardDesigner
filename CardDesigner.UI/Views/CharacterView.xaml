@@ -52,6 +52,17 @@
                         Command="{Binding UpdateCharacterCommand}"
                         Content="Assign deck to character" />
 
+                    <controls:AddEditItem
+                        Title="Spell Card"
+                        AddedItemName="{Binding AddedSpellCardName, Mode=TwoWay}"
+                        ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
+                        SaveCommand="{Binding CreateSpellCardCommand}"
+                        SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}" />
+
+                    <Button
+                        Command="{Binding UpdateCharacterCommand}"
+                        Content="Assign card to deck" />
+
                     <Border Style="{StaticResource VisibleBorder}">
                         <StackPanel>
                             <Label Content="Cards in deck : " />

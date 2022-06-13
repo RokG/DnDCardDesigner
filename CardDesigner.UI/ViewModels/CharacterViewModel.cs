@@ -32,6 +32,16 @@ namespace CardDesigner.UI.ViewModels
             set => SetProperty(ref _addedSpellDeckName, value);
 
         }
+
+
+        private string _addedSpellCardName;
+        public string AddedSpellCardName
+        {
+            get => _addedSpellCardName;
+            set => SetProperty(ref _addedSpellCardName, value);
+
+        }
+
         private CharacterModel _selectedCharacter;
         public CharacterModel SelectedCharacter
         {
@@ -71,6 +81,17 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
+        private SpellCardModel _selectedSpellCard;
+        public SpellCardModel SelectedSpellCard
+        {
+            get => _selectedSpellCard;
+            set
+            {
+                SetProperty(ref _selectedSpellCard, value);
+                
+            }
+        }
+
         private ObservableCollection<SpellCardModel> _selectedSpellDeckCards;
         public ObservableCollection<SpellCardModel> SelectedSpellDeckCards
         {
@@ -107,8 +128,11 @@ namespace CardDesigner.UI.ViewModels
         public ICommand CreateCharacterCommand { get; }
         public ICommand UpdateCharacterCommand { get; }
         public ICommand DeleteCharacterCommand { get; }
+
         public ICommand CreateSpellDeckCommand { get; }
         public ICommand DeleteSpellDeckCommand { get; }
+
+        public ICommand CreateSpellCardCommand { get; }
 
         #endregion Actions, Events, Commands
 
@@ -126,10 +150,13 @@ namespace CardDesigner.UI.ViewModels
             CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
             DeleteSpellDeckCommand = new DeleteSpellDeckCommand(this, cardDesignerStore);
 
+            CreateSpellCardCommand = new CreateSpellCardCommand(this, cardDesignerStore);
+
             _cardDesignerStore.CharacterCreated += OnCharacterCreated;
             _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
             _cardDesignerStore.SpellDeckCreated += OnSpellDeckCreated;
             _cardDesignerStore.SpellDeckDeleted += OnSpellDeckDeleted;
+            _cardDesignerStore.SpellCardCreated += OnSpellCardCreated;
         }
 
         #endregion
@@ -180,6 +207,13 @@ namespace CardDesigner.UI.ViewModels
             AllSpellDecks.Remove(SelectedSpellDeck);
             SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
         }
+
+        private void OnSpellCardCreated(SpellCardModel spellCard)
+        {
+            AllSpellCards.Add(spellCard);
+            SelectedSpellCard = spellCard;
+        }
+
         #endregion
     }
 }

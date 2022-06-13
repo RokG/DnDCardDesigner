@@ -20,7 +20,7 @@ namespace CardDesigner.UI.Commands
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CharacterViewModel.AddedCharacterName))
+            if (e.PropertyName == nameof(CharacterViewModel.SelectedSpellDeck))
             {
                 OnCanExecuteChanged();
             }
@@ -28,8 +28,7 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _characterViewModel.AddedCharacterName != string.Empty
-                && !_characterViewModel.AllCharacters.Where(c => c.Name == _characterViewModel.AddedCharacterName).Any();
+            return _characterViewModel.SelectedSpellDeck != null;
         }
 
         public override void Execute(object parameter)

@@ -34,7 +34,7 @@ namespace CardDesigner.DataAccess.Services
         /// Get all characters from database
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> UpdateCharacter(CharacterModel character)
+        public async Task<CharacterModel> UpdateCharacter(CharacterModel character)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
@@ -54,13 +54,13 @@ namespace CardDesigner.DataAccess.Services
                     {
                         dbContext.Characters.Update(characterEntity);
                         await dbContext.SaveChangesAsync();
-                        return true;
+                        return _mapper.Map<CharacterModel>(characterEntity); ;
                     }
-                    return false;
+                    return null;
                 }
                 catch (Exception)
                 {
-                    return false;
+                    return null;
                 }
             }
         }

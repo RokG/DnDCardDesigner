@@ -2,6 +2,7 @@
 using CardDesigner.Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CardDesigner.Domain.Stores
@@ -38,6 +39,10 @@ namespace CardDesigner.Domain.Stores
         public event Action<SpellDeckModel> SpellDeckCreated;
         public event Action<SpellDeckModel> SpellDeckUpdated;
         public event Action<SpellDeckModel> SpellDeckDeleted;
+
+        public event Action<SpellCardModel> SpellCardCreated;
+        public event Action<SpellCardModel> SpellCardUpdated;
+        public event Action<SpellCardModel> SpellCardDeleted;
 
         /// <summary>
         /// Constructor
@@ -82,17 +87,9 @@ namespace CardDesigner.Domain.Stores
         /// <returns></returns>
         private async Task Initialize()
         {
-            IEnumerable<SpellCardModel> spellCards = await _spellCardProvider.GetAllSpellCards();
-            IEnumerable<SpellDeckModel> spellDecks = await _spellDeckProvider.GetAllSpellDecks();
-            IEnumerable<CharacterModel> characters = await _characterProvider.GetAllCharacters();
-
-            _spellCards.Clear();
-            _spellDecks.Clear();
-            _characters.Clear();
-
-            _spellCards.AddRange(spellCards);
-            _spellDecks.AddRange(spellDecks);
-            _characters.AddRange(characters);
+            await UpdateSpellCardsFromDb();
+            await UpdateCharactersFromDb();
+            await UpdateSpellDecksFromDb();
         }
 
         /// <summary>
@@ -104,7 +101,7 @@ namespace CardDesigner.Domain.Stores
             await _initializeLazy.Value;
         }
 
-        #region Character methods
+        #region Create methods
 
         public async Task CreateCharacter(CharacterModel character)
         {
@@ -113,23 +110,77 @@ namespace CardDesigner.Domain.Stores
             OnCharacterCreated(createdCharacter);
         }
 
+        public async Task CreateSpellDeck(SpellDeckModel spellDeck)
+        {
+            SpellDeckModel createdSpellDeck = await _spellDeckCreator.CreateSpellDeck(spellDeck);
+            _spellDecks.Add(createdSpellDeck);
+            OnSpellDeckCreated(createdSpellDeck);
+        }
+
+        public async Task CreateSpellCard(SpellCardModel spellCard)
+        {
+            SpellCardModel createdSpellCard = await _spellCardCreator.CreateSpellCard(spellCard);
+            _spellCards.Add(createdSpellCard);
+            OnSpellCardCreated(createdSpellCard);
+        }
+
+        #endregion
+
+        #region Update methods
+
+        public async Task UpdateCharacter(CharacterModel character)
+        {
+            if (await _characterUpdater.UpdateCharacter(character) is CharacterModel updatedCharacter)
+            {
+                await UpdateCharactersFromDb();
+                OnCharacterUpdated(updatedCharacter);
+            }
+        }
+
+        public async Task UpdateSpellDeck(SpellDeckModel spellDeck)
+        {
+            bool success = await _spellDeckUpdater.UpdateSpellDeck(spellDeck);
+            if (success)
+            {
+                OnSpellDeckUpdated(spellDeck);
+            }
+        }
+
+        #endregion
+
+        #region Delete methods
+
         public async Task DeleteCharacter(CharacterModel character)
         {
             bool success = await _characterDeleter.DeleteCharacter(character);
             if (success)
-            { 
-            OnCharacterDeleted(character);
+            {
+                _characters.Remove(character);
+                OnCharacterDeleted(character);
             }
         }
 
-        public async Task UpdateCharacter(CharacterModel character)
+        public async Task DeleteSpellDeck(SpellDeckModel spellDeck)
         {
-            bool success = await _characterUpdater.UpdateCharacter(character);
-            if (success)
-            { 
-            OnCharacterUpdated(character);
+            // Update data from database
+            await UpdateSpellDecksFromDb();
+            // Find the deck to delete
+            IEnumerable<SpellDeckModel> a = SpellDecks.Where(sd => sd.ID == spellDeck.ID);
+            // Remove it from database if found
+            if (a.Any())
+            {
+                bool success = await _spellDeckDeleter.DeleteSpellDeck(a.First());
+                if (success)
+                {
+                    _spellDecks.Remove(spellDeck);
+                    OnSpellDeckDeleted(spellDeck);
+                }
             }
         }
+
+        #endregion
+
+        #region Invokers
 
         private void OnCharacterCreated(CharacterModel character)
         {
@@ -140,39 +191,10 @@ namespace CardDesigner.Domain.Stores
         {
             CharacterUpdated?.Invoke(character);
         }
+
         private void OnCharacterDeleted(CharacterModel character)
         {
             CharacterDeleted?.Invoke(character);
-        }
-
-        #endregion
-
-        #region SpellDeck methods
-
-        public async Task CreateSpellDeck(SpellDeckModel spellDeck)
-        {
-            SpellDeckModel createdSpellDeck = await _spellDeckCreator.CreateSpellDeck(spellDeck);
-            _spellDecks.Add(createdSpellDeck);
-            OnSpellDeckCreated(createdSpellDeck);
-        }
-
-        public async Task UpdateSpellDeck(SpellDeckModel spellDeck)
-        {
-            bool success = await _spellDeckUpdater.UpdateSpellDeck(spellDeck);
-            if (success)
-            { 
-            OnSpellDeckUpdated(spellDeck);
-            }
-        }
-
-        public async Task DeleteSpellDeck(SpellDeckModel spellDeck)
-        {
-            bool success = await _spellDeckDeleter.DeleteSpellDeck(spellDeck);
-            if (success)
-            {
-                _spellDecks.Remove(spellDeck);
-                OnSpellDeckDeleted(spellDeck);
-            }
         }
 
         private void OnSpellDeckCreated(SpellDeckModel spellDeck)
@@ -189,13 +211,45 @@ namespace CardDesigner.Domain.Stores
         {
             SpellDeckDeleted?.Invoke(spellDeck);
         }
+
+        private void OnSpellCardCreated(SpellCardModel spellCard)
+        {
+            SpellCardCreated?.Invoke(spellCard);
+        }
+
+        private void OnSpellCardUpdated(SpellCardModel spellCard)
+        {
+            SpellCardUpdated?.Invoke(spellCard);
+        }
+
+        private void OnSpellCardDeleted(SpellCardModel spellCard)
+        {
+            SpellCardDeleted?.Invoke(spellCard);
+        }
+
         #endregion
 
-        #region SpellCard methods
+        #region Updates
 
-        public async Task CreateSpellCard(SpellCardModel spellCard)
+        private async Task UpdateCharactersFromDb()
         {
-            await _spellCardCreator.CreateSpellCard(spellCard);
+            IEnumerable<CharacterModel> characters = await _characterProvider.GetAllCharacters();
+            _characters.Clear();
+            _characters.AddRange(characters);
+        }
+
+        private async Task UpdateSpellDecksFromDb()
+        {
+            IEnumerable<SpellDeckModel> spellDecks = await _spellDeckProvider.GetAllSpellDecks();
+            _spellDecks.Clear();
+            _spellDecks.AddRange(spellDecks);
+        }
+
+        private async Task UpdateSpellCardsFromDb()
+        {
+            IEnumerable<SpellCardModel> spellCards = await _spellCardProvider.GetAllSpellCards();
+            _spellCards.Clear();
+            _spellCards.AddRange(spellCards);
         }
 
         #endregion
