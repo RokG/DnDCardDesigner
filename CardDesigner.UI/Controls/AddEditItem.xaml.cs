@@ -22,13 +22,23 @@ namespace CardDesigner.UI.Controls
 
         #region Properties
 
+
+
+        public bool ViewOnly
+        {
+            get { return (bool)GetValue(ViewOnlyProperty); }
+            set { SetValue(ViewOnlyProperty, value); }
+        }
+
+        public static readonly DependencyProperty ViewOnlyProperty =
+            DependencyProperty.Register(nameof(ViewOnly), typeof(bool), typeof(AddEditItem), new PropertyMetadata(false));
+
         public bool IsEditEnabled
         {
             get { return (bool)GetValue(IsEditEnabledProperty); }
             set { SetValue(IsEditEnabledProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsEditEnabled.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsEditEnabledProperty =
             DependencyProperty.Register(nameof(IsEditEnabled), typeof(bool), typeof(AddEditItem), new PropertyMetadata(false));
 
