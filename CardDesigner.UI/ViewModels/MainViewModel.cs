@@ -25,6 +25,7 @@ namespace CardDesigner.UI.ViewModels
 
         public ICommand CharacterNavigationCommand { get; }
         public ICommand SpellCardNavigationCommand { get; }
+        public ICommand SpellDeckNavigationCommand { get; }
         public ICommand ItemCardNavigationCommand { get; }
 
         #endregion
@@ -40,18 +41,20 @@ namespace CardDesigner.UI.ViewModels
         /// <param name="cardCreatorNavigationService"></param>
         public MainViewModel(NavigationStore navigationStore,
             CardDesignerStore cardDesignerStore,
-            NavigationService<ItemCardViewModel> cardDisplayNavigationService,
-            NavigationService<SpellCardViewModel> cardCreatorNavigationService,
-            NavigationService<CharacterViewModel> characterNavigationService)
+            NavigationService<ItemCardViewModel> itemCardNavigationService,
+            NavigationService<SpellCardViewModel> spellCardNavigationService,
+            NavigationService<SpellDeckViewModel> spellDeckNavigationService,
+            NavigationService<CharacterViewModel> characterViewNavigationService)
         {
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
-            ItemCardNavigationCommand = new NavigateCommand<ItemCardViewModel>(cardDisplayNavigationService);
-            SpellCardNavigationCommand = new NavigateCommand<SpellCardViewModel>(cardCreatorNavigationService);
-            CharacterNavigationCommand = new NavigateCommand<CharacterViewModel>(characterNavigationService);
+            ItemCardNavigationCommand = new NavigateCommand<ItemCardViewModel>(itemCardNavigationService);
+            SpellCardNavigationCommand = new NavigateCommand<SpellCardViewModel>(spellCardNavigationService);
+            SpellDeckNavigationCommand = new NavigateCommand<SpellDeckViewModel>(spellDeckNavigationService);
+            CharacterNavigationCommand = new NavigateCommand<CharacterViewModel>(characterViewNavigationService);
         }
 
         #endregion

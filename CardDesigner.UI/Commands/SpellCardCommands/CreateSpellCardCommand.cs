@@ -10,19 +10,19 @@ namespace CardDesigner.UI.Commands
 {
     public class CreateSpellCardCommand : CommandBase
     {
-        private readonly CharacterViewModel _characterViewModel;
+        private readonly SpellCardViewModel _SpellCardViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public CreateSpellCardCommand(CharacterViewModel characterViewModel, CardDesignerStore cardDesignerStore)
+        public CreateSpellCardCommand(SpellCardViewModel SpellCardViewModel, CardDesignerStore cardDesignerStore)
         {
-            _characterViewModel = characterViewModel;
+            _SpellCardViewModel = SpellCardViewModel;
             _cardDesignerStore = cardDesignerStore;
-            _characterViewModel.PropertyChanged += PropertyChangedEventHandle;
+            _SpellCardViewModel.PropertyChanged += PropertyChangedEventHandle;
         }
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CharacterViewModel.SelectedSpellDeck))
+            if (e.PropertyName == nameof(SpellCardViewModel.SelectedSpellDeck))
             {
                 OnCanExecuteChanged();
             }
@@ -30,7 +30,7 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _characterViewModel.SelectedSpellDeck != null;
+            return _SpellCardViewModel.SelectedSpellDeck != null;
         }
 
         public override void Execute(object parameter)

@@ -1,28 +1,24 @@
-﻿using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Models;
-using CardDesigner.Domain.Stores;
+﻿using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 
 namespace CardDesigner.UI.Commands
 {
     public class AddCardToSpellDeckCommand : CommandBase
     {
-        private readonly CharacterViewModel _characterViewModel;
+        private readonly SpellDeckViewModel _SpellDeckViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public AddCardToSpellDeckCommand(CharacterViewModel characterViewModel, CardDesignerStore cardDesignerStore)
+        public AddCardToSpellDeckCommand(SpellDeckViewModel SpellDeckViewModel, CardDesignerStore cardDesignerStore)
         {
-            _characterViewModel = characterViewModel;
+            _SpellDeckViewModel = SpellDeckViewModel;
             _cardDesignerStore = cardDesignerStore;
-            _characterViewModel.PropertyChanged += PropertyChangedEventHandle;
+            _SpellDeckViewModel.PropertyChanged += PropertyChangedEventHandle;
         }
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CharacterViewModel.SelectedSpellDeck) || e.PropertyName == nameof(CharacterViewModel.SelectedSpellCard))
+            if (e.PropertyName == nameof(SpellDeckViewModel.SelectedSpellDeck) || e.PropertyName == nameof(SpellDeckViewModel.SelectedSpellCard))
             {
                 OnCanExecuteChanged();
             }
@@ -30,14 +26,14 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _characterViewModel.SelectedSpellDeck != null
-                && _characterViewModel.SelectedSpellCard != null;
+            return _SpellDeckViewModel.SelectedSpellDeck != null
+                && _SpellDeckViewModel.SelectedSpellCard != null;
         }
 
         public override void Execute(object parameter)
         {
-            _characterViewModel.SelectedSpellDeck.SpellCards.Add(_characterViewModel.SelectedSpellCard);
-            _cardDesignerStore.UpdateSpellDeck(_characterViewModel.SelectedSpellDeck);
+            _SpellDeckViewModel.SelectedSpellDeck.SpellCards.Add(_SpellDeckViewModel.SelectedSpellCard);
+            _cardDesignerStore.UpdateSpellDeck(_SpellDeckViewModel.SelectedSpellDeck);
         }
     }
 }

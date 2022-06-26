@@ -15,6 +15,9 @@
             <DataTemplate DataType="{x:Type vms:SpellCardViewModel}">
                 <views:SpellCardView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:SpellDeckViewModel}">
+                <views:SpellDeckView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:ItemCardViewModel}">
                 <views:ItemCardView />
             </DataTemplate>
@@ -46,11 +49,16 @@
                 <Button
                     Height="60"
                     Command="{Binding SpellCardNavigationCommand}"
-                    Content="Card creator"
+                    Content="Spell Card creator"
                     DockPanel.Dock="Top" />
                 <Button
                     Height="60"
                     Command="{Binding ItemCardNavigationCommand}"
+                    Content="Item Card creator"
+                    DockPanel.Dock="Top" />
+                <Button
+                    Height="60"
+                    Command="{Binding SpellDeckNavigationCommand}"
                     Content="Deck creator"
                     DockPanel.Dock="Top" />
                 <Grid

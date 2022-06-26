@@ -2,8 +2,6 @@
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CardDesigner.UI.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -11,8 +9,9 @@ using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
-    public class SpellCardViewModel : ViewModelBase
+    public class SpellDeckViewModel : ViewModelBase
     {
+
         #region Private fields
 
         private readonly CardDesignerStore _cardDesignerStore;
@@ -94,11 +93,7 @@ namespace CardDesigner.UI.ViewModels
         public SpellCardModel SelectedSpellCard
         {
             get => _selectedSpellCard;
-            set
-            {
-                SetProperty(ref _selectedSpellCard, value);
-
-            }
+            set => SetProperty(ref _selectedSpellCard, value);
         }
 
         private ObservableCollection<SpellCardModel> _selectedSpellDeckCards;
@@ -134,6 +129,13 @@ namespace CardDesigner.UI.ViewModels
         #region Actions, Events, Commands
 
         public ICommand DoNavigateCommand { get; }
+        public ICommand CreateCharacterCommand { get; }
+        public ICommand UpdateCharacterCommand { get; }
+        public ICommand DeleteCharacterCommand { get; }
+
+        public ICommand CreateSpellDeckCommand { get; }
+        public ICommand UpdateSpellDeckCommand { get; }
+        public ICommand DeleteSpellDeckCommand { get; }
 
         public ICommand CreateSpellCardCommand { get; }
 
@@ -141,14 +143,22 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public SpellCardViewModel(CardDesignerStore cardDesignerStore)
+        public SpellDeckViewModel(CardDesignerStore cardDesignerStore)
         {
-            Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = Regex.Replace(nameof(SpellDeckViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
 
             _cardDesignerStore = cardDesignerStore;
 
-            CreateSpellCardCommand = new CreateSpellCardCommand(this, cardDesignerStore);
+            UpdateCharacterCommand = new AddDeckToCharacterCommand(this, cardDesignerStore);
 
+            CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
+            UpdateSpellDeckCommand = new AddCardToSpellDeckCommand(this, cardDesignerStore);
+            DeleteSpellDeckCommand = new DeleteSpellDeckCommand(this, cardDesignerStore);
+
+            _cardDesignerStore.CharacterCreated += OnCharacterCreated;
+            _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
+            _cardDesignerStore.SpellDeckCreated += OnSpellDeckCreated;
+            _cardDesignerStore.SpellDeckDeleted += OnSpellDeckDeleted;
             _cardDesignerStore.SpellCardCreated += OnSpellCardCreated;
         }
 
@@ -199,15 +209,14 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        public static SpellDeckViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
         {
-            SpellCardViewModel viewModel = new(cardDesignerStore);
+            SpellDeckViewModel viewModel = new(cardDesignerStore);
             viewModel.LoadData();
 
             return viewModel;
         }
 
         #endregion
-
     }
 }

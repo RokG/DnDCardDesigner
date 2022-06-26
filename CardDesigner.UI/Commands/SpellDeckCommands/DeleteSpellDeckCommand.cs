@@ -1,26 +1,24 @@
-﻿using CardDesigner.Domain.Models;
-using CardDesigner.Domain.Stores;
+﻿using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
 using System.ComponentModel;
-using System.Linq;
 
 namespace CardDesigner.UI.Commands
 {
     public class DeleteSpellDeckCommand : CommandBase
     {
-        private readonly CharacterViewModel _characterViewModel;
+        private readonly SpellDeckViewModel _SpellDeckViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public DeleteSpellDeckCommand(CharacterViewModel characterViewModel, CardDesignerStore cardDesignerStore)
+        public DeleteSpellDeckCommand(SpellDeckViewModel SpellDeckViewModel, CardDesignerStore cardDesignerStore)
         {
-            _characterViewModel = characterViewModel;
+            _SpellDeckViewModel = SpellDeckViewModel;
             _cardDesignerStore = cardDesignerStore;
-            _characterViewModel.PropertyChanged += PropertyChangedEventHandle;
+            _SpellDeckViewModel.PropertyChanged += PropertyChangedEventHandle;
         }
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CharacterViewModel.SelectedSpellDeck))
+            if (e.PropertyName == nameof(SpellDeckViewModel.SelectedSpellDeck))
             {
                 OnCanExecuteChanged();
             }
@@ -28,16 +26,16 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _characterViewModel.SelectedSpellDeck != null;
+            return _SpellDeckViewModel.SelectedSpellDeck != null;
         }
 
         public override void Execute(object parameter)
         {
-            //if (_cardDesignerStore.SpellDecks.Single(c => c.ID == _characterViewModel.SelectedSpellDeck.ID) is SpellDeckModel spellDeckToDelete)
+            //if (_cardDesignerStore.SpellDecks.Single(c => c.ID == _SpellDeckViewModel.SelectedSpellDeck.ID) is SpellDeckModel spellDeckToDelete)
             //{
             //    _cardDesignerStore.DeleteSpellDeck(spellDeckToDelete);
             //}
-            _cardDesignerStore.DeleteSpellDeck(_characterViewModel.SelectedSpellDeck);
+            _cardDesignerStore.DeleteSpellDeck(_SpellDeckViewModel.SelectedSpellDeck);
         }
     }
 }

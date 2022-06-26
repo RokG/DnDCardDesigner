@@ -10,19 +10,19 @@ namespace CardDesigner.UI.Commands
 {
     public class AddDeckToCharacterCommand : CommandBase
     {
-        private readonly CharacterViewModel _characterViewModel;
+        private readonly SpellDeckViewModel _SpellDeckViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public AddDeckToCharacterCommand(CharacterViewModel characterViewModel, CardDesignerStore cardDesignerStore)
+        public AddDeckToCharacterCommand(SpellDeckViewModel SpellDeckViewModel, CardDesignerStore cardDesignerStore)
         {
-            _characterViewModel = characterViewModel;
+            _SpellDeckViewModel = SpellDeckViewModel;
             _cardDesignerStore = cardDesignerStore;
-            _characterViewModel.PropertyChanged += PropertyChangedEventHandle;
+            _SpellDeckViewModel.PropertyChanged += PropertyChangedEventHandle;
         }
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CharacterViewModel.SelectedCharacter) || e.PropertyName == nameof(CharacterViewModel.SelectedSpellDeck))
+            if (e.PropertyName == nameof(SpellDeckViewModel.SelectedCharacter) || e.PropertyName == nameof(SpellDeckViewModel.SelectedSpellDeck))
             {
                 OnCanExecuteChanged();
             }
@@ -30,14 +30,14 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _characterViewModel.SelectedCharacter != null
-                && _characterViewModel.SelectedSpellDeck != null;
+            return _SpellDeckViewModel.SelectedCharacter != null
+                && _SpellDeckViewModel.SelectedSpellDeck != null;
         }
 
         public override void Execute(object parameter)
         {
-            _characterViewModel.SelectedCharacter.SpellDeck = _characterViewModel.SelectedSpellDeck;
-            _cardDesignerStore.UpdateCharacter(_characterViewModel.SelectedCharacter);
+            _SpellDeckViewModel.SelectedCharacter.SpellDeck = _SpellDeckViewModel.SelectedSpellDeck;
+            _cardDesignerStore.UpdateCharacter(_SpellDeckViewModel.SelectedCharacter);
         }
     }
 }

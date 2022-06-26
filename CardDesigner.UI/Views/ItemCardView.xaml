@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="CardDesigner.UI.Views.ItemCardView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
@@ -20,6 +21,8 @@
                 <ComboBoxItem Content="StylePotions" />
                 <ComboBoxItem Content="StyleCustomItems1" />
             </ComboBox>
+
+
         </StackPanel>
 
         <Grid Grid.Row="1">

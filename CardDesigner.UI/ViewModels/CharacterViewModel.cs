@@ -33,7 +33,6 @@ namespace CardDesigner.UI.ViewModels
 
         }
 
-
         private string _addedSpellCardName;
         public string AddedSpellCardName
         {
@@ -125,15 +124,6 @@ namespace CardDesigner.UI.ViewModels
         #region Actions, Events, Commands
 
         public ICommand DoNavigateCommand { get; }
-        public ICommand CreateCharacterCommand { get; }
-        public ICommand UpdateCharacterCommand { get; }
-        public ICommand DeleteCharacterCommand { get; }
-
-        public ICommand CreateSpellDeckCommand { get; }
-        public ICommand UpdateSpellDeckCommand { get; }
-        public ICommand DeleteSpellDeckCommand { get; }
-
-        public ICommand CreateSpellCardCommand { get; }
 
         #endregion Actions, Events, Commands
 
@@ -141,24 +131,9 @@ namespace CardDesigner.UI.ViewModels
 
         public CharacterViewModel(CardDesignerStore cardDesignerStore)
         {
-            Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
 
             _cardDesignerStore = cardDesignerStore;
-            CreateCharacterCommand = new CreateCharacterCommand(this, cardDesignerStore);
-            UpdateCharacterCommand = new AddDeckToCharacterCommand(this, cardDesignerStore);
-            DeleteCharacterCommand = new DeleteCharacterCommand(this, cardDesignerStore);
-
-            CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
-            UpdateSpellDeckCommand = new AddCardToSpellDeckCommand(this, cardDesignerStore);
-            DeleteSpellDeckCommand = new DeleteSpellDeckCommand(this, cardDesignerStore);
-
-            CreateSpellCardCommand = new CreateSpellCardCommand(this, cardDesignerStore);
-
-            _cardDesignerStore.CharacterCreated += OnCharacterCreated;
-            _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
-            _cardDesignerStore.SpellDeckCreated += OnSpellDeckCreated;
-            _cardDesignerStore.SpellDeckDeleted += OnSpellDeckDeleted;
-            _cardDesignerStore.SpellCardCreated += OnSpellCardCreated;
         }
 
         #endregion
@@ -184,36 +159,6 @@ namespace CardDesigner.UI.ViewModels
             AllCharacters = new(_cardDesignerStore.Characters);
             AllSpellCards = new(_cardDesignerStore.SpellCards);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
-        }
-
-        private void OnCharacterCreated(CharacterModel character)
-        {
-            AllCharacters.Add(character);
-            SelectedCharacter = character;
-        }
-
-        private void OnCharacterDeleted(CharacterModel character)
-        {
-            AllCharacters.Remove(SelectedCharacter);
-            SelectedCharacter = AllCharacters.FirstOrDefault();
-        }
-
-        private void OnSpellDeckCreated(SpellDeckModel spellDeck)
-        {
-            AllSpellDecks.Add(spellDeck);
-            SelectedSpellDeck = spellDeck;
-        }
-
-        private void OnSpellDeckDeleted(SpellDeckModel spellDeck)
-        {
-            AllSpellDecks.Remove(SelectedSpellDeck);
-            SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
-        }
-
-        private void OnSpellCardCreated(SpellCardModel spellCard)
-        {
-            AllSpellCards.Add(spellCard);
-            SelectedSpellCard = spellCard;
         }
 
         #endregion

@@ -35,37 +35,23 @@
                     <controls:AddEditItem
                         Title="Characters"
                         AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
-                        DeleteCommand="{Binding DeleteCharacterCommand}"
                         ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateCharacterCommand}"
                         SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
                         ViewOnly="True" />
 
                     <controls:AddEditItem
                         Title="Spell Deck"
                         AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
-                        DeleteCommand="{Binding DeleteSpellDeckCommand}"
                         ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateSpellDeckCommand}"
                         SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
                         ViewOnly="True" />
-
-                    <Button
-                        Command="{Binding UpdateCharacterCommand}"
-                        Content="Assign deck to character" />
 
                     <controls:AddEditItem
                         Title="Spell Card"
                         AddedItemName="{Binding AddedSpellCardName, Mode=TwoWay}"
                         ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateSpellCardCommand}"
                         SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}"
                         ViewOnly="True"
-                        Visibility="Collapsed" />
-
-                    <Button
-                        Command="{Binding UpdateSpellDeckCommand}"
-                        Content="Assign card to deck"
                         Visibility="Collapsed" />
 
                     <Border Style="{StaticResource VisibleBorder}">
