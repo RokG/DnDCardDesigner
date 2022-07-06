@@ -8,19 +8,19 @@ namespace CardDesigner.UI.Commands
 {
     public class DeleteCharacterCommand : CommandBase
     {
-        private readonly SpellCardViewModel _SpellCardViewModel;
+        private readonly CharacterViewModel _characterViewModel;
         private readonly CardDesignerStore _cardDesignerStore;
 
-        public DeleteCharacterCommand(SpellCardViewModel SpellCardViewModel, CardDesignerStore cardDesignerStore)
+        public DeleteCharacterCommand(CharacterViewModel characterViewModel, CardDesignerStore cardDesignerStore)
         {
-            _SpellCardViewModel = SpellCardViewModel;
+            _characterViewModel = characterViewModel;
             _cardDesignerStore = cardDesignerStore;
-            _SpellCardViewModel.PropertyChanged += PropertyChangedEventHandle;
+            _characterViewModel.PropertyChanged += PropertyChangedEventHandle;
         }
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(SpellCardViewModel.SelectedCharacter))
+            if (e.PropertyName == nameof(CharacterViewModel.SelectedCharacter))
             {
                 OnCanExecuteChanged();
             }
@@ -28,12 +28,12 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _SpellCardViewModel.SelectedCharacter != null;
+            return _characterViewModel.SelectedCharacter != null;
         }
 
         public override void Execute(object parameter)
         {
-            _cardDesignerStore.DeleteCharacter(_SpellCardViewModel.SelectedCharacter);
+            _cardDesignerStore.DeleteCharacter(_characterViewModel.SelectedCharacter);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace CardDesigner.UI.Commands
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(SpellCardViewModel.SelectedSpellDeck))
+            if (e.PropertyName == nameof(SpellCardViewModel.SelectedSpellCard))
             {
                 OnCanExecuteChanged();
             }
@@ -30,7 +30,7 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _SpellCardViewModel.SelectedSpellDeck != null;
+            return _SpellCardViewModel.SelectedSpellCard != null;
         }
 
         public override void Execute(object parameter)
