@@ -22,7 +22,7 @@ namespace CardDesigner.UI.Commands
 
         private void PropertyChangedEventHandle(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(SpellCardViewModel.SelectedSpellCard))
+            if (e.PropertyName == nameof(SpellCardViewModel.SpellCardName))
             {
                 OnCanExecuteChanged();
             }
@@ -30,20 +30,17 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _SpellCardViewModel.SelectedSpellCard != null;
+            string cardName = _SpellCardViewModel.SpellCardName;
+            return cardName != null
+                && cardName != string.Empty
+                && !_SpellCardViewModel.AllSpellCards.Where(c => c.Name == cardName).Any();
+
         }
 
         public override void Execute(object parameter)
         {
-            _cardDesignerStore.CreateSpellCard(new SpellCardModel() { Name = RandomString(7) });
+            _cardDesignerStore.CreateSpellCard(new SpellCardModel() { Name = _SpellCardViewModel.SpellCardName });
         }
 
-        public static string RandomString(int length)
-        {
-            Random random = new Random();
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
     }
 }
