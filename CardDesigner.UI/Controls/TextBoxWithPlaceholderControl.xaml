@@ -15,9 +15,18 @@
             VerticalAlignment="Stretch"
             IsHitTestVisible="False"
             Opacity=".5"
-            Style="{StaticResource TransparentTextBox}"
             Text="{Binding PlaceholderText, ElementName=TextBoxWithPlaceholder}"
-            TextWrapping="Wrap"
-            Visibility="{Binding ElementName=inputTextBox, Path=Text, Converter={converters:TextToVisibilityConverter}}" />
+            TextWrapping="Wrap">
+            <TextBox.Style>
+                <Style BasedOn="{StaticResource TransparentTextBox}" TargetType="{x:Type TextBox}">
+                    <Setter Property="Visibility" Value="{Binding ElementName=inputTextBox, Path=Text, Converter={converters:TextToVisibilityConverter}}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
     </Grid>
 </UserControl>

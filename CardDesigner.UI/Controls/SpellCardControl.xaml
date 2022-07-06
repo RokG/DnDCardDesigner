@@ -26,7 +26,8 @@
                 Canvas.Top="2"
                 Width="246"
                 Background="Transparent"
-                InputText="{Binding SpellCard.Title, ElementName=spellCard, Mode=TwoWay}" />
+                InputText="{Binding SpellCard.Title, ElementName=spellCard, Mode=TwoWay}"
+                IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
 
             <controls:TextBoxWithPlaceholderControl
                 Canvas.Left="2"
@@ -34,7 +35,8 @@
                 Width="246"
                 Height="200"
                 Background="Transparent"
-                InputText="{Binding SpellCard.Description, ElementName=spellCard, Mode=TwoWay}" />
+                InputText="{Binding SpellCard.Description, ElementName=spellCard, Mode=TwoWay}"
+                IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
         </Canvas>
     </Viewbox>
 </UserControl>
