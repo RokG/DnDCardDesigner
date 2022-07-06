@@ -22,6 +22,7 @@ namespace CardDesigner.Domain.Stores
         private readonly ISpellDeckProvider _spellDeckProvider;
 
         private readonly ISpellCardCreator _spellCardCreator;
+        private readonly ISpellCardUpdater _spellCardUpdater;
         private readonly ISpellCardProvider _spellCardProvider;
 
         private readonly List<SpellCardModel> _spellCards;
@@ -57,6 +58,7 @@ namespace CardDesigner.Domain.Stores
             ICharacterDeleter characterDeleter,
             ICharacterProvider characterProvider,
             ISpellCardCreator spellCardCreator,
+            ISpellCardUpdater spellCardUpdater,
             ISpellCardProvider spellCardProvider,
             ISpellDeckCreator spellDeckCreator,
             ISpellDeckUpdater spellDeckUpdater,
@@ -68,6 +70,7 @@ namespace CardDesigner.Domain.Stores
             _characterUpdater = characterUpdater;
             _characterDeleter = characterDeleter;
             _spellCardCreator = spellCardCreator;
+            _spellCardUpdater = spellCardUpdater;
             _spellCardProvider = spellCardProvider;
             _spellDeckCreator = spellDeckCreator;
             _spellDeckUpdater = spellDeckUpdater;
@@ -143,6 +146,15 @@ namespace CardDesigner.Domain.Stores
             {
                 await UpdateSpellDecksFromDb();
                 OnSpellDeckUpdated(updatedSpellDeck);
+            }
+        }
+
+        public async Task UpdateSpellCard(SpellCardModel spellCard)
+        {
+            if (await _spellCardUpdater.UpdateSpellCard(spellCard) is SpellCardModel updatedSpellDeck)
+            {
+                //await UpdateSpellDecksFromDb();
+                OnSpellCardUpdated(updatedSpellDeck);
             }
         }
 

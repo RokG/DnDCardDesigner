@@ -22,6 +22,7 @@ namespace CardDesigner.UI.HostBuilder
                 services.AddSingleton<ISpellDeckDeleter, DatabaseSpellDeckDeleter>();
 
                 services.AddSingleton<ISpellCardCreator, DatabaseSpellCardCreator>();
+                services.AddSingleton<ISpellCardUpdater, DatabaseSpellCardUpdater>();
                 services.AddSingleton<ISpellCardProvider, DatabaseSpellCardProvider>();
             });
 

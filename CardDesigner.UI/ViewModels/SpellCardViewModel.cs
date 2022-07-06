@@ -58,6 +58,7 @@ namespace CardDesigner.UI.ViewModels
         #region Actions, Events, Commands
 
         public ICommand CreateSpellCardCommand { get; }
+        public ICommand UpdateSpellCardCommand { get; }
 
         #endregion Actions, Events, Commands
 
@@ -70,6 +71,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
 
             CreateSpellCardCommand = new CreateSpellCardCommand(this, cardDesignerStore);
+            UpdateSpellCardCommand = new UpdateSpellCardCommand(this, cardDesignerStore);
 
             _cardDesignerStore.SpellCardCreated += OnSpellCardCreated;
         }

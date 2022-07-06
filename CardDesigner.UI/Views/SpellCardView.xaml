@@ -23,6 +23,7 @@
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
 
+        <!--  Card Settings  -->
         <StackPanel Orientation="Vertical">
 
             <controls:AddEditItem
@@ -36,9 +37,12 @@
             <ComboBox
                 ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
                 SelectedItem="{Binding SelectedSpellCard.School}" />
-
+            <Button
+                Command="{Binding UpdateSpellCardCommand}"
+                Content="Update" />
         </StackPanel>
 
+        <!--  Card view  -->
         <Viewbox Grid.Column="1">
             <Canvas
                 Width="250"
@@ -62,10 +66,10 @@
                 <TextBox
                     Canvas.Left="2"
                     Canvas.Top="40"
-                    MinLines="10"
                     Width="246"
-                    TextWrapping="Wrap"
-                    Text="{Binding SelectedSpellCard.Description}" />
+                    MinLines="10"
+                    Text="{Binding SelectedSpellCard.Description}"
+                    TextWrapping="Wrap" />
             </Canvas>
         </Viewbox>
 
