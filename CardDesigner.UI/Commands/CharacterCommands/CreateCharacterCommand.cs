@@ -35,13 +35,7 @@ namespace CardDesigner.UI.Commands
         public override void Execute(object parameter)
         {
             _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = _characterViewModel.AddedCharacterName });
-
-            //_cardDesignerStore.Load();
-
-            //_characterViewModel.AllCharacters = new(_cardDesignerStore.Characters);
-            //_characterViewModel.AllSpellCards = new(_cardDesignerStore.SpellCards);
-            //_characterViewModel.AllSpellDecks = new(_cardDesignerStore.SpellDecks);
-
         }
+
     }
 }
