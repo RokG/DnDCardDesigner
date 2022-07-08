@@ -3,16 +3,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:CardDesigner.UI.Wpf.Converters"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls">
-    <Grid>
+    <Grid Background="Transparent">
         <TextBox x:Name="inputTextBox"
             VerticalAlignment="Stretch"
             AcceptsReturn="True"
+            Background="Transparent"
             Style="{StaticResource TransparentTextBox}"
             Text="{Binding InputText, ElementName=TextBoxWithPlaceholder}"
             TextAlignment="Justify"
             TextWrapping="Wrap" />
         <TextBox x:Name="placeholderLabel"
             VerticalAlignment="Stretch"
+            Background="Transparent"
             IsHitTestVisible="False"
             Opacity=".5"
             Text="{Binding PlaceholderText, ElementName=TextBoxWithPlaceholder}"

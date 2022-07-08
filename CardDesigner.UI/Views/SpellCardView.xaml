@@ -46,6 +46,7 @@
         <!--  Card view  -->
         <controls:SpellCardControl
             Grid.Column="1"
+            IsEditable="True"
             SpellCard="{Binding SelectedSpellCard, Mode=TwoWay}" />
     </Grid>
 </UserControl>

@@ -6,7 +6,7 @@
     xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls">
     <Viewbox Grid.Column="1">
-        <Canvas
+        <Canvas x:Name="cardCanvas"
             Width="250"
             Height="350">
             <Border
@@ -21,6 +21,12 @@
                 BorderBrush="black"
                 BorderThickness="0,0,0,2" />
 
+            <Label
+                Canvas.Top="60"
+                Content="{StaticResource MagicSchoolNecromancyIcon}"
+                Opacity=".15"
+                Style="{StaticResource IconLabel}" />
+
             <controls:TextBoxWithPlaceholderControl
                 Canvas.Left="2"
                 Canvas.Top="2"
@@ -33,10 +39,11 @@
                 Canvas.Left="2"
                 Canvas.Top="40"
                 Width="246"
-                Height="200"
+                MaxHeight="300"
                 Background="Transparent"
                 InputText="{Binding SpellCard.Description, ElementName=spellCard, Mode=TwoWay}"
                 IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
+
         </Canvas>
     </Viewbox>
 </UserControl>

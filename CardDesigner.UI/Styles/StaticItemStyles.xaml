@@ -21,6 +21,13 @@
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
+    <Style x:Key="IconLabel" TargetType="{x:Type Label}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+
     <Style x:Key="HeaderLabel" BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
         <Setter Property="Foreground" Value="{StaticResource ThemeColorNormal}" />
         <Setter Property="FontSize" Value="18" />

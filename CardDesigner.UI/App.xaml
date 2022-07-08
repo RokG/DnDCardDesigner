@@ -1,5 +1,4 @@
-﻿<Application
-    x:Class="CardDesigner.UI.App"
+﻿<Application x:Class="CardDesigner.UI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:CardDesigner.UI">
@@ -17,6 +16,8 @@
 
                 <!--  Icons  -->
                 <ResourceDictionary Source="Resources/Icons/EditButton.xaml" />
+                <ResourceDictionary Source="Resources/Icons/IllusionIcon.xaml" />
+                <ResourceDictionary Source="Resources/Icons/NecromancyIcon.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
