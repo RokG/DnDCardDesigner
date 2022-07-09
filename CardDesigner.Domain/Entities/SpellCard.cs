@@ -18,7 +18,6 @@ namespace CardDesigner.Domain.Entities
         public int Level { get; set; }
         public MagicSchool School { get; set; }
         public bool HasVerbalComponent { get; set; }
-        public bool HasSemanticComponent { get; set; }
         public bool HasMaterialComponent { get; set; }
         public int CastingTimeValue { get; set; }
         public CastingTimeType CastingTimeType { get; set; }
