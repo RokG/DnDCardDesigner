@@ -41,6 +41,16 @@
             <Button
                 Command="{Binding UpdateSpellCardCommand}"
                 Content="Update" />
+            <Slider Value="{Binding SelectedSpellCard.Level}" />
+            <CheckBox
+                Content="Somatic"
+                IsChecked="{Binding SelectedSpellCard.HasSomaticComponent}" />
+            <CheckBox
+                Content="Verbal"
+                IsChecked="{Binding SelectedSpellCard.HasVerbalComponent}" />
+            <CheckBox
+                Content="Material"
+                IsChecked="{Binding SelectedSpellCard.HasMaterialComponent}" />
         </StackPanel>
 
         <!--  Card view  -->
