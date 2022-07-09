@@ -7,10 +7,10 @@
   <Canvas.Resources/>
   <!--Unknown tag: sodipodi:namedview-->
   <!--Unknown tag: metadata-->
-  <Canvas Name="layer18">
+  <Canvas Name="layer18" Visibility="Collapsed">
     <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="0" Canvas.Top="0" Width="100" Height="100" Name="rect5316" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round"/>
   </Canvas>
-  <Canvas Name="layer10">
+  <Canvas Name="layer10" Visibility="Collapsed">
     <Canvas Name="g4971">
       <Canvas.RenderTransform>
         <TranslateTransform X="1.2550613" Y="-151.31772"/>
@@ -21,7 +21,7 @@
       <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4965" StrokeThickness="3.61435223" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 73.110989 211.50522 c 0 0 -6.787372 -2.48741 -11.143843 -2.48741 -4.356472 0 -12.722207 2.99249 -12.722207 2.99249 0 0 -8.365735 -2.99249 -12.722206 -2.99249 -4.356471 0 -11.143843 2.48741 -11.143843 2.48741"/>
     </Canvas>
   </Canvas>
-  <Canvas Name="layer11">
+  <Canvas Name="layer11" Visibility="Collapsed">
     <Canvas Name="g4934">
       <Canvas.RenderTransform>
         <TranslateTransform X="0.49744835" Y="-147.31785"/>
@@ -33,10 +33,10 @@
       <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4931" StrokeThickness="3.23519897" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="m 59.473929 184.6783 a 3.1462085 2.9386982 0 0 1 -3.146208 2.93869 3.1462085 2.9386982 0 0 1 -3.146209 -2.93869 3.1462085 2.9386982 0 0 1 3.146209 -2.9387 3.1462085 2.9386982 0 0 1 3.146208 2.9387 z"/>
     </Canvas>
   </Canvas>
-  <Canvas Name="layer12">
+  <Canvas Name="layer12" Visibility="Collapsed">
     <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4908" StrokeThickness="4" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 30.950171 82.31525 16.35562 67.720698 c -2.172987 -2.173 -2.172999 -5.69612 0 -7.86911 2.17299 -2.17299 5.085174 -1.30134 7.86911 0 l 8.227819 3.84602 c 0 0 -0.538823 -7.80781 -0.973732 -10.68904 -1.403978 -9.3014 -7.355828 -25.01556 -7.355828 -25.01556 -0.892124 -2.88785 0.0668 -5.99581 2.838968 -7.2001 2.772214 -1.2043 6.179804 -0.007 7.200106 2.83896 l 8.641154 22.87183 -0.910074 -30.22436 c -0.09053 -3.00516 2.177758 -5.55272 5.180947 -5.69456 3.003171 -0.14184 5.336736 2.1958 5.694533 5.18096 l 3.487622 29.79335 5.504589 -22.53497 c 0.649576 -2.65924 2.76753 -4.67257 5.487273 -4.36179 2.719719 0.31081 4.672551 2.76754 4.361764 5.48728 l -2.059076 25.04878 7.539479 -13.45286 c 1.288939 -2.29987 3.86387 -3.52511 6.281532 -2.47358 2.417651 1.05153 3.576672 3.88695 2.473578 6.28153 0 0 -5.565106 11.15211 -6.921403 16.92029 -0.537886 2.28761 -0.729164 6.27212 -0.729164 6.27212 0 15.28462 -12.390651 27.675282 -27.675274 27.675282 -7.642312 0 -14.561141 -3.09768 -19.569372 -8.10592"/>
   </Canvas>
-  <Canvas Name="layer13">
+  <Canvas Name="layer13" Visibility="Collapsed">
     <Canvas Name="g5261">
       <Canvas.RenderTransform>
         <TranslateTransform X="-0.30333205" Y="-7.404313"/>
@@ -46,166 +46,69 @@
       <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5259" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeDashArray="12, 6" StrokeLineJoin="Round" Data="M 11.734694 67.857142 C 18.571562 50.709479 35.652369 42.091836 50 42.091836 c 14.347631 0 31.428438 8.617643 38.265306 25.765306"/>
     </Canvas>
   </Canvas>
-  <Canvas Name="layer14"/>
+  <Canvas Name="layer14" Visibility="Collapsed"/>
   <Canvas Name="layer15">
-    <Canvas Name="g5155">
-      <Canvas.RenderTransform>
-        <TranslateTransform X="0.24490785" Y="2.7654733"/>
-      </Canvas.RenderTransform>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5157" Fill="#FFBBBBBB" StrokeThickness="3" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="m 21.635988 50.249989 c -1e-6 -15.805895 12.813209 -28.619105 28.619104 -28.619105 l 0 26.093722 0 2.525383 z"/>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5159" StrokeThickness="2.79003167" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 86.825424 50.249989 A 36.570332 36.570332 0 0 1 50.255093 86.82032 36.570332 36.570332 0 0 1 13.684761 50.249989 36.570332 36.570332 0 0 1 50.255093 13.679657 36.570332 36.570332 0 0 1 86.825424 50.249989 Z"/>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5161" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 78.874197 50.249989 A 28.619104 28.619104 0 0 1 50.255093 78.869093 28.619104 28.619104 0 0 1 21.635988 50.249989 28.619104 28.619104 0 0 1 50.255093 21.630884 28.619104 28.619104 0 0 1 78.874197 50.249989 Z"/>
-      <Canvas Name="g5163">
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5165" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5167" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5169">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0 1 -1 0 100.50508 -0.0051045"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5171" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5173" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5175">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.5 0.8660254 -0.8660254 0.5 68.645312 -18.397193"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5177" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5179" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5181">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.8660254 0.5 -0.5 0.8660254 31.857899 -18.395325"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5183" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5185" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5187">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.8660254 -0.5 0.5 0.8660254 -18.392089 31.859768"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5189" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5191" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5193">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.5 -0.8660254 0.8660254 0.5 -18.390221 68.647181"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5195" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5197" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5199">
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5201" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 13.679657 0 -4.9259401"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5203" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 46.00764 8.7537169 8.494906 0"/>
-      </Canvas>
-      <Canvas Name="g5205">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.8660254 0.5 -0.5 0.8660254 31.185469 -18.007096"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5207" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 13.679657 0 -4.9259401"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5209" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 46.00764 8.7537169 8.494906 0"/>
-      </Canvas>
-      <Canvas Name="g5211">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.8660254 -0.5 0.5 0.8660254 -18.00386 31.187336"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5213" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 13.679657 0 -4.9259401"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5215" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 46.00764 8.7537169 8.494906 0"/>
-      </Canvas>
+    <Canvas Name="g5560">
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5157" Fill="#FFBBBBBB" StrokeThickness="3" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 21.880896 53.015462 C 21.880895 37.209567 34.694105 24.396357 50.5 24.396357 l 0 26.093722 0 2.525383 z"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5159" StrokeThickness="2.79003167" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 87.070332 53.015462 A 36.570332 36.570332 0 0 1 50.500001 89.585793 36.570332 36.570332 0 0 1 13.929669 53.015462 36.570332 36.570332 0 0 1 50.500001 16.44513 36.570332 36.570332 0 0 1 87.070332 53.015462 Z"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5161" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 79.119105 53.015462 A 28.619104 28.619104 0 0 1 50.500001 81.634566 28.619104 28.619104 0 0 1 21.880896 53.015462 28.619104 28.619104 0 0 1 50.500001 24.396357 28.619104 28.619104 0 0 1 79.119105 53.015462 Z"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5165" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.500001 24.396357 0 3.440198"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5167" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.500001 78.194368 0 3.440198"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5171" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 79.119106 53.015462 -3.440198 0"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5173" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 25.321095 53.015462 -3.440198 0"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5177" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 75.284872 38.705909 -2.979299 1.720099"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5179" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 28.694428 65.604915 -2.979299 1.720099"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5183" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 64.809552 28.230589 -1.720099 2.979299"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5185" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 37.910547 74.821033 -1.720099 2.979299"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5189" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 36.190448 28.230589 1.720099 2.979299"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5191" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 63.089454 74.821033 1.720099 2.979299"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5195" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 25.715128 38.705909 2.979299 1.720099"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5197" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 72.305572 65.604914 2.979299 1.720099"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5201" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.500001 16.44513 0 -4.92594"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5203" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 46.252548 11.51919 8.494906 0"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5207" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 68.112736 21.732854 2.46297 -4.265989"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5209" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 66.897303 15.343138 7.356805 4.247453"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5213" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 32.603064 20.672193 30.140093 16.406204"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5215" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 26.461691 18.52993 7.356805 -4.247453"/>
     </Canvas>
   </Canvas>
-  <Canvas Name="layer16">
-    <Canvas Name="g5350">
-      <Canvas.RenderTransform>
-        <TranslateTransform X="-5.5405351" Y="0.75177429"/>
-      </Canvas.RenderTransform>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5266" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 93.098652 50 A 36.806343 36.806343 0 0 1 56.292309 86.806343 36.806343 36.806343 0 0 1 19.485966 50 36.806343 36.806343 0 0 1 56.292309 13.193657 36.806343 36.806343 0 0 1 93.098652 50 Z"/>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="circle5268" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 80.985691 50 A 24.693382 24.693382 0 0 1 56.292309 74.693382 24.693382 24.693382 0 0 1 31.598927 50 24.693382 24.693382 0 0 1 56.292309 25.306618 24.693382 24.693382 0 0 1 80.985691 50 Z"/>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="circle5270" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 67.903694 50 A 11.611385 11.611385 0 0 1 56.292309 61.611385 11.611385 11.611385 0 0 1 44.680923 50 11.611385 11.611385 0 0 1 56.292309 38.388615 11.611385 11.611385 0 0 1 67.903694 50 Z"/>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5272" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 56.292309 50 26.625525 20.333216"/>
-      <Canvas Name="g5286">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.96592582 0.25881904 -0.25881904 0.96592582 24.34389 -6.8004939"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5274" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 16.702832 29.935019 14.465831 21.586418"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5276" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 9.2266108 25.618621 6.9896098 17.27002"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5278" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 12.964721 27.77682 10.72772 19.428219"/>
-      </Canvas>
-      <Canvas Name="g5291">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.25881904 0.96592582 0.96592582 -0.25881904 -0.50818422 18.051582"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5293" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 16.702832 29.935019 14.465831 21.586418"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5295" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 9.2266108 25.618621 6.9896098 17.27002"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5297" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 12.964721 27.77682 10.72772 19.428219"/>
-      </Canvas>
+  <Canvas Name="layer16" Visibility="Collapsed">
+    <Canvas Name="g5500">
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5266" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 87.558117 50.751774 A 36.806343 36.806343 0 0 1 50.751774 87.558117 36.806343 36.806343 0 0 1 13.945431 50.751774 36.806343 36.806343 0 0 1 50.751774 13.945431 36.806343 36.806343 0 0 1 87.558117 50.751774 Z"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="circle5268" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 75.445156 50.751774 A 24.693382 24.693382 0 0 1 50.751774 75.445156 24.693382 24.693382 0 0 1 26.058392 50.751774 24.693382 24.693382 0 0 1 50.751774 26.058392 24.693382 24.693382 0 0 1 75.445156 50.751774 Z"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="circle5270" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 62.363159 50.751774 A 11.611385 11.611385 0 0 1 50.751774 62.363159 11.611385 11.611385 0 0 1 39.140388 50.751774 11.611385 11.611385 0 0 1 50.751774 39.140389 11.611385 11.611385 0 0 1 62.363159 50.751774 Z"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5272" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 50.751774 50.751774 21.08499 21.08499"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5274" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 27.189299 27.189299 0 -8.643108"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5276" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 21.08499 21.08499 0 -8.643107"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5278" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 24.137144 24.137145 0 -8.643108"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5293" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 27.189299 27.1893 -8.643107 0"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5295" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 21.084991 21.084991 -8.643108 0"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5297" StrokeThickness="2" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 24.137145 24.137145 -8.643108 0"/>
     </Canvas>
   </Canvas>
-  <Canvas Name="layer17">
-    <Canvas Name="g5061">
-      <Canvas.RenderTransform>
-        <TranslateTransform X="0.24490785" Y="2.7654733"/>
-      </Canvas.RenderTransform>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5059" Fill="#FFBBBBBB" StrokeThickness="3" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="m 78.874197 50.249989 c 1e-6 -15.805895 -12.813209 -28.619105 -28.619104 -28.619105 l 0 26.093722 0 2.525383 z"/>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4984" StrokeThickness="2.79003167" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 86.825424 50.249989 A 36.570332 36.570332 0 0 1 50.255093 86.82032 36.570332 36.570332 0 0 1 13.684761 50.249989 36.570332 36.570332 0 0 1 50.255093 13.679657 36.570332 36.570332 0 0 1 86.825424 50.249989 Z"/>
-      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="circle4986" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 78.874197 50.249989 A 28.619104 28.619104 0 0 1 50.255093 78.869093 28.619104 28.619104 0 0 1 21.635988 50.249989 28.619104 28.619104 0 0 1 50.255093 21.630884 28.619104 28.619104 0 0 1 78.874197 50.249989 Z"/>
-      <Canvas Name="g5003">
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4999" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5001" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5007">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0 1 -1 0 100.50508 -0.0051045"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5009" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5011" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5013">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.5 0.8660254 -0.8660254 0.5 68.645312 -18.397193"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5015" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5017" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5019">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.8660254 0.5 -0.5 0.8660254 31.857899 -18.395325"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5021" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5023" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5025">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.8660254 -0.5 0.5 0.8660254 -18.392089 31.859768"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5027" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5029" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5031">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.5 -0.8660254 0.8660254 0.5 -18.390221 68.647181"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5033" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 21.630884 0 3.440198"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5035" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 75.428895 0 3.440198"/>
-      </Canvas>
-      <Canvas Name="g5043">
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5037" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 13.679657 0 -4.9259401"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5041" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 46.00764 8.7537169 8.494906 0"/>
-      </Canvas>
-      <Canvas Name="g5047">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.8660254 0.5 -0.5 0.8660254 31.185469 -18.007096"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5049" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 13.679657 0 -4.9259401"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5051" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 46.00764 8.7537169 8.494906 0"/>
-      </Canvas>
-      <Canvas Name="g5053">
-        <Canvas.RenderTransform>
-          <MatrixTransform Matrix="0.8660254 -0.5 0.5 0.8660254 -18.00386 31.187336"/>
-        </Canvas.RenderTransform>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5055" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.255093 13.679657 0 -4.9259401"/>
-        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5057" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 46.00764 8.7537169 8.494906 0"/>
-      </Canvas>
+  <Canvas Name="layer17" Visibility="Collapsed">
+    <Canvas Name="g5459">
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5059" Fill="#FFBBBBBB" StrokeThickness="3" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 79.119105 53.015462 C 79.119106 37.209567 66.305896 24.396357 50.500001 24.396357 l 0 26.093722 0 2.525383 z"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4984" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 87.070332 53.015462 A 36.570332 36.570332 0 0 1 50.500001 89.585793 36.570332 36.570332 0 0 1 13.929669 53.015462 36.570332 36.570332 0 0 1 50.500001 16.44513 36.570332 36.570332 0 0 1 87.070332 53.015462 Z"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="circle4986" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Round" Data="M 79.119105 53.015462 A 28.619104 28.619104 0 0 1 50.500001 81.634566 28.619104 28.619104 0 0 1 21.880896 53.015462 28.619104 28.619104 0 0 1 50.500001 24.396357 28.619104 28.619104 0 0 1 79.119105 53.015462 Z"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4999" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.500001 24.396357 0 3.440198"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5001" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.500001 78.194368 0 3.440198"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5009" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 79.119106 53.015462 -3.440198 0"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5011" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 25.321095 53.015462 -3.440198 0"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5015" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 75.284872 38.705909 -2.979299 1.720099"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5017" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 28.694428 65.604915 -2.979299 1.720099"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5021" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 64.809552 28.230589 -1.720099 2.979299"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5023" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 37.910547 74.821033 -1.720099 2.979299"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5027" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 36.190448 28.230589 1.720099 2.979299"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5029" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 63.089454 74.821033 1.720099 2.979299"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5033" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 25.715128 38.705909 2.979299 1.720099"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5035" StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 72.305572 65.604914 2.979299 1.720099"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5037" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 50.500001 16.44513 0 -4.92594"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5041" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 46.252548 11.51919 8.494906 0"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5049" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 68.112736 21.732854 2.46297 -4.265989"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5051" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 66.897303 15.343138 7.356805 4.247453"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5055" StrokeThickness="5" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M 32.603064 20.672193 30.140093 16.406204"/>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5057" StrokeThickness="3" Stroke="#FF000000" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="m 26.461691 18.52993 7.356805 -4.247453"/>
     </Canvas>
   </Canvas>
 </Canvas>

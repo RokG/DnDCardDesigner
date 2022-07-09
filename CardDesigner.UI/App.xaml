@@ -16,6 +16,7 @@
 
                 <!--  Icons  -->
                 <ResourceDictionary Source="Resources/Icons/EditButton.xaml" />
+
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/AbjurationIcon.xaml" />
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/ConjurationIcon.xaml" />
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/DivinationIcon.xaml" />
@@ -24,6 +25,14 @@
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/IllusionIcon.xaml" />
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/NecromancyIcon.xaml" />
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/TransmutationIcon.xaml" />
+
+                <ResourceDictionary Source="Resources/Icons/Properties/ComponentVerbal.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/ComponentMaterial.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/ComponentSomatic.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/SpellCastingTime.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/SpellDuration.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/SpellRange.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/SpellTarget.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

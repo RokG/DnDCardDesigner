@@ -1,0 +1,48 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Canvas x:Key="SpellTarget"
+        Width="100"
+        Height="100">
+        <Path
+            Data="M 87.558117 50.751774 A 36.806343 36.806343 0 0 1 50.751774 87.558117 36.806343 36.806343 0 0 1 13.945431 50.751774 36.806343 36.806343 0 0 1 50.751774 13.945431 36.806343 36.806343 0 0 1 87.558117 50.751774 Z"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+        <Path
+            Data="M 75.445156 50.751774 A 24.693382 24.693382 0 0 1 50.751774 75.445156 24.693382 24.693382 0 0 1 26.058392 50.751774 24.693382 24.693382 0 0 1 50.751774 26.058392 24.693382 24.693382 0 0 1 75.445156 50.751774 Z"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+        <Path
+            Data="M 62.363159 50.751774 A 11.611385 11.611385 0 0 1 50.751774 62.363159 11.611385 11.611385 0 0 1 39.140388 50.751774 11.611385 11.611385 0 0 1 50.751774 39.140389 11.611385 11.611385 0 0 1 62.363159 50.751774 Z"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+        <Path
+            Data="M 50.751774 50.751774 21.08499 21.08499"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+        <Path
+            Data="m 27.189299 27.189299 0 -8.643108"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+        <Path
+            Data="m 21.08499 21.08499 0 -8.643107"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+        <Path
+            Data="m 24.137144 24.137145 0 -8.643108"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+        <Path
+            Data="m 27.189299 27.1893 -8.643107 0"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+        <Path
+            Data="m 21.084991 21.084991 -8.643108 0"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+        <Path
+            Data="m 24.137145 24.137145 -8.643108 0"
+            Stroke="#FF000000"
+            StrokeThickness="2" />
+    </Canvas>
+</ResourceDictionary>

@@ -1,0 +1,92 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Canvas x:Key="SpellCastingTime"
+        Width="100"
+        Height="100">
+        <Path
+            Data="M 79.119105 53.015462 C 79.119106 37.209567 66.305896 24.396357 50.500001 24.396357 l 0 26.093722 0 2.525383 z"
+            Fill="#FF000000"
+            StrokeThickness="3" />
+        <Path
+            Data="M 87.070332 53.015462 A 36.570332 36.570332 0 0 1 50.500001 89.585793 36.570332 36.570332 0 0 1 13.929669 53.015462 36.570332 36.570332 0 0 1 50.500001 16.44513 36.570332 36.570332 0 0 1 87.070332 53.015462 Z"
+            Stroke="#FF000000"
+            StrokeThickness="3" />
+        <Path
+            Data="M 79.119105 53.015462 A 28.619104 28.619104 0 0 1 50.500001 81.634566 28.619104 28.619104 0 0 1 21.880896 53.015462 28.619104 28.619104 0 0 1 50.500001 24.396357 28.619104 28.619104 0 0 1 79.119105 53.015462 Z"
+            Stroke="#FF000000"
+            StrokeThickness="3" />
+        <Path
+            Data="m 50.500001 24.396357 0 3.440198"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 50.500001 78.194368 0 3.440198"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 79.119106 53.015462 -3.440198 0"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 25.321095 53.015462 -3.440198 0"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 75.284872 38.705909 -2.979299 1.720099"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 28.694428 65.604915 -2.979299 1.720099"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 37.910547 74.821033 -1.720099 2.979299"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 36.190448 28.230589 1.720099 2.979299"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 63.089454 74.821033 1.720099 2.979299"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 25.715128 38.705909 2.979299 1.720099"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 72.305572 65.604914 2.979299 1.720099"
+            Stroke="#FF000000"
+            StrokeThickness="1" />
+        <Path
+            Data="m 50.500001 16.44513 0 -4.92594"
+            Stroke="#FF000000"
+            StrokeThickness="5" />
+        <Path
+            Data="m 46.252548 11.51919 8.494906 0"
+            Stroke="#FF000000"
+            StrokeThickness="3" />
+        <Path
+            Data="m 68.112736 21.732854 2.46297 -4.265989"
+            Stroke="#FF000000"
+            StrokeThickness="5" />
+        <Path
+            Data="m 66.897303 15.343138 7.356805 4.247453"
+            Stroke="#FF000000"
+            StrokeEndLineCap="Flat"
+            StrokeThickness="3" />
+        <Path
+            Data="M 32.603064 20.672193 30.140093 16.406204"
+            Stroke="#FF000000"
+            StrokeThickness="5" />
+        <Path
+            Data="m 26.461691 18.52993 7.356805 -4.247453"
+            Stroke="#FF000000"
+            StrokeThickness="3" />
+    </Canvas>
+</ResourceDictionary>
