@@ -1,0 +1,20 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Canvas x:Key="MagicSchoolDivinationIcon"
+        Width="250"
+        Height="250">
+        <Path
+            Data="m 224.35734 210.9015 -198.205969 0 99.102979 -171.65141 z"
+            Stroke="#FF000000"
+            StrokeThickness="5" />
+        <Path
+            Data="m 148.01533 153.6845 a 22.760969 22.760969 0 0 1 -22.76097 22.76097 22.760969 22.760969 0 0 1 -22.76096 -22.76097 22.760969 22.760969 0 0 1 22.76096 -22.76097 22.760969 22.760969 0 0 1 22.76097 22.76097 z"
+            Stroke="#FF000000"
+            StrokeThickness="5" />
+        <Path
+            Data="m 191.34066 153.56894 c -15.1453 -11.63383 -40.85607 -23.13508 -65.91762 -23.13508 -25.06155 0 -50.772314 11.50125 -65.917611 23.13508 15.447372 11.63393 41.158101 23.13508 65.917611 23.13508 24.75952 0 50.47024 -11.50115 65.91762 -23.13508 z"
+            Stroke="#FF000000"
+            StrokeThickness="5" />
+    </Canvas>
+</ResourceDictionary>

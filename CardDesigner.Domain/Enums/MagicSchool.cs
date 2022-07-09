@@ -4,12 +4,12 @@
     {
         None,
         Abjuration,
-        Alteration,
         Conjuration,
         Divination,
         Enchantment,
+        Evocation,
         Illusion,
-        Invocation,
-        Necromancy
+        Necromancy,
+        Transmutation
     }
 }

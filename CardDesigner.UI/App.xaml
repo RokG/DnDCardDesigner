@@ -16,8 +16,14 @@
 
                 <!--  Icons  -->
                 <ResourceDictionary Source="Resources/Icons/EditButton.xaml" />
-                <ResourceDictionary Source="Resources/Icons/IllusionIcon.xaml" />
-                <ResourceDictionary Source="Resources/Icons/NecromancyIcon.xaml" />
+                <ResourceDictionary Source="Resources/Icons/MagicSchools/AbjurationIcon.xaml" />
+                <ResourceDictionary Source="Resources/Icons/MagicSchools/ConjurationIcon.xaml" />
+                <ResourceDictionary Source="Resources/Icons/MagicSchools/DivinationIcon.xaml" />
+                <ResourceDictionary Source="Resources/Icons/MagicSchools/EnchantmentIcon.xaml" />
+                <ResourceDictionary Source="Resources/Icons/MagicSchools/EvocationIcon.xaml" />
+                <ResourceDictionary Source="Resources/Icons/MagicSchools/IllusionIcon.xaml" />
+                <ResourceDictionary Source="Resources/Icons/MagicSchools/NecromancyIcon.xaml" />
+                <ResourceDictionary Source="Resources/Icons/MagicSchools/TransmutationIcon.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
