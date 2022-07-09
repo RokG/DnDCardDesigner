@@ -33,6 +33,8 @@
                 <ResourceDictionary Source="Resources/Icons/Properties/SpellDuration.xaml" />
                 <ResourceDictionary Source="Resources/Icons/Properties/SpellRange.xaml" />
                 <ResourceDictionary Source="Resources/Icons/Properties/SpellTarget.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/SpellRitual.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/SpellConcentration.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

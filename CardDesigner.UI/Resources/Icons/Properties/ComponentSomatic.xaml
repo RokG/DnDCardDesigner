@@ -12,5 +12,4 @@
                 StrokeThickness="3" />
         </Canvas>
     </Viewbox>
-
 </ResourceDictionary>
