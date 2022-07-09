@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace CardDesigner.UI.Wpf.Converters
+namespace CardDesigner.UI.Converters
 {
     /// <summary>
     /// Adjustable boolean to visibility converter. User can specify Visibility for True and False values.
