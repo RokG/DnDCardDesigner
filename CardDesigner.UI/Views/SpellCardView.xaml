@@ -26,7 +26,6 @@
 
         <!--  Card Settings  -->
         <StackPanel Orientation="Vertical">
-
             <controls:AddEditItem
                 Title="Spell Card"
                 AddedItemName="{Binding SpellCardName, Mode=TwoWay}"
@@ -41,7 +40,17 @@
             <Button
                 Command="{Binding UpdateSpellCardCommand}"
                 Content="Update" />
-            <Slider Value="{Binding SelectedSpellCard.Level}" />
+            <!--  Level  -->
+            <Slider
+                Maximum="9"
+                Minimum="0"
+                Value="{Binding SelectedSpellCard.Level}" />
+            <CheckBox
+                Content="Concentration"
+                IsChecked="{Binding SelectedSpellCard.IsConcentration}" />
+            <CheckBox
+                Content="Ritual"
+                IsChecked="{Binding SelectedSpellCard.IsRitual}" />
             <CheckBox
                 Content="Somatic"
                 IsChecked="{Binding SelectedSpellCard.HasSomaticComponent}" />
