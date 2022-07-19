@@ -9,17 +9,17 @@ namespace CardDesigner.Domain.Models
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
-        public int Level { get; set; }
-        public MagicSchool School { get; set; }
-        public bool HasVerbalComponent { get; set; }
-        public bool HasMaterialComponent { get; set; }
-        public bool HasSomaticComponent { get; set; }
-        public bool IsRitual { get; set; }
-        public bool IsConcentration { get; set; }
-        public int CastingTimeValue { get; set; }
-        public CastingTimeType CastingTimeType { get; set; }
-        public int RangeValue { get; set; }
-        public RangeType RangeType { get; set; }
+        public int Level { get; set; } = 0;
+        public MagicSchool School { get; set; } = MagicSchool.None;
+        public bool HasVerbalComponent { get; set; } = false;
+        public bool HasMaterialComponent { get; set; }= false;
+        public bool HasSomaticComponent { get; set; }= false;
+        public bool IsRitual { get; set; } = false;
+        public bool IsConcentration { get; set; } = false ;
+        public int CastingTimeValue { get; set; } = 1;
+        public CastingTimeType CastingTimeType { get; set; } = CastingTimeType.Action;
+        public int RangeValue { get; set; } = 0;
+        public RangeType RangeType { get; set; } = RangeType.Self;
         public string Target { get; set; } = string.Empty;
     }
 }
