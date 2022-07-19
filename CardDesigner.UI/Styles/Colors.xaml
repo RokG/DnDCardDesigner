@@ -17,10 +17,35 @@
     <Color x:Key="Color302">#065143</Color>
     <Color x:Key="Color303">#046C58</Color>
 
+    <Color x:Key="ColorDark">#222222</Color>
+    <Color x:Key="ColorLight">#ffffff</Color>
+
     <Color x:Key="ThemeColorDARK">#7F0B28</Color>
     <Color x:Key="ThemeColorNORM">#de1243</Color>
     <Color x:Key="ThemeColorLGHT">#F21349</Color>
 
+    <Color x:Key="CardColorDARK">#FFE9CC</Color>
+    <Color x:Key="CardColorNORM">#FFEFD8</Color>
+    <Color x:Key="CardColorLGHT">#FFF5E2</Color>
+
+    <!--  Card Colors  -->
+    <SolidColorBrush x:Key="CardLineColor" Color="{StaticResource ColorDark}" />
+
+    <SolidColorBrush x:Key="CardHeaderBackgroundColor" Color="{StaticResource CardColorNORM}" />
+    <SolidColorBrush x:Key="CardHeaderIconBackgroundColor" Color="{StaticResource CardColorLGHT}" />
+    <SolidColorBrush x:Key="CardHeaderIconForegroundColor" Color="{StaticResource ColorDark}" />
+    <SolidColorBrush x:Key="CardHeaderFontColor" Color="{StaticResource Color301}" />
+
+    <SolidColorBrush x:Key="CardFooterBackgroundColor" Color="{StaticResource Color102}" />
+    <SolidColorBrush x:Key="CardFooterIconColor" Color="{StaticResource ColorDark}" />
+    <SolidColorBrush x:Key="CardFooterFontColor" Color="{StaticResource Color302}" />
+
+    <SolidColorBrush x:Key="CardBodyBackgroundColor" Color="{StaticResource ColorLight}" />
+    <SolidColorBrush x:Key="CardBodyIconColor" Color="{StaticResource ColorDark}" />
+    <SolidColorBrush x:Key="CardBodyFontColor" Color="{StaticResource Color303}" />
+
+
+    <!--  Theme colors  -->
     <SolidColorBrush x:Key="ThemeColorDark" Color="{StaticResource ThemeColorDARK}" />
     <SolidColorBrush x:Key="ThemeColorNormal" Color="{StaticResource ThemeColorNORM}" />
     <SolidColorBrush x:Key="ThemeColorLight" Color="{StaticResource ThemeColorLGHT}" />

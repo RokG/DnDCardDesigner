@@ -6,26 +6,33 @@
     xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls">
     <Viewbox>
-        <Border
-            Width="250"
-            Height="350"
-            Margin="0"
-            Padding="0"
-            BorderBrush="black"
-            BorderThickness="2"
-            CornerRadius="4">
-            <Canvas x:Name="cardCanvas">
+        <Grid>
+            <!--  Card border  -->
+            <Border
+                Width="250"
+                Height="350"
+                Margin="0"
+                Padding="0"
+                Background="{StaticResource CardHeaderBackgroundColor}"
+                BorderBrush="{StaticResource CardLineColor}"
+                BorderThickness="2"
+                CornerRadius="4" />
+            <!--  Card contents  -->
+            <Canvas>
+                <!--  Body lines  -->
                 <Border
                     Canvas.Top="35"
-                    Width="246"
+                    Width="250"
                     Height="250"
                     Margin="0"
                     Padding="0"
-                    BorderBrush="black"
+                    Background="{StaticResource CardBodyBackgroundColor}"
+                    BorderBrush="{StaticResource CardLineColor}"
                     BorderThickness="0,2,0,2" />
+
                 <!--  School icon  -->
                 <Label
-                    Canvas.Top="60"
+                    Canvas.Top="35"
                     Content="{Binding SpellCard.School, ElementName=spellCard, Converter={converters:StringToResourceKeyConverter Formatter=MagicSchool(I)Icon}}"
                     Opacity=".15"
                     Style="{StaticResource IconLabel}" />
@@ -35,11 +42,12 @@
                     Canvas.Top="25"
                     Width="248"
                     LastChildFill="False">
+                    <!--  Material  -->
                     <Border
                         Width="25"
                         Height="25"
                         Margin="2,0,0,0"
-                        Background="{StaticResource WindowBackgroundLight}"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
                         BorderBrush="Black"
                         BorderThickness="2"
                         CornerRadius="20"
@@ -48,11 +56,12 @@
                             Content="{StaticResource ComponentMaterial}"
                             Style="{StaticResource IconLabel}" />
                     </Border>
+                    <!--  Verbal  -->
                     <Border
                         Width="25"
                         Height="25"
                         Margin="2,0,0,0"
-                        Background="{StaticResource WindowBackgroundLight}"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
                         BorderBrush="Black"
                         BorderThickness="2"
                         CornerRadius="20"
@@ -61,11 +70,12 @@
                             Content="{StaticResource ComponentVerbal}"
                             Style="{StaticResource IconLabel}" />
                     </Border>
+                    <!--  Somatic  -->
                     <Border
                         Width="25"
                         Height="25"
                         Margin="2,0,0,0"
-                        Background="{StaticResource WindowBackgroundLight}"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
                         BorderBrush="Black"
                         BorderThickness="2"
                         CornerRadius="20"
@@ -74,11 +84,12 @@
                             Content="{StaticResource ComponentSomatic}"
                             Style="{StaticResource IconLabel}" />
                     </Border>
+                    <!--  Level  -->
                     <Border
                         Width="25"
                         Height="25"
                         Margin="50,0,4,0"
-                        Background="{StaticResource WindowBackgroundLight}"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
                         BorderBrush="Black"
                         BorderThickness="2"
                         CornerRadius="20"
@@ -93,11 +104,12 @@
                             FontWeight="Black"
                             Foreground="Black" />
                     </Border>
+                    <!--  Ritual  -->
                     <Border
                         Width="25"
                         Height="25"
                         Margin="10,0,0,0"
-                        Background="{StaticResource WindowBackgroundLight}"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
                         BorderBrush="Black"
                         BorderThickness="2"
                         CornerRadius="20"
@@ -107,10 +119,11 @@
                             Content="{StaticResource SpellRitual}"
                             Style="{StaticResource IconLabel}" />
                     </Border>
+                    <!--  Concentration  -->
                     <Border
                         Width="25"
                         Height="25"
-                        Background="{StaticResource WindowBackgroundLight}"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
                         BorderBrush="Black"
                         BorderThickness="2"
                         CornerRadius="20"
@@ -125,7 +138,6 @@
                 <!--  Title textbox  -->
                 <controls:TextBoxWithPlaceholderControl
                     Canvas.Left="2"
-                    Canvas.Top="2"
                     Width="246"
                     Background="Transparent"
                     InputText="{Binding SpellCard.Title, ElementName=spellCard, Mode=TwoWay}"
@@ -134,7 +146,7 @@
                 <!--  Description textbox  -->
                 <controls:TextBoxWithPlaceholderControl
                     Canvas.Left="2"
-                    Canvas.Top="45"
+                    Canvas.Top="50"
                     Width="246"
                     MaxHeight="300"
                     Background="Transparent"
@@ -142,6 +154,15 @@
                     IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
 
             </Canvas>
-        </Border>
+            <!--  Card border  -->
+            <Border
+                Width="250"
+                Height="350"
+                Margin="0"
+                Padding="0"
+                BorderBrush="{StaticResource CardLineColor}"
+                BorderThickness="2"
+                CornerRadius="4" />
+        </Grid>
     </Viewbox>
 </UserControl>
