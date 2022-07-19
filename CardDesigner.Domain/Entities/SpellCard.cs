@@ -22,10 +22,18 @@ namespace CardDesigner.Domain.Entities
         public bool HasSomaticComponent { get; set; }
         public bool IsRitual { get; set; }
         public bool IsConcentration { get; set; }
-        public int CastingTimeValue { get; set; }
-        public CastingTimeType CastingTimeType { get; set; }
-        public int RangeValue { get; set; }
-        public RangeType RangeType { get; set; }
+        public CastingTimeType CastingTimeType { get; set; } = CastingTimeType.Action;
+        public int CastingTimeValue { get; set; } = 1;
+        public RangeType RangeType { get; set; } = RangeType.Self;
+        public int RangeValue { get; set; } = 0;
+        public DurationType DurationType { get; set; } = DurationType.Instantaneous;
+        public int DurationValue { get; set; } = 1;
+        public DiceType DiceType { get; set; } = DiceType.d20;
+        public int DiceValue { get; set; } = 0;
+        public AreaOfEffect AreaOfEffect { get; set; } = AreaOfEffect.Sphere;
+        public int AreaOfEffectValue { get; set; }
+        public TargetType TargetType { get; set; } = TargetType.Self;
         public string Target { get; set; } = string.Empty;
+        public DamageType DamageType { get; set; } = DamageType.Fire;
     }
 }
