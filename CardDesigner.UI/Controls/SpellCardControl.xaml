@@ -170,19 +170,19 @@
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellCastingTime}"
                         Unit="A"
-                        Value="1" />
+                        Value="{Binding SpellCard.CastingTimeValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellDuration}"
                         Unit="min"
-                        Value="10" />
+                        Value="{Binding SpellCard.DurationValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellRange}"
                         Unit="ft"
-                        Value="30" />
+                        Value="{Binding SpellCard.RangeValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellAOECone}"
                         Unit="ft"
-                        Value="10" />
+                        Value="{Binding SpellCard.AreaOfEffectValue, ElementName=spellCard}" />
 
                 </WrapPanel>
 
@@ -209,7 +209,7 @@
                         Height="30"
                         Icon="{StaticResource RollDice}"
                         Unit="d6"
-                        Value="4" />
+                        Value="{Binding SpellCard.DiceValue, ElementName=spellCard}" />
                 </DockPanel>
 
             </Canvas>

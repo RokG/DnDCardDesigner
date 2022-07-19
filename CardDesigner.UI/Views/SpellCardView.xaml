@@ -33,24 +33,43 @@
                 SaveCommand="{Binding CreateSpellCardCommand}"
                 SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}"
                 ViewOnly="False" />
-            <TextBox Text="{Binding SelectedSpellCard.Name}" />
+            <Label
+                Margin="5,0"
+                Padding="0"
+                Content="Card name:" />
+            <TextBox
+                Margin="5,0"
+                Text="{Binding SelectedSpellCard.Name}" />
+            <Label
+                Margin="5,10,0,0"
+                Padding="0"
+                Content="Spell school:" />
             <ComboBox
                 ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
                 SelectedItem="{Binding SelectedSpellCard.School}" />
-            <Button
-                Command="{Binding UpdateSpellCardCommand}"
-                Content="Update" />
             <!--  Level  -->
+            <Label
+                Margin="5,10,0,0"
+                Padding="0"
+                Content="Spell level:" />
             <Slider
                 Maximum="9"
                 Minimum="0"
                 Value="{Binding SelectedSpellCard.Level}" />
+            <Label
+                Margin="5,10,0,0"
+                Padding="0"
+                Content="Concentration/Ritual" />
             <CheckBox
                 Content="Concentration"
                 IsChecked="{Binding SelectedSpellCard.IsConcentration}" />
             <CheckBox
                 Content="Ritual"
                 IsChecked="{Binding SelectedSpellCard.IsRitual}" />
+            <Label
+                Margin="5,10,0,0"
+                Padding="0"
+                Content="Components:" />
             <CheckBox
                 Content="Somatic"
                 IsChecked="{Binding SelectedSpellCard.HasSomaticComponent}" />
@@ -60,6 +79,54 @@
             <CheckBox
                 Content="Material"
                 IsChecked="{Binding SelectedSpellCard.HasMaterialComponent}" />
+
+            <Label
+                Margin="5,10,0,0"
+                Padding="0"
+                Content="Range:" />
+            <Slider
+                Maximum="9"
+                Minimum="0"
+                Value="{Binding SelectedSpellCard.RangeValue}" />
+
+            <Label
+                Margin="5,10,0,0"
+                Padding="0"
+                Content="Duration:" />
+            <Slider
+                Maximum="9"
+                Minimum="0"
+                Value="{Binding SelectedSpellCard.DurationValue}" />
+
+            <Label
+                Margin="5,10,0,0"
+                Padding="0"
+                Content="Casting time:" />
+            <Slider
+                Maximum="9"
+                Minimum="0"
+                Value="{Binding SelectedSpellCard.CastingTimeValue}" />
+
+            <Label
+                Margin="5,10,0,0"
+                Padding="0"
+                Content="Area of effect:" />
+            <Slider
+                Maximum="9"
+                Minimum="0"
+                Value="{Binding SelectedSpellCard.AreaOfEffectValue}" />
+            <Label
+                Margin="5,10,0,0"
+                Padding="0"
+                Content="Damage:" />
+            <Slider
+                Maximum="9"
+                Minimum="0"
+                Value="{Binding SelectedSpellCard.DiceValue}" />
+            <!--  Manually update button  -->
+            <Button
+                Command="{Binding UpdateSpellCardCommand}"
+                Content="Update" />
         </StackPanel>
 
         <!--  Card view  -->
