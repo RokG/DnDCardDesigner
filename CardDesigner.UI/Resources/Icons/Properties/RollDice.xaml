@@ -1,0 +1,23 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Canvas x:Key="RollDice"
+        Width="100"
+        Height="100">
+        <Polygon
+            Fill="Green"
+            Points="40,60 20,85 60,85" />
+        <Rectangle
+            Canvas.Left="60"
+            Canvas.Top="20"
+            Width="30"
+            Height="30"
+            Fill="Blue" />
+        <Ellipse
+            Canvas.Left="10"
+            Canvas.Top="10"
+            Width="30"
+            Height="30"
+            Fill="Red" />
+    </Canvas>
+</ResourceDictionary>

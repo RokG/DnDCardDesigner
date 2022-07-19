@@ -19,6 +19,7 @@
                 CornerRadius="4" />
             <!--  Card contents  -->
             <Canvas>
+
                 <!--  Body lines  -->
                 <Border
                     Canvas.Top="35"
@@ -141,6 +142,7 @@
                     Canvas.Left="2"
                     Width="246"
                     Background="Transparent"
+                    FontSize="16"
                     InputText="{Binding SpellCard.Title, ElementName=spellCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
 
@@ -151,8 +153,64 @@
                     Width="246"
                     MaxHeight="300"
                     Background="Transparent"
+                    FontSize="14"
                     InputText="{Binding SpellCard.Description, ElementName=spellCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
+
+                <!--  Spell properties  -->
+                <WrapPanel
+                    Canvas.Top="285"
+                    Width="250"
+                    Height="32.5"
+                    Margin="0"
+                    ItemHeight="30"
+                    ItemWidth="60"
+                    Orientation="Horizontal">
+
+                    <controls:IconWithPropertyControl
+                        Icon="{StaticResource SpellCastingTime}"
+                        Unit="A"
+                        Value="1" />
+                    <controls:IconWithPropertyControl
+                        Icon="{StaticResource SpellDuration}"
+                        Unit="min"
+                        Value="10" />
+                    <controls:IconWithPropertyControl
+                        Icon="{StaticResource SpellRange}"
+                        Unit="ft"
+                        Value="30" />
+                    <controls:IconWithPropertyControl
+                        Icon="{StaticResource SpellAOECone}"
+                        Unit="ft"
+                        Value="10" />
+
+                </WrapPanel>
+
+                <!--  Target description  -->
+                <DockPanel
+                    Canvas.Top="315"
+                    Width="250"
+                    Height="32">
+                    <Viewbox
+                        Width="30"
+                        Height="30">
+                        <Label
+                            Background="Transparent"
+                            Content="{StaticResource SpellTarget}" />
+                    </Viewbox>
+                    <!--  Title textbox  -->
+                    <controls:TextBoxWithPlaceholderControl
+                        Width="150"
+                        Background="Transparent"
+                        FontSize="10"
+                        InputText="{Binding SpellCard.Target, ElementName=spellCard, Mode=TwoWay}"
+                        IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
+                    <controls:IconWithPropertyControl
+                        Height="30"
+                        Icon="{StaticResource RollDice}"
+                        Unit="d6"
+                        Value="4" />
+                </DockPanel>
 
             </Canvas>
             <!--  Card border  -->
