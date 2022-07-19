@@ -5,14 +5,18 @@
         <Canvas
             Width="100"
             Height="100">
-            <Path
-                Data="M 75.176125 84.651958 49.999995 7.1678216 24.823885 84.651958 l 65.91194 -47.887826 -81.4716497 5e-6 z"
-                Stroke="#FF000000"
-                StrokeLineJoin="Round"
-                StrokeThickness="3" />
+            <Ellipse
+                Width="100"
+                Height="100"
+                Fill="SaddleBrown" />
             <Path
                 Data="M 93.477815 49.999995 A 43.47782 43.47782 0 0 1 50.000005 93.477818 43.47782 43.47782 0 0 1 6.5221853 49.999995 43.47782 43.47782 0 0 1 50.000005 6.5221816 43.47782 43.47782 0 0 1 93.477815 49.999995 Z"
-                Stroke="#FF000000"
+                Stroke="White"
+                StrokeThickness="3" />
+            <Path
+                Data="M 75.176125 84.651958 49.999995 7.1678216 24.823885 84.651958 l 65.91194 -47.887826 -81.4716497 5e-6 z"
+                Stroke="White"
+                StrokeLineJoin="Round"
                 StrokeThickness="3" />
         </Canvas>
     </Viewbox>

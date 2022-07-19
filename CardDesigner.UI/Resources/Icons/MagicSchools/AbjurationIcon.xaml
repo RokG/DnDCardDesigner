@@ -1,16 +1,17 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="AbjurationColor" Color="DeepSkyBlue" />
     <Canvas x:Key="MagicSchoolAbjurationIcon"
         Width="250"
         Height="250">
         <Path
             Data="M 28.416508 54.21723 C 59.539701 36.688696 92.604444 25.348038 125.25436 25.348038 c 32.64991 0 65.71466 11.340658 96.83786 28.869192 C 204.30875 166.22503 166.48831 199.1151 125.25436 224.2182 84.020414 199.1151 46.199976 166.22503 28.416508 54.21723 Z"
-            Stroke="#FF000000"
+            Stroke="{StaticResource AbjurationColor}"
             StrokeThickness="5" />
         <Path
             Data="M 46.899346 64.359821 C 72.08225 50.176844 98.836134 41.000705 125.25436 41.000705 c 26.41822 0 53.17211 9.176139 78.35502 23.359116 C 189.22013 154.98937 158.61824 181.60193 125.25436 201.91376 91.890483 181.60193 61.288595 154.98937 46.899346 64.359821 Z"
-            Stroke="#FF000000"
+            Stroke="{StaticResource AbjurationColor}"
             StrokeThickness="5" />
     </Canvas>
 </ResourceDictionary>

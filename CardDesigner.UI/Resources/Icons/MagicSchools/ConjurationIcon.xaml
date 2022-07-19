@@ -1,17 +1,18 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="ConjurationColor" Color="HotPink" />
     <Canvas x:Key="MagicSchoolConjurationIcon"
         Width="250"
         Height="250">
         <Path
             Data="M 182.87125 204.12864 125.25436 26.802096 67.63749 204.12864 218.48045 94.534815 l -186.452163 1e-5 z"
-            Stroke="#FF000000"
+            Stroke="{StaticResource ConjurationColor}"
             StrokeLineJoin="Round"
             StrokeThickness="5" />
         <Path
             Data="M 224.75565 124.82579 A 99.501282 99.501282 0 0 1 125.25437 224.32707 99.501282 99.501282 0 0 1 25.753093 124.82579 99.501282 99.501282 0 0 1 125.25437 25.324515 99.501282 99.501282 0 0 1 224.75565 124.82579 Z"
-            Stroke="#FF000000"
+            Stroke="{StaticResource ConjurationColor}"
             StrokeThickness="5" />
     </Canvas>
 </ResourceDictionary>

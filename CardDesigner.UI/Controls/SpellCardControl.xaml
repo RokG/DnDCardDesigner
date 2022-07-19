@@ -39,6 +39,7 @@
 
                 <!--  Components  -->
                 <DockPanel
+                    Canvas.Left="2"
                     Canvas.Top="25"
                     Width="248"
                     LastChildFill="False">
@@ -96,9 +97,9 @@
                         DockPanel.Dock="Right">
                         <Label
                             Margin="0"
-                            Padding="4,0"
+                            Padding="5,0"
                             Background="Transparent"
-                            Content="4"
+                            Content="{Binding SpellCard.Level, ElementName=spellCard}"
                             FontFamily="Arial"
                             FontSize="16"
                             FontWeight="Black"
