@@ -9,7 +9,10 @@
     Height="850"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3"
-    Icon="/Resources/Images/dnd-icon-13.png">
+    Icon="/Resources/Images/dnd-icon-13.png"
+    Left="1920"
+    Style="{DynamicResource MainWindowStyle}"
+    Top="0">
     <Grid>
         <Grid.Resources>
             <DataTemplate DataType="{x:Type vms:SpellCardViewModel}">

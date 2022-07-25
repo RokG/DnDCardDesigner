@@ -9,13 +9,9 @@
                 <!--  Styles  -->
                 <ResourceDictionary Source="Styles/Colors.xaml" />
 
-                <!--  Styles  -->
-                <ResourceDictionary Source="Styles/StaticItemStyles.xaml" />
-                <ResourceDictionary Source="Styles/ControlItemStyles.xaml" />
-                <ResourceDictionary Source="Styles/ListItemStyles.xaml" />
-
                 <!--  Icons  -->
                 <ResourceDictionary Source="Resources/Icons/EditButton.xaml" />
+                <ResourceDictionary Source="Resources/Icons/WindowButtons.xaml" />
 
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/AbjurationIcon.xaml" />
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/ConjurationIcon.xaml" />
@@ -37,6 +33,12 @@
                 <ResourceDictionary Source="Resources/Icons/Properties/SpellConcentration.xaml" />
                 <ResourceDictionary Source="Resources/Icons/Properties/SpellAOE.xaml" />
                 <ResourceDictionary Source="Resources/Icons/Properties/RollDice.xaml" />
+
+                <!--  Styles  -->
+                <ResourceDictionary Source="Styles/StaticItemStyles.xaml" />
+                <ResourceDictionary Source="Styles/ControlItemStyles.xaml" />
+                <ResourceDictionary Source="Styles/WindowStyles.xaml" />
+                <ResourceDictionary Source="Styles/ListItemStyles.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
