@@ -118,5 +118,102 @@
         </Setter>
     </Style>
 
+    <!--  Checkbox  -->
+    <ControlTemplate x:Key="CheckBoxTemplate" TargetType="{x:Type CheckBox}">
+        <Grid x:Name="templateRoot"
+            Background="Transparent"
+            SnapsToDevicePixels="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border x:Name="checkBoxBorder"
+                Width="20"
+                Height="20"
+                Margin="2"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="6">
+                <Grid x:Name="markGrid"
+                    Background="Transparent">
+                    <Path x:Name="optionMark"
+                        Data="M4,4 12,12 8,8 4,12 12,4"
+                        Opacity="0"
+                        Stroke="{StaticResource CheckboxCheckedFGND}"
+                        StrokeEndLineCap="Round"
+                        StrokeLineJoin="Round"
+                        StrokeStartLineCap="Round"
+                        StrokeThickness="4" />
+                    <!--<Rectangle x:Name="indeterminateMark"
+                        Margin="2"
+                        Fill="Yellow"
+                        Opacity="0" />-->
+                </Grid>
+            </Border>
+            <!--<Border x:Name="FocusBorder"
+                Grid.Column="0"
+                Width="{Binding ElementName=checkBoxBorder, Path=ActualWidth}"
+                Height="{Binding ElementName=checkBoxBorder, Path=ActualHeight}"
+                Margin="{Binding ElementName=checkBoxBorder, Path=Margin}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                BorderBrush="LawnGreen"
+                BorderThickness="1"
+                CornerRadius="{Binding ElementName=checkBoxBorder, Path=CornerRadius}"
+                Visibility="Collapsed" />-->
+            <ContentPresenter x:Name="contentPresenter"
+                Grid.Column="1"
+                Margin="{TemplateBinding Padding}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="Center"
+                Focusable="False"
+                RecognizesAccessKey="True"
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="HasContent" Value="true">
+                <Setter Property="Padding" Value="4,0,0,0" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource CheckboxHighlightBGND}" />
+                <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource CheckboxHighlightBRDR}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value=".5" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource CheckboxHighlightBGND}" />
+                <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource CheckboxHighlightBRDR}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="true">
+                <Setter TargetName="optionMark" Property="Opacity" Value="1" />
+                <!--<Setter TargetName="indeterminateMark" Property="Opacity" Value="0" />-->
+            </Trigger>
+            <Trigger Property="IsChecked" Value="{x:Null}">
+                <Setter TargetName="optionMark" Property="Opacity" Value="0" />
+                <!--<Setter TargetName="indeterminateMark" Property="Opacity" Value="1" />-->
+            </Trigger>
+            <!--<Trigger Property="IsFocused" Value="True">
+                <Setter TargetName="FocusBorder" Property="Visibility" Value="Visible" />
+            </Trigger>-->
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Background" Value="{StaticResource CheckboxNormalBGND}" />
+        <Setter Property="BorderBrush" Value="{StaticResource CheckboxNormalBRDR}" />
+        <Setter Property="Foreground" Value="{StaticResource CheckboxNormalFGND}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Template" Value="{StaticResource CheckBoxTemplate}" />
+    </Style>
+
+    <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}" />
 
 </ResourceDictionary>

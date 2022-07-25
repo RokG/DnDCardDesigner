@@ -44,19 +44,20 @@
     <SolidColorBrush x:Key="CardBodyIconColor" Color="{StaticResource ColorDark}" />
     <SolidColorBrush x:Key="CardBodyFontColor" Color="{StaticResource Color303}" />
 
-
     <!--  Theme colors  -->
     <SolidColorBrush x:Key="ThemeColorDark" Color="{StaticResource ThemeColorDARK}" />
     <SolidColorBrush x:Key="ThemeColorNormal" Color="{StaticResource ThemeColorNORM}" />
     <SolidColorBrush x:Key="ThemeColorLight" Color="{StaticResource ThemeColorLGHT}" />
 
-    <!--  Button colors  -->
+    <!--  Window colors  -->
+
     <SolidColorBrush x:Key="WindowBackgroundDark" Color="{StaticResource Color102}" />
     <SolidColorBrush x:Key="WindowBackgroundLight" Color="{StaticResource Color103}" />
     <SolidColorBrush x:Key="WindowForeground" Color="{StaticResource Color301}" />
     <SolidColorBrush x:Key="WindowBorder" Color="{StaticResource Color201}" />
 
     <!--  Button colors  -->
+
     <SolidColorBrush x:Key="ButtonNormalBGND" Color="{StaticResource Color202}" />
     <SolidColorBrush x:Key="ButtonNormalFGND" Color="{StaticResource ThemeColorNORM}" />
     <SolidColorBrush x:Key="ButtonNormalBRDR" Color="{StaticResource ThemeColorDARK}" />
@@ -72,6 +73,24 @@
     <SolidColorBrush x:Key="ButtonClickedBGND" Color="{StaticResource ThemeColorLGHT}" />
     <SolidColorBrush x:Key="ButtonClickedFGND" Color="{StaticResource Color201}" />
     <SolidColorBrush x:Key="ButtonClickedBRDR" Color="{StaticResource Color203}" />
+
+    <!--  Checkbox colors  -->
+
+    <SolidColorBrush x:Key="CheckboxNormalBGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="CheckboxNormalFGND" Color="{StaticResource Color303}" />
+    <SolidColorBrush x:Key="CheckboxNormalBRDR" Color="{StaticResource ThemeColorDARK}" />
+
+    <SolidColorBrush x:Key="CheckboxDisabledBGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="CheckboxDisabledFGND" Color="{StaticResource Color101}" />
+    <SolidColorBrush x:Key="CheckboxDisabledBRDR" Color="{StaticResource Color101}" />
+
+    <SolidColorBrush x:Key="CheckboxHighlightBGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="CheckboxHighlightFGND" Color="{StaticResource ThemeColorLGHT}" />
+    <SolidColorBrush x:Key="CheckboxHighlightBRDR" Color="{StaticResource ThemeColorNORM}" />
+
+    <SolidColorBrush x:Key="CheckboxCheckedBGND" Color="{StaticResource Color201}" />
+    <SolidColorBrush x:Key="CheckboxCheckedFGND" Color="{StaticResource ThemeColorLGHT}" />
+    <SolidColorBrush x:Key="CheckboxCheckedBRDR" Color="{StaticResource Color203}" />
 
     <!--  List colors  -->
     <SolidColorBrush x:Key="ListAreaBGND" Color="{StaticResource Color203}" />

@@ -51,25 +51,17 @@
             <Label
                 Margin="5,10,0,0"
                 Padding="0"
-                Content="Spell level:" />
+                Content="Spell Requirements:" />
             <Slider
                 Maximum="9"
                 Minimum="0"
                 Value="{Binding SelectedSpellCard.Level}" />
-            <Label
-                Margin="5,10,0,0"
-                Padding="0"
-                Content="Concentration/Ritual" />
             <CheckBox
                 Content="Concentration"
                 IsChecked="{Binding SelectedSpellCard.IsConcentration}" />
             <CheckBox
                 Content="Ritual"
                 IsChecked="{Binding SelectedSpellCard.IsRitual}" />
-            <Label
-                Margin="5,10,0,0"
-                Padding="0"
-                Content="Components:" />
             <CheckBox
                 Content="Somatic"
                 IsChecked="{Binding SelectedSpellCard.HasSomaticComponent}" />
