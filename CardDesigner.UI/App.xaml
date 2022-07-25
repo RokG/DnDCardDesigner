@@ -39,6 +39,7 @@
                 <ResourceDictionary Source="Styles/ControlItemStyles.xaml" />
                 <ResourceDictionary Source="Styles/WindowStyles.xaml" />
                 <ResourceDictionary Source="Styles/ListItemStyles.xaml" />
+                <ResourceDictionary Source="Styles/SliderStyles.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

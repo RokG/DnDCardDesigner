@@ -92,6 +92,24 @@
     <SolidColorBrush x:Key="CheckboxCheckedFGND" Color="{StaticResource ThemeColorLGHT}" />
     <SolidColorBrush x:Key="CheckboxCheckedBRDR" Color="{StaticResource Color203}" />
 
+    <!--  Slider colors  -->
+
+    <SolidColorBrush x:Key="SliderNormalBGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="SliderNormalFGND" Color="{StaticResource Color303}" />
+    <SolidColorBrush x:Key="SliderNormalBRDR" Color="{StaticResource ThemeColorDARK}" />
+
+    <SolidColorBrush x:Key="SliderDisabledBGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="SliderDisabledFGND" Color="{StaticResource Color101}" />
+    <SolidColorBrush x:Key="SliderDisabledBRDR" Color="{StaticResource Color101}" />
+
+    <SolidColorBrush x:Key="SliderHighlightBGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="SliderHighlightFGND" Color="{StaticResource ThemeColorLGHT}" />
+    <SolidColorBrush x:Key="SliderHighlightBRDR" Color="{StaticResource ThemeColorNORM}" />
+
+    <SolidColorBrush x:Key="SliderDragBGND" Color="{StaticResource Color201}" />
+    <SolidColorBrush x:Key="SliderDragFGND" Color="{StaticResource ThemeColorLGHT}" />
+    <SolidColorBrush x:Key="SliderDragBRDR" Color="{StaticResource ThemeColorLGHT}" />
+
     <!--  List colors  -->
     <SolidColorBrush x:Key="ListAreaBGND" Color="{StaticResource Color203}" />
     <SolidColorBrush x:Key="ListAreaFGND" Color="{StaticResource ThemeColorNORM}" />

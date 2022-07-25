@@ -196,4 +196,5 @@
 
     <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="{x:Type CheckBox}" />
 
+
 </ResourceDictionary>
