@@ -6,8 +6,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
-                <!--  Styles  -->
+                <!--  Colors  -->
                 <ResourceDictionary Source="Styles/Colors.xaml" />
+
+                <!--  Thingamajigs  -->
+                <ResourceDictionary Source="Resources/EnumDataProviders.xaml" />
 
                 <!--  Icons  -->
                 <ResourceDictionary Source="Resources/Icons/EditButton.xaml" />

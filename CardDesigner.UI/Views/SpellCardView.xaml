@@ -3,20 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
-    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
-    <UserControl.Resources>
-        <ObjectDataProvider x:Key="EnumDataSource"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enums:MagicSchool" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-    </UserControl.Resources>
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -45,16 +34,19 @@
                 Padding="0"
                 Content="Spell school:" />
             <ComboBox
-                ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
+                ItemsSource="{Binding Source={StaticResource MagicSchoolEnum}}"
                 SelectedItem="{Binding SelectedSpellCard.School}" />
             <!--  Level  -->
             <Label
                 Margin="5,10,0,0"
                 Padding="0"
                 Content="Spell Requirements:" />
-            <Slider
+            <!--<Slider
                 Maximum="9"
                 Minimum="0"
+                Value="{Binding SelectedSpellCard.Level}" />-->
+            <controls:SliderControl
+                Title="Level"
                 Value="{Binding SelectedSpellCard.Level}" />
             <CheckBox
                 Content="Concentration"
@@ -72,13 +64,10 @@
                 Content="Material"
                 IsChecked="{Binding SelectedSpellCard.HasMaterialComponent}" />
 
-            <Label
-                Margin="5,10,0,0"
-                Padding="0"
-                Content="Range:" />
-            <Slider
-                Maximum="9"
-                Minimum="0"
+            <controls:SliderControl
+                Title="Range:"
+                SelectedValueType="{Binding SelectedSpellCard.RangeType, Mode=TwoWay}"
+                ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
                 Value="{Binding SelectedSpellCard.RangeValue}" />
 
             <Label
