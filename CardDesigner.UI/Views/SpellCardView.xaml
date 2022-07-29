@@ -68,7 +68,7 @@
                 Title="Range:"
                 SelectedValueType="{Binding SelectedSpellCard.RangeType, Mode=TwoWay}"
                 ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
-                Value="{Binding SelectedSpellCard.RangeValue}" />
+                Value="{Binding SelectedSpellCard.RangeValue, Mode=TwoWay}" />
 
             <Label
                 Margin="5,10,0,0"
