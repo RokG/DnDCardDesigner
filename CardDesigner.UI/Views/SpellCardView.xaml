@@ -70,40 +70,30 @@
                 ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
                 Value="{Binding SelectedSpellCard.RangeValue, Mode=TwoWay}" />
 
-            <Label
-                Margin="5,10,0,0"
-                Padding="0"
-                Content="Duration:" />
-            <Slider
-                Maximum="9"
-                Minimum="0"
-                Value="{Binding SelectedSpellCard.DurationValue}" />
+            <controls:SliderControl
+                Title="Duration:"
+                SelectedValueType="{Binding SelectedSpellCard.DurationType, Mode=TwoWay}"
+                ValueTypes="{Binding Source={StaticResource DurationTypeEnum}}"
+                Value="{Binding SelectedSpellCard.DurationValue, Mode=TwoWay}" />
 
-            <Label
-                Margin="5,10,0,0"
-                Padding="0"
-                Content="Casting time:" />
-            <Slider
-                Maximum="9"
-                Minimum="0"
-                Value="{Binding SelectedSpellCard.CastingTimeValue}" />
+            <controls:SliderControl
+                Title="Casting time:"
+                SelectedValueType="{Binding SelectedSpellCard.CastingTimeType, Mode=TwoWay}"
+                ValueTypes="{Binding Source={StaticResource CastingTimeEnum}}"
+                Value="{Binding SelectedSpellCard.CastingTimeValue, Mode=TwoWay}" />
 
-            <Label
-                Margin="5,10,0,0"
-                Padding="0"
-                Content="Area of effect:" />
-            <Slider
-                Maximum="9"
-                Minimum="0"
-                Value="{Binding SelectedSpellCard.AreaOfEffectValue}" />
-            <Label
-                Margin="5,10,0,0"
-                Padding="0"
-                Content="Damage:" />
-            <Slider
-                Maximum="9"
-                Minimum="0"
-                Value="{Binding SelectedSpellCard.DiceValue}" />
+            <controls:SliderControl
+                Title="Area of effect:"
+                SelectedValueType="{Binding SelectedSpellCard.AreaOfEffect, Mode=TwoWay}"
+                ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
+                Value="{Binding SelectedSpellCard.AreaOfEffectValue, Mode=TwoWay}" />
+
+            <!--<controls:SliderControl
+                Title="Damage:"
+                SelectedValueType="{Binding SelectedSpellCard.DiceType, Mode=TwoWay}"
+                ValueTypes="{Binding Source={StaticResource}}"
+                Value="{Binding SelectedSpellCard.DiceValue, Mode=TwoWay}" />-->
+
             <!--  Manually update button  -->
             <Button
                 Command="{Binding UpdateSpellCardCommand}"

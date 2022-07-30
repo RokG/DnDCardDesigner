@@ -28,4 +28,28 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
+    <ObjectDataProvider x:Key="CastingTimeEnum"
+        MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:CastingTimeType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="AreaOfEffectEnum"
+        MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:AreaOfEffect" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="DiceTypeEnum"
+        MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:DiceType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
 </ResourceDictionary>

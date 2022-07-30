@@ -6,26 +6,40 @@
     xmlns:local="clr-namespace:CardDesigner.UI.Controls"
     Name="Slider">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Label
-            Padding="0"
-            VerticalContentAlignment="Stretch"
-            Content="{Binding Title, ElementName=Slider}" />
-        <Slider
-            Grid.Column="1"
-            VerticalAlignment="Center"
-            IsEnabled="{Binding SelectedValueType, ElementName=Slider, Converter={converters:EnumToPropertyConverter}, ConverterParameter=HasSetValue}"
-            Maximum="{Binding SelectedValueType, ElementName=Slider, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Maximum}"
-            Minimum="{Binding SelectedValueType, ElementName=Slider, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Minimum}"
-            Value="{Binding Value, ElementName=Slider}" />
-        <ComboBox x:Name="djCombo"
-            Grid.Column="2"
-            VerticalAlignment="Center"
-            ItemsSource="{Binding ValueTypes, ElementName=Slider}"
-            SelectedItem="{Binding SelectedValueType, ElementName=Slider}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Label
+                VerticalContentAlignment="Stretch"
+                Content="{Binding Title, ElementName=Slider}" />
+            <ComboBox
+                VerticalAlignment="Center"
+                ItemsSource="{Binding ValueTypes, ElementName=Slider}"
+                SelectedItem="{Binding SelectedValueType, ElementName=Slider}" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal">
+            <Slider
+                Width="150"
+                VerticalAlignment="Center"
+                IsEnabled="{Binding SelectedValueType, ElementName=Slider, Converter={converters:EnumToPropertyConverter}, ConverterParameter=HasSetValue}"
+                Maximum="{Binding SelectedValueType, ElementName=Slider, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Maximum}"
+                Minimum="{Binding SelectedValueType, ElementName=Slider, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Minimum}"
+                Value="{Binding Value, ElementName=Slider}" />
+            <StackPanel.Style>
+                <Style TargetType="{x:Type StackPanel}">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedValueType, ElementName=Slider, Converter={converters:EnumToPropertyConverter}, ConverterParameter=HasSetValue}"
+                            Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
     </Grid>
 </UserControl>
