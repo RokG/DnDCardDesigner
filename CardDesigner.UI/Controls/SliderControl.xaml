@@ -29,6 +29,11 @@
                 Maximum="{Binding SelectedValueType, ElementName=Slider, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Maximum}"
                 Minimum="{Binding SelectedValueType, ElementName=Slider, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Minimum}"
                 Value="{Binding Value, ElementName=Slider}" />
+            <ComboBox
+                VerticalAlignment="Center"
+                ItemsSource="{Binding UnitTypes, ElementName=Slider}"
+                SelectedItem="{Binding SelectedUnitType, ElementName=Slider}"
+                Visibility="{Binding UnitTypes, ElementName=Slider, Converter={converters:ObjectToVisibilityConverter}}" />
             <StackPanel.Style>
                 <Style TargetType="{x:Type StackPanel}">
                     <Style.Triggers>

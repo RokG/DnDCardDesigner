@@ -88,11 +88,12 @@
                 ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
                 Value="{Binding SelectedSpellCard.AreaOfEffectValue, Mode=TwoWay}" />
 
-            <!--<controls:SliderControl
+            <controls:SliderControl
                 Title="Damage:"
                 SelectedValueType="{Binding SelectedSpellCard.DiceType, Mode=TwoWay}"
-                ValueTypes="{Binding Source={StaticResource}}"
-                Value="{Binding SelectedSpellCard.DiceValue, Mode=TwoWay}" />-->
+                UnitTypes="{Binding Source={StaticResource DamageTypeEnum}}"
+                ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
+                Value="{Binding SelectedSpellCard.DiceValue, Mode=TwoWay}" />
 
             <!--  Manually update button  -->
             <Button

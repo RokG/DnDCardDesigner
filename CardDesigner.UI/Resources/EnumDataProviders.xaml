@@ -52,4 +52,12 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
+    <ObjectDataProvider x:Key="DamageTypeEnum"
+        MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:DamageType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
 </ResourceDictionary>

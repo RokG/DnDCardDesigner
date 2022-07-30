@@ -58,9 +58,26 @@ namespace CardDesigner.UI.Controls
             get { return (object)GetValue(ValueTypesProperty); }
             set { SetValue(ValueTypesProperty, value); }
         }
-
         public static readonly DependencyProperty ValueTypesProperty =
             DependencyProperty.Register(nameof(ValueTypes), typeof(object), typeof(SliderControl), new PropertyMetadata(null));
+        
+        public object SelectedUnitType
+        {
+            get { return (object)GetValue(SelectedUnitTypeProperty); }
+            set { SetValue(SelectedUnitTypeProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectedUnitTypeProperty =
+            DependencyProperty.Register(nameof(SelectedUnitType), typeof(object), typeof(SliderControl), new PropertyMetadata(null));
+
+
+        public object UnitTypes
+        {
+            get { return (object)GetValue(UnitTypesProperty); }
+            set { SetValue(UnitTypesProperty, value); }
+        }
+        public static readonly DependencyProperty UnitTypesProperty =
+            DependencyProperty.Register(nameof(UnitTypes), typeof(object), typeof(SliderControl), new PropertyMetadata(null));
 
     }
 }

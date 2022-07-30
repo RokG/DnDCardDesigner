@@ -59,6 +59,21 @@
             {
                 return new(string.Empty, 0, 100, true);
             }
+            else if (enumObject is DamageType damageType)
+            {
+                return new(string.Empty, 0, 10, false);
+            }
+            else if (enumObject is DiceType diceType)
+            {
+                if (diceType == DiceType.d100 || diceType == DiceType.d20)
+                {
+                return new(string.Empty, 0, 10, false);
+                }
+                else
+                { 
+                return new(string.Empty, 0, 10, true);
+                }
+            }
             else if (enumObject is TargetType targetType)
             {
                 switch (targetType)
