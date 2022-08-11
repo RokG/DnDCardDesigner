@@ -2,7 +2,6 @@
 {
     public enum EnumPropertyTypes
     {
-        Name,
         Unit,
         Minimum,
         Maximum,

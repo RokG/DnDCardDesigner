@@ -5,6 +5,7 @@
         Action,
         BonusAction,
         Reaction,
+        Second,
         Minute,
         Hour,
         Day

@@ -24,17 +24,19 @@
                 switch (castingTimeType)
                 {
                     case CastingTimeType.Action:
-                        return new(castingTimeType.ToString(), 0, 0, false);
+                        return new("A", 0, 0, false);
                     case CastingTimeType.BonusAction:
-                        return new(castingTimeType.ToString(), 0, 0, false);
+                        return new("BA", 0, 0, false);
                     case CastingTimeType.Reaction:
-                        return new(castingTimeType.ToString(), 0, 0, false);
+                        return new("R", 0, 0, false);
+                    case CastingTimeType.Second:
+                        return new("sec", 1, 60, true);
                     case CastingTimeType.Minute:
-                        return new(castingTimeType.ToString(), 1, 60, true);
+                        return new("min", 1, 60, true);
                     case CastingTimeType.Hour:
-                        return new(castingTimeType.ToString(), 1, 24, true);
+                        return new("h", 1, 24, true);
                     case CastingTimeType.Day:
-                        return new(castingTimeType.ToString(), 1, 7, true);
+                        return new("day", 1, 7, true);
                     default:
                         return new(string.Empty, -1, -1, false);
                 }
@@ -44,20 +46,22 @@
                 switch (durationType)
                 {
                     case DurationType.Instantaneous:
-                        return new(string.Empty, 0, 0, false);
+                        return new("Ins.", 0, 0, false);
+                    case DurationType.Second:
+                        return new("sec", 1, 60, true);
                     case DurationType.Minute:
-                        return new(durationType.ToString(), 1, 60, true);
+                        return new("min", 1, 60, true);
                     case DurationType.Hour:
-                        return new(durationType.ToString(), 1, 24, true);
+                        return new("h", 1, 24, true);
                     case DurationType.Day:
-                        return new(durationType.ToString(), 1, 7, true);
+                        return new("day", 1, 7, true);
                     default:
                         return new(string.Empty, -1, -1, false);
                 }
             }
             else if (enumObject is AreaOfEffect areaOfEffect)
             {
-                return new(string.Empty, 0, 100, true);
+                return new("ft", 0, 100, true);
             }
             else if (enumObject is DamageType damageType)
             {
@@ -79,9 +83,9 @@
                 switch (targetType)
                 {
                     case TargetType.Self:
-                        return new(string.Empty, 0, 0, false);
+                        return new("N/A", 0, 0, false);
                     case TargetType.Touch:
-                        return new(string.Empty, 0, 0, false);
+                        return new("N/A", 0, 0, false);
                     case TargetType.Target:
                         return new("ft", 0, 1000, true);
                     default:
