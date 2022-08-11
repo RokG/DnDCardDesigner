@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="CardDesigner.UI.Views.SpellCardView"
+﻿<UserControl
+    x:Class="CardDesigner.UI.Views.SpellCardView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
@@ -36,18 +37,21 @@
             <ComboBox
                 ItemsSource="{Binding Source={StaticResource MagicSchoolEnum}}"
                 SelectedItem="{Binding SelectedSpellCard.School}" />
-            <!--  Level  -->
             <Label
                 Margin="5,10,0,0"
                 Padding="0"
                 Content="Spell Requirements:" />
-            <!--<Slider
-                Maximum="9"
-                Minimum="0"
-                Value="{Binding SelectedSpellCard.Level}" />-->
-            <controls:SliderControl
-                Title="Level"
-                Value="{Binding SelectedSpellCard.Level}" />
+            <!--  Level  -->
+            <DockPanel HorizontalAlignment="Stretch">
+                <Label Content="Level: " />
+                <Slider
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    Maximum="9"
+                    Minimum="0"
+                    Value="{Binding SelectedSpellCard.Level}" />
+            </DockPanel>
             <CheckBox
                 Content="Concentration"
                 IsChecked="{Binding SelectedSpellCard.IsConcentration}" />
@@ -89,7 +93,7 @@
                 Value="{Binding SelectedSpellCard.AreaOfEffectValue, Mode=TwoWay}" />
 
             <controls:SliderControl
-                Title="Damage:"
+                Title="Roll:"
                 SelectedValueType="{Binding SelectedSpellCard.DiceType, Mode=TwoWay}"
                 UnitTypes="{Binding Source={StaticResource DamageTypeEnum}}"
                 ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
