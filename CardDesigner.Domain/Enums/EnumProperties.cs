@@ -10,9 +10,9 @@
                 switch (rangeType)
                 {
                     case RangeType.Self:
-                        return new(string.Empty, 0, 0, false);
+                        return new("N/A", 0, 0, false);
                     case RangeType.Touch:
-                        return new(string.Empty, 0, 0, false);
+                        return new("N/A", 0, 0, false);
                     case RangeType.Distance:
                         return new("ft", 0, 100, true);
                     default:

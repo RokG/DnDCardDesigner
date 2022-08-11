@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="CardDesigner.UI.Controls.SpellCardControl" x:Name="spellCard"
+﻿<UserControl x:Name="spellCard"
+    x:Class="CardDesigner.UI.Controls.SpellCardControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
@@ -169,19 +170,19 @@
 
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellCastingTime}"
-                        Unit="A"
+                        Unit="{Binding SpellCard.CastingTimeType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.CastingTimeValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellDuration}"
-                        Unit="min"
+                        Unit="{Binding SpellCard.DurationType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.DurationValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellRange}"
-                        Unit="ft"
+                        Unit="{Binding SpellCard.RangeType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.RangeValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellAOECone}"
-                        Unit="ft"
+                        Unit="{Binding SpellCard.AreaOfEffect, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.AreaOfEffectValue, ElementName=spellCard}" />
 
                 </WrapPanel>

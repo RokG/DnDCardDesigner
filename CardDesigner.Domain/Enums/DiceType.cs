@@ -2,7 +2,6 @@
 {
     public enum DiceType
     {
-        d3,
         d4,
         d6,
         d8,
