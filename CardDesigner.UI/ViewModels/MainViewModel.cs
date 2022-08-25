@@ -63,7 +63,8 @@ namespace CardDesigner.UI.ViewModels
 
         private void OnCurrentViewModelChanged()
         {
-            RaisePropertyChanged(nameof(CurrentViewModel));
+            // TODO
+            //RaisePropertyChanged(nameof(CurrentViewModel));
         }
 
         #endregion

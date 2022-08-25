@@ -2,16 +2,14 @@
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CardDesigner.UI.Commands;
-using System;
-using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
-    public class SpellCardViewModel : ViewModelBase
+    public partial class SpellCardViewModel : ViewModelBase
     {
         #region Private fields
 
@@ -21,37 +19,17 @@ namespace CardDesigner.UI.ViewModels
 
         #region Properties
 
-        private MagicSchool _magicSchoolType;
-        public MagicSchool MagicSchoolType
-        {
-            get => _magicSchoolType;
-            set => SetProperty(ref _magicSchoolType, value);
-        }
+        [ObservableProperty]
+        private MagicSchool magicSchoolType;
 
-        private string _spellCardName;
-        public string SpellCardName
-        {
-            get => _spellCardName;
-            set => SetProperty(ref _spellCardName, value);
-        }
+        [ObservableProperty]
+        private string spellCardName;
 
-        private SpellCardModel _selectedSpellCard;
-        public SpellCardModel SelectedSpellCard
-        {
-            get => _selectedSpellCard;
-            set
-            {
-                SetProperty(ref _selectedSpellCard, value);
+        [ObservableProperty]
+        private SpellCardModel selectedSpellCard;
 
-            }
-        }
-
-        private ObservableCollection<SpellCardModel> _allSpellCards;
-        public ObservableCollection<SpellCardModel> AllSpellCards
-        {
-            get => _allSpellCards;
-            set => SetProperty(ref _allSpellCards, value);
-        }
+        [ObservableProperty]
+        private ObservableCollection<SpellCardModel> allSpellCards;
 
         #endregion Properties
 

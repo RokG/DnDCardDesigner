@@ -2,7 +2,7 @@
 
 namespace CardDesigner.Domain.Interfaces
 {
-    public interface IViewModelBase : INotifyPropertyChanged
+    public interface IViewModelBase
     {
         string Name { get; set; }
     }
