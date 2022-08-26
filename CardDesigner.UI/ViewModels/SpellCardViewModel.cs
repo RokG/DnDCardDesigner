@@ -52,6 +52,9 @@ namespace CardDesigner.UI.ViewModels
             UpdateSpellCardCommand = new UpdateSpellCardCommand(this, cardDesignerStore);
 
             _cardDesignerStore.SpellCardCreated += OnSpellCardCreated;
+
+            // TODO: is this OK? how is it different from old method (before MVVM toolkit)
+            LoadData();
         }
 
         #endregion
