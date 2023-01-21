@@ -52,11 +52,35 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
-    <ObjectDataProvider x:Key="DamageTypeEnum"
+    <ObjectDataProvider x:Key="MagicDamageTypeEnum"
         MethodName="GetValues"
         ObjectType="{x:Type sys:Enum}">
         <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="enums:DamageType" />
+            <x:Type TypeName="enums:MagicDamageType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="PhysicalDamageTypeEnum"
+        MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:PhysicalDamageType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="EquipmentSlotEnum"
+        MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:EquipmentSlot" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="ItemTypeEnum"
+        MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:ItemType" />
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 

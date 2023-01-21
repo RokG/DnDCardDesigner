@@ -1,5 +1,4 @@
-﻿<UserControl x:Name="spellCard"
-    x:Class="CardDesigner.UI.Controls.SpellCardControl"
+﻿<UserControl x:Class="CardDesigner.UI.Controls.SpellCardControl" x:Name="spellCard"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"

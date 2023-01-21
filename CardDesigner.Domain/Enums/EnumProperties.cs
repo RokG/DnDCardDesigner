@@ -63,7 +63,7 @@
             {
                 return new("ft", 0, 100, true);
             }
-            else if (enumObject is DamageType damageType)
+            else if (enumObject is MagicDamageType damageType)
             {
                 return new(string.Empty, 0, 10, false);
             }

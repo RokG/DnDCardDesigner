@@ -57,7 +57,8 @@ namespace CardDesigner.UI
             dbContext.Database.Migrate();
 
             // Navigate to home view
-            _host.Services.GetRequiredService<NavigationService<SpellCardViewModel>>().Navigate();
+            _host.Services.GetRequiredService<NavigationService<HomeViewModel>>().Navigate();
+            //_host.Services.GetRequiredService<NavigationService<SpellDeckViewModel>>().Navigate();
 
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();

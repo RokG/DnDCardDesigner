@@ -5,13 +5,12 @@ using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CardDesigner.DataAccess.Services
 {
-    public class DatabaseSpellDeckUpdater : ISpellDeckUpdater
+    public class DatabaseItemDeckUpdater : IItemDeckUpdater
     {
         #region Private fields
 
@@ -25,37 +24,37 @@ namespace CardDesigner.DataAccess.Services
         /// </summary>
         /// <param name="dbContextFactory">Database context factory</param>
         /// <param name="mapper">Mapper object</param>
-        public DatabaseSpellDeckUpdater(CardDesignerDbContextFactory dbContextFactory, IMapper mapper)
+        public DatabaseItemDeckUpdater(CardDesignerDbContextFactory dbContextFactory, IMapper mapper)
         {
             _dbContextFactory = dbContextFactory;
             _mapper = mapper;
         }
 
-        public async Task<SpellDeckModel> UpdateSpellDeck(SpellDeckModel spellDeck)
+        public async Task<ItemDeckModel> UpdateItemDeck(ItemDeckModel itemDeck)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
                 try
                 {
-                    // Get spell deck from database
-                    SpellDeck spellDeckEntity = dbContext.SpellDecks
-                        .Include(sd=>sd.SpellCards)
-                        .Single(sc => sc.ID == spellDeck.ID);
+                    // Get item deck from database
+                    ItemDeck itemDeckEntity = dbContext.ItemDecks
+                        .Include(sd => sd.ItemCards)
+                        .Single(sc => sc.ID == itemDeck.ID);
 
                     // Loop over cards in source deck
-                    foreach (SpellCardModel spellCard in spellDeck.SpellCards)
+                    foreach (ItemCardModel itemCard in itemDeck.ItemCards)
                     {
                         // If any card is new, add it to the list
-                        if (!spellDeckEntity.SpellCards.Where(sd => sd.ID == spellCard.ID).Any())
+                        if (!itemDeckEntity.ItemCards.Where(sd => sd.ID == itemCard.ID).Any())
                         {
-                            SpellCard spellCardEntity = _mapper.Map<SpellCard>(spellCard);
-                            spellDeckEntity.SpellCards.Add(spellCardEntity);
+                            ItemCard itemCardEntity = _mapper.Map<ItemCard>(itemCard);
+                            itemDeckEntity.ItemCards.Add(itemCardEntity);
                         }
                     }
 
                     await dbContext.SaveChangesAsync();
 
-                    return _mapper.Map<SpellDeckModel>(spellDeckEntity); ;
+                    return _mapper.Map<ItemDeckModel>(itemDeckEntity); ;
                 }
                 catch (Exception)
                 {

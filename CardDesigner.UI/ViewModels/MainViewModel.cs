@@ -1,12 +1,12 @@
 ﻿using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
-using CardDesigner.UI.Commands;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public partial class MainViewModel : ViewModelBase
     {
         #region Private fields
 
@@ -17,16 +17,8 @@ namespace CardDesigner.UI.ViewModels
 
         #region Properties
 
-        public IViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
-
-        #endregion
-
-        #region Actions, Commands, Events
-
-        public ICommand CharacterNavigationCommand { get; }
-        public ICommand SpellCardNavigationCommand { get; }
-        public ICommand SpellDeckNavigationCommand { get; }
-        public ICommand ItemCardNavigationCommand { get; }
+        [ObservableProperty]
+        public IViewModelBase currentViewModel;
 
         #endregion
 
@@ -41,6 +33,7 @@ namespace CardDesigner.UI.ViewModels
         /// <param name="cardCreatorNavigationService"></param>
         public MainViewModel(NavigationStore navigationStore,
             CardDesignerStore cardDesignerStore,
+            NavigationService<HomeViewModel> homeViewModelNavigationService,
             NavigationService<ItemCardViewModel> itemCardNavigationService,
             NavigationService<SpellCardViewModel> spellCardNavigationService,
             NavigationService<SpellDeckViewModel> spellDeckNavigationService,
@@ -48,23 +41,36 @@ namespace CardDesigner.UI.ViewModels
         {
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
-
-            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-
-            ItemCardNavigationCommand = new NavigateCommand<ItemCardViewModel>(itemCardNavigationService);
-            SpellCardNavigationCommand = new NavigateCommand<SpellCardViewModel>(spellCardNavigationService);
-            SpellDeckNavigationCommand = new NavigateCommand<SpellDeckViewModel>(spellDeckNavigationService);
-            CharacterNavigationCommand = new NavigateCommand<CharacterViewModel>(characterViewNavigationService);
         }
 
         #endregion
 
         #region Private methods
 
-        private void OnCurrentViewModelChanged()
+        [RelayCommand]
+        private void ChangeViewModel(string viewModelType)
         {
-            // TODO
-            //RaisePropertyChanged(nameof(CurrentViewModel));
+            // TODO: check how to do this better?
+            switch (viewModelType)
+            {
+                case "HomeViewModel":
+                    CurrentViewModel = new HomeViewModel(_cardDesignerStore);
+                    break;
+                case "SpellCardViewModel":
+                    CurrentViewModel = new SpellCardViewModel(_cardDesignerStore);
+                    break;
+                case "ItemCardViewModel":
+                    CurrentViewModel = new ItemCardViewModel(_cardDesignerStore);
+                    break;
+                case "SpellDeckViewModel":
+                    CurrentViewModel = new SpellDeckViewModel(_cardDesignerStore);
+                    break;
+                case "CharacterViewModel":
+                    CurrentViewModel = new CharacterViewModel(_cardDesignerStore);
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
