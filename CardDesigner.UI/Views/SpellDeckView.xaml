@@ -55,7 +55,7 @@
                 ViewOnly="True" />
 
             <Button
-                Command="{Binding UpdateSpellDeckCommand}"
+                Command="{Binding AddCardToDeckCommand}"
                 Content="Assign card to deck" />
 
             <Border Style="{StaticResource VisibleBorder}">
@@ -65,7 +65,7 @@
                         Grid.Row="2"
                         MinHeight="200"
                         DisplayMemberPath="Name"
-                        ItemsSource="{Binding SelectedSpellDeckCards}" />
+                        ItemsSource="{Binding SelectedSpellDeck.SpellCards}" />
                 </StackPanel>
             </Border>
 

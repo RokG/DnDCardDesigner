@@ -1,11 +1,11 @@
 ﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
-using CardDesigner.UI.Commands;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -23,6 +23,7 @@ namespace CardDesigner.UI.ViewModels
         private MagicSchool magicSchoolType;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateSpellCardCommand))]
         private string spellCardName;
 
         [ObservableProperty]
@@ -33,13 +34,6 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion Properties
 
-        #region Actions, Events, Commands
-
-        public ICommand CreateSpellCardCommand { get; }
-        public ICommand UpdateSpellCardCommand { get; }
-
-        #endregion Actions, Events, Commands
-
         #region Constructor
 
         public SpellCardViewModel(CardDesignerStore cardDesignerStore)
@@ -48,9 +42,6 @@ namespace CardDesigner.UI.ViewModels
             Description = "Create, view and edit Spell Cards";
 
             _cardDesignerStore = cardDesignerStore;
-
-            CreateSpellCardCommand = new CreateSpellCardCommand(this, cardDesignerStore);
-            UpdateSpellCardCommand = new UpdateSpellCardCommand(this, cardDesignerStore);
 
             _cardDesignerStore.SpellCardCreated += OnSpellCardCreated;
 
@@ -85,6 +76,29 @@ namespace CardDesigner.UI.ViewModels
             viewModel.LoadData();
 
             return viewModel;
+        }
+
+        #endregion
+
+        #region Commands
+
+        [RelayCommand(CanExecute = nameof(CanCreateSpellCard))]
+        private async void CreateSpellCard()
+        {
+            await _cardDesignerStore.CreateSpellCard(new SpellCardModel() { Name = SpellCardName });
+        }
+
+        private bool CanCreateSpellCard()
+        {
+            return SpellCardName != null
+                && SpellCardName != string.Empty
+                && !AllSpellCards.Where(c => c.Name == SpellCardName).Any();
+        }
+
+        [RelayCommand]
+        private async void UpdateSpellCard()
+        {
+            await _cardDesignerStore.UpdateSpellCard(SelectedSpellCard);
         }
 
         #endregion

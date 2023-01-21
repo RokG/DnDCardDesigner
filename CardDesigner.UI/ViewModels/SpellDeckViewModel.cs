@@ -1,12 +1,12 @@
-﻿using CardDesigner.Domain.Enums;
+﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
-using CardDesigner.UI.Commands;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -28,6 +28,7 @@ namespace CardDesigner.UI.ViewModels
         private ICard selectedCard;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateSpellDeckCommand))]
         private string addedSpellDeckName;
 
         [ObservableProperty]
@@ -43,9 +44,6 @@ namespace CardDesigner.UI.ViewModels
         private SpellCardModel selectedSpellCard;
 
         [ObservableProperty]
-        private ObservableCollection<SpellCardModel> selectedSpellDeckCards;
-
-        [ObservableProperty]
         private ObservableCollection<SpellCardModel> allSpellCards;
 
         [ObservableProperty]
@@ -56,21 +54,6 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion Properties
 
-        #region Actions, Events, Commands
-
-        public ICommand DoNavigateCommand { get; }
-        public ICommand CreateCharacterCommand { get; }
-        public ICommand UpdateCharacterCommand { get; }
-        public ICommand DeleteCharacterCommand { get; }
-
-        public ICommand CreateSpellDeckCommand { get; }
-        public ICommand UpdateSpellDeckCommand { get; }
-        public ICommand DeleteSpellDeckCommand { get; }
-
-        public ICommand CreateSpellCardCommand { get; }
-
-        #endregion Actions, Events, Commands
-
         #region Constructor
 
         public SpellDeckViewModel(CardDesignerStore cardDesignerStore)
@@ -80,20 +63,20 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
 
-            UpdateCharacterCommand = new AddDeckToCharacterCommand(this, cardDesignerStore);
-
-            CreateSpellDeckCommand = new CreateSpellDeckCommand(this, cardDesignerStore);
-            UpdateSpellDeckCommand = new AddCardToSpellDeckCommand(this, cardDesignerStore);
-            DeleteSpellDeckCommand = new DeleteSpellDeckCommand(this, cardDesignerStore);
-
             _cardDesignerStore.CharacterCreated += OnCharacterCreated;
             _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
             _cardDesignerStore.SpellDeckCreated += OnSpellDeckCreated;
             _cardDesignerStore.SpellDeckDeleted += OnSpellDeckDeleted;
             _cardDesignerStore.SpellCardCreated += OnSpellCardCreated;
+            _cardDesignerStore.SpellDeckUpdated += OnSpellDeckUpdated;
 
             // TODO: is this OK? how is it different from old method (before MVVM toolkit)
             LoadData();
+        }
+
+        private void OnSpellDeckUpdated(SpellDeckModel spellDeck)
+        {
+            SelectedSpellDeck = spellDeck;
         }
 
         #endregion
@@ -149,6 +132,44 @@ namespace CardDesigner.UI.ViewModels
             viewModel.LoadData();
 
             return viewModel;
+        }
+
+        #endregion
+
+        #region Commands
+
+        [RelayCommand(CanExecute = nameof(CanCreateSpellDeck))]
+        private async void CreateSpellDeck()
+        {
+            await _cardDesignerStore.CreateSpellDeck(new SpellDeckModel() { Name = AddedSpellDeckName });
+        }
+
+        private bool CanCreateSpellDeck()
+        {
+            bool noName = (AddedSpellDeckName == string.Empty || AddedSpellDeckName == null);
+            bool spellDeckExists = AllSpellDecks == null ? false : AllSpellDecks.Where(c => c.Name == AddedSpellDeckName).Any();
+
+            return (!noName && !spellDeckExists);
+        }
+
+        [RelayCommand]
+        private async void UpdateCharacter()
+        {
+            SelectedCharacter.SpellDeck = SelectedSpellDeck;
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand]
+        private async void AddCardToDeck()
+        {
+            SelectedSpellDeck.SpellCards.Add(SelectedSpellCard);
+            await _cardDesignerStore.UpdateSpellDeck(SelectedSpellDeck);
+        }
+
+        [RelayCommand]
+        private async void DeleteSpellDeck()
+        {
+            await _cardDesignerStore.DeleteSpellDeck(SelectedSpellDeck);
         }
 
         #endregion

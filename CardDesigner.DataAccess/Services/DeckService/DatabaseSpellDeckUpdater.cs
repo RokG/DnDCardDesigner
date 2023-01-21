@@ -55,7 +55,7 @@ namespace CardDesigner.DataAccess.Services
 
                     await dbContext.SaveChangesAsync();
 
-                    return null;
+                    return _mapper.Map<SpellDeckModel>(spellDeckEntity); ;
                 }
                 catch (Exception)
                 {
