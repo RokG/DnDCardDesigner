@@ -33,6 +33,7 @@ namespace CardDesigner.UI.ViewModels
         /// <param name="cardCreatorNavigationService"></param>
         public MainViewModel(NavigationStore navigationStore,
             CardDesignerStore cardDesignerStore,
+            NavigationService<HomeViewModel> homeViewModelNavigationService,
             NavigationService<ItemCardViewModel> itemCardNavigationService,
             NavigationService<SpellCardViewModel> spellCardNavigationService,
             NavigationService<SpellDeckViewModel> spellDeckNavigationService,

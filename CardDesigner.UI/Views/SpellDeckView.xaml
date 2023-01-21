@@ -23,7 +23,7 @@
                 ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
                 SaveCommand="{Binding CreateSpellDeckCommand}"
                 SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
-                ViewOnly="True" />
+                ViewOnly="False" />
 
             <Button
                 Command="{Binding UpdateCharacterCommand}"

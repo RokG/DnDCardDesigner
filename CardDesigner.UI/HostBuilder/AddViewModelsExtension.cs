@@ -12,11 +12,13 @@ namespace CardDesigner.UI.HostBuilder
         {
             hostBuilder.ConfigureServices(services =>
             {
+                services.AddTransient((s) => CreateHomeViewModel(s));
                 services.AddTransient((s) => CreateSpellCardViewModel(s));
                 services.AddTransient((s) => CreateSpellDeckViewModel(s));
                 services.AddTransient((s) => CreateItemCardViewModel(s));
                 services.AddTransient((s) => CreateCharacterViewModel(s));
 
+                services.AddSingleton<Func<HomeViewModel>>((s) => () => s.GetRequiredService<HomeViewModel>());
                 services.AddSingleton<Func<SpellCardViewModel>>((s) => () => s.GetRequiredService<SpellCardViewModel>());
                 services.AddSingleton<Func<SpellDeckViewModel>>((s) => () => s.GetRequiredService<SpellDeckViewModel>());
                 services.AddSingleton<Func<ItemCardViewModel>>((s) => () => s.GetRequiredService<ItemCardViewModel>());
@@ -26,6 +28,11 @@ namespace CardDesigner.UI.HostBuilder
             });
 
             return hostBuilder;
+        }
+
+        private static HomeViewModel CreateHomeViewModel(IServiceProvider s)
+        {
+            return HomeViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
         }
 
         private static SpellCardViewModel CreateSpellCardViewModel(IServiceProvider s)

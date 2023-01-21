@@ -90,6 +90,9 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore.SpellDeckCreated += OnSpellDeckCreated;
             _cardDesignerStore.SpellDeckDeleted += OnSpellDeckDeleted;
             _cardDesignerStore.SpellCardCreated += OnSpellCardCreated;
+
+            // TODO: is this OK? how is it different from old method (before MVVM toolkit)
+            LoadData();
         }
 
         #endregion
