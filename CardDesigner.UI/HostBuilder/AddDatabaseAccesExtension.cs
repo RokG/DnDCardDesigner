@@ -23,7 +23,18 @@ namespace CardDesigner.UI.HostBuilder
 
                 services.AddSingleton<ISpellCardCreator, DatabaseSpellCardCreator>();
                 services.AddSingleton<ISpellCardUpdater, DatabaseSpellCardUpdater>();
+                services.AddSingleton<ISpellCardDeleter, DatabaseSpellCardDeleter>();
                 services.AddSingleton<ISpellCardProvider, DatabaseSpellCardProvider>();
+
+                services.AddSingleton<IItemDeckCreator, DatabaseItemDeckCreator>();
+                services.AddSingleton<IItemDeckProvider,DatabaseItemDeckProvider>();
+                services.AddSingleton<IItemDeckUpdater, DatabaseItemDeckUpdater>();
+                services.AddSingleton<IItemDeckDeleter, DatabaseItemDeckDeleter>();
+
+                services.AddSingleton<IItemCardCreator, DatabaseItemCardCreator>();
+                services.AddSingleton<IItemCardUpdater, DatabaseItemCardUpdater>();
+                services.AddSingleton<IItemCardDeleter, DatabaseItemCardDeleter>();
+                services.AddSingleton<IItemCardProvider,DatabaseItemCardProvider>();
             });
 
             return hostBuilder;

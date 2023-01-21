@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,29 @@ namespace CardDesigner.Domain.Stores
 
         private readonly ISpellCardCreator _spellCardCreator;
         private readonly ISpellCardUpdater _spellCardUpdater;
+        private readonly ISpellCardDeleter _spellCardDeleter;
         private readonly ISpellCardProvider _spellCardProvider;
 
+        private readonly IItemCardCreator  _itemCardCreator;
+        private readonly IItemCardUpdater  _itemCardUpdater;
+        private readonly IItemCardDeleter  _itemCardDeleter;
+        private readonly IItemCardProvider _itemCardProvider;
+
+        private readonly IItemDeckCreator  _itemDeckCreator;
+        private readonly IItemDeckUpdater  _itemDeckUpdater;
+        private readonly IItemDeckDeleter  _itemDeckDeleter;
+        private readonly IItemDeckProvider _itemDeckProvider;
+
         private readonly List<SpellCardModel> _spellCards;
+        private readonly List<ItemCardModel> _itemCards;
         private readonly List<SpellDeckModel> _spellDecks;
+        private readonly List<ItemDeckModel> _itemDecks;
         private readonly List<CharacterModel> _characters;
 
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
+        public IEnumerable<ItemCardModel> ItemCards => _itemCards;
         public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
+        public IEnumerable<ItemDeckModel> ItemDecks => _itemDecks;
         public IEnumerable<CharacterModel> Characters => _characters;
 
         public event Action<CharacterModel> CharacterCreated;
@@ -45,6 +61,14 @@ namespace CardDesigner.Domain.Stores
         public event Action<SpellCardModel> SpellCardUpdated;
         public event Action<SpellCardModel> SpellCardDeleted;
 
+        public event Action<ItemDeckModel> ItemDeckCreated;
+        public event Action<ItemDeckModel> ItemDeckUpdated;
+        public event Action<ItemDeckModel> ItemDeckDeleted;
+
+        public event Action<ItemCardModel> ItemCardCreated;
+        public event Action<ItemCardModel> ItemCardUpdated;
+        public event Action<ItemCardModel> ItemCardDeleted;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -57,13 +81,22 @@ namespace CardDesigner.Domain.Stores
             ICharacterUpdater characterUpdater,
             ICharacterDeleter characterDeleter,
             ICharacterProvider characterProvider,
+            IItemCardCreator  itemCardCreator,
+            IItemCardUpdater  itemCardUpdater,
+            IItemCardDeleter  itemCardDeleter,
+            IItemCardProvider itemCardProvider,
             ISpellCardCreator spellCardCreator,
             ISpellCardUpdater spellCardUpdater,
+            ISpellCardDeleter spellCardDeleter,
             ISpellCardProvider spellCardProvider,
             ISpellDeckCreator spellDeckCreator,
             ISpellDeckUpdater spellDeckUpdater,
             ISpellDeckDeleter spellDeckDeleter,
-            ISpellDeckProvider spellDeckProvider)
+            ISpellDeckProvider spellDeckProvider,
+            IItemDeckCreator  itemDeckCreator,
+            IItemDeckUpdater  itemDeckUpdater,
+            IItemDeckDeleter  itemDeckDeleter,
+            IItemDeckProvider itemDeckProvider)
         {
             _characterCreator = characterCreator;
             _characterProvider = characterProvider;
@@ -71,17 +104,28 @@ namespace CardDesigner.Domain.Stores
             _characterDeleter = characterDeleter;
             _spellCardCreator = spellCardCreator;
             _spellCardUpdater = spellCardUpdater;
+            _spellCardDeleter = spellCardDeleter;
             _spellCardProvider = spellCardProvider;
+            _itemCardCreator = itemCardCreator;
+            _itemCardUpdater = itemCardUpdater;
+            _itemCardDeleter = itemCardDeleter;
+            _itemCardProvider = itemCardProvider;
             _spellDeckCreator = spellDeckCreator;
             _spellDeckUpdater = spellDeckUpdater;
             _spellDeckDeleter = spellDeckDeleter;
             _spellDeckProvider = spellDeckProvider;
+            _itemDeckCreator =  itemDeckCreator;
+            _itemDeckUpdater =  itemDeckUpdater;
+            _itemDeckDeleter =  itemDeckDeleter;
+            _itemDeckProvider = itemDeckProvider;
 
             _initializeLazy = new Lazy<Task>(Initialize);
 
             _characters = new();
+            _itemCards = new();
             _spellCards = new();
             _spellDecks = new();
+            _itemDecks = new();
         }
 
         /// <summary>
@@ -91,8 +135,10 @@ namespace CardDesigner.Domain.Stores
         private async Task Initialize()
         {
             await UpdateSpellCardsFromDb();
+            await UpdateItemCardsFromDb();
             await UpdateCharactersFromDb();
             await UpdateSpellDecksFromDb();
+            await UpdateItemDecksFromDb();
         }
 
         /// <summary>
@@ -120,11 +166,24 @@ namespace CardDesigner.Domain.Stores
             OnSpellDeckCreated(createdSpellDeck);
         }
 
+        public async Task CreateItemDeck(ItemDeckModel itemDeck)
+        {
+            ItemDeckModel createdItemDeck = await _itemDeckCreator.CreateItemDeck(itemDeck);
+            _itemDecks.Add(createdItemDeck);
+            OnItemDeckCreated(createdItemDeck);
+        }
+
         public async Task CreateSpellCard(SpellCardModel spellCard)
         {
             SpellCardModel createdSpellCard = await _spellCardCreator.CreateSpellCard(spellCard);
             _spellCards.Add(createdSpellCard);
             OnSpellCardCreated(createdSpellCard);
+        }
+        public async Task CreateItemCard(ItemCardModel itemCard)
+        {
+            ItemCardModel createdItemCard = await _itemCardCreator.CreateItemCard(itemCard);
+            _itemCards.Add(createdItemCard);
+            OnItemCardCreated(createdItemCard);
         }
 
         #endregion
@@ -148,13 +207,28 @@ namespace CardDesigner.Domain.Stores
                 OnSpellDeckUpdated(updatedSpellDeck);
             }
         }
+        public async Task UpdateItemDeck(ItemDeckModel itemDeck)
+        {
+            if (await _itemDeckUpdater.UpdateItemDeck(itemDeck) is ItemDeckModel updatedItemDeck)
+            {
+                await UpdateSpellDecksFromDb();
+                OnItemDeckUpdated(updatedItemDeck);
+            }
+        }
 
         public async Task UpdateSpellCard(SpellCardModel spellCard)
         {
-            if (await _spellCardUpdater.UpdateSpellCard(spellCard) is SpellCardModel updatedSpellDeck)
+            if (await _spellCardUpdater.UpdateSpellCard(spellCard) is SpellCardModel updatedSpellCard)
             {
-                //await UpdateSpellDecksFromDb();
-                OnSpellCardUpdated(updatedSpellDeck);
+                OnSpellCardUpdated(updatedSpellCard);
+            }
+        }
+
+        public async Task UpdateItemCard(ItemCardModel itemCard)
+        {
+            if (await _itemCardUpdater.UpdateItemCard(itemCard) is ItemCardModel updatedItemCard)
+            {
+                OnItemCardUpdated(updatedItemCard);
             }
         }
 
@@ -190,6 +264,42 @@ namespace CardDesigner.Domain.Stores
             }
         }
 
+        public async Task DeleteItemDeck(ItemDeckModel itemDeck)
+        {
+            // Update data from database
+            await UpdateItemDecksFromDb();
+            // Find the deck to delete
+            IEnumerable<ItemDeckModel> a = ItemDecks.Where(sd => sd.ID == itemDeck.ID);
+            // Remove it from database if found
+            if (a.Any())
+            {
+                bool success = await _itemDeckDeleter.DeleteItemDeck(a.First());
+                if (success)
+                {
+                    _itemDecks.Remove(itemDeck);
+                    OnItemDeckDeleted(itemDeck);
+                }
+            }
+        }
+
+        public async Task DeleteSpellCard(SpellCardModel spellCard)
+        {
+            bool success = await _spellCardDeleter.DeleteSpellCard(spellCard);
+            if (success)
+            {
+                _spellCards.Remove(spellCard);
+                OnSpellCardDeleted(spellCard);
+            }
+        }
+        public async Task DeleteItemCard(ItemCardModel itemCard)
+        {
+            bool success = await _itemCardDeleter.DeleteItemCard(itemCard);
+            if (success)
+            {
+                _itemCards.Remove(itemCard);
+                OnItemCardDeleted(itemCard);
+            }
+        }
         #endregion
 
         #region Invokers
@@ -224,9 +334,39 @@ namespace CardDesigner.Domain.Stores
             SpellDeckDeleted?.Invoke(spellDeck);
         }
 
+        private void OnItemDeckCreated(ItemDeckModel itemDeck)
+        {
+            ItemDeckCreated?.Invoke(itemDeck);
+        }
+
+        private void OnItemDeckUpdated(ItemDeckModel itemDeck)
+        {
+            ItemDeckUpdated?.Invoke(itemDeck);
+        }
+
+        private void OnItemDeckDeleted(ItemDeckModel itemDeck)
+        {
+            ItemDeckDeleted?.Invoke(itemDeck);
+        }
+
         private void OnSpellCardCreated(SpellCardModel spellCard)
         {
             SpellCardCreated?.Invoke(spellCard);
+        }
+
+        private void OnItemCardCreated(ItemCardModel itemCard)
+        {
+            ItemCardCreated?.Invoke(itemCard);
+        }
+
+        private void OnItemCardDeleted(ItemCardModel itemCard)
+        {
+            ItemCardDeleted?.Invoke(itemCard);
+        }
+
+        private void OnItemCardUpdated(ItemCardModel itemCard)
+        {
+            ItemCardUpdated?.Invoke(itemCard);
         }
 
         private void OnSpellCardUpdated(SpellCardModel spellCard)
@@ -248,6 +388,13 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<CharacterModel> characters = await _characterProvider.GetAllCharacters();
             _characters.Clear();
             _characters.AddRange(characters);
+        } 
+        
+        private async Task UpdateItemCardsFromDb()
+        {
+            IEnumerable<ItemCardModel> itemCards = await _itemCardProvider.GetAllItemCards();
+            _itemCards.Clear();
+            _itemCards.AddRange(itemCards);
         }
 
         private async Task UpdateSpellDecksFromDb()
@@ -262,6 +409,13 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<SpellCardModel> spellCards = await _spellCardProvider.GetAllSpellCards();
             _spellCards.Clear();
             _spellCards.AddRange(spellCards);
+        }
+
+        private async Task UpdateItemDecksFromDb()
+        {
+            IEnumerable<ItemDeckModel> itemDecks = await _itemDeckProvider.GetAllItemDecks();
+            _itemDecks.Clear();
+            _itemDecks.AddRange(itemDecks);
         }
 
         #endregion
