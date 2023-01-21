@@ -10,6 +10,7 @@ namespace CardDesigner.Domain.Models
         public string Description { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public ItemType Type { get; set; }
+        public string IconFilePath { get; set; }
         public int Level { get; set; } = 0;
         public EquipmentSlot EquipmentSlotSlot { get; set; }
         public PhysicalDamageType PhysicalDamageType { get; set; }

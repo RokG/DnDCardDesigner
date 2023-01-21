@@ -8,11 +8,13 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
+        public string Title { get; set; }
         public ICollection<ItemDeckEntity> ItemDecks { get; set; }
         public List<ItemDeckItemCard> ItemDeckItemCards { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
         public ItemType Type { get; set; }
+        public string IconFilePath { get; set; }
         public int Level { get; set; }
         public EquipmentSlot EquipmentSlotSlot { get; set; }
         public PhysicalDamageType PhysicalDamageType { get; set; }
