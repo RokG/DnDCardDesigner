@@ -28,8 +28,16 @@ namespace CardDesigner.UI.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _SpellDeckViewModel.AddedSpellDeckName != string.Empty
-                && !_SpellDeckViewModel.AllSpellDecks.Where(c => c.Name == _SpellDeckViewModel.AddedSpellDeckName).Any();
+            bool spellDeckExists = !(_SpellDeckViewModel.AddedSpellDeckName == string.Empty || _SpellDeckViewModel.AddedSpellDeckName == null);
+
+            if (spellDeckExists)
+            {
+                return !_SpellDeckViewModel.AllSpellDecks.Where(c => c.Name == _SpellDeckViewModel.AddedSpellDeckName).Any();
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override void Execute(object parameter)
