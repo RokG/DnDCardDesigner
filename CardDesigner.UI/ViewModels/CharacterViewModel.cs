@@ -1,9 +1,7 @@
 ﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
-using CardDesigner.UI.Commands;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 
