@@ -34,6 +34,6 @@ namespace CardDesigner.Domain.Entities
         public int AreaOfEffectValue { get; set; }
         public TargetType TargetType { get; set; } = TargetType.Self;
         public string Target { get; set; } = string.Empty;
-        public DamageType DamageType { get; set; } = DamageType.Fire;
+        public MagicDamageType DamageType { get; set; } = MagicDamageType.Fire;
     }
 }

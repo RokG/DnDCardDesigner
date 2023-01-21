@@ -1,6 +1,6 @@
 ﻿namespace CardDesigner.Domain.Enums
 {
-    public enum DamageType
+    public enum MagicDamageType
     {
         Radiant,
         Fire,
