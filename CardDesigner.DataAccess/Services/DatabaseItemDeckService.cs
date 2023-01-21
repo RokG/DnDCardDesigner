@@ -29,7 +29,7 @@ namespace CardDesigner.DataAccess.Services
                 try
                 {
                     // Get item deck from database
-                    ItemDeck itemDeckEntity = dbContext.ItemDecks
+                    ItemDeckEntity itemDeckEntity = dbContext.ItemDecks
                         .Include(sd => sd.ItemCards)
                         .Single(sc => sc.ID == itemDeck.ID);
 
@@ -39,7 +39,7 @@ namespace CardDesigner.DataAccess.Services
                         // If any card is new, add it to the list
                         if (!itemDeckEntity.ItemCards.Where(sd => sd.ID == itemCard.ID).Any())
                         {
-                            ItemCard itemCardEntity = _mapper.Map<ItemCard>(itemCard);
+                            ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCard);
                             itemDeckEntity.ItemCards.Add(itemCardEntity);
                         }
                     }
@@ -59,7 +59,7 @@ namespace CardDesigner.DataAccess.Services
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<ItemDeck> itemDeckEntities = await
+                IEnumerable<ItemDeckEntity> itemDeckEntities = await
                     context.ItemDecks
                     .Include(sd => sd.Characters)
                     .Include(sd => sd.ItemCards)
@@ -75,7 +75,7 @@ namespace CardDesigner.DataAccess.Services
             {
                 try
                 {
-                    ItemDeck itemDeckEntity = _mapper.Map<ItemDeck>(itemDeck);
+                    ItemDeckEntity itemDeckEntity = _mapper.Map<ItemDeckEntity>(itemDeck);
                     if (dbContext.ItemDecks.Contains(itemDeckEntity))
                     {
                         dbContext.ItemDecks.Remove(itemDeckEntity);
@@ -95,9 +95,9 @@ namespace CardDesigner.DataAccess.Services
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                ItemDeck itemDeckEntity = _mapper.Map<ItemDeck>(itemDeck);
+                ItemDeckEntity itemDeckEntity = _mapper.Map<ItemDeckEntity>(itemDeck);
 
-                ItemDeck createdItemDeckEntity = dbContext.ItemDecks.Add(itemDeckEntity).Entity;
+                ItemDeckEntity createdItemDeckEntity = dbContext.ItemDecks.Add(itemDeckEntity).Entity;
                 await dbContext.SaveChangesAsync();
 
                 return _mapper.Map<ItemDeckModel>(createdItemDeckEntity);

@@ -26,9 +26,9 @@ namespace CardDesigner.DataAccess.Services
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                SpellCard spellCardEntity = _mapper.Map<SpellCard>(spellCard);
+                SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
 
-                SpellCard createdSpellCardEntity = dbContext.SpellCards.Add(spellCardEntity).Entity;
+                SpellCardEntity createdSpellCardEntity = dbContext.SpellCards.Add(spellCardEntity).Entity;
                 await dbContext.SaveChangesAsync();
 
                 return _mapper.Map<SpellCardModel>(createdSpellCardEntity);
@@ -39,9 +39,9 @@ namespace CardDesigner.DataAccess.Services
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                SpellCard spellCardEntity = _mapper.Map<SpellCard>(spellCard);
+                SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
 
-                SpellCard createdSpellCardEntity = dbContext.SpellCards.Update(spellCardEntity).Entity;
+                SpellCardEntity createdSpellCardEntity = dbContext.SpellCards.Update(spellCardEntity).Entity;
                 await dbContext.SaveChangesAsync();
 
                 return _mapper.Map<SpellCardModel>(spellCardEntity);
@@ -54,7 +54,7 @@ namespace CardDesigner.DataAccess.Services
             {
                 try
                 {
-                    SpellCard spellCardEntity = _mapper.Map<SpellCard>(spellCard);
+                    SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
                     if (dbContext.SpellCards.Contains(spellCardEntity))
                     {
                         dbContext.SpellCards.Remove(spellCardEntity);
@@ -74,7 +74,7 @@ namespace CardDesigner.DataAccess.Services
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<SpellCard> characterEntities = await
+                IEnumerable<SpellCardEntity> characterEntities = await
                     context.SpellCards
                     .Include(sc => sc.SpellDecks)
                     .ToListAsync();

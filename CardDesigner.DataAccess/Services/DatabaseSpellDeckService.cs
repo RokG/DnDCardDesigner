@@ -26,9 +26,9 @@ namespace CardDesigner.DataAccess.Services
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                SpellDeck spellDeckEntity = _mapper.Map<SpellDeck>(spellDeck);
+                SpellDeckEntity spellDeckEntity = _mapper.Map<SpellDeckEntity>(spellDeck);
 
-                SpellDeck createdSpellDeckEntity = dbContext.SpellDecks.Add(spellDeckEntity).Entity;
+                SpellDeckEntity createdSpellDeckEntity = dbContext.SpellDecks.Add(spellDeckEntity).Entity;
                 await dbContext.SaveChangesAsync();
 
                 return _mapper.Map<SpellDeckModel>(createdSpellDeckEntity);
@@ -42,7 +42,7 @@ namespace CardDesigner.DataAccess.Services
                 try
                 {
                     // Get spell deck from database
-                    SpellDeck spellDeckEntity = dbContext.SpellDecks
+                    SpellDeckEntity spellDeckEntity = dbContext.SpellDecks
                         .Include(sd => sd.SpellCards)
                         .Single(sc => sc.ID == spellDeck.ID);
 
@@ -52,7 +52,7 @@ namespace CardDesigner.DataAccess.Services
                         // If any card is new, add it to the list
                         if (!spellDeckEntity.SpellCards.Where(sd => sd.ID == spellCard.ID).Any())
                         {
-                            SpellCard spellCardEntity = _mapper.Map<SpellCard>(spellCard);
+                            SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
                             spellDeckEntity.SpellCards.Add(spellCardEntity);
                         }
                     }
@@ -74,7 +74,7 @@ namespace CardDesigner.DataAccess.Services
             {
                 try
                 {
-                    SpellDeck spellDeckEntity = _mapper.Map<SpellDeck>(spellDeck);
+                    SpellDeckEntity spellDeckEntity = _mapper.Map<SpellDeckEntity>(spellDeck);
                     if (dbContext.SpellDecks.Contains(spellDeckEntity))
                     {
                         dbContext.SpellDecks.Remove(spellDeckEntity);
@@ -94,7 +94,7 @@ namespace CardDesigner.DataAccess.Services
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<SpellDeck> spellDeckEntities = await
+                IEnumerable<SpellDeckEntity> spellDeckEntities = await
                     context.SpellDecks
                     .Include(sd => sd.Characters)
                     .Include(sd => sd.SpellCards)

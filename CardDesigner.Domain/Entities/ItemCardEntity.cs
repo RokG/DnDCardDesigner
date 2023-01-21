@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CardDesigner.Domain.Entities
 {
-    public class ItemCard
+    public class ItemCardEntity
     {
         [Key]
         public int ID { get; set; }
-
-        public ICollection<ItemDeck> ItemDecks { get; set; }
+        public ICollection<ItemDeckEntity> ItemDecks { get; set; }
         public List<ItemDeckItemCard> ItemDeckItemCards { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
+        public ItemType Type { get; set; }
         public int Level { get; set; }
         public EquipmentSlot EquipmentSlotSlot { get; set; }
         public PhysicalDamageType PhysicalDamageType { get; set; }
@@ -20,7 +20,6 @@ namespace CardDesigner.Domain.Entities
         public int ArmourClass { get; set; }
         public int DamageValue { get; set; }
         public int DamageModifier { get; set; }
-        public ItemType Type { get; set; }
         public bool IsUnidentified { get; set; }
         public bool RequiresAttunement { get; set; }
         public bool IsMagical { get; set; }

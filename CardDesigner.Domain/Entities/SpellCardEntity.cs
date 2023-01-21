@@ -4,14 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CardDesigner.Domain.Entities
 {
-    public class SpellCard
+    public class SpellCardEntity
     {
         [Key]
         public int ID { get; set; }
-
-        public ICollection<SpellDeck> SpellDecks { get; set; }
+        public ICollection<SpellDeckEntity> SpellDecks { get; set; }
         public List<SpellDeckSpellCard> SpellDeckSpellCards { get; set; }
-        
         public string Title { get; set; } = string.Empty;
         public string Name { get; set; }
         public string Description { get; set; }

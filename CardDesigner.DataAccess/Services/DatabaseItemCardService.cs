@@ -26,8 +26,8 @@ namespace CardDesigner.DataAccess.Services
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                ItemCard itemCardEntity = _mapper.Map<ItemCard>(itemCard);
-                ItemCard createdItemCardEntity = dbContext.ItemCards.Add(itemCardEntity).Entity;
+                ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCard);
+                ItemCardEntity createdItemCardEntity = dbContext.ItemCards.Add(itemCardEntity).Entity;
                 await dbContext.SaveChangesAsync();
 
                 return _mapper.Map<ItemCardModel>(createdItemCardEntity);
@@ -38,9 +38,9 @@ namespace CardDesigner.DataAccess.Services
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                ItemCard itemCardEntity = _mapper.Map<ItemCard>(itemCard);
+                ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCard);
 
-                ItemCard createdItemCardEntity = dbContext.ItemCards.Update(itemCardEntity).Entity;
+                ItemCardEntity createdItemCardEntity = dbContext.ItemCards.Update(itemCardEntity).Entity;
                 await dbContext.SaveChangesAsync();
 
                 return _mapper.Map<ItemCardModel>(itemCardEntity);
@@ -53,7 +53,7 @@ namespace CardDesigner.DataAccess.Services
             {
                 try
                 {
-                    ItemCard itemCardEntity = _mapper.Map<ItemCard>(itemCard);
+                    ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCard);
                     if (dbContext.ItemCards.Contains(itemCardEntity))
                     {
                         dbContext.ItemCards.Remove(itemCardEntity);
@@ -73,7 +73,7 @@ namespace CardDesigner.DataAccess.Services
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<ItemCard> characterEntities = await
+                IEnumerable<ItemCardEntity> characterEntities = await
                     context.ItemCards
                     .Include(sc => sc.ItemDecks)
                     .ToListAsync();

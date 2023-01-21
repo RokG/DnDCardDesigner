@@ -26,9 +26,9 @@ namespace CardDesigner.DataAccess.Services
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                Character characterEntity = _mapper.Map<Character>(character);
+                CharacterEntity characterEntity = _mapper.Map<CharacterEntity>(character);
 
-                Character createdCharacterEntity = dbContext.Characters.Add(characterEntity).Entity;
+                CharacterEntity createdCharacterEntity = dbContext.Characters.Add(characterEntity).Entity;
                 await dbContext.SaveChangesAsync();
 
                 return _mapper.Map<CharacterModel>(createdCharacterEntity);
@@ -42,12 +42,12 @@ namespace CardDesigner.DataAccess.Services
                 try
                 {
                     // Get character from database
-                    Character characterEntity = dbContext.Characters
+                    CharacterEntity characterEntity = dbContext.Characters
                         .Include(d => d.SpellDeck)
                         .Single(d => d.ID == character.ID);
 
                     // Get spell deck from database
-                    SpellDeck deckEntity = dbContext.SpellDecks.Single(c => c.Name == character.SpellDeck.Name);
+                    SpellDeckEntity deckEntity = dbContext.SpellDecks.Single(c => c.Name == character.SpellDeck.Name);
                     characterEntity.SpellDeck = deckEntity;
 
                     // Update database
@@ -72,7 +72,7 @@ namespace CardDesigner.DataAccess.Services
             {
                 try
                 {
-                    Character characterEntity = _mapper.Map<Character>(character);
+                    CharacterEntity characterEntity = _mapper.Map<CharacterEntity>(character);
                     if (dbContext.Characters.Contains(characterEntity))
                     {
                         dbContext.Characters.Remove(characterEntity);
@@ -92,7 +92,7 @@ namespace CardDesigner.DataAccess.Services
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<Character> characterEntities = await
+                IEnumerable<CharacterEntity> characterEntities = await
                     context.Characters
                     .Include(c => c.SpellDeck)
                     .Include(d => d.SpellDeck.SpellCards)
