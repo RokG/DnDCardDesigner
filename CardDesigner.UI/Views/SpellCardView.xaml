@@ -1,5 +1,4 @@
-﻿<UserControl
-    x:Class="CardDesigner.UI.Views.SpellCardView"
+﻿<UserControl x:Class="CardDesigner.UI.Views.SpellCardView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
@@ -7,136 +6,155 @@
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
-    <Grid>
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="7*" />
-        </Grid.ColumnDefinitions>
+        <!--  header area  -->
+        <Border BorderThickness="0,0,0,1">
+            <StackPanel>
+                <Label
+                    Content="{Binding Name}"
+                    ContentStringFormat="{}{0}s"
+                    FontSize="32" />
+                <Label Content="{Binding Description}" />
+            </StackPanel>
+        </Border>
 
-        <!--  Card Settings  -->
+        <Grid Grid.Row="1">
 
-        <StackPanel Orientation="Vertical">
+            <!--  Content area  -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
 
-            <!--  Database control  -->
-            <controls:AddEditItem
-                Title="Spell Card"
-                AddedItemName="{Binding SpellCardName, Mode=TwoWay}"
-                ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
-                SaveCommand="{Binding CreateSpellCardCommand}"
-                SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}"
-                ViewOnly="False" />
+            <!--  Card Settings  -->
 
-            <!--  Name/school/level  -->
-            <Border
-                BorderThickness="1"
-                Style="{StaticResource VisibleBorder}">
-                <StackPanel>
-                    <Label
-                        Margin="5,0"
-                        Padding="0"
-                        Content="Card name:" />
-                    <TextBox
-                        Margin="5,0"
-                        Text="{Binding SelectedSpellCard.Name}" />
-                    <Label
-                        Margin="5,10,0,0"
-                        Padding="0"
-                        Content="Spell school:" />
-                    <ComboBox
-                        ItemsSource="{Binding Source={StaticResource MagicSchoolEnum}}"
-                        SelectedItem="{Binding SelectedSpellCard.School}" />
-                    <Label
-                        Margin="5,10,0,0"
-                        Padding="0"
-                        Content="Spell Requirements:" />
-                    <!--  Level  -->
-                    <DockPanel HorizontalAlignment="Stretch">
-                        <Label Content="Level: " />
-                        <Slider
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            HorizontalContentAlignment="Stretch"
-                            Maximum="9"
-                            Minimum="0"
-                            Value="{Binding SelectedSpellCard.Level}" />
-                    </DockPanel>
-                </StackPanel>
-            </Border>
+            <StackPanel Orientation="Vertical">
 
-            <!--  True/False props  -->
-            <Border
-                BorderThickness="1"
-                Style="{StaticResource VisibleBorder}">
-                <StackPanel>
-                    <CheckBox
-                        Content="Concentration"
-                        IsChecked="{Binding SelectedSpellCard.IsConcentration}" />
-                    <CheckBox
-                        Content="Ritual"
-                        IsChecked="{Binding SelectedSpellCard.IsRitual}" />
-                    <CheckBox
-                        Content="Somatic"
-                        IsChecked="{Binding SelectedSpellCard.HasSomaticComponent}" />
-                    <CheckBox
-                        Content="Verbal"
-                        IsChecked="{Binding SelectedSpellCard.HasVerbalComponent}" />
-                    <CheckBox
-                        Content="Material"
-                        IsChecked="{Binding SelectedSpellCard.HasMaterialComponent}" />
-                </StackPanel>
-            </Border>
+                <!--  Database control  -->
+                <controls:AddEditItem
+                    Title="Spell Card"
+                    AddedItemName="{Binding SpellCardName, Mode=TwoWay}"
+                    ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
+                    SaveCommand="{Binding CreateSpellCardCommand}"
+                    SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}"
+                    ViewOnly="False" />
 
-            <!--  advanced properties  -->
-            <Border
-                BorderThickness="1"
-                Style="{StaticResource VisibleBorder}">
-                <StackPanel>
+                <!--  Name/school/level  -->
+                <Border
+                    BorderThickness="1"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label
+                            Margin="5,0"
+                            Padding="0"
+                            Content="Card name:" />
+                        <TextBox
+                            Margin="5,0"
+                            Text="{Binding SelectedSpellCard.Name}" />
+                        <Label
+                            Margin="5,10,0,0"
+                            Padding="0"
+                            Content="Spell school:" />
+                        <ComboBox
+                            ItemsSource="{Binding Source={StaticResource MagicSchoolEnum}}"
+                            SelectedItem="{Binding SelectedSpellCard.School}" />
+                        <Label
+                            Margin="5,10,0,0"
+                            Padding="0"
+                            Content="Spell Requirements:" />
+                        <!--  Level  -->
+                        <DockPanel HorizontalAlignment="Stretch">
+                            <Label Content="Level: " />
+                            <Slider
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Stretch"
+                                Maximum="9"
+                                Minimum="0"
+                                Value="{Binding SelectedSpellCard.Level}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
 
-                    <controls:SliderControl
-                        Title="Range:"
-                        SelectedValueType="{Binding SelectedSpellCard.RangeType, Mode=TwoWay}"
-                        ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
-                        Value="{Binding SelectedSpellCard.RangeValue, Mode=TwoWay}" />
+                <!--  True/False props  -->
+                <Border
+                    BorderThickness="1"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <CheckBox
+                            Content="Concentration"
+                            IsChecked="{Binding SelectedSpellCard.IsConcentration}" />
+                        <CheckBox
+                            Content="Ritual"
+                            IsChecked="{Binding SelectedSpellCard.IsRitual}" />
+                        <CheckBox
+                            Content="Somatic"
+                            IsChecked="{Binding SelectedSpellCard.HasSomaticComponent}" />
+                        <CheckBox
+                            Content="Verbal"
+                            IsChecked="{Binding SelectedSpellCard.HasVerbalComponent}" />
+                        <CheckBox
+                            Content="Material"
+                            IsChecked="{Binding SelectedSpellCard.HasMaterialComponent}" />
+                    </StackPanel>
+                </Border>
 
-                    <controls:SliderControl
-                        Title="Duration:"
-                        SelectedValueType="{Binding SelectedSpellCard.DurationType, Mode=TwoWay}"
-                        ValueTypes="{Binding Source={StaticResource DurationTypeEnum}}"
-                        Value="{Binding SelectedSpellCard.DurationValue, Mode=TwoWay}" />
+                <!--  advanced properties  -->
+                <Border
+                    BorderThickness="1"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
 
-                    <controls:SliderControl
-                        Title="Casting time:"
-                        SelectedValueType="{Binding SelectedSpellCard.CastingTimeType, Mode=TwoWay}"
-                        ValueTypes="{Binding Source={StaticResource CastingTimeEnum}}"
-                        Value="{Binding SelectedSpellCard.CastingTimeValue, Mode=TwoWay}" />
+                        <controls:SliderControl
+                            Title="Range:"
+                            SelectedValueType="{Binding SelectedSpellCard.RangeType, Mode=TwoWay}"
+                            ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
+                            Value="{Binding SelectedSpellCard.RangeValue, Mode=TwoWay}" />
 
-                    <controls:SliderControl
-                        Title="Area of effect:"
-                        SelectedValueType="{Binding SelectedSpellCard.AreaOfEffect, Mode=TwoWay}"
-                        ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
-                        Value="{Binding SelectedSpellCard.AreaOfEffectValue, Mode=TwoWay}" />
+                        <controls:SliderControl
+                            Title="Duration:"
+                            SelectedValueType="{Binding SelectedSpellCard.DurationType, Mode=TwoWay}"
+                            ValueTypes="{Binding Source={StaticResource DurationTypeEnum}}"
+                            Value="{Binding SelectedSpellCard.DurationValue, Mode=TwoWay}" />
 
-                    <controls:SliderControl
-                        Title="Roll:"
-                        SelectedValueType="{Binding SelectedSpellCard.DiceType, Mode=TwoWay}"
-                        UnitTypes="{Binding Source={StaticResource DamageTypeEnum}}"
-                        ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
-                        Value="{Binding SelectedSpellCard.DiceValue, Mode=TwoWay}" />
+                        <controls:SliderControl
+                            Title="Casting time:"
+                            SelectedValueType="{Binding SelectedSpellCard.CastingTimeType, Mode=TwoWay}"
+                            ValueTypes="{Binding Source={StaticResource CastingTimeEnum}}"
+                            Value="{Binding SelectedSpellCard.CastingTimeValue, Mode=TwoWay}" />
 
-                </StackPanel>
-            </Border>
-            
-            <!--  Manually update button  -->
-            <Button
-                Command="{Binding UpdateSpellCardCommand}"
-                Content="Update" />
-        </StackPanel>
+                        <controls:SliderControl
+                            Title="Area of effect:"
+                            SelectedValueType="{Binding SelectedSpellCard.AreaOfEffect, Mode=TwoWay}"
+                            ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
+                            Value="{Binding SelectedSpellCard.AreaOfEffectValue, Mode=TwoWay}" />
 
-        <!--  Card view  -->
-        <controls:SpellCardControl
-            Grid.Column="1"
-            IsEditable="True"
-            SpellCard="{Binding SelectedSpellCard, Mode=TwoWay}" />
+                        <controls:SliderControl
+                            Title="Roll:"
+                            SelectedValueType="{Binding SelectedSpellCard.DiceType, Mode=TwoWay}"
+                            UnitTypes="{Binding Source={StaticResource DamageTypeEnum}}"
+                            ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
+                            Value="{Binding SelectedSpellCard.DiceValue, Mode=TwoWay}" />
+
+                    </StackPanel>
+                </Border>
+
+                <!--  Manually update button  -->
+                <Button
+                    Command="{Binding UpdateSpellCardCommand}"
+                    Content="Update" />
+            </StackPanel>
+
+            <!--  Card view  -->
+            <controls:SpellCardControl
+                Grid.Column="1"
+                IsEditable="True"
+                SpellCard="{Binding SelectedSpellCard, Mode=TwoWay}" />
+        </Grid>
     </Grid>
 </UserControl>

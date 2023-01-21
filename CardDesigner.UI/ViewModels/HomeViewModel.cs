@@ -30,7 +30,8 @@ namespace CardDesigner.UI.ViewModels
         #region Constructor
         public HomeViewModel(CardDesignerStore cardDesignerStore)
         {
-            Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = Regex.Replace(nameof(HomeViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Description = "Home screen";
 
             _cardDesignerStore = cardDesignerStore;
 

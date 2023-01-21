@@ -15,6 +15,9 @@
     Top="0">
     <Grid>
         <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:HomeViewModel}">
+                <views:HomeView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:SpellCardViewModel}">
                 <views:SpellCardView />
             </DataTemplate>
@@ -42,8 +45,20 @@
                 <Button
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
+                    CommandParameter="HomeViewModel"
+                    Content="HOME"
+                    DockPanel.Dock="Top" />
+                <Button
+                    Height="60"
+                    Command="{Binding ChangeViewModelCommand}"
                     CommandParameter="SpellCardViewModel"
                     Content="Spell Card creator"
+                    DockPanel.Dock="Top" />
+                <Button
+                    Height="60"
+                    Command="{Binding ChangeViewModelCommand}"
+                    CommandParameter="ItemCardViewModel"
+                    Content="Item Card creator"
                     DockPanel.Dock="Top" />
                 <Button
                     Height="60"

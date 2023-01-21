@@ -15,9 +15,10 @@
         <Border BorderThickness="0,0,0,1">
             <StackPanel>
                 <Label
-                    Content="Character overview"
+                    Content="{Binding Name}"
+                    ContentStringFormat="{}{0}s"
                     FontSize="32" />
-                <Label Content="View Characters, Decks and Card styles. Assign Decks to Characters" />
+                <Label Content="{Binding Description}" />
             </StackPanel>
         </Border>
 
@@ -37,7 +38,7 @@
                         AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
                         ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
                         SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
-                        ViewOnly="True" />
+                        ViewOnly="False" />
 
                     <controls:AddEditItem
                         Title="Spell Deck"

@@ -76,6 +76,7 @@ namespace CardDesigner.UI.ViewModels
         public SpellDeckViewModel(CardDesignerStore cardDesignerStore)
         {
             Name = Regex.Replace(nameof(SpellDeckViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Description = "Create, view and edit Spell Decks";
 
             _cardDesignerStore = cardDesignerStore;
 

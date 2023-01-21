@@ -53,8 +53,14 @@ namespace CardDesigner.UI.ViewModels
             // TODO: check how to do this better?
             switch (viewModelType)
             {
+                case "HomeViewModel":
+                    CurrentViewModel = new HomeViewModel(_cardDesignerStore);
+                    break;
                 case "SpellCardViewModel":
                     CurrentViewModel = new SpellCardViewModel(_cardDesignerStore);
+                    break;
+                case "ItemCardViewModel":
+                    CurrentViewModel = new ItemCardViewModel(_cardDesignerStore);
                     break;
                 case "SpellDeckViewModel":
                     CurrentViewModel = new SpellDeckViewModel(_cardDesignerStore);

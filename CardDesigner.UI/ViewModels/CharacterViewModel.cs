@@ -61,6 +61,7 @@ namespace CardDesigner.UI.ViewModels
         public CharacterViewModel(CardDesignerStore cardDesignerStore)
         {
             Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Description = "Create, view and edit Characters";
 
             _cardDesignerStore = cardDesignerStore;
         }
