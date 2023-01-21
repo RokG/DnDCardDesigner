@@ -1,12 +1,13 @@
 ﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
-    public class ItemCardViewModel : ViewModelBase
+    public partial class ItemCardViewModel : ViewModelBase
     {
         #region Private fields
 
@@ -14,13 +15,8 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Properties
-
-        private string _cardName;
-        public string CardName
-        {
-            get => _cardName;
-            set => SetProperty(ref _cardName, value);
-        }
+        [ObservableProperty]
+        private string cardName;
 
         #endregion
 
