@@ -25,16 +25,12 @@
 
         <!--  Content Area  -->
         <Grid Grid.Row="1">
-
-
-            <!--  Content area  -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="7*" />
             </Grid.ColumnDefinitions>
 
             <!--  Card Settings  -->
-
             <StackPanel Orientation="Vertical">
 
                 <!--  Database control  -->
@@ -46,40 +42,25 @@
                     SelectedItem="{Binding SelectedItemCard, Mode=TwoWay}"
                     ViewOnly="False" />
 
-                <!--  Name/school/level  -->
+                <!--  Item type, level  -->
                 <Border
                     BorderThickness="1"
                     Style="{StaticResource VisibleBorder}">
                     <StackPanel>
                         <Label
-                            Margin="5,0"
-                            Padding="0"
-                            Content="Card name:" />
-                        <TextBox
-                            Margin="5,0"
-                            Text="{Binding SelectedItemCard.Name}" />
-                        <Label
                             Margin="5,10,0,0"
                             Padding="0"
-                            Content="Item school:" />
+                            Content="Item type:" />
                         <ComboBox
                             ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
                             SelectedItem="{Binding SelectedItemCard.Type}" />
                         <Label
                             Margin="5,10,0,0"
                             Padding="0"
-                            Content="Item Requirements:" />
-                        <!--  Level  -->
-                        <DockPanel HorizontalAlignment="Stretch">
-                            <Label Content="Level: " />
-                            <Slider
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                HorizontalContentAlignment="Stretch"
-                                Maximum="20"
-                                Minimum="1"
-                                Value="{Binding SelectedItemCard.Level}" />
-                        </DockPanel>
+                            Content="Item image:" />
+                        <controls:FilePicker
+                            Margin="5"
+                            Text="{Binding SelectedItemCard.IconFilePath}" />
                     </StackPanel>
                 </Border>
 
@@ -100,51 +81,18 @@
                     </StackPanel>
                 </Border>
 
-                <!--  advanced properties  -->
-                <Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <StackPanel>
-
-                        <!--<controls:SliderControl
-                            Title="Range:"
-                            SelectedValueType="{Binding SelectedItemCard.RangeType, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
-                            Value="{Binding SelectedItemCard.RangeValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Duration:"
-                            SelectedValueType="{Binding SelectedItemCard.DurationType, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource DurationTypeEnum}}"
-                            Value="{Binding SelectedItemCard.DurationValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Casting time:"
-                            SelectedValueType="{Binding SelectedItemCard.CastingTimeType, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource CastingTimeEnum}}"
-                            Value="{Binding SelectedItemCard.CastingTimeValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Area of effect:"
-                            SelectedValueType="{Binding SelectedItemCard.AreaOfEffect, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
-                            Value="{Binding SelectedItemCard.AreaOfEffectValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Roll:"
-                            SelectedValueType="{Binding SelectedItemCard.DiceType, Mode=TwoWay}"
-                            UnitTypes="{Binding Source={StaticResource DamageTypeEnum}}"
-                            ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
-                            Value="{Binding SelectedItemCard.DiceValue, Mode=TwoWay}" />-->
-
-                    </StackPanel>
-                </Border>
-
                 <!--  Manually update button  -->
                 <Button
                     Command="{Binding UpdateItemCardCommand}"
                     Content="Update" />
+
             </StackPanel>
+
+            <!--  Card view  -->
+            <controls:ItemCardControl
+                Grid.Column="1"
+                IsEditable="True"
+                ItemCard="{Binding SelectedItemCard, Mode=TwoWay}" />
         </Grid>
     </Grid>
 </UserControl>

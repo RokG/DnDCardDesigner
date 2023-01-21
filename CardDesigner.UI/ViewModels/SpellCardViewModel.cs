@@ -102,6 +102,5 @@ namespace CardDesigner.UI.ViewModels
         }
 
         #endregion
-
     }
 }

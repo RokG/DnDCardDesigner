@@ -50,13 +50,6 @@
                     Style="{StaticResource VisibleBorder}">
                     <StackPanel>
                         <Label
-                            Margin="5,0"
-                            Padding="0"
-                            Content="Card name:" />
-                        <TextBox
-                            Margin="5,0"
-                            Text="{Binding SelectedSpellCard.Name}" />
-                        <Label
                             Margin="5,10,0,0"
                             Padding="0"
                             Content="Spell school:" />
