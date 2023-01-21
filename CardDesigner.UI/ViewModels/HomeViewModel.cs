@@ -23,6 +23,12 @@ namespace CardDesigner.UI.ViewModels
         private ObservableCollection<SpellDeckModel> allSpellDecks;
 
         [ObservableProperty]
+        private ObservableCollection<ItemCardModel> allItemCards;
+
+        [ObservableProperty]
+        private ObservableCollection<ItemDeckModel> allItemDecks;
+
+        [ObservableProperty]
         private ObservableCollection<CharacterModel> allCharacters;
 
         #endregion
@@ -49,6 +55,8 @@ namespace CardDesigner.UI.ViewModels
             AllCharacters = _cardDesignerStore.Characters == null ? new() : new(_cardDesignerStore.Characters);
             AllSpellCards = _cardDesignerStore.SpellCards == null ? new() : new(_cardDesignerStore.SpellCards);
             AllSpellDecks = _cardDesignerStore.SpellDecks == null ? new() : new(_cardDesignerStore.SpellDecks);
+            AllItemCards = _cardDesignerStore.ItemCards == null ? new() : new(_cardDesignerStore.ItemCards);
+            AllItemDecks = _cardDesignerStore.ItemDecks == null ? new() : new(_cardDesignerStore.ItemDecks);
         }
 
         #endregion

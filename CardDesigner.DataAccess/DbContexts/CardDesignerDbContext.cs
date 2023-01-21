@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CardDesigner.DataAccess.DbContexts
 {
+    // Package manager console: Select DataAcess Project and type in:
+    // add-migration Initial -context CardDesignerDbContext
     public class CardDesignerDbContext : DbContext
     {
         private readonly IMapper _mapper;
@@ -41,7 +43,7 @@ namespace CardDesigner.DataAccess.DbContexts
 
             modelBuilder.Entity<SpellDeck>()
                 .HasMany(c => c.Characters)
-                .WithOne(c=>c.SpellDeck)
+                .WithOne(c => c.SpellDeck)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SpellDeckSpellCard>()
