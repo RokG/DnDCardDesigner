@@ -13,7 +13,7 @@ namespace CardDesigner.Domain.Models
         public string IconFilePath { get; set; } = "\\Resources\\Images\\dnd-icon-13.png";
         public string IconStretch { get; set; } = "Uniform";
         public int Level { get; set; } = 0;
-        public EquipmentSlot EquipmentSlotSlot { get; set; }
+        public EquipmentSlot EquipmentSlot { get; set; }
         public PhysicalDamageType PhysicalDamageType { get; set; }
         public MagicDamageType MagicDamageType { get; set; }
         public int ArmourClass { get; set; }

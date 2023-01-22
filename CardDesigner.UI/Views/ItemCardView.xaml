@@ -3,10 +3,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
+    <UserControl.Resources>
+        <!--  Templates  -->
+        <ControlTemplate x:Key="ArmorTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Label
+                    Padding="0"
+                    Content="Slot:" />
+                <ComboBox
+                    Width="150"
+                    ItemsSource="{Binding Source={StaticResource EquipmentSlotEnum}}"
+                    SelectedItem="{Binding SelectedItemCard.EquipmentSlot}" />
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -43,7 +58,7 @@
                     SelectedItem="{Binding SelectedItemCard, Mode=TwoWay}"
                     ViewOnly="False" />
 
-                <!--  Item type, level, icon  -->
+                <!--  Name and Icon  -->
                 <Border
                     BorderThickness="1"
                     Style="{StaticResource VisibleBorder}">
@@ -58,27 +73,52 @@
                         <Label
                             Margin="5,10,0,0"
                             Padding="0"
-                            Content="Item type:" />
-                        <ComboBox
-                            ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
-                            SelectedItem="{Binding SelectedItemCard.Type}" />
-                        <Label
-                            Margin="5,10,0,0"
-                            Padding="0"
-                            Content="Item image:" />
-
-                        <controls:FilePicker
-                            Margin="5"
-                            Text="{Binding SelectedItemCard.IconFilePath, Mode=TwoWay}" />
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Image stretch:" />
-                            <ComboBox SelectedItem="{Binding SelectedItemCard.IconStretch}">
+                            Content="Item image and image fill:" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <controls:FilePicker
+                                Margin="5"
+                                Text="{Binding SelectedItemCard.IconFilePath, Mode=TwoWay}" />
+                            <ComboBox
+                                Grid.Column="1"
+                                SelectedItem="{Binding SelectedItemCard.IconStretch}">
                                 <sys:String>None</sys:String>
                                 <sys:String>Fill</sys:String>
                                 <sys:String>Uniform</sys:String>
                                 <sys:String>Uniform To Fill</sys:String>
                             </ComboBox>
-                        </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!--  Item Properties  -->
+                <Border
+                    BorderThickness="1"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Padding="0"
+                            Content="Type:" />
+                        <ComboBox
+                            Width="150"
+                            ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
+                            SelectedItem="{Binding SelectedItemCard.Type}" />
+                        <ContentControl Margin="5,0">
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding SelectedItemCard.Type}"
+                                            Value="{x:Static enums:ItemType.Armour}">
+                                            <Setter Property="Template" Value="{StaticResource ArmorTemplate}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
                     </StackPanel>
                 </Border>
 
