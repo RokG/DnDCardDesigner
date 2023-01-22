@@ -16,6 +16,7 @@ namespace CardDesigner.UI.HostBuilder
                 services.AddSingleton<ISpellCardService, DatabaseSpellCardService>();
                 services.AddSingleton<IItemDeckService, DatabaseItemDeckService>();
                 services.AddSingleton<IItemCardService, DatabaseItemCardService>();
+                services.AddSingleton<IJsonFileItemService, JsonFileItemsService>();
             });
 
             return hostBuilder;

@@ -1,7 +1,8 @@
 ﻿namespace CardDesigner.Domain.Models
 {
-    internal interface IItem
+    public interface IItem
     {
+        public string ID { get; set; }
         public string Name { get; set; }
     }
 }

@@ -29,6 +29,12 @@ namespace CardDesigner.UI.ViewModels
         [ObservableProperty]
         private ObservableCollection<ItemCardModel> allItemCards;
 
+        [ObservableProperty]
+        private ObservableCollection<WeaponModel> allWeapons;
+
+        [ObservableProperty]
+        private ObservableCollection<ArmourModel> allArmours;
+
         #endregion
 
         #region Actions, Events, Commands
@@ -67,6 +73,8 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllItemCards = new(_cardDesignerStore.ItemCards);
+            AllArmours = new(_cardDesignerStore.Armours);
+            AllWeapons = new(_cardDesignerStore.Weapons);
         }
 
         #endregion
@@ -101,6 +109,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateItemCard()
         {
+            SelectedItemCard.ItemID = SelectedItemCard.Item.ID;
             await _cardDesignerStore.UpdateItemCard(SelectedItemCard);
         }
 

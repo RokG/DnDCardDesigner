@@ -1,0 +1,32 @@
+  [
+    {
+      "ID": "ranged1",
+      "Name": "Longow",
+      "WeaponType": "Ranged",
+      "DiceValue": "1",
+      "DiceType": "d12",
+      "PhysicalDamageType": "Piercing",
+      "MagicDamageType": "None",
+      "DamageModifier": "1"
+    },
+    {
+      "ID": "ranged2",
+      "Name": "Sling",
+      "WeaponType": "Ranged",
+      "DiceValue": "1",
+      "DiceType": "d6",
+      "PhysicalDamageType": "Crushing",
+      "MagicDamageType": "None",
+      "DamageModifier": "1"
+    },
+    {
+      "ID": "ranged3",
+      "Name": "Crossbow",
+      "WeaponType": "Ranged",
+      "DiceValue": "1",
+      "DiceType": "d8",
+      "PhysicalDamageType": "Piercing",
+      "MagicDamageType": "None",
+      "DamageModifier": "1"
+    }
+  ]

@@ -1,0 +1,23 @@
+  [
+    {
+      "ID": "chest1",
+      "Name": "Chain mail",
+      "EquipmentSlot": "Torso",
+      "ArmourType" : "Medium",
+      "ArmourClass" : "12"
+    },
+    {
+      "ID": "chest2",
+      "Name": "Leather armour",
+      "EquipmentSlot": "Torso",
+      "ArmourType": "Medium",
+      "ArmourClass": "12"
+    },
+    {
+      "ID": "chest3",
+      "Name": "Cape",
+      "EquipmentSlot": "Torso",
+      "ArmourType": "Medium",
+      "ArmourClass": "12"
+    }
+  ]

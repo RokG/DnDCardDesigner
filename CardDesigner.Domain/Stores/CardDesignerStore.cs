@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace CardDesigner.Domain.Stores
 {
@@ -17,18 +18,23 @@ namespace CardDesigner.Domain.Stores
         private readonly ISpellCardService _spellCardService;
         private readonly IItemCardService _itemCardService;
         private readonly IItemDeckService _itemDeckService;
+        private readonly IJsonFileItemService _jsonFileItemService;
 
         private readonly List<SpellCardModel> _spellCards;
         private readonly List<ItemCardModel> _itemCards;
         private readonly List<SpellDeckModel> _spellDecks;
         private readonly List<ItemDeckModel> _itemDecks;
         private readonly List<CharacterModel> _characters;
+        private readonly List<WeaponModel> _weapons;
+        private readonly List<ArmourModel> _armours;
 
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
         public IEnumerable<ItemCardModel> ItemCards => _itemCards;
         public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
         public IEnumerable<ItemDeckModel> ItemDecks => _itemDecks;
         public IEnumerable<CharacterModel> Characters => _characters;
+        public IEnumerable<WeaponModel> Weapons => _weapons;
+        public IEnumerable<ArmourModel> Armours => _armours;
 
         public event Action<CharacterModel> CharacterCreated;
         public event Action<CharacterModel> CharacterUpdated;
@@ -62,7 +68,8 @@ namespace CardDesigner.Domain.Stores
             ISpellDeckService spellDeckService,
             ISpellCardService spellCardService,
             IItemCardService itemCardService,
-            IItemDeckService itemDeckService)
+            IItemDeckService itemDeckService,
+            IJsonFileItemService jsonFileItemService)
         {
             _characterService = characterService;
             _spellDeckService = spellDeckService;
@@ -77,6 +84,9 @@ namespace CardDesigner.Domain.Stores
             _spellCards = new();
             _spellDecks = new();
             _itemDecks = new();
+            _armours = new();
+            _weapons = new();
+            _jsonFileItemService = jsonFileItemService;
         }
 
         /// <summary>
@@ -90,6 +100,8 @@ namespace CardDesigner.Domain.Stores
             await UpdateCharactersFromDb();
             await UpdateSpellDecksFromDb();
             await UpdateItemDecksFromDb();
+            ReadAllItems();
+            AssignItemsToCards();
         }
 
         /// <summary>
@@ -339,8 +351,8 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<CharacterModel> characters = await _characterService.GetAllCharacters();
             _characters.Clear();
             _characters.AddRange(characters);
-        } 
-        
+        }
+
         private async Task UpdateItemCardsFromDb()
         {
             IEnumerable<ItemCardModel> itemCards = await _itemCardService.GetAllItemCards();
@@ -371,5 +383,44 @@ namespace CardDesigner.Domain.Stores
 
         #endregion
 
+        #region JsonFIleReader
+
+        private void ReadAllItems()
+        {
+            _armours.Clear();
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\ChestArmours.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\HeadArmours.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\LegArmours.json"));
+
+            _weapons.Clear();
+            _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Items\Weapons\MeleeWeapons.json"));
+            _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Items\Weapons\RangedWeapons.json"));
+        }
+
+        private void AssignItemsToCards()
+        {
+            foreach (ItemCardModel itemCard in ItemCards)
+            {
+                switch (itemCard.Type)
+                {
+                    case Enums.ItemType.Armour:
+                        itemCard.Item = Armours.FirstOrDefault(a => a.ID == itemCard.ItemID);
+                        break;
+                    case Enums.ItemType.Weapon:
+                        itemCard.Item = Weapons.FirstOrDefault(a => a.ID == itemCard.ItemID);
+                        break;
+                    case Enums.ItemType.Consumable:
+                        break;
+                    case Enums.ItemType.Usable:
+                        break;
+                    case Enums.ItemType.Cloathing:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        #endregion
     }
 }
