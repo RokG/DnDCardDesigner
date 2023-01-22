@@ -4,6 +4,7 @@
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <Grid Margin="4">
@@ -42,7 +43,7 @@
                     SelectedItem="{Binding SelectedItemCard, Mode=TwoWay}"
                     ViewOnly="False" />
 
-                <!--  Item type, level  -->
+                <!--  Item type, level, icon  -->
                 <Border
                     BorderThickness="1"
                     Style="{StaticResource VisibleBorder}">
@@ -58,9 +59,19 @@
                             Margin="5,10,0,0"
                             Padding="0"
                             Content="Item image:" />
+
                         <controls:FilePicker
                             Margin="5"
-                            Text="{Binding SelectedItemCard.IconFilePath}" />
+                            Text="{Binding SelectedItemCard.IconFilePath, Mode=TwoWay}" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Image stretch:" />
+                            <ComboBox SelectedItem="{Binding SelectedItemCard.IconStretch}">
+                                <sys:String>None</sys:String>
+                                <sys:String>Fill</sys:String>
+                                <sys:String>Uniform</sys:String>
+                                <sys:String>Uniform To Fill</sys:String>
+                            </ComboBox>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
 

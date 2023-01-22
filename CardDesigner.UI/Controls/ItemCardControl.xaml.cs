@@ -47,5 +47,10 @@ namespace CardDesigner.UI.Controls
             DependencyProperty.Register(nameof(ItemCard), typeof(ItemCardModel), typeof(ItemCardControl), new PropertyMetadata(null));
 
         #endregion
+
+        private void Image_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
     }
 }

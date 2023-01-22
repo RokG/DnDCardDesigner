@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace CardDesigner.UI.Controls
 {
@@ -22,7 +23,7 @@ namespace CardDesigner.UI.Controls
 
         // Using a DependencyProperty as the backing store for Description.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DescriptionProperty =
-                DependencyProperty.Register("Description", typeof(string), typeof(FilePicker), new PropertyMetadata(string.Empty));
+                DependencyProperty.Register(nameof(Description), typeof(string), typeof(FilePicker), new PropertyMetadata(string.Empty));
 
 
         public string Text
@@ -33,18 +34,20 @@ namespace CardDesigner.UI.Controls
 
         // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextProperty =
-                DependencyProperty.Register("Text", typeof(string), typeof(FilePicker), new PropertyMetadata(string.Empty));
-
-
+                DependencyProperty.Register(nameof(Text), typeof(string), typeof(FilePicker), new PropertyMetadata(string.Empty));
 
         private void BrowseFolder(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            string file = string.Empty;
             if (openFileDialog.ShowDialog() == true)
             {
-                file = openFileDialog.FileName;
+                Text = openFileDialog.FileName;
+                BindingExpression be = GetBindingExpression(TextProperty);
+                if (be != null)
+                {
+                    be.UpdateSource();
+                }
             }
 
             //using (OpenFileDialog dlg = new OpenFileDialog())

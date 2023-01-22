@@ -1,0 +1,97 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace CardDesigner.UI.Controls
+{
+    /// <summary>
+    /// Interaction logic for ImageControl.xaml
+    /// </summary>
+    public partial class ImageControl : UserControl
+    {
+        public ImageControl()
+        {
+            InitializeComponent();
+        }
+
+        public string ImageSource
+        {
+            get { return (string)GetValue(ImageSourceProperty); }
+            set { SetValue(ImageSourceProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ImageSourceProperty =
+            DependencyProperty.Register("ImageSource", typeof(string), typeof(ImageControl), new PropertyMetadata(string.Empty, PropChange));
+
+        public Stretch ImageStretch
+        {
+            get { return (Stretch)GetValue(ImageStretchProperty); }
+            set { SetValue(ImageStretchProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ImageStretch.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ImageStretchProperty =
+            DependencyProperty.Register("ImageStretch", typeof(Stretch), typeof(ImageControl), new PropertyMetadata(Stretch.None, PropChange));
+
+        private static void PropChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (sender is ImageControl imageControl)
+            {
+                if (imageControl.ImageStretch == Stretch.UniformToFill)
+                {
+                    double imageWidth = imageControl.itemImage.ActualWidth;
+                    double imageHeight = imageControl.itemImage.ActualHeight;
+                    double canvasWidth = imageControl.ActualWidth;
+                    double canvasHeight = imageControl.ActualHeight;
+
+                    if (imageHeight == 0 || imageWidth == 0)
+                    {
+                        // Uri was changed but image did not yet load
+                        Uri uri = new Uri(imageControl.ImageSource);
+                        BitmapImage image = new BitmapImage(uri);
+                        imageWidth = image.Width;
+                        imageHeight = image.Height;
+                    }
+
+                    double offsetX = 0;
+                    double offsetY = 0;
+
+                    double imageRatioX = imageHeight / imageWidth;
+                    double imageRatioY = canvasHeight / canvasWidth;
+
+
+                    if (imageRatioX > imageRatioY) 
+                    {
+                        // Fit to Width
+                        offsetY = (canvasHeight - imageHeight) / 2;
+                    }
+                    else
+                    {
+                        // Fit to Height
+                        offsetX = (canvasWidth - imageWidth) / 2;
+                    }
+
+                    imageControl.itemImage.RenderTransform = new TranslateTransform(offsetX, offsetY);
+                }
+                else
+                {
+                    imageControl.itemImage.RenderTransform = new ScaleTransform(1, 1);
+                }
+            }
+        }
+
+    }
+}

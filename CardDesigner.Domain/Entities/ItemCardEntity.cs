@@ -15,6 +15,7 @@ namespace CardDesigner.Domain.Entities
         public string Name { get; set; }
         public ItemType Type { get; set; }
         public string IconFilePath { get; set; }
+        public string IconStretch { get; set; }
         public int Level { get; set; }
         public EquipmentSlot EquipmentSlotSlot { get; set; }
         public PhysicalDamageType PhysicalDamageType { get; set; }
