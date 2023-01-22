@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CardDesigner.UI.Controls
 {
@@ -57,13 +58,18 @@ namespace CardDesigner.UI.Controls
                     double canvasWidth = imageControl.ActualWidth;
                     double canvasHeight = imageControl.ActualHeight;
 
-                    if (imageHeight == 0 || imageWidth == 0)
+                    if ((imageHeight == 0 || imageWidth == 0) && !(imageControl.ImageSource == null || imageControl.ImageSource == string.Empty))
                     {
                         // Uri was changed but image did not yet load
                         Uri uri = new Uri(imageControl.ImageSource);
                         BitmapImage image = new BitmapImage(uri);
                         imageWidth = image.Width;
                         imageHeight = image.Height;
+                    }
+                    else
+                    {
+                        imageWidth = 1000;
+                        imageHeight = 1000;
                     }
 
                     double offsetX = 0;
