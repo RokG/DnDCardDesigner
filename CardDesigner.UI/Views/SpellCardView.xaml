@@ -136,6 +136,7 @@
 
                         <controls:SliderControl
                             Title="Roll:"
+                            SelectedUnitType="{Binding SelectedSpellCard.DamageType, Mode=TwoWay}"
                             SelectedValueType="{Binding SelectedSpellCard.DiceType, Mode=TwoWay}"
                             UnitTypes="{Binding Source={StaticResource MagicDamageTypeEnum}}"
                             ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"

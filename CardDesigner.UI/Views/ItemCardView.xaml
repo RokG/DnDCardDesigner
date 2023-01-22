@@ -11,14 +11,47 @@
     <UserControl.Resources>
         <!--  Templates  -->
         <ControlTemplate x:Key="ArmorTemplate">
-            <StackPanel Orientation="Horizontal">
-                <Label
-                    Padding="0"
-                    Content="Slot:" />
-                <ComboBox
-                    Width="150"
-                    ItemsSource="{Binding Source={StaticResource EquipmentSlotEnum}}"
-                    SelectedItem="{Binding SelectedItemCard.EquipmentSlot}" />
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        Padding="0"
+                        Content="Equipment Slot:" />
+                    <ComboBox
+                        Width="150"
+                        ItemsSource="{Binding Source={StaticResource EquipmentSlotEnum}}"
+                        SelectedItem="{Binding SelectedItemCard.EquipmentSlot}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+
+                    <Label
+                        Padding="0"
+                        Content="Armour Type:" />
+                    <ComboBox
+                        Width="150"
+                        ItemsSource="{Binding Source={StaticResource ArmourTypeEnum}}"
+                        SelectedItem="{Binding SelectedItemCard.ArmourType}" />
+                </StackPanel>
+            </StackPanel>
+        </ControlTemplate>
+        <!--  Templates  -->
+        <ControlTemplate x:Key="WeaponTemplate">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        Padding="0"
+                        Content="Weapon Type:" />
+                    <ComboBox
+                        Width="150"
+                        ItemsSource="{Binding Source={StaticResource WeaponTypeEnum}}"
+                        SelectedItem="{Binding SelectedItemCard.WeaponType}" />
+                </StackPanel>
+                <controls:SliderControl
+                    Title="Damage:"
+                    SelectedUnitType="{Binding SelectedItemCard.PhysicalDamageType, Mode=TwoWay}"
+                    SelectedValueType="{Binding SelectedItemCard.DiceType, Mode=TwoWay}"
+                    UnitTypes="{Binding Source={StaticResource PhysicalDamageTypeEnum}}"
+                    ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
+                    Value="{Binding SelectedItemCard.DiceValue, Mode=TwoWay}" />
             </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
@@ -98,14 +131,17 @@
                 <Border
                     BorderThickness="1"
                     Style="{StaticResource VisibleBorder}">
-                    <StackPanel Orientation="Horizontal">
-                        <Label
-                            Padding="0"
-                            Content="Type:" />
-                        <ComboBox
-                            Width="150"
-                            ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
-                            SelectedItem="{Binding SelectedItemCard.Type}" />
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+
+                            <Label
+                                Padding="0"
+                                Content="Item Type:" />
+                            <ComboBox
+                                Width="150"
+                                ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
+                                SelectedItem="{Binding SelectedItemCard.Type}" />
+                        </StackPanel>
                         <ContentControl Margin="5,0">
                             <ContentControl.Style>
                                 <Style TargetType="{x:Type ContentControl}">
@@ -114,6 +150,11 @@
                                             Binding="{Binding SelectedItemCard.Type}"
                                             Value="{x:Static enums:ItemType.Armour}">
                                             <Setter Property="Template" Value="{StaticResource ArmorTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding SelectedItemCard.Type}"
+                                            Value="{x:Static enums:ItemType.Weapon}">
+                                            <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>

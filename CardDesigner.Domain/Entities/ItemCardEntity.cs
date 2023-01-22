@@ -14,6 +14,10 @@ namespace CardDesigner.Domain.Entities
         public string Description { get; set; }
         public string Name { get; set; }
         public ItemType Type { get; set; }
+        public WeaponType WeaponType { get; set; }
+        public ArmourType ArmourType { get; set; }
+        public DiceType DiceType { get; set; }
+        public int DiceValue { get; set; }
         public string IconFilePath { get; set; }
         public string IconStretch { get; set; }
         public int Level { get; set; }
