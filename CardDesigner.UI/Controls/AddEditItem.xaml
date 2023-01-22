@@ -13,28 +13,39 @@
                 Content="{Binding Title, ElementName=AddEditItemControl}"
                 Style="{StaticResource SubtitleLabel}" />
             <!--  Add, Edit, Delete buttons  -->
-            <StackPanel
-                Orientation="Horizontal"
-                Visibility="{Binding ViewOnly, ElementName=AddEditItemControl, Converter={converters:BoolToVisibilityConverter FalseValue=Visible, TrueValue=Collapsed}}">
+            <Grid Visibility="{Binding ViewOnly, ElementName=AddEditItemControl, Converter={converters:BoolToVisibilityConverter FalseValue=Visible, TrueValue=Collapsed}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <!--  Selection  -->
+                <ComboBox x:Name="SourceItemControl"
+                    Height="40"
+                    DisplayMemberPath="Name"
+                    ItemsSource="{Binding ItemsSource, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedItem, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="SourceItemControl_SelectionChanged" />
                 <Button x:Name="AddButton"
+                    Grid.Column="1"
                     Click="OpenEditMode"
-                    Content="New" />
+                    Content="New"
+                    DockPanel.Dock="Right" />
                 <Button x:Name="EditButton"
+                    Grid.Column="2"
                     Click="OpenEditMode"
                     Content="Edit"
-                    IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}" />
+                    DockPanel.Dock="Right"
+                    IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}"
+                    Visibility="Collapsed" />
                 <Button x:Name="DeleteButton"
+                    Grid.Column="3"
                     Command="{Binding DeleteCommand, ElementName=AddEditItemControl}"
                     Content="Delete"
+                    DockPanel.Dock="Right"
                     IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}" />
-            </StackPanel>
-            <!--  Selection  -->
-            <ComboBox x:Name="SourceItemControl"
-                Height="40"
-                DisplayMemberPath="Name"
-                ItemsSource="{Binding ItemsSource, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding SelectedItem, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectionChanged="SourceItemControl_SelectionChanged" />
+            </Grid>
             <!--  Toggled items  -->
             <StackPanel
                 Orientation="Horizontal"
