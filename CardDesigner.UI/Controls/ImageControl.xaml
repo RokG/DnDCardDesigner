@@ -8,7 +8,7 @@
         Stretch="{Binding ImageStretch, ElementName=imageControl}">
         <Viewbox>
             <Image x:Name="itemImage"
-                Source="{Binding ImageSource, ElementName=imageControl, Converter={converters:BoolToVisibilityConverter}}" />
+                Source="{Binding ImageSource, ElementName=imageControl}" />
         </Viewbox>
     </Viewbox>
 </UserControl>
