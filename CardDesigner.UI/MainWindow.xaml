@@ -42,31 +42,32 @@
             Grid.Column="0"
             Background="{StaticResource WindowBackgroundDark}">
             <DockPanel LastChildFill="False">
-                <Button
+                <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
                     CommandParameter="HomeViewModel"
                     Content="HOME"
-                    DockPanel.Dock="Top" />
-                <Button
+                    DockPanel.Dock="Top"
+                    IsChecked="True" />
+                <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
                     CommandParameter="SpellCardViewModel"
                     Content="Spell Card creator"
                     DockPanel.Dock="Top" />
-                <Button
+                <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
                     CommandParameter="ItemCardViewModel"
                     Content="Item Card creator"
                     DockPanel.Dock="Top" />
-                <Button
+                <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
                     CommandParameter="SpellDeckViewModel"
                     Content="Spell Deck creator"
                     DockPanel.Dock="Top" />
-                <Button
+                <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
                     CommandParameter="CharacterViewModel"

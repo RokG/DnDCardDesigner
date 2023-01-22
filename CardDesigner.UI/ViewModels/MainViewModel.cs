@@ -41,6 +41,8 @@ namespace CardDesigner.UI.ViewModels
         {
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
+
+            ChangeViewModelCommand.Execute("HomeViewModel");
         }
 
         #endregion
