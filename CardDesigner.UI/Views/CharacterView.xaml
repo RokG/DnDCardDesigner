@@ -38,7 +38,7 @@
                         AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
                         DeleteCommand="{Binding DeleteCharacterCommand}"
                         ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateCCommand}"
+                        SaveCommand="{Binding CreateCharacterCommand}"
                         SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
                         ViewOnly="False" />
 

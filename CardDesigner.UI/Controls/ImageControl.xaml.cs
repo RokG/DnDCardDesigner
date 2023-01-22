@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CardDesigner.UI.Controls
 {
@@ -29,8 +18,8 @@ namespace CardDesigner.UI.Controls
 
         public Uri ImageSource
         {
-            get { return (Uri)GetValue(ImageSourceProperty); }
-            set { SetValue(ImageSourceProperty, value); }
+            get => (Uri)GetValue(ImageSourceProperty);
+            set => SetValue(ImageSourceProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
@@ -39,8 +28,8 @@ namespace CardDesigner.UI.Controls
 
         public Stretch ImageStretch
         {
-            get { return (Stretch)GetValue(ImageStretchProperty); }
-            set { SetValue(ImageStretchProperty, value); }
+            get => (Stretch)GetValue(ImageStretchProperty);
+            set => SetValue(ImageStretchProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for ImageStretch.  This enables animation, styling, binding, etc...
@@ -58,17 +47,20 @@ namespace CardDesigner.UI.Controls
                     double canvasWidth = imageControl.ActualWidth;
                     double canvasHeight = imageControl.ActualHeight;
 
-                    if ((imageHeight == 0 || imageWidth == 0) && !(imageControl.ImageSource == null))
+                    if ((imageHeight == 0 || imageWidth == 0))
                     {
-                        // Uri was changed but image did not yet load
-                        BitmapImage image = new BitmapImage(imageControl.ImageSource);
-                        imageWidth = image.Width;
-                        imageHeight = image.Height;
-                    }
-                    else
-                    {
-                        imageWidth = 1000;
-                        imageHeight = 1000;
+                        if (imageControl.ImageSource != null)
+                        {
+                            // Uri was changed but image did not yet load
+                            BitmapImage image = new BitmapImage(imageControl.ImageSource);
+                            imageWidth = image.Width;
+                            imageHeight = image.Height;
+                        }
+                        else
+                        {
+                            imageWidth = 1000;
+                            imageHeight = 1000;
+                        }
                     }
 
                     double offsetX = 0;
@@ -78,7 +70,7 @@ namespace CardDesigner.UI.Controls
                     double imageRatioY = canvasHeight / canvasWidth;
 
 
-                    if (imageRatioX > imageRatioY) 
+                    if (imageRatioX > imageRatioY)
                     {
                         // Fit to Width
                         offsetY = (canvasHeight - imageHeight) / 2;
