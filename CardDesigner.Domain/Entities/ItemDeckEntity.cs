@@ -1,5 +1,4 @@
-﻿using CardDesigner.Domain.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CardDesigner.Domain.Entities
@@ -11,7 +10,6 @@ namespace CardDesigner.Domain.Entities
         public string Name { get; set; }
         public ICollection<ItemCardEntity> ItemCards { get; set; }
         public List<ItemDeckItemCard> ItemDeckItemCards { get; set; }
-        public DeckType Type { get; set; }
         public ICollection<CharacterEntity> Characters { get; set; }
     }
 }

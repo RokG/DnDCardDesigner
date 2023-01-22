@@ -44,11 +44,16 @@ namespace CardDesigner.DataAccess.Services
                     // Get character from database
                     CharacterEntity characterEntity = dbContext.Characters
                         .Include(d => d.SpellDeck)
+                        .Include(d=>d.ItemDeck)
                         .Single(d => d.ID == character.ID);
 
                     // Get spell deck from database
-                    SpellDeckEntity deckEntity = dbContext.SpellDecks.Single(c => c.Name == character.SpellDeck.Name);
-                    characterEntity.SpellDeck = deckEntity;
+                    SpellDeckEntity spellDeckEntity = dbContext.SpellDecks.Single(c => c.Name == character.SpellDeck.Name);
+                    characterEntity.SpellDeck = spellDeckEntity;
+
+                    // Get item deck from database
+                    ItemDeckEntity itemDeckEntity = dbContext.ItemDecks.Single(c => c.Name == character.ItemDeck.Name);
+                    characterEntity.ItemDeck = itemDeckEntity;
 
                     // Update database
                     if (dbContext.Characters.Contains(characterEntity))
@@ -96,6 +101,8 @@ namespace CardDesigner.DataAccess.Services
                     context.Characters
                     .Include(c => c.SpellDeck)
                     .Include(d => d.SpellDeck.SpellCards)
+                    .Include(c => c.ItemDeck)
+                    .Include(d => d.ItemDeck.ItemCards)
                     .ToListAsync();
 
                 //IEnumerable<Character> characterEntities = await

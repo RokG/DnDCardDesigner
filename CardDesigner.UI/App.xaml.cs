@@ -58,7 +58,6 @@ namespace CardDesigner.UI
 
             // Navigate to home view
             _host.Services.GetRequiredService<NavigationService<HomeViewModel>>().Navigate();
-            //_host.Services.GetRequiredService<NavigationService<SpellDeckViewModel>>().Navigate();
 
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();

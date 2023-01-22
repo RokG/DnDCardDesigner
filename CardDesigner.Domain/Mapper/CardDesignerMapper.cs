@@ -18,11 +18,13 @@ namespace CardDesigner.Domain.Mapper
                 cfg.CreateMap<SpellCardModel, SpellCardEntity>();
                 cfg.CreateMap<SpellDeckModel, SpellDeckEntity>();
                 cfg.CreateMap<ItemCardModel, ItemCardEntity>();
+                cfg.CreateMap<ItemDeckModel, ItemDeckEntity>();
 
                 cfg.CreateMap<CharacterEntity, CharacterModel>();
                 cfg.CreateMap<SpellCardEntity, SpellCardModel>();
                 cfg.CreateMap<SpellDeckEntity, SpellDeckModel>();
                 cfg.CreateMap<ItemCardEntity, ItemCardModel>();
+                cfg.CreateMap<ItemDeckEntity, ItemDeckModel>();
             });
 
             return config.CreateMapper();

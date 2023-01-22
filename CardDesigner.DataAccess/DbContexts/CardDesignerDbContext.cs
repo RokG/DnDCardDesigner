@@ -66,6 +66,16 @@ namespace CardDesigner.DataAccess.DbContexts
                         j.HasKey(t => new { t.SpellDeckID, t.SpellCardID });
                     });
 
+            modelBuilder.Entity<CharacterEntity>()
+                .HasOne(c => c.ItemDeck)
+                .WithMany(c => c.Characters)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ItemDeckEntity>()
+                .HasMany(c => c.Characters)
+                .WithOne(c => c.ItemDeck)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<ItemDeckItemCard>()
                 .HasKey(t => new { t.ItemCardID, t.ItemDeckID });
 

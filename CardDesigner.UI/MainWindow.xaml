@@ -21,8 +21,8 @@
             <DataTemplate DataType="{x:Type vms:SpellCardViewModel}">
                 <views:SpellCardView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:SpellDeckViewModel}">
-                <views:SpellDeckView />
+            <DataTemplate DataType="{x:Type vms:CardDecksViewModel}">
+                <views:CardDecksView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:ItemCardViewModel}">
                 <views:ItemCardView />
@@ -64,8 +64,8 @@
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="SpellDeckViewModel"
-                    Content="Spell Deck creator"
+                    CommandParameter="CardDecksViewModel"
+                    Content="Deck creator"
                     DockPanel.Dock="Top" />
                 <RadioButton
                     Height="60"

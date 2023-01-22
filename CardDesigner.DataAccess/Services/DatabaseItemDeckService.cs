@@ -22,6 +22,19 @@ namespace CardDesigner.DataAccess.Services
             _mapper = mapper;
         }
 
+        public async Task<ItemDeckModel> CreateItemDeck(ItemDeckModel itemDeck)
+        {
+            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            {
+                ItemDeckEntity itemDeckEntity = _mapper.Map<ItemDeckEntity>(itemDeck);
+
+                ItemDeckEntity createdItemDeckEntity = dbContext.ItemDecks.Add(itemDeckEntity).Entity;
+                await dbContext.SaveChangesAsync();
+
+                return _mapper.Map<ItemDeckModel>(createdItemDeckEntity);
+            }
+        }
+
         public async Task<ItemDeckModel> UpdateItemDeck(ItemDeckModel itemDeck)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
@@ -55,20 +68,6 @@ namespace CardDesigner.DataAccess.Services
             }
         }
 
-        public async Task<IEnumerable<ItemDeckModel>> GetAllItemDecks()
-        {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
-            {
-                IEnumerable<ItemDeckEntity> itemDeckEntities = await
-                    context.ItemDecks
-                    .Include(sd => sd.Characters)
-                    .Include(sd => sd.ItemCards)
-                    .ToListAsync();
-
-                return itemDeckEntities.Select(c => _mapper.Map<ItemDeckModel>(c));
-            }
-        }
-
         public async Task<bool> DeleteItemDeck(ItemDeckModel itemDeck)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
@@ -91,17 +90,19 @@ namespace CardDesigner.DataAccess.Services
             }
         }
 
-        public async Task<ItemDeckModel> CreateItemDeck(ItemDeckModel itemDeck)
+        public async Task<IEnumerable<ItemDeckModel>> GetAllItemDecks()
         {
-            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
-                ItemDeckEntity itemDeckEntity = _mapper.Map<ItemDeckEntity>(itemDeck);
+                IEnumerable<ItemDeckEntity> itemDeckEntities = await
+                    context.ItemDecks
+                    .Include(sd => sd.Characters)
+                    .Include(sd => sd.ItemCards)
+                    .ToListAsync();
 
-                ItemDeckEntity createdItemDeckEntity = dbContext.ItemDecks.Add(itemDeckEntity).Entity;
-                await dbContext.SaveChangesAsync();
-
-                return _mapper.Map<ItemDeckModel>(createdItemDeckEntity);
+                return itemDeckEntities.Select(c => _mapper.Map<ItemDeckModel>(c));
             }
         }
+
     }
 }
