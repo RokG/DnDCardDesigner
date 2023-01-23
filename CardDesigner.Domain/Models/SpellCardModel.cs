@@ -6,9 +6,11 @@ namespace CardDesigner.Domain.Models
     public class SpellCardModel : ICard, ISpell, ISelectableItem
     {
         public int ID { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public double TitleFontSize { get; set; } = 14;
+        public string Description { get; set; } = string.Empty;
+        public double DescriptionFontSize { get; set; } = 16;
         public int Level { get; set; } = 0;
         public MagicSchool School { get; set; } = MagicSchool.None;
         public bool HasVerbalComponent { get; set; } = false;

@@ -8,11 +8,13 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
+        public string Name { get; set; }
         public ICollection<SpellDeckEntity> SpellDecks { get; set; }
         public List<SpellDeckSpellCard> SpellDeckSpellCards { get; set; }
         public string Title { get; set; } = string.Empty;
-        public string Name { get; set; }
+        public double TitleFontSize { get; set; }
         public string Description { get; set; }
+        public double DescriptionFontSize { get; set; }
         public int Level { get; set; }
         public MagicSchool School { get; set; }
         public bool HasVerbalComponent { get; set; }

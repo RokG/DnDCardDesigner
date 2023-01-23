@@ -109,7 +109,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateItemCard()
         {
-            SelectedItemCard.ItemID = SelectedItemCard.Item.ID;
+            SelectedItemCard.ItemID = SelectedItemCard.Item?.ID;
             await _cardDesignerStore.UpdateItemCard(SelectedItemCard);
         }
 

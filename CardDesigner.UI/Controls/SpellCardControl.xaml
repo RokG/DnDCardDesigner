@@ -142,7 +142,7 @@
                     Canvas.Left="2"
                     Width="246"
                     Background="Transparent"
-                    FontSize="16"
+                    FontSize="{Binding SpellCard.TitleFontSize, ElementName=spellCard, Mode=TwoWay}"
                     InputText="{Binding SpellCard.Title, ElementName=spellCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
 
@@ -153,7 +153,7 @@
                     Width="246"
                     MaxHeight="300"
                     Background="Transparent"
-                    FontSize="14"
+                    FontSize="{Binding SpellCard.DescriptionFontSize, ElementName=spellCard, Mode=TwoWay}"
                     InputText="{Binding SpellCard.Description, ElementName=spellCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
 

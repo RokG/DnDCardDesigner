@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CardDesigner.UI.Controls
 {
@@ -27,8 +17,8 @@ namespace CardDesigner.UI.Controls
 
         public string InputText
         {
-            get { return (string)GetValue(InputTextProperty); }
-            set { SetValue(InputTextProperty, value); }
+            get => (string)GetValue(InputTextProperty);
+            set => SetValue(InputTextProperty, value);
         }
 
         public static readonly DependencyProperty InputTextProperty =
@@ -36,12 +26,27 @@ namespace CardDesigner.UI.Controls
 
         public string PlaceholderText
         {
-            get { return (string)GetValue(PlaceholderTextProperty); }
-            set { SetValue(PlaceholderTextProperty, value); }
+            get => (string)GetValue(PlaceholderTextProperty);
+            set => SetValue(PlaceholderTextProperty, value);
         }
 
         public static readonly DependencyProperty PlaceholderTextProperty =
-            DependencyProperty.Register(nameof(PlaceholderText), typeof(string), typeof(TextBoxWithPlaceholderControl), new PropertyMetadata("Enter text ..."));
+            DependencyProperty.Register(nameof(PlaceholderText), typeof(string), typeof(TextBoxWithPlaceholderControl), new PropertyMetadata("Enter text.. (Ctrl+Wheel to resize)"));
 
+        private void inputTextBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (e.Delta > 0)
+                {
+                    FontSize += .5;
+                }
+                else
+                {
+                    FontSize += -.5;
+                }
+                FontSize = Math.Clamp(FontSize, 8.0, 20.0);
+            }
+        }
     }
 }
