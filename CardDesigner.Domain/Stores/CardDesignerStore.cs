@@ -391,6 +391,7 @@ namespace CardDesigner.Domain.Stores
             _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\ChestArmours.json"));
             _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\HeadArmours.json"));
             _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\LegArmours.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\Shields.json"));
 
             _weapons.Clear();
             _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Items\Weapons\MeleeWeapons.json"));

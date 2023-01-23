@@ -75,6 +75,8 @@ namespace CardDesigner.UI.ViewModels
             AllItemCards = new(_cardDesignerStore.ItemCards);
             AllArmours = new(_cardDesignerStore.Armours);
             AllWeapons = new(_cardDesignerStore.Weapons);
+
+            SelectedItemCard = AllItemCards.FirstOrDefault();
         }
 
         #endregion

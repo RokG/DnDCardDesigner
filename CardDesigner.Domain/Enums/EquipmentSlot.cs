@@ -9,12 +9,16 @@ namespace CardDesigner.Domain.Enums
     public enum EquipmentSlot
     {
         Head,
-        Torso,
-        Legs,
-        Foot,
-        Hands,
         Neck,
         Back,
-        Finger
+        Torso,
+        Hands,
+        Fingers,
+        Waist,
+        Legs,
+        Feet,
+        Shield,
+        OneHanded,
+        TwoHanded
     }
 }

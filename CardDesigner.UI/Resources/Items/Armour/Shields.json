@@ -1,0 +1,9 @@
+[
+  {
+    "ID": "shield1",
+    "Name": "Buckler",
+    "EquipmentSlot": "Shield",
+    "ArmourType": "Medium",
+    "ArmourClass": "1"
+  }
+]

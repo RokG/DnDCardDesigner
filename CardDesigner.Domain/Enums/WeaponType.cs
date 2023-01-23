@@ -9,8 +9,6 @@ namespace CardDesigner.Domain.Enums
     public enum WeaponType
     {
         Melee,
-        RangedMelee,
-        Ranged,
-        Thrown
+        Ranged
     }
 }

@@ -3,8 +3,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
-    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
-    xmlns:local="clr-namespace:CardDesigner.UI.Controls">
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain">
+    <UserControl.Resources>
+        <!--  Templates  -->
+        <ControlTemplate x:Key="ArmorTemplate">
+            <Grid Background="Transparent">
+                <Label
+                    Content="{Binding ItemCard.Item.ArmourType, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
+                    Style="{StaticResource IconLabel}" />
+                <Label
+                    Content="{Binding ItemCard.Item.EquipmentSlot, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
+                    Style="{StaticResource IconLabel}" />
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="WeaponTemplate">
+            <Grid Background="Transparent">
+                <Label
+                    Content="{Binding ItemCard.Item.WeaponType, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
+                    Style="{StaticResource IconLabel}" />
+                <Label
+                    Content="{Binding ItemCard.Item.EquipmentSlot, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
+                    Style="{StaticResource IconLabel}" />
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Viewbox>
         <Grid>
             <!--  Card border  -->
@@ -46,7 +68,39 @@
                     Canvas.Top="25"
                     Width="248"
                     LastChildFill="False">
-                    <!--  Material  -->
+                    <!--  Slot & Weight  /  WeaponType & Hands  -->
+                    <Border
+                        Width="25"
+                        Height="25"
+                        Margin="2,0,10,0"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
+                        BorderBrush="Black"
+                        BorderThickness="2"
+                        CornerRadius="20"
+                        DockPanel.Dock="Left">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
+                                            Value="{x:Static enums:ItemType.Armour}">
+                                            <Setter Property="Template" Value="{StaticResource ArmorTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
+                                            Value="{x:Static enums:ItemType.Weapon}">
+                                            <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Border>
+                    <!--<Label
+                        Content="{Binding ItemCard.Item, ElementName=itemCard}"
+                        FontSize="8" />-->
+                    <!--  Attunement  -->
                     <Border
                         Width="25"
                         Height="25"
@@ -57,10 +111,10 @@
                         CornerRadius="20"
                         Visibility="{Binding ItemCard.RequiresAttunement, ElementName=itemCard, Converter={converters:BoolToVisibilityConverter}}">
                         <Label
-                            Content="{StaticResource ComponentMaterial}"
+                            Content="{StaticResource RequiresAttunement}"
                             Style="{StaticResource IconLabel}" />
                     </Border>
-                    <!--  Verbal  -->
+                    <!--  Unidentified  -->
                     <Border
                         Width="25"
                         Height="25"
@@ -71,10 +125,10 @@
                         CornerRadius="20"
                         Visibility="{Binding ItemCard.IsUnidentified, ElementName=itemCard, Converter={converters:BoolToVisibilityConverter}}">
                         <Label
-                            Content="{StaticResource ComponentVerbal}"
+                            Content="{StaticResource IsUnidentified}"
                             Style="{StaticResource IconLabel}" />
                     </Border>
-                    <!--  Somatic  -->
+                    <!--  Magical  -->
                     <Border
                         Width="25"
                         Height="25"
@@ -85,98 +139,16 @@
                         CornerRadius="20"
                         Visibility="{Binding ItemCard.IsMagical, ElementName=itemCard, Converter={converters:BoolToVisibilityConverter}}">
                         <Label
-                            Content="{StaticResource ComponentSomatic}"
+                            Content="{StaticResource IsMagical}"
                             Style="{StaticResource IconLabel}" />
                     </Border>
-                    <!--  Level  -->
-                    <Border
-                        Width="25"
-                        Height="25"
-                        Margin="50,0,4,0"
-                        Background="{StaticResource CardHeaderIconBackgroundColor}"
-                        BorderBrush="Black"
-                        BorderThickness="2"
-                        CornerRadius="20"
-                        DockPanel.Dock="Right">
-                        <Label
-                            Margin="0"
-                            Padding="5,0"
-                            Background="Transparent"
-                            Content="{Binding ItemCard.Level, ElementName=itemCard}"
-                            FontFamily="Arial"
-                            FontSize="16"
-                            FontWeight="Black"
-                            Foreground="Black" />
-                    </Border>
                 </DockPanel>
-
-                <!--<Grid
-                    Width="200"
-                    Height="200"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                    <Viewbox
-                        Width="300"
-                        Height="300"
-                        MaxWidth="248"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Stretch="{Binding ItemCard.IconStretch, ElementName=itemCard, Converter={converters:StringToStretchConverter}}">
-                        <Image x:Name="itemImage"
-                            Width="300"
-                            Height="300"
-                            Source="{Binding ItemCard.IconFilePath, ElementName=itemCard}">
-                            <Image.RenderTransform>
-                                <TranslateTransform Y="{Binding ElementName=itemImage, Converter={converters:BoolToVisibilityConverter}}" />
-                            </Image.RenderTransform>
-                        </Image>
-                    </Viewbox>
-                </Grid>-->
-
-                <!--<Viewbox
-                    Canvas.Top="37"
-                    Width="248"
-                    Height="118"
-                    MaxWidth="248"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    ClipToBounds="True"
-                    Stretch="{Binding ItemCard.IconStretch, ElementName=itemCard, Converter={converters:StringToStretchConverter}}">
-                    <Viewbox MaxWidth="248">
-                        <Image x:Name="itemImage"
-                            Source="{Binding ItemCard.IconFilePath, ElementName=itemCard}">
-                            <Image.RenderTransform>
-                                <TranslateTransform Y="{Binding ElementName=itemImage, Converter={converters:BoolToVisibilityConverter}}" />
-                            </Image.RenderTransform>
-                        </Image>
-                    </Viewbox>
-                </Viewbox>-->
-
-                <!--<Viewbox
-                    Canvas.Top="37"
-                    Width="248"
-                    Height="118"
-                    MaxWidth="248"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    ClipToBounds="True"
-                    Stretch="{Binding ItemCard.IconStretch, ElementName=itemCard, Converter={converters:StringToStretchConverter}}">
-                    <Viewbox MaxWidth="248">
-                        <Image
-                            Source="{Binding ItemCard.IconFilePath, ElementName=itemCard}"
-                            Stretch="{Binding ItemCard.IconStretch, ElementName=itemCard, Converter={converters:StringToStretchConverter}}">
-                            <Image.RenderTransform>
-                                <TranslateTransform Y="-400" />
-                            </Image.RenderTransform>
-                        </Image>
-                    </Viewbox>
-                </Viewbox>-->
 
                 <!--  Description  -->
                 <Border
                     Canvas.Top="155"
                     Width="250"
-                    Height="150"
+                    Height="158"
                     Margin="0"
                     Padding="0"
                     Background="{StaticResource CardBodyBackgroundColor}"
@@ -185,7 +157,7 @@
                     <!--  Description textbox  -->
                     <controls:TextBoxWithPlaceholderControl
                         Width="246"
-                        MaxHeight="150"
+                        MaxHeight="160"
                         Background="Transparent"
                         FontSize="{Binding ItemCard.DescriptionFontSize, Mode=TwoWay, ElementName=itemCard}"
                         InputText="{Binding ItemCard.Description, ElementName=itemCard, Mode=TwoWay}"

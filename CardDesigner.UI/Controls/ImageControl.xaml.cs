@@ -69,16 +69,15 @@ namespace CardDesigner.UI.Controls
                     double imageRatioX = imageHeight / imageWidth;
                     double imageRatioY = canvasHeight / canvasWidth;
 
-
                     if (imageRatioX > imageRatioY)
                     {
                         // Fit to Width
-                        offsetY = (canvasHeight - imageHeight) / 2;
+                        offsetY = (canvasHeight - canvasWidth / imageWidth * imageHeight) / 2.0;
                     }
                     else
                     {
                         // Fit to Height
-                        offsetX = (canvasWidth - imageWidth) / 2;
+                        offsetX = (canvasWidth - canvasHeight / imageHeight * imageWidth) / 2.0;
                     }
 
                     imageControl.itemImage.RenderTransform = new TranslateTransform(offsetX, offsetY);

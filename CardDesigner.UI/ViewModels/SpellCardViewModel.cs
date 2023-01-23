@@ -58,6 +58,8 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllSpellCards = new(_cardDesignerStore.SpellCards);
+
+            SelectedSpellCard = AllSpellCards.FirstOrDefault();
         }
 
         private void OnSpellCardCreated(SpellCardModel spellCard)

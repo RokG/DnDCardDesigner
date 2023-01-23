@@ -2,17 +2,19 @@
     {
       "ID": "melee1",
       "Name": "Longsword (1H)",
-      "WeaponType" : "Melee",
-      "DiceValue" : "1",
-      "DiceType" : "d8",
-      "PhysicalDamageType" : "Slashing",
-      "MagicDamageType" : "None",
-      "DamageModifier" : "1"
+      "WeaponType": "Melee",
+      "EquipmentSlot": "OneHanded",
+      "DiceValue": "1",
+      "DiceType": "d8",
+      "PhysicalDamageType": "Slashing",
+      "MagicDamageType": "None",
+      "DamageModifier": "1"
     },
     {
       "ID": "melee2",
       "Name": "Mace",
       "WeaponType": "Melee",
+      "EquipmentSlot": "OneHanded",
       "DiceValue": "1",
       "DiceType": "d10",
       "PhysicalDamageType": "Crushing",
@@ -23,6 +25,7 @@
       "ID": "melee3",
       "Name": "Quarterstaff",
       "WeaponType": "Melee",
+      "EquipmentSlot": "TwoHanded",
       "DiceValue": "1",
       "DiceType": "d6",
       "PhysicalDamageType": "Crushing",

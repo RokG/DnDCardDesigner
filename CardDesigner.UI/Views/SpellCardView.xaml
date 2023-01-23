@@ -24,7 +24,6 @@
         </Border>
 
         <Grid Grid.Row="1">
-
             <!--  Content area  -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
@@ -32,7 +31,6 @@
             </Grid.ColumnDefinitions>
 
             <!--  Card Settings  -->
-
             <StackPanel Orientation="Vertical">
 
                 <!--  Database control  -->
