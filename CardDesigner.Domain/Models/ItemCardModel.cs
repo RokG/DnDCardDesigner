@@ -14,7 +14,7 @@ namespace CardDesigner.Domain.Models
         public ItemType Type { get; set; }
         public IItem Item { get; set; }
         public string ItemID { get; set; }
-        public string IconFilePath { get; set; } = "\\Resources\\Images\\dnd-icon-13.png";
+        public string IconFilePath { get; set; } = string.Empty;
         public string IconStretch { get; set; } = "Uniform";
         public int Level { get; set; } = 0;
         public bool IsUnidentified { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -24,7 +25,7 @@ namespace CardDesigner.UI.Controls
 
         // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register(nameof(ImageSource), typeof(Uri), typeof(ImageControl), new PropertyMetadata(new Uri("\\Resources\\Images\\dnd-icon-13.png", UriKind.Relative), PropChange));
+            DependencyProperty.Register(nameof(ImageSource), typeof(Uri), typeof(ImageControl), new PropertyMetadata(null, PropChange));
 
         public Stretch ImageStretch
         {
@@ -47,20 +48,12 @@ namespace CardDesigner.UI.Controls
                     double canvasWidth = imageControl.ActualWidth;
                     double canvasHeight = imageControl.ActualHeight;
 
-                    if ((imageHeight == 0 || imageWidth == 0))
+                    if (imageControl.ImageSource != null)
                     {
-                        if (imageControl.ImageSource != null)
-                        {
-                            // Uri was changed but image did not yet load
-                            BitmapImage image = new BitmapImage(imageControl.ImageSource);
-                            imageWidth = image.Width;
-                            imageHeight = image.Height;
-                        }
-                        else
-                        {
-                            imageWidth = 1000;
-                            imageHeight = 1000;
-                        }
+                        // Uri was changed but image did not yet load
+                        BitmapImage image = new BitmapImage(imageControl.ImageSource);
+                        imageWidth = image.Width;
+                        imageHeight = image.Height;
                     }
 
                     double offsetX = 0;
