@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -17,15 +17,15 @@ namespace CardDesigner.UI.Controls
             InitializeComponent();
         }
 
-        public Uri ImageSource
+        public string ImageSource
         {
-            get => (Uri)GetValue(ImageSourceProperty);
+            get => (string)GetValue(ImageSourceProperty);
             set => SetValue(ImageSourceProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register(nameof(ImageSource), typeof(Uri), typeof(ImageControl), new PropertyMetadata(null, PropChange));
+            DependencyProperty.Register(nameof(ImageSource), typeof(string), typeof(ImageControl), new PropertyMetadata("empty", PropChange));
 
         public Stretch ImageStretch
         {
@@ -48,10 +48,10 @@ namespace CardDesigner.UI.Controls
                     double canvasWidth = imageControl.ActualWidth;
                     double canvasHeight = imageControl.ActualHeight;
 
-                    if (imageControl.ImageSource != null)
+                    if (imageControl.ImageSource != null && imageControl.ImageSource != "empty")
                     {
                         // Uri was changed but image did not yet load
-                        BitmapImage image = new BitmapImage(imageControl.ImageSource);
+                        BitmapImage image = new BitmapImage(new Uri(imageControl.ImageSource));
                         imageWidth = image.Width;
                         imageHeight = image.Height;
                     }
