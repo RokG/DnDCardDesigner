@@ -12,56 +12,52 @@
     <UserControl.Resources>
         <!--  Templates  -->
         <ControlTemplate x:Key="ArmorTemplate">
-            <ComboBox
+            <ListBox
+                Height="200"
                 ItemsSource="{Binding AllArmours}"
                 SelectedIndex="0"
                 SelectedItem="{Binding SelectedItemCard.Item}">
-                <ComboBox.ItemTemplate>
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
                     </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </ControlTemplate>
         <!--  Templates  -->
         <ControlTemplate x:Key="WeaponTemplate">
-            <ComboBox
+            <ListBox
+                Height="200"
                 ItemsSource="{Binding AllWeapons}"
                 SelectedIndex="0"
                 SelectedItem="{Binding SelectedItemCard.Item}">
-                <ComboBox.ItemTemplate>
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
                     </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </ControlTemplate>
         <!--  Armour detailed properties  -->
         <ControlTemplate x:Key="ArmourProperties">
-            <DockPanel>
-                <Label
-                    Padding="0"
-                    Content="Armour class:" />
-                <Slider
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Stretch"
-                    Maximum="20"
-                    Minimum="10"
-                    Value="{Binding SelectedItemCard.Item.ArmourClass}" />
-            </DockPanel>
+            <StackPanel>
+                <controls:DataLabel
+                    Value1="{Binding SelectedItemCard.Item.ArmourClass}"
+                    ValueName="Armour class" />
+            </StackPanel>
         </ControlTemplate>
         <!--  Weapon detailed properties  -->
         <ControlTemplate x:Key="WeaponProperties">
-            <DockPanel>
-                <controls:SliderControl
-                    Title="Roll:"
-                    SelectedUnitType="{Binding SelectedItemCard.Item.PhysicalDamageType, Mode=TwoWay}"
-                    SelectedValueType="{Binding SelectedItemCard.Item.DiceType, Mode=TwoWay}"
-                    UnitTypes="{Binding Source={StaticResource PhysicalDamageTypeEnum}}"
-                    ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
-                    Value="{Binding SelectedItemCard.Item.DiceValue, Mode=TwoWay}" />
-            </DockPanel>
+            <StackPanel>
+                <controls:DataLabel
+                    Value1="{Binding SelectedItemCard.Item.DiceValue}"
+                    Value2="{Binding SelectedItemCard.Item.DiceType}"
+                    Value3="{Binding SelectedItemCard.Item.PhysicalDamageType}"
+                    ValueName="Damage" />
+                <controls:DataLabel
+                    Value1="{Binding SelectedItemCard.Item.DamageModifier, StringFormat='{}+{0}'}"
+                    ValueName="Modifier" />
+            </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
     <Grid Margin="4">
@@ -144,9 +140,10 @@
                         <Label
                             Padding="0"
                             Content="Item Type:" />
-                        <ComboBox
-                            Width="150"
+                        <ListBox
+                            Height="200"
                             ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
+                            SelectedIndex="0"
                             SelectedItem="{Binding SelectedItemCard.Type}" />
                         <ContentControl Margin="5,0">
                             <ContentControl.Style>
