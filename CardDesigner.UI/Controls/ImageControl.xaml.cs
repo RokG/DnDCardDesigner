@@ -17,15 +17,14 @@ namespace CardDesigner.UI.Controls
             InitializeComponent();
         }
 
-        public string ImageSource
+        public Uri ImageSource
         {
-            get => (string)GetValue(ImageSourceProperty);
+            get => (Uri)GetValue(ImageSourceProperty);
             set => SetValue(ImageSourceProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register(nameof(ImageSource), typeof(string), typeof(ImageControl), new PropertyMetadata("empty", PropChange));
+            DependencyProperty.Register(nameof(ImageSource), typeof(Uri), typeof(ImageControl), new PropertyMetadata(null, PropChange));
 
         public Stretch ImageStretch
         {
@@ -33,7 +32,6 @@ namespace CardDesigner.UI.Controls
             set => SetValue(ImageStretchProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for ImageStretch.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageStretchProperty =
             DependencyProperty.Register(nameof(ImageStretch), typeof(Stretch), typeof(ImageControl), new PropertyMetadata(Stretch.Uniform, PropChange));
 
@@ -48,10 +46,10 @@ namespace CardDesigner.UI.Controls
                     double canvasWidth = imageControl.ActualWidth;
                     double canvasHeight = imageControl.ActualHeight;
 
-                    if (imageControl.ImageSource != null && imageControl.ImageSource != "empty")
+                    if (imageControl.ImageSource != null)
                     {
                         // Uri was changed but image did not yet load
-                        BitmapImage image = new BitmapImage(new Uri(imageControl.ImageSource));
+                        BitmapImage image = new BitmapImage(imageControl.ImageSource);
                         imageWidth = image.Width;
                         imageHeight = image.Height;
                     }
