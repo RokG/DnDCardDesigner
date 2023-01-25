@@ -9,6 +9,7 @@
             AcceptsReturn="True"
             Background="Transparent"
             FontSize="{Binding FontSize, ElementName=TextBoxWithPlaceholder}"
+            PreviewMouseWheel="inputTextBox_PreviewMouseWheel"
             Style="{StaticResource TransparentTextBox}"
             Text="{Binding InputText, ElementName=TextBoxWithPlaceholder}"
             TextAlignment="Justify"

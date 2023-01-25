@@ -3,9 +3,63 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    xmlns:models="clr-namespace:CardDesigner.Domain.Models;assembly=CardDesigner.Domain"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
+    <UserControl.Resources>
+        <!--  Templates  -->
+        <ControlTemplate x:Key="ArmorTemplate">
+            <ListBox
+                Height="200"
+                ItemsSource="{Binding AllArmours}"
+                SelectedIndex="0"
+                SelectedItem="{Binding SelectedItemCard.Item}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ControlTemplate>
+        <!--  Templates  -->
+        <ControlTemplate x:Key="WeaponTemplate">
+            <ListBox
+                Height="200"
+                ItemsSource="{Binding AllWeapons}"
+                SelectedIndex="0"
+                SelectedItem="{Binding SelectedItemCard.Item}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ControlTemplate>
+        <!--  Armour detailed properties  -->
+        <ControlTemplate x:Key="ArmourProperties">
+            <StackPanel>
+                <controls:DataLabel
+                    Value1="{Binding SelectedItemCard.Item.ArmourClass}"
+                    ValueName="Armour class" />
+            </StackPanel>
+        </ControlTemplate>
+        <!--  Weapon detailed properties  -->
+        <ControlTemplate x:Key="WeaponProperties">
+            <StackPanel>
+                <controls:DataLabel
+                    Value1="{Binding SelectedItemCard.Item.DiceValue}"
+                    Value2="{Binding SelectedItemCard.Item.DiceType}"
+                    Value3="{Binding SelectedItemCard.Item.PhysicalDamageType}"
+                    ValueName="Damage" />
+                <controls:DataLabel
+                    Value1="{Binding SelectedItemCard.Item.DamageModifier, StringFormat='{}+{0}'}"
+                    ValueName="Modifier" />
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -25,16 +79,12 @@
 
         <!--  Content Area  -->
         <Grid Grid.Row="1">
-
-
-            <!--  Content area  -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="7*" />
             </Grid.ColumnDefinitions>
 
             <!--  Card Settings  -->
-
             <StackPanel Orientation="Vertical">
 
                 <!--  Database control  -->
@@ -46,7 +96,7 @@
                     SelectedItem="{Binding SelectedItemCard, Mode=TwoWay}"
                     ViewOnly="False" />
 
-                <!--  Name/school/level  -->
+                <!--  Name and Icon  -->
                 <Border
                     BorderThickness="1"
                     Style="{StaticResource VisibleBorder}">
@@ -61,26 +111,93 @@
                         <Label
                             Margin="5,10,0,0"
                             Padding="0"
-                            Content="Item school:" />
-                        <ComboBox
-                            ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
-                            SelectedItem="{Binding SelectedItemCard.Type}" />
-                        <Label
-                            Margin="5,10,0,0"
-                            Padding="0"
-                            Content="Item Requirements:" />
-                        <!--  Level  -->
-                        <DockPanel HorizontalAlignment="Stretch">
-                            <Label Content="Level: " />
-                            <Slider
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                HorizontalContentAlignment="Stretch"
-                                Maximum="20"
-                                Minimum="1"
-                                Value="{Binding SelectedItemCard.Level}" />
-                        </DockPanel>
+                            Content="Item image and image fill:" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <controls:FilePicker
+                                Margin="5"
+                                Text="{Binding SelectedItemCard.IconFilePath, Mode=TwoWay}" />
+                            <ComboBox
+                                Grid.Column="1"
+                                SelectedItem="{Binding SelectedItemCard.IconStretch}">
+                                <sys:String>None</sys:String>
+                                <sys:String>Fill</sys:String>
+                                <sys:String>Uniform</sys:String>
+                                <sys:String>Uniform To Fill</sys:String>
+                            </ComboBox>
+                        </Grid>
                     </StackPanel>
+                </Border>
+
+                <!--  Item Base Properties  -->
+                <Border
+                    BorderThickness="1"
+                    Style="{StaticResource VisibleBorder}">
+                    <DockPanel>
+                        <Label
+                            Padding="0"
+                            Content="Item Type:" />
+                        <ListBox
+                            Height="200"
+                            ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
+                            SelectedIndex="0"
+                            SelectedItem="{Binding SelectedItemCard.Type}" />
+                        <ContentControl Margin="5,0">
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding SelectedItemCard.Type}"
+                                            Value="{x:Static enums:ItemType.Armour}">
+                                            <Setter Property="Template" Value="{StaticResource ArmorTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding SelectedItemCard.Type}"
+                                            Value="{x:Static enums:ItemType.Weapon}">
+                                            <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </DockPanel>
+                </Border>
+
+                <!--  Item Advanced Properties  -->
+                <Border
+                    BorderThickness="1"
+                    Style="{StaticResource VisibleBorder}">
+                    <ContentControl Margin="5,0">
+                        <ContentControl.Style>
+                            <Style TargetType="{x:Type ContentControl}">
+                                <Style.Triggers>
+                                    <!--<DataTrigger
+                                        Binding="{Binding SelectedItemCard.Item}"
+                                        Value="{x:Type models:ArmourModel}">
+                                        <Setter Property="Template" Value="{StaticResource ArmourProperties}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding SelectedItemCard.Item}"
+                                        Value="{x:Type models:WeaponModel}">
+                                        <Setter Property="Template" Value="{StaticResource WeaponProperties}" />
+                                    </DataTrigger>-->
+                                    <DataTrigger
+                                        Binding="{Binding SelectedItemCard.Type, Mode=OneWay}"
+                                        Value="{x:Static enums:ItemType.Armour}">
+                                        <Setter Property="Template" Value="{StaticResource ArmourProperties}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding SelectedItemCard.Type, Mode=OneWay}"
+                                        Value="{x:Static enums:ItemType.Weapon}">
+                                        <Setter Property="Template" Value="{StaticResource WeaponProperties}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
                 </Border>
 
                 <!--  True/False props  -->
@@ -100,51 +217,18 @@
                     </StackPanel>
                 </Border>
 
-                <!--  advanced properties  -->
-                <Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <StackPanel>
-
-                        <!--<controls:SliderControl
-                            Title="Range:"
-                            SelectedValueType="{Binding SelectedItemCard.RangeType, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
-                            Value="{Binding SelectedItemCard.RangeValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Duration:"
-                            SelectedValueType="{Binding SelectedItemCard.DurationType, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource DurationTypeEnum}}"
-                            Value="{Binding SelectedItemCard.DurationValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Casting time:"
-                            SelectedValueType="{Binding SelectedItemCard.CastingTimeType, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource CastingTimeEnum}}"
-                            Value="{Binding SelectedItemCard.CastingTimeValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Area of effect:"
-                            SelectedValueType="{Binding SelectedItemCard.AreaOfEffect, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
-                            Value="{Binding SelectedItemCard.AreaOfEffectValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Roll:"
-                            SelectedValueType="{Binding SelectedItemCard.DiceType, Mode=TwoWay}"
-                            UnitTypes="{Binding Source={StaticResource DamageTypeEnum}}"
-                            ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
-                            Value="{Binding SelectedItemCard.DiceValue, Mode=TwoWay}" />-->
-
-                    </StackPanel>
-                </Border>
-
                 <!--  Manually update button  -->
                 <Button
                     Command="{Binding UpdateItemCardCommand}"
                     Content="Update" />
+
             </StackPanel>
+
+            <!--  Card view  -->
+            <controls:ItemCardControl
+                Grid.Column="1"
+                IsEditable="True"
+                ItemCard="{Binding SelectedItemCard, Mode=TwoWay}" />
         </Grid>
     </Grid>
 </UserControl>

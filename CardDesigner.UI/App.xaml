@@ -16,6 +16,18 @@
                 <ResourceDictionary Source="Resources/Icons/EditButton.xaml" />
                 <ResourceDictionary Source="Resources/Icons/WindowButtons.xaml" />
 
+                <ResourceDictionary Source="Resources/Icons/Items/EquipmentSlots.xaml" />
+                <ResourceDictionary Source="Resources/Dice/DiceTypes.xaml" />
+
+                <ResourceDictionary Source="Resources/Icons/Properties/ItemRequiresAttunement.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/ItemIsMagical.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Properties/ItemIsUnidentified.xaml" />
+
+                <ResourceDictionary Source="Resources/Icons/Items/DamageTypes.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Items/ItemWeights.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Items/WeaponTypes.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Items/EquipmentSlots.xaml" />
+
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/AbjurationIcon.xaml" />
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/ConjurationIcon.xaml" />
                 <ResourceDictionary Source="Resources/Icons/MagicSchools/DivinationIcon.xaml" />

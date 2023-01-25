@@ -1,0 +1,23 @@
+  [
+    {
+      "ID": "leg1",
+      "Name": "Pantaloons",
+      "EquipmentSlot": "Legs",
+      "ArmourType": "Medium",
+      "ArmourClass": "12"
+    },
+    {
+      "ID": "leg2",
+      "Name": "Leggings",
+      "EquipmentSlot": "Legs",
+      "ArmourType": "Medium",
+      "ArmourClass": "12"
+    },
+    {
+      "ID": "leg3",
+      "Name": "Thong",
+      "EquipmentSlot": "Legs",
+      "ArmourType": "Medium",
+      "ArmourClass": "12"
+    }
+  ]

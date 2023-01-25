@@ -2,6 +2,7 @@
 {
     public enum MagicDamageType
     {
+        None,
         Radiant,
         Fire,
         Physical,

@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="CardDesigner.UI.Views.CardDecksView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
+    xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
+    xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    BorderBrush="{StaticResource WindowBorder}"
+    BorderThickness="3,0,0,0">
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  header area  -->
+        <Border BorderThickness="0,0,0,1">
+            <StackPanel>
+                <Label
+                    Content="{Binding Name}"
+                    FontSize="32" />
+                <Label Content="{Binding Description}" />
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Spell decks area  -->
+            <StackPanel
+                Grid.Row="1"
+                Orientation="Vertical">
+
+                <controls:AddEditItem
+                    Title="Spell Deck"
+                    AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
+                    DeleteCommand="{Binding DeleteSpellDeckCommand}"
+                    ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
+                    SaveCommand="{Binding CreateSpellDeckCommand}"
+                    SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
+                    ViewOnly="False" />
+                <controls:AddEditItem
+                    Title="Spell Card"
+                    ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}"
+                    ViewOnly="True" />
+
+                <Button
+                    Command="{Binding AddSpellCardToDeckCommand}"
+                    Content="Assign card to deck" />
+
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label Content="Cards in deck : " />
+                        <ListBox
+                            Grid.Row="2"
+                            MinHeight="200"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding SelectedSpellDeck.SpellCards}" />
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+
+            <!--  Item decks area  -->
+            <StackPanel
+                Grid.Column="1"
+                Orientation="Vertical">
+
+                <controls:AddEditItem
+                    Title="Item Deck"
+                    AddedItemName="{Binding AddedItemDeckName, Mode=TwoWay}"
+                    DeleteCommand="{Binding DeleteItemDeckCommand}"
+                    ItemsSource="{Binding AllItemDecks, Mode=TwoWay}"
+                    SaveCommand="{Binding CreateItemDeckCommand}"
+                    SelectedItem="{Binding SelectedItemDeck, Mode=TwoWay}"
+                    ViewOnly="False" />
+
+                <controls:AddEditItem
+                    Title="Item Card"
+                    ItemsSource="{Binding AllItemCards, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedItemCard, Mode=TwoWay}"
+                    ViewOnly="True" />
+
+                <Button
+                    Command="{Binding AddItemCardToDeckCommand}"
+                    Content="Assign card to deck" />
+
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label Content="Cards in deck : " />
+                        <ListBox
+                            Grid.Row="2"
+                            MinHeight="200"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding SelectedItemDeck.ItemCards}" />
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

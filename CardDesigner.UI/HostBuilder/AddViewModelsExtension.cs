@@ -14,13 +14,13 @@ namespace CardDesigner.UI.HostBuilder
             {
                 services.AddTransient((s) => CreateHomeViewModel(s));
                 services.AddTransient((s) => CreateSpellCardViewModel(s));
-                services.AddTransient((s) => CreateSpellDeckViewModel(s));
+                services.AddTransient((s) => CreateCardDecksViewModel(s));
                 services.AddTransient((s) => CreateItemCardViewModel(s));
                 services.AddTransient((s) => CreateCharacterViewModel(s));
 
                 services.AddSingleton<Func<HomeViewModel>>((s) => () => s.GetRequiredService<HomeViewModel>());
                 services.AddSingleton<Func<SpellCardViewModel>>((s) => () => s.GetRequiredService<SpellCardViewModel>());
-                services.AddSingleton<Func<SpellDeckViewModel>>((s) => () => s.GetRequiredService<SpellDeckViewModel>());
+                services.AddSingleton<Func<CardDecksViewModel>>((s) => () => s.GetRequiredService<CardDecksViewModel>());
                 services.AddSingleton<Func<ItemCardViewModel>>((s) => () => s.GetRequiredService<ItemCardViewModel>());
                 services.AddSingleton<Func<CharacterViewModel>>((s) => () => s.GetRequiredService<CharacterViewModel>());
 
@@ -40,9 +40,9 @@ namespace CardDesigner.UI.HostBuilder
             return SpellCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
         }
 
-        private static SpellDeckViewModel CreateSpellDeckViewModel(IServiceProvider s)
+        private static CardDecksViewModel CreateCardDecksViewModel(IServiceProvider s)
         {
-            return SpellDeckViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
+            return CardDecksViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
         }
 
         private static ItemCardViewModel CreateItemCardViewModel(IServiceProvider s)

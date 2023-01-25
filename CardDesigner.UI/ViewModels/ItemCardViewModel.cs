@@ -1,10 +1,7 @@
-﻿using CardDesigner.Domain.Entities;
-using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -31,6 +28,12 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<ItemCardModel> allItemCards;
+
+        [ObservableProperty]
+        private ObservableCollection<WeaponModel> allWeapons;
+
+        [ObservableProperty]
+        private ObservableCollection<ArmourModel> allArmours;
 
         #endregion
 
@@ -70,6 +73,10 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllItemCards = new(_cardDesignerStore.ItemCards);
+            AllArmours = new(_cardDesignerStore.Armours);
+            AllWeapons = new(_cardDesignerStore.Weapons);
+
+            SelectedItemCard = AllItemCards.FirstOrDefault();
         }
 
         #endregion
@@ -104,6 +111,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateItemCard()
         {
+            SelectedItemCard.ItemID = SelectedItemCard.Item?.ID;
             await _cardDesignerStore.UpdateItemCard(SelectedItemCard);
         }
 

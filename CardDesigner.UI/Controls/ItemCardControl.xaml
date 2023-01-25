@@ -3,7 +3,274 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
-    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
-    xmlns:local="clr-namespace:CardDesigner.UI.Controls">
-    <Grid />
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain">
+    <UserControl.Resources>
+        <!--  Templates  -->
+        <ControlTemplate x:Key="ArmorTemplate">
+            <Grid Background="Transparent">
+                <Label
+                    Content="{Binding ItemCard.Item.ArmourType, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
+                    Style="{StaticResource IconLabel}" />
+                <Label
+                    Content="{Binding ItemCard.Item.EquipmentSlot, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
+                    Style="{StaticResource IconLabel}" />
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="WeaponTemplate">
+            <Grid Background="Transparent">
+                <Label
+                    Content="{Binding ItemCard.Item.WeaponType, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
+                    Style="{StaticResource IconLabel}" />
+                <Label
+                    Content="{Binding ItemCard.Item.EquipmentSlot, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
+                    Style="{StaticResource IconLabel}" />
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="WeaponProperties">
+            <WrapPanel
+                Canvas.Top="315"
+                Width="250"
+                Height="32.5"
+                Margin="0"
+                ItemHeight="30"
+                ItemWidth="60"
+                Orientation="Horizontal">
+                <controls:IconWithPropertyControl
+                    Height="30"
+                    Icon="{Binding ItemCard.Item.DiceType, Converter={converters:StringToResourceKeyConverter}, ElementName=itemCard}"
+                    Value="{Binding ItemCard.Item.DiceValue, ElementName=itemCard}" />
+                <Label
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Content="{Binding ItemCard.Item.PhysicalDamageType, ElementName=itemCard}"
+                    FontSize="12" />
+            </WrapPanel>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ArmourProperties">
+            <WrapPanel
+                Canvas.Top="315"
+                Width="250"
+                Height="32.5"
+                Margin="0"
+                ItemHeight="30"
+                ItemWidth="60"
+                Orientation="Horizontal">
+                <Label
+                    Width="20"
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Content="AC: "
+                    FontSize="12" />
+                <Label
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Content="{Binding ItemCard.Item.ArmourClass, ElementName=itemCard}"
+                    FontSize="12" />
+            </WrapPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <Viewbox>
+        <Grid>
+            <!--  Card border  -->
+            <Border
+                Width="250"
+                Height="350"
+                Margin="0"
+                Padding="0"
+                Background="{StaticResource CardHeaderBackgroundColor}"
+                BorderBrush="{StaticResource CardLineColor}"
+                BorderThickness="2"
+                CornerRadius="4" />
+            <!--  Card contents  -->
+            <Canvas>
+
+                <!--  Body lines  -->
+                <Border
+                    Canvas.Top="35"
+                    Width="250"
+                    Height="280"
+                    Margin="0"
+                    Padding="0"
+                    Background="{StaticResource CardBodyBackgroundColor}"
+                    BorderBrush="{StaticResource CardLineColor}"
+                    BorderThickness="0,2,0,2" />
+
+                <!--  Item icon  -->
+                <controls:ImageControl
+                    Canvas.Top="37"
+                    Width="248"
+                    Height="118"
+                    ImageSource="{Binding ItemCard.IconFilePath, ElementName=itemCard}"
+                    ImageStretch="{Binding ItemCard.IconStretch, ElementName=itemCard, Converter={converters:StringToStretchConverter}}" />
+
+
+                <!--  Components  -->
+                <DockPanel
+                    Canvas.Left="2"
+                    Canvas.Top="25"
+                    Width="248"
+                    LastChildFill="False">
+                    <!--  Slot & Weight  /  WeaponType & Hands  -->
+                    <Border
+                        Width="25"
+                        Height="25"
+                        Margin="2,0,10,0"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
+                        BorderBrush="Black"
+                        BorderThickness="2"
+                        CornerRadius="20"
+                        DockPanel.Dock="Left">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
+                                            Value="{x:Static enums:ItemType.Armour}">
+                                            <Setter Property="Template" Value="{StaticResource ArmorTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
+                                            Value="{x:Static enums:ItemType.Weapon}">
+                                            <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Border>
+                    <!--<Label
+                        Content="{Binding ItemCard.Item, ElementName=itemCard}"
+                        FontSize="8" />-->
+                    <!--  Attunement  -->
+                    <Border
+                        Width="25"
+                        Height="25"
+                        Margin="2,0,0,0"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
+                        BorderBrush="Black"
+                        BorderThickness="2"
+                        CornerRadius="20"
+                        Visibility="{Binding ItemCard.RequiresAttunement, ElementName=itemCard, Converter={converters:BoolToVisibilityConverter}}">
+                        <Label
+                            Content="{StaticResource RequiresAttunement}"
+                            Style="{StaticResource IconLabel}" />
+                    </Border>
+                    <!--  Unidentified  -->
+                    <Border
+                        Width="25"
+                        Height="25"
+                        Margin="2,0,0,0"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
+                        BorderBrush="Black"
+                        BorderThickness="2"
+                        CornerRadius="20"
+                        Visibility="{Binding ItemCard.IsUnidentified, ElementName=itemCard, Converter={converters:BoolToVisibilityConverter}}">
+                        <Label
+                            Content="{StaticResource IsUnidentified}"
+                            Style="{StaticResource IconLabel}" />
+                    </Border>
+                    <!--  Magical  -->
+                    <Border
+                        Width="25"
+                        Height="25"
+                        Margin="2,0,0,0"
+                        Background="{StaticResource CardHeaderIconBackgroundColor}"
+                        BorderBrush="Black"
+                        BorderThickness="2"
+                        CornerRadius="20"
+                        Visibility="{Binding ItemCard.IsMagical, ElementName=itemCard, Converter={converters:BoolToVisibilityConverter}}">
+                        <Label
+                            Content="{StaticResource IsMagical}"
+                            Style="{StaticResource IconLabel}" />
+                    </Border>
+                </DockPanel>
+
+                <!--  Description  -->
+                <Border
+                    Canvas.Top="155"
+                    Width="250"
+                    Height="158"
+                    Margin="0"
+                    Padding="0"
+                    Background="{StaticResource CardBodyBackgroundColor}"
+                    BorderBrush="{StaticResource CardLineColor}"
+                    BorderThickness="0,2,0,0">
+                    <!--  Description textbox  -->
+                    <controls:TextBoxWithPlaceholderControl
+                        Width="246"
+                        MaxHeight="160"
+                        Background="Transparent"
+                        FontSize="{Binding ItemCard.DescriptionFontSize, Mode=TwoWay, ElementName=itemCard}"
+                        InputText="{Binding ItemCard.Description, ElementName=itemCard, Mode=TwoWay}"
+                        IsEnabled="{Binding IsEditable, ElementName=itemCard}" />
+                </Border>
+
+                <!--  Item properties  -->
+                <ContentControl
+                    Canvas.Top="315"
+                    Width="250"
+                    Height="32.5"
+                    Margin="0">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
+                                    Value="{x:Static enums:ItemType.Armour}">
+                                    <Setter Property="Template" Value="{StaticResource ArmourProperties}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
+                                    Value="{x:Static enums:ItemType.Weapon}">
+                                    <Setter Property="Template" Value="{StaticResource WeaponProperties}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                <!--  Properties  -->
+                <DockPanel
+                    Canvas.Left="2"
+                    Canvas.Top="25"
+                    Width="248"
+                    LastChildFill="False" />
+
+                <!--  Title textbox  -->
+                <Border>
+                    <controls:TextBoxWithPlaceholderControl
+                        Canvas.Left="2"
+                        Width="246"
+                        Background="Transparent"
+                        FontSize="{Binding ItemCard.TitleFontSize, Mode=TwoWay, ElementName=itemCard, UpdateSourceTrigger=PropertyChanged}"
+                        InputText="{Binding ItemCard.Title, ElementName=itemCard, Mode=TwoWay}"
+                        IsEnabled="{Binding IsEditable, ElementName=itemCard}" />
+                </Border>
+
+                <!--  Item properties  -->
+                <WrapPanel
+                    Canvas.Top="200"
+                    Width="250"
+                    Height="40"
+                    Margin="0"
+                    ItemHeight="30"
+                    ItemWidth="60"
+                    Orientation="Horizontal" />
+
+            </Canvas>
+
+            <!--  Card border  -->
+            <Border
+                Width="250"
+                Height="350"
+                Margin="0"
+                Padding="0"
+                BorderBrush="{StaticResource CardLineColor}"
+                BorderThickness="2"
+                CornerRadius="4" />
+        </Grid>
+    </Viewbox>
 </UserControl>

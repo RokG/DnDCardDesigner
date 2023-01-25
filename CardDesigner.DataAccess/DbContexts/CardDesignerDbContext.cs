@@ -22,11 +22,11 @@ namespace CardDesigner.DataAccess.DbContexts
 
         // Database objects
 
-        public DbSet<Character> Characters { get; set; }
-        public DbSet<SpellDeck> SpellDecks { get; set; }
-        public DbSet<ItemDeck> ItemDecks { get; set; }
-        public DbSet<SpellCard> SpellCards { get; set; }
-        public DbSet<ItemCard> ItemCards { get; set; }
+        public DbSet<CharacterEntity> Characters { get; set; }
+        public DbSet<SpellDeckEntity> SpellDecks { get; set; }
+        public DbSet<ItemDeckEntity> ItemDecks { get; set; }
+        public DbSet<SpellCardEntity> SpellCards { get; set; }
+        public DbSet<ItemCardEntity> ItemCards { get; set; }
 
         //https://stackoverflow.com/questions/19342908/how-to-create-a-many-to-many-mapping-in-entity-framework
 
@@ -36,12 +36,12 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Character>()
+            modelBuilder.Entity<CharacterEntity>()
                 .HasOne(c => c.SpellDeck)
                 .WithMany(c => c.Characters)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<SpellDeck>()
+            modelBuilder.Entity<SpellDeckEntity>()
                 .HasMany(c => c.Characters)
                 .WithOne(c => c.SpellDeck)
                 .OnDelete(DeleteBehavior.Restrict);
@@ -49,7 +49,7 @@ namespace CardDesigner.DataAccess.DbContexts
             modelBuilder.Entity<SpellDeckSpellCard>()
                 .HasKey(t => new { t.SpellCardID, t.SpellDeckID });
 
-            modelBuilder.Entity<SpellCard>()
+            modelBuilder.Entity<SpellCardEntity>()
                 .HasMany(c => c.SpellDecks)
                 .WithMany(c => c.SpellCards)
                 .UsingEntity<SpellDeckSpellCard>(
@@ -66,10 +66,20 @@ namespace CardDesigner.DataAccess.DbContexts
                         j.HasKey(t => new { t.SpellDeckID, t.SpellCardID });
                     });
 
+            modelBuilder.Entity<CharacterEntity>()
+                .HasOne(c => c.ItemDeck)
+                .WithMany(c => c.Characters)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ItemDeckEntity>()
+                .HasMany(c => c.Characters)
+                .WithOne(c => c.ItemDeck)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<ItemDeckItemCard>()
                 .HasKey(t => new { t.ItemCardID, t.ItemDeckID });
 
-            modelBuilder.Entity<ItemCard>()
+            modelBuilder.Entity<ItemCardEntity>()
                .HasMany(c => c.ItemDecks)
                .WithMany(c => c.ItemCards)
                .UsingEntity<ItemDeckItemCard>(

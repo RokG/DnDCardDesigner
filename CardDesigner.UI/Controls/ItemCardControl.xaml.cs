@@ -1,18 +1,6 @@
 ﻿using CardDesigner.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CardDesigner.UI.Controls
 {
@@ -30,8 +18,8 @@ namespace CardDesigner.UI.Controls
 
         public bool IsEditable
         {
-            get { return (bool)GetValue(IsEditableProperty); }
-            set { SetValue(IsEditableProperty, value); }
+            get => (bool)GetValue(IsEditableProperty);
+            set => SetValue(IsEditableProperty, value);
         }
 
         public static readonly DependencyProperty IsEditableProperty =
@@ -39,13 +27,15 @@ namespace CardDesigner.UI.Controls
 
         public ItemCardModel ItemCard
         {
-            get { return (ItemCardModel)GetValue(ItemCardProperty); }
-            set { SetValue(ItemCardProperty, value); }
+            get => (ItemCardModel)GetValue(ItemCardProperty);
+            set => SetValue(ItemCardProperty, value);
         }
 
         public static readonly DependencyProperty ItemCardProperty =
             DependencyProperty.Register(nameof(ItemCard), typeof(ItemCardModel), typeof(ItemCardControl), new PropertyMetadata(null));
 
         #endregion
+
+
     }
 }

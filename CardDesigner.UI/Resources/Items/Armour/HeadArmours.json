@@ -1,0 +1,23 @@
+  [
+    {
+      "ID": "head1",
+      "Name": "Spiky helm",
+      "EquipmentSlot": "Head",
+      "ArmourType": "Medium",
+      "ArmourClass": "12"
+    },
+    {
+      "ID": "head2",
+      "Name": "Skull cap",
+      "EquipmentSlot": "Head",
+      "ArmourType": "Medium",
+      "ArmourClass": "12"
+    },
+    {
+      "ID": "head3",
+      "Name": "Hat",
+      "EquipmentSlot": "Head",
+      "ArmourType": "Medium",
+      "ArmourClass": "12"
+    }
+  ]

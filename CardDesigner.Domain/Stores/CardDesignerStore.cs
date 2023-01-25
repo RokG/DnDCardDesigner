@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace CardDesigner.Domain.Stores
 {
@@ -12,42 +13,28 @@ namespace CardDesigner.Domain.Stores
     {
         private readonly Lazy<Task> _initializeLazy;
 
-        private readonly ICharacterCreator _characterCreator;
-        private readonly ICharacterProvider _characterProvider;
-        private readonly ICharacterUpdater _characterUpdater;
-        private readonly ICharacterDeleter _characterDeleter;
-
-        private readonly ISpellDeckCreator _spellDeckCreator;
-        private readonly ISpellDeckUpdater _spellDeckUpdater;
-        private readonly ISpellDeckDeleter _spellDeckDeleter;
-        private readonly ISpellDeckProvider _spellDeckProvider;
-
-        private readonly ISpellCardCreator _spellCardCreator;
-        private readonly ISpellCardUpdater _spellCardUpdater;
-        private readonly ISpellCardDeleter _spellCardDeleter;
-        private readonly ISpellCardProvider _spellCardProvider;
-
-        private readonly IItemCardCreator  _itemCardCreator;
-        private readonly IItemCardUpdater  _itemCardUpdater;
-        private readonly IItemCardDeleter  _itemCardDeleter;
-        private readonly IItemCardProvider _itemCardProvider;
-
-        private readonly IItemDeckCreator  _itemDeckCreator;
-        private readonly IItemDeckUpdater  _itemDeckUpdater;
-        private readonly IItemDeckDeleter  _itemDeckDeleter;
-        private readonly IItemDeckProvider _itemDeckProvider;
+        private readonly ICharacterService _characterService;
+        private readonly ISpellDeckService _spellDeckService;
+        private readonly ISpellCardService _spellCardService;
+        private readonly IItemCardService _itemCardService;
+        private readonly IItemDeckService _itemDeckService;
+        private readonly IJsonFileItemService _jsonFileItemService;
 
         private readonly List<SpellCardModel> _spellCards;
         private readonly List<ItemCardModel> _itemCards;
         private readonly List<SpellDeckModel> _spellDecks;
         private readonly List<ItemDeckModel> _itemDecks;
         private readonly List<CharacterModel> _characters;
+        private readonly List<WeaponModel> _weapons;
+        private readonly List<ArmourModel> _armours;
 
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
         public IEnumerable<ItemCardModel> ItemCards => _itemCards;
         public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
         public IEnumerable<ItemDeckModel> ItemDecks => _itemDecks;
         public IEnumerable<CharacterModel> Characters => _characters;
+        public IEnumerable<WeaponModel> Weapons => _weapons;
+        public IEnumerable<ArmourModel> Armours => _armours;
 
         public event Action<CharacterModel> CharacterCreated;
         public event Action<CharacterModel> CharacterUpdated;
@@ -72,52 +59,23 @@ namespace CardDesigner.Domain.Stores
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="characterCreator"></param>
-        /// <param name="characterProvider"></param>
-        /// <param name="spellCardCreator"></param>
-        /// <param name="spellCardProvider"></param>
+        /// <param name="characterService"></param>
+        /// <param name="characterService"></param>
+        /// <param name="spellCardService"></param>
+        /// <param name="spellCardService"></param>
         public CardDesignerStore(
-            ICharacterCreator characterCreator,
-            ICharacterUpdater characterUpdater,
-            ICharacterDeleter characterDeleter,
-            ICharacterProvider characterProvider,
-            IItemCardCreator  itemCardCreator,
-            IItemCardUpdater  itemCardUpdater,
-            IItemCardDeleter  itemCardDeleter,
-            IItemCardProvider itemCardProvider,
-            ISpellCardCreator spellCardCreator,
-            ISpellCardUpdater spellCardUpdater,
-            ISpellCardDeleter spellCardDeleter,
-            ISpellCardProvider spellCardProvider,
-            ISpellDeckCreator spellDeckCreator,
-            ISpellDeckUpdater spellDeckUpdater,
-            ISpellDeckDeleter spellDeckDeleter,
-            ISpellDeckProvider spellDeckProvider,
-            IItemDeckCreator  itemDeckCreator,
-            IItemDeckUpdater  itemDeckUpdater,
-            IItemDeckDeleter  itemDeckDeleter,
-            IItemDeckProvider itemDeckProvider)
+            ICharacterService characterService,
+            ISpellDeckService spellDeckService,
+            ISpellCardService spellCardService,
+            IItemCardService itemCardService,
+            IItemDeckService itemDeckService,
+            IJsonFileItemService jsonFileItemService)
         {
-            _characterCreator = characterCreator;
-            _characterProvider = characterProvider;
-            _characterUpdater = characterUpdater;
-            _characterDeleter = characterDeleter;
-            _spellCardCreator = spellCardCreator;
-            _spellCardUpdater = spellCardUpdater;
-            _spellCardDeleter = spellCardDeleter;
-            _spellCardProvider = spellCardProvider;
-            _itemCardCreator = itemCardCreator;
-            _itemCardUpdater = itemCardUpdater;
-            _itemCardDeleter = itemCardDeleter;
-            _itemCardProvider = itemCardProvider;
-            _spellDeckCreator = spellDeckCreator;
-            _spellDeckUpdater = spellDeckUpdater;
-            _spellDeckDeleter = spellDeckDeleter;
-            _spellDeckProvider = spellDeckProvider;
-            _itemDeckCreator =  itemDeckCreator;
-            _itemDeckUpdater =  itemDeckUpdater;
-            _itemDeckDeleter =  itemDeckDeleter;
-            _itemDeckProvider = itemDeckProvider;
+            _characterService = characterService;
+            _spellDeckService = spellDeckService;
+            _spellCardService = spellCardService;
+            _itemCardService = itemCardService;
+            _itemDeckService = itemDeckService;
 
             _initializeLazy = new Lazy<Task>(Initialize);
 
@@ -126,6 +84,9 @@ namespace CardDesigner.Domain.Stores
             _spellCards = new();
             _spellDecks = new();
             _itemDecks = new();
+            _armours = new();
+            _weapons = new();
+            _jsonFileItemService = jsonFileItemService;
         }
 
         /// <summary>
@@ -139,6 +100,8 @@ namespace CardDesigner.Domain.Stores
             await UpdateCharactersFromDb();
             await UpdateSpellDecksFromDb();
             await UpdateItemDecksFromDb();
+            ReadAllItems();
+            AssignItemsToCards();
         }
 
         /// <summary>
@@ -154,34 +117,34 @@ namespace CardDesigner.Domain.Stores
 
         public async Task CreateCharacter(CharacterModel character)
         {
-            CharacterModel createdCharacter = await _characterCreator.CreateCharacter(character);
+            CharacterModel createdCharacter = await _characterService.CreateCharacter(character);
             _characters.Add(createdCharacter);
             OnCharacterCreated(createdCharacter);
         }
 
         public async Task CreateSpellDeck(SpellDeckModel spellDeck)
         {
-            SpellDeckModel createdSpellDeck = await _spellDeckCreator.CreateSpellDeck(spellDeck);
+            SpellDeckModel createdSpellDeck = await _spellDeckService.CreateSpellDeck(spellDeck);
             _spellDecks.Add(createdSpellDeck);
             OnSpellDeckCreated(createdSpellDeck);
         }
 
         public async Task CreateItemDeck(ItemDeckModel itemDeck)
         {
-            ItemDeckModel createdItemDeck = await _itemDeckCreator.CreateItemDeck(itemDeck);
+            ItemDeckModel createdItemDeck = await _itemDeckService.CreateItemDeck(itemDeck);
             _itemDecks.Add(createdItemDeck);
             OnItemDeckCreated(createdItemDeck);
         }
 
         public async Task CreateSpellCard(SpellCardModel spellCard)
         {
-            SpellCardModel createdSpellCard = await _spellCardCreator.CreateSpellCard(spellCard);
+            SpellCardModel createdSpellCard = await _spellCardService.CreateSpellCard(spellCard);
             _spellCards.Add(createdSpellCard);
             OnSpellCardCreated(createdSpellCard);
         }
         public async Task CreateItemCard(ItemCardModel itemCard)
         {
-            ItemCardModel createdItemCard = await _itemCardCreator.CreateItemCard(itemCard);
+            ItemCardModel createdItemCard = await _itemCardService.CreateItemCard(itemCard);
             _itemCards.Add(createdItemCard);
             OnItemCardCreated(createdItemCard);
         }
@@ -192,7 +155,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateCharacter(CharacterModel character)
         {
-            if (await _characterUpdater.UpdateCharacter(character) is CharacterModel updatedCharacter)
+            if (await _characterService.UpdateCharacter(character) is CharacterModel updatedCharacter)
             {
                 await UpdateCharactersFromDb();
                 OnCharacterUpdated(updatedCharacter);
@@ -201,7 +164,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateSpellDeck(SpellDeckModel spellDeck)
         {
-            if (await _spellDeckUpdater.UpdateSpellDeck(spellDeck) is SpellDeckModel updatedSpellDeck)
+            if (await _spellDeckService.UpdateSpellDeck(spellDeck) is SpellDeckModel updatedSpellDeck)
             {
                 await UpdateSpellDecksFromDb();
                 OnSpellDeckUpdated(updatedSpellDeck);
@@ -209,7 +172,7 @@ namespace CardDesigner.Domain.Stores
         }
         public async Task UpdateItemDeck(ItemDeckModel itemDeck)
         {
-            if (await _itemDeckUpdater.UpdateItemDeck(itemDeck) is ItemDeckModel updatedItemDeck)
+            if (await _itemDeckService.UpdateItemDeck(itemDeck) is ItemDeckModel updatedItemDeck)
             {
                 await UpdateSpellDecksFromDb();
                 OnItemDeckUpdated(updatedItemDeck);
@@ -218,7 +181,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateSpellCard(SpellCardModel spellCard)
         {
-            if (await _spellCardUpdater.UpdateSpellCard(spellCard) is SpellCardModel updatedSpellCard)
+            if (await _spellCardService.UpdateSpellCard(spellCard) is SpellCardModel updatedSpellCard)
             {
                 OnSpellCardUpdated(updatedSpellCard);
             }
@@ -226,7 +189,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateItemCard(ItemCardModel itemCard)
         {
-            if (await _itemCardUpdater.UpdateItemCard(itemCard) is ItemCardModel updatedItemCard)
+            if (await _itemCardService.UpdateItemCard(itemCard) is ItemCardModel updatedItemCard)
             {
                 OnItemCardUpdated(updatedItemCard);
             }
@@ -238,7 +201,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task DeleteCharacter(CharacterModel character)
         {
-            bool success = await _characterDeleter.DeleteCharacter(character);
+            bool success = await _characterService.DeleteCharacter(character);
             if (success)
             {
                 _characters.Remove(character);
@@ -255,7 +218,7 @@ namespace CardDesigner.Domain.Stores
             // Remove it from database if found
             if (a.Any())
             {
-                bool success = await _spellDeckDeleter.DeleteSpellDeck(a.First());
+                bool success = await _spellDeckService.DeleteSpellDeck(a.First());
                 if (success)
                 {
                     _spellDecks.Remove(spellDeck);
@@ -273,7 +236,7 @@ namespace CardDesigner.Domain.Stores
             // Remove it from database if found
             if (a.Any())
             {
-                bool success = await _itemDeckDeleter.DeleteItemDeck(a.First());
+                bool success = await _itemDeckService.DeleteItemDeck(a.First());
                 if (success)
                 {
                     _itemDecks.Remove(itemDeck);
@@ -284,7 +247,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task DeleteSpellCard(SpellCardModel spellCard)
         {
-            bool success = await _spellCardDeleter.DeleteSpellCard(spellCard);
+            bool success = await _spellCardService.DeleteSpellCard(spellCard);
             if (success)
             {
                 _spellCards.Remove(spellCard);
@@ -293,7 +256,7 @@ namespace CardDesigner.Domain.Stores
         }
         public async Task DeleteItemCard(ItemCardModel itemCard)
         {
-            bool success = await _itemCardDeleter.DeleteItemCard(itemCard);
+            bool success = await _itemCardService.DeleteItemCard(itemCard);
             if (success)
             {
                 _itemCards.Remove(itemCard);
@@ -385,40 +348,80 @@ namespace CardDesigner.Domain.Stores
 
         private async Task UpdateCharactersFromDb()
         {
-            IEnumerable<CharacterModel> characters = await _characterProvider.GetAllCharacters();
+            IEnumerable<CharacterModel> characters = await _characterService.GetAllCharacters();
             _characters.Clear();
             _characters.AddRange(characters);
-        } 
-        
+        }
+
         private async Task UpdateItemCardsFromDb()
         {
-            IEnumerable<ItemCardModel> itemCards = await _itemCardProvider.GetAllItemCards();
+            IEnumerable<ItemCardModel> itemCards = await _itemCardService.GetAllItemCards();
             _itemCards.Clear();
             _itemCards.AddRange(itemCards);
         }
 
         private async Task UpdateSpellDecksFromDb()
         {
-            IEnumerable<SpellDeckModel> spellDecks = await _spellDeckProvider.GetAllSpellDecks();
+            IEnumerable<SpellDeckModel> spellDecks = await _spellDeckService.GetAllSpellDecks();
             _spellDecks.Clear();
             _spellDecks.AddRange(spellDecks);
         }
 
         private async Task UpdateSpellCardsFromDb()
         {
-            IEnumerable<SpellCardModel> spellCards = await _spellCardProvider.GetAllSpellCards();
+            IEnumerable<SpellCardModel> spellCards = await _spellCardService.GetAllSpellCards();
             _spellCards.Clear();
             _spellCards.AddRange(spellCards);
         }
 
         private async Task UpdateItemDecksFromDb()
         {
-            IEnumerable<ItemDeckModel> itemDecks = await _itemDeckProvider.GetAllItemDecks();
+            IEnumerable<ItemDeckModel> itemDecks = await _itemDeckService.GetAllItemDecks();
             _itemDecks.Clear();
             _itemDecks.AddRange(itemDecks);
         }
 
         #endregion
 
+        #region JsonFIleReader
+
+        private void ReadAllItems()
+        {
+            _armours.Clear();
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\ChestArmours.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\HeadArmours.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\LegArmours.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\Shields.json"));
+
+            _weapons.Clear();
+            _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Items\Weapons\MeleeWeapons.json"));
+            _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Items\Weapons\RangedWeapons.json"));
+        }
+
+        private void AssignItemsToCards()
+        {
+            foreach (ItemCardModel itemCard in ItemCards)
+            {
+                switch (itemCard.Type)
+                {
+                    case Enums.ItemType.Armour:
+                        itemCard.Item = Armours.FirstOrDefault(a => a.ID == itemCard.ItemID);
+                        break;
+                    case Enums.ItemType.Weapon:
+                        itemCard.Item = Weapons.FirstOrDefault(a => a.ID == itemCard.ItemID);
+                        break;
+                    case Enums.ItemType.Consumable:
+                        break;
+                    case Enums.ItemType.Usable:
+                        break;
+                    case Enums.ItemType.Cloathing:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        #endregion
     }
 }

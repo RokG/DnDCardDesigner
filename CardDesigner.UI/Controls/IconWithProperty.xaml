@@ -12,7 +12,9 @@
                     Background="Transparent"
                     Content="{Binding Icon, ElementName=IconWithProperty}" />
             </Viewbox>
-            <StackPanel Width="100">
+            <StackPanel
+                Width="100"
+                VerticalAlignment="Center">
                 <Label
                     Width="100"
                     Height="50"
@@ -20,7 +22,23 @@
                     HorizontalContentAlignment="Center"
                     Background="Transparent"
                     Content="{Binding Value, ElementName=IconWithProperty}"
-                    FontSize="42" />
+                    FontSize="42">
+                    <Label.Style>
+                        <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <Trigger Property="Content" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                                <DataTrigger
+                                    Binding="{Binding Value, ElementName=IconWithProperty}"
+                                    Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
                 <Label
                     Width="100"
                     Height="50"
@@ -30,7 +48,21 @@
                     HorizontalContentAlignment="Center"
                     Background="Transparent"
                     Content="{Binding Unit, ElementName=IconWithProperty}"
-                    FontSize="42" />
+                    FontSize="42">
+                    <Label.Style>
+                        <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <Trigger Property="Content" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                                <Trigger Property="Content" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
             </StackPanel>
         </StackPanel>
     </Viewbox>

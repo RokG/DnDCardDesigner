@@ -1,7 +1,9 @@
 ﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 
@@ -17,6 +19,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Properties
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateCharacterCommand))]
         private string addedCharacterName;
 
         [ObservableProperty]
@@ -62,11 +65,27 @@ namespace CardDesigner.UI.ViewModels
             Description = "Create, view and edit Characters";
 
             _cardDesignerStore = cardDesignerStore;
+
+            _cardDesignerStore.CharacterCreated += OnCharacterCreated;
+            _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
+
+            LoadData();
         }
 
         #endregion
 
         #region Private methods
+        private void OnCharacterCreated(CharacterModel character)
+        {
+            AllCharacters.Add(character);
+            SelectedCharacter = character;
+        }
+
+        private void OnCharacterDeleted(CharacterModel character)
+        {
+            AllCharacters.Remove(SelectedCharacter);
+            SelectedCharacter = AllCharacters.FirstOrDefault();
+        }
 
         #endregion
 
@@ -84,9 +103,33 @@ namespace CardDesigner.UI.ViewModels
         {
             await _cardDesignerStore.Load();
 
-            allCharacters = new(_cardDesignerStore.Characters);
-            allSpellCards = new(_cardDesignerStore.SpellCards);
-            allSpellDecks = new(_cardDesignerStore.SpellDecks);
+            AllCharacters = new(_cardDesignerStore.Characters);
+            AllSpellCards = new(_cardDesignerStore.SpellCards);
+            AllSpellDecks = new(_cardDesignerStore.SpellDecks);
+        }
+
+        #endregion
+
+        #region Commands
+
+        [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
+        private async void CreateCharacter()
+        {
+            await _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = AddedCharacterName });
+        }
+
+        private bool CanCreateCharacter()
+        {
+            bool noName = (AddedCharacterName == string.Empty || AddedCharacterName == null);
+            bool spellDeckExists = AllCharacters == null ? false : AllCharacters.Where(c => c.Name == AddedCharacterName).Any();
+
+            return (!noName && !spellDeckExists);
+        }
+
+        [RelayCommand]
+        private async void DeleteCharacter()
+        {
+            await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
         }
 
         #endregion
