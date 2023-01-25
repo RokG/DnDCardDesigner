@@ -51,6 +51,5 @@ namespace CardDesigner.UI.Controls
 
         public static readonly DependencyProperty UnitProperty =
             DependencyProperty.Register("Unit", typeof(string), typeof(IconWithPropertyControl), new PropertyMetadata(string.Empty));
-
     }
 }

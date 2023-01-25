@@ -26,6 +26,51 @@
                     Style="{StaticResource IconLabel}" />
             </Grid>
         </ControlTemplate>
+        <ControlTemplate x:Key="WeaponProperties">
+            <WrapPanel
+                Canvas.Top="315"
+                Width="250"
+                Height="32.5"
+                Margin="0"
+                ItemHeight="30"
+                ItemWidth="60"
+                Orientation="Horizontal">
+                <controls:IconWithPropertyControl
+                    Height="30"
+                    Icon="{Binding ItemCard.Item.DiceType, Converter={converters:StringToResourceKeyConverter}, ElementName=itemCard}"
+                    Value="{Binding ItemCard.Item.DiceValue, ElementName=itemCard}" />
+                <Label
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Content="{Binding ItemCard.Item.PhysicalDamageType, ElementName=itemCard}"
+                    FontSize="12" />
+            </WrapPanel>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ArmourProperties">
+            <WrapPanel
+                Canvas.Top="315"
+                Width="250"
+                Height="32.5"
+                Margin="0"
+                ItemHeight="30"
+                ItemWidth="60"
+                Orientation="Horizontal">
+                <Label
+                    Width="20"
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Content="AC: "
+                    FontSize="12" />
+                <Label
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Content="{Binding ItemCard.Item.ArmourClass, ElementName=itemCard}"
+                    FontSize="12" />
+            </WrapPanel>
+        </ControlTemplate>
     </UserControl.Resources>
     <Viewbox>
         <Grid>
@@ -164,6 +209,29 @@
                         IsEnabled="{Binding IsEditable, ElementName=itemCard}" />
                 </Border>
 
+                <!--  Item properties  -->
+                <ContentControl
+                    Canvas.Top="315"
+                    Width="250"
+                    Height="32.5"
+                    Margin="0">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
+                                    Value="{x:Static enums:ItemType.Armour}">
+                                    <Setter Property="Template" Value="{StaticResource ArmourProperties}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
+                                    Value="{x:Static enums:ItemType.Weapon}">
+                                    <Setter Property="Template" Value="{StaticResource WeaponProperties}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
                 <!--  Properties  -->
                 <DockPanel
                     Canvas.Left="2"

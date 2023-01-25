@@ -23,9 +23,9 @@ namespace CardDesigner.Domain.Models
         public RangeType RangeType { get; set; } = RangeType.Self;
         public int RangeValue { get; set; } = 0;
         public DurationType DurationType { get; set; } = DurationType.Instantaneous;
-        public int DurationValue { get; set; } = 1;
+        public int DurationValue { get; set; } = 0;
         public DiceType DiceType { get; set; } = DiceType.d20;
-        public int DiceValue { get; set; } = 0;
+        public int DiceValue { get; set; } = 1;
         public AreaOfEffect AreaOfEffect { get; set; } = AreaOfEffect.Sphere;
         public int AreaOfEffectValue { get; set; }
         public TargetType TargetType { get; set; } = TargetType.Self;

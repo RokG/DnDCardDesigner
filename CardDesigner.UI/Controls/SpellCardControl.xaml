@@ -168,6 +168,10 @@
                     Orientation="Horizontal">
 
                     <controls:IconWithPropertyControl
+                        Height="30"
+                        Icon="{Binding SpellCard.DiceType, Converter={converters:StringToResourceKeyConverter}, ElementName=spellCard}"
+                        Value="{Binding SpellCard.DiceValue, ElementName=spellCard}" />
+                    <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellCastingTime}"
                         Unit="{Binding SpellCard.CastingTimeType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.CastingTimeValue, ElementName=spellCard}" />
@@ -179,11 +183,6 @@
                         Icon="{StaticResource SpellRange}"
                         Unit="{Binding SpellCard.RangeType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.RangeValue, ElementName=spellCard}" />
-                    <controls:IconWithPropertyControl
-                        Icon="{StaticResource SpellAOECone}"
-                        Unit="{Binding SpellCard.AreaOfEffect, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
-                        Value="{Binding SpellCard.AreaOfEffectValue, ElementName=spellCard}" />
-
                 </WrapPanel>
 
                 <!--  Target description  -->
@@ -205,11 +204,25 @@
                         FontSize="10"
                         InputText="{Binding SpellCard.Target, ElementName=spellCard, Mode=TwoWay}"
                         IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
-                    <controls:IconWithPropertyControl
-                        Height="30"
-                        Icon="{StaticResource RollDice}"
-                        Unit="d6"
-                        Value="{Binding SpellCard.DiceValue, ElementName=spellCard}" />
+                    <ContentControl>
+                        <ContentControl.Style>
+                            <Style TargetType="{x:Type ContentControl}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding SpellCard.RangeType, ElementName=spellCard}"
+                                        Value="{x:Static enums:RangeType.Distance}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+
+                        <controls:IconWithPropertyControl
+                            Icon="{StaticResource SpellAOECone}"
+                            Unit="{Binding SpellCard.AreaOfEffect, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
+                            Value="{Binding SpellCard.AreaOfEffectValue, ElementName=spellCard}" />
+                    </ContentControl>
                 </DockPanel>
 
             </Canvas>

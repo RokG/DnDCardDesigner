@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="Resources/Icons/WindowButtons.xaml" />
 
                 <ResourceDictionary Source="Resources/Icons/Items/EquipmentSlots.xaml" />
+                <ResourceDictionary Source="Resources/Dice/DiceTypes.xaml" />
 
                 <ResourceDictionary Source="Resources/Icons/Properties/ItemRequiresAttunement.xaml" />
                 <ResourceDictionary Source="Resources/Icons/Properties/ItemIsMagical.xaml" />

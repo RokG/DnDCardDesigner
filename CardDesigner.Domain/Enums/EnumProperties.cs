@@ -10,9 +10,9 @@
                 switch (rangeType)
                 {
                     case RangeType.Self:
-                        return new("N/A", 0, 0, false);
+                        return new("Self", 0, 0, false);
                     case RangeType.Touch:
-                        return new("N/A", 0, 0, false);
+                        return new("Tch", 0, 0, false);
                     case RangeType.Distance:
                         return new("ft", 0, 100, true);
                     default:
@@ -30,13 +30,13 @@
                     case CastingTimeType.Reaction:
                         return new("R", 0, 0, false);
                     case CastingTimeType.Second:
-                        return new("sec", 1, 60, true);
+                        return new("sec", 0, 60, true);
                     case CastingTimeType.Minute:
-                        return new("min", 1, 60, true);
+                        return new("min", 0, 60, true);
                     case CastingTimeType.Hour:
-                        return new("h", 1, 24, true);
+                        return new("h", 0, 24, true);
                     case CastingTimeType.Day:
-                        return new("day", 1, 7, true);
+                        return new("day", 0, 7, true);
                     default:
                         return new(string.Empty, -1, -1, false);
                 }
@@ -71,11 +71,11 @@
             {
                 if (diceType == DiceType.d100 || diceType == DiceType.d20)
                 {
-                return new(string.Empty, 0, 10, false);
+                return new(string.Empty, 1, 10, false);
                 }
                 else
                 { 
-                return new(string.Empty, 0, 10, true);
+                return new(string.Empty, 1, 10, true);
                 }
             }
             else if (enumObject is TargetType targetType)
