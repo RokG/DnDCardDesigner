@@ -65,8 +65,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\Icons\Items\" />
-  </ItemGroup>
-
 </Project>

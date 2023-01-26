@@ -6,6 +6,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
+
                 <!--  Colors  -->
                 <ResourceDictionary Source="Styles/Colors.xaml" />
 
@@ -57,6 +58,9 @@
                 <ResourceDictionary Source="Styles/SliderStyles.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
+
+            <BitmapImage x:Key="DefaultImage"
+                UriSource="/Resources/Images/dnd-icon-13.png" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

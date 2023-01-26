@@ -8,7 +8,7 @@
         Stretch="{Binding ImageStretch, ElementName=imageControl}">
         <Viewbox>
             <Image x:Name="itemImage"
-                Source="{Binding ImageSource, ElementName=imageControl}" />
+                Source="{Binding ImageSource, ElementName=imageControl, TargetNullValue={StaticResource DefaultImage}}" />
         </Viewbox>
     </Viewbox>
 </UserControl>
