@@ -35,7 +35,7 @@ namespace CardDesigner.DataAccess.Services
             }
         }
 
-        public async Task<SpellDeckModel> UpdateSpellDeck(SpellDeckModel spellDeck)
+        public async Task<SpellDeckModel> UpdateSpellDeck(SpellDeckModel spellDeckModel)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
@@ -44,10 +44,10 @@ namespace CardDesigner.DataAccess.Services
                     // Get spell deck from database
                     SpellDeckEntity spellDeckEntity = dbContext.SpellDecks
                         .Include(sd => sd.SpellCards)
-                        .Single(sc => sc.ID == spellDeck.ID);
+                        .Single(sc => sc.ID == spellDeckModel.ID);
 
-                    // Loop over cards in source deck
-                    foreach (SpellCardModel spellCard in spellDeck.SpellCards)
+                    // Loop over cards in source deck - ADD
+                    foreach (SpellCardModel spellCard in spellDeckModel.SpellCards)
                     {
                         // If any card is new, add it to the list
                         if (!spellDeckEntity.SpellCards.Where(sd => sd.ID == spellCard.ID).Any())
@@ -57,11 +57,11 @@ namespace CardDesigner.DataAccess.Services
                         }
                     }
 
-                    // Loop over cards in source deck
+                    // Loop over cards in source deck - REMOVE
                     foreach (SpellCardEntity spellCard in spellDeckEntity.SpellCards)
                     {
                         // If any card is missing, remove it from the list
-                        if (!spellDeck.SpellCards.Any(id => id.ID == spellCard.ID))
+                        if (!spellDeckModel.SpellCards.Any(id => id.ID == spellCard.ID))
                         {
                             SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
                             spellDeckEntity.SpellCards.Remove(spellCardEntity);

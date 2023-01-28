@@ -14,6 +14,7 @@ namespace CardDesigner.Domain.Stores
         private readonly Lazy<Task> _initializeLazy;
 
         private readonly ICharacterService _characterService;
+        private readonly ICardDesignService _cardDesignService;
         private readonly ISpellDeckService _spellDeckService;
         private readonly ISpellCardService _spellCardService;
         private readonly IItemCardService _itemCardService;
@@ -25,6 +26,7 @@ namespace CardDesigner.Domain.Stores
         private readonly List<SpellDeckModel> _spellDecks;
         private readonly List<ItemDeckModel> _itemDecks;
         private readonly List<CharacterModel> _characters;
+        private readonly List<CardDesignModel> _cardDesigns;
         private readonly List<WeaponModel> _weapons;
         private readonly List<ArmourModel> _armours;
 
@@ -33,12 +35,17 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
         public IEnumerable<ItemDeckModel> ItemDecks => _itemDecks;
         public IEnumerable<CharacterModel> Characters => _characters;
+        public IEnumerable<CardDesignModel> CardDesigns => _cardDesigns;
         public IEnumerable<WeaponModel> Weapons => _weapons;
         public IEnumerable<ArmourModel> Armours => _armours;
 
         public event Action<CharacterModel> CharacterCreated;
         public event Action<CharacterModel> CharacterUpdated;
         public event Action<CharacterModel> CharacterDeleted;
+
+        public event Action<CardDesignModel> CardDesignCreated;
+        public event Action<CardDesignModel> CardDesignUpdated;
+        public event Action<CardDesignModel> CardDesignDeleted;
 
         public event Action<SpellDeckModel> SpellDeckCreated;
         public event Action<SpellDeckModel> SpellDeckUpdated;
@@ -65,6 +72,7 @@ namespace CardDesigner.Domain.Stores
         /// <param name="spellCardService"></param>
         public CardDesignerStore(
             ICharacterService characterService,
+            ICardDesignService cardDesignService,
             ISpellDeckService spellDeckService,
             ISpellCardService spellCardService,
             IItemCardService itemCardService,
@@ -72,6 +80,7 @@ namespace CardDesigner.Domain.Stores
             IJsonFileItemService jsonFileItemService)
         {
             _characterService = characterService;
+            _cardDesignService = cardDesignService;
             _spellDeckService = spellDeckService;
             _spellCardService = spellCardService;
             _itemCardService = itemCardService;
@@ -80,6 +89,7 @@ namespace CardDesigner.Domain.Stores
             _initializeLazy = new Lazy<Task>(Initialize);
 
             _characters = new();
+            _cardDesigns = new();
             _itemCards = new();
             _spellCards = new();
             _spellDecks = new();
@@ -98,6 +108,7 @@ namespace CardDesigner.Domain.Stores
             await UpdateSpellCardsFromDb();
             await UpdateItemCardsFromDb();
             await UpdateCharactersFromDb();
+            await UpdateCardDesignsFromDb();
             await UpdateSpellDecksFromDb();
             await UpdateItemDecksFromDb();
             ReadAllItems();
@@ -120,6 +131,12 @@ namespace CardDesigner.Domain.Stores
             CharacterModel createdCharacter = await _characterService.CreateCharacter(character);
             _characters.Add(createdCharacter);
             OnCharacterCreated(createdCharacter);
+        }
+        public async Task CreateCardDesign(CardDesignModel cardDesignModel)
+        {
+            CardDesignModel createdCardDesign = await _cardDesignService.CreateCardDesign(cardDesignModel);
+            _cardDesigns.Add(createdCardDesign);
+            OnCardDesignCreated(createdCardDesign);
         }
 
         public async Task CreateSpellDeck(SpellDeckModel spellDeck)
@@ -161,7 +178,14 @@ namespace CardDesigner.Domain.Stores
                 OnCharacterUpdated(updatedCharacter);
             }
         }
-
+        public async Task UpdateCardDesign(CardDesignModel cardDesignModel)
+        {
+            if (await _cardDesignService.UpdateCardDesign(cardDesignModel) is CardDesignModel updatedcardDesignModel)
+            {
+                await UpdateCardDesignsFromDb();
+                OnCardDesignUpdated(updatedcardDesignModel);
+            }
+        }
         public async Task UpdateSpellDeck(SpellDeckModel spellDeck)
         {
             if (await _spellDeckService.UpdateSpellDeck(spellDeck) is SpellDeckModel updatedSpellDeck)
@@ -206,6 +230,16 @@ namespace CardDesigner.Domain.Stores
             {
                 _characters.Remove(character);
                 OnCharacterDeleted(character);
+            }
+        }
+
+        public async Task DeleteCardDesign(CardDesignModel cardDesignModel)
+        {
+            bool success = await _cardDesignService.DeleteCardDesign(cardDesignModel);
+            if (success)
+            {
+                _cardDesigns.Remove(cardDesignModel);
+                OnCardDesignDeleted(cardDesignModel);
             }
         }
 
@@ -342,6 +376,19 @@ namespace CardDesigner.Domain.Stores
             SpellCardDeleted?.Invoke(spellCard);
         }
 
+        private void OnCardDesignDeleted(CardDesignModel cardDesign)
+        {
+            CardDesignDeleted?.Invoke(cardDesign);
+        }
+        private void OnCardDesignUpdated(CardDesignModel cardDesign)
+        {
+            CardDesignUpdated?.Invoke(cardDesign);
+        }
+        private void OnCardDesignCreated(CardDesignModel cardDesign)
+        {
+            CardDesignCreated?.Invoke(cardDesign);
+        }
+
         #endregion
 
         #region Updates
@@ -365,6 +412,13 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<SpellDeckModel> spellDecks = await _spellDeckService.GetAllSpellDecks();
             _spellDecks.Clear();
             _spellDecks.AddRange(spellDecks);
+        }
+
+        private async Task UpdateCardDesignsFromDb()
+        {
+            IEnumerable<CardDesignModel> cardDesigns = await _cardDesignService.GetAllCardDesigns();
+            _cardDesigns.Clear();
+            _cardDesigns.AddRange(cardDesigns);
         }
 
         private async Task UpdateSpellCardsFromDb()

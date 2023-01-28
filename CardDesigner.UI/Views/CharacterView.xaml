@@ -1,8 +1,9 @@
-﻿<UserControl x:Class="CardDesigner.UI.Views.CharacterView"
+﻿<UserControl x:Class="CardDesigner.UI.Views.CharacterView" x:Name="characterControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <Grid Margin="4">
@@ -26,12 +27,11 @@
         <Border Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="8*" />
                 </Grid.ColumnDefinitions>
 
-                <!--  Character overview  -->
-                <StackPanel Orientation="Vertical">
+                <StackPanel>
 
                     <controls:AddEditItem
                         Title="Characters"
@@ -42,50 +42,215 @@
                         SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
                         ViewOnly="False" />
 
-                    <controls:AddEditItem
-                        Title="Spell Deck"
-                        AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
-                        ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
-                        ViewOnly="True" />
-
-                    <controls:AddEditItem
-                        Title="Spell Card"
-                        AddedItemName="{Binding AddedSpellCardName, Mode=TwoWay}"
-                        ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}"
-                        ViewOnly="True"
-                        Visibility="Collapsed" />
-
-                    <Border Style="{StaticResource VisibleBorder}">
+                    <!--  Manage spell decks on character  -->
+                    <Border BorderThickness="1">
+                        <Border.Style>
+                            <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding SelectedCharacter}"
+                                        Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                         <StackPanel>
-                            <Label Content="Cards in deck : " />
-                            <ListBox
-                                Grid.Row="2"
-                                MinHeight="200"
-                                DisplayMemberPath="Name"
-                                ItemsSource="{Binding SelectedSpellDeckCards}" />
+                            <Label Content="Spell decks" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <DataGrid
+                                    Grid.Column="0"
+                                    AutoGenerateColumns="False"
+                                    ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn
+                                            Width="*"
+                                            Header="Available decks">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Command="{Binding DataContext.AddSpellDeckToCharacterCommand, ElementName=characterControl}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="{Binding Name}"
+                                                        Style="{StaticResource CardAssignUnassignButton}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <DataGrid
+                                    Grid.Column="2"
+                                    AutoGenerateColumns="False"
+                                    ItemsSource="{Binding SelectedCharacter.SpellDecks, Mode=TwoWay}">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn
+                                            Width="*"
+                                            Header="Decks on character">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Command="{Binding DataContext.RemoveSpellDeckFromCharacterCommand, ElementName=characterControl}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="{Binding Name}"
+                                                        Style="{StaticResource CardAssignUnassignButton}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
                         </StackPanel>
                     </Border>
 
+                    <!--  Manage spell decks on character  -->
+                    <Border BorderThickness="1">
+                        <Border.Style>
+                            <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding SelectedCharacter}"
+                                        Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel>
+                            <Label Content="Item decks" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <DataGrid
+                                    Grid.Column="0"
+                                    AutoGenerateColumns="False"
+                                    ItemsSource="{Binding AllItemDecks, Mode=TwoWay}">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn
+                                            Width="*"
+                                            Header="Available decks">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Command="{Binding DataContext.AddItemDeckToCharacterCommand, ElementName=characterControl}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="{Binding Name}"
+                                                        Style="{StaticResource CardAssignUnassignButton}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <DataGrid
+                                    Grid.Column="2"
+                                    AutoGenerateColumns="False"
+                                    ItemsSource="{Binding SelectedCharacter.ItemDecks, Mode=TwoWay}">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn
+                                            Width="*"
+                                            Header="Decks on character">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Command="{Binding DataContext.RemoveItemDeckFromCharacterCommand, ElementName=characterControl}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="{Binding Name}"
+                                                        Style="{StaticResource CardAssignUnassignButton}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
 
+                    <controls:AddEditItem
+                        Title="CardDesigns"
+                        AddedItemName="{Binding AddedCardDesignName, Mode=TwoWay}"
+                        DeleteCommand="{Binding DeleteCardDesignCommand}"
+                        ItemsSource="{Binding AllCardDesigns, Mode=TwoWay}"
+                        SaveCommand="{Binding CreateCardDesignCommand}"
+                        SelectedItem="{Binding SelectedCardDesign, Mode=TwoWay}"
+                        ViewOnly="False" />
+
+                    <Button
+                        Command="{Binding UpdateCardDesignCommand}"
+                        Content="TEST" />
                 </StackPanel>
 
                 <!--  Card overview  -->
                 <TabControl Grid.Column="1">
-                    <TabItem Header="Card Rear">
-                        <StackPanel>
-                            <Label Content="Character Cards back side" />
-                            <ComboBox SelectedIndex="0">
-                                <ComboBoxItem Content="DruidSpells" />
-                                <ComboBoxItem Content="WizardSpells" />
-                                <ComboBoxItem Content="CustomBackground1" />
-                            </ComboBox>
-
-                        </StackPanel>
+                    <TabItem Header="Deck Background">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel
+                                VerticalAlignment="Top"
+                                Orientation="Vertical">
+                                <controls:ColorPickerControl
+                                    Title="Line Color"
+                                    Width="200"
+                                    CurrentColor="{Binding SelectedCardDesign.BackLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:ColorPickerControl
+                                    Title="Background Color"
+                                    Width="200"
+                                    CurrentColor="{Binding SelectedCardDesign.BackBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Slider
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Stretch"
+                                    Maximum="20"
+                                    Minimum="0"
+                                    Value="{Binding SelectedCardDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:FilePicker Text="{Binding SelectedCardDesign.BackgroundIconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <ComboBox
+                                    Grid.Column="1"
+                                    SelectedItem="{Binding SelectedCardDesign.BackgroundIconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <sys:String>None</sys:String>
+                                    <sys:String>Fill</sys:String>
+                                    <sys:String>Uniform</sys:String>
+                                    <sys:String>Uniform To Fill</sys:String>
+                                </ComboBox>
+                            </StackPanel>
+                            <controls:CardBackgroundControl
+                                Grid.Column="1"
+                                CardDesign="{Binding SelectedCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
                     </TabItem>
-                    <TabItem Header="Card Background" />
-                    <TabItem Header="Card Face" />
+                    <TabItem Header="Spell Card Foreground">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:SpellCardControl
+                                Grid.Column="1"
+                                SpellCard="{Binding TestSpellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Item Card Foregound">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:ItemCardControl
+                                Grid.Column="1"
+                                ItemCard="{Binding TestItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </TabItem>
                 </TabControl>
 
             </Grid>

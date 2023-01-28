@@ -11,5 +11,6 @@ namespace CardDesigner.Domain.Entities
         public ICollection<ItemCardEntity> ItemCards { get; set; }
         public List<ItemDeckItemCard> ItemDeckItemCards { get; set; }
         public ICollection<CharacterEntity> Characters { get; set; }
+        public List<CharacterItemDeck> CharacterItemDeck { get; set; }
     }
 }

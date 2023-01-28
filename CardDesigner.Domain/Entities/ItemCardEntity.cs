@@ -1,5 +1,4 @@
 ﻿using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

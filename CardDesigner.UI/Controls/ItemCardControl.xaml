@@ -128,12 +128,12 @@
                                 <Style TargetType="{x:Type ContentControl}">
                                     <Style.Triggers>
                                         <DataTrigger
-                                            Binding="{Binding SelectedItemCard.Item, Converter={converters:TypeToStringConverter}}"
+                                            Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
                                             Value="ArmourModel">
                                             <Setter Property="Template" Value="{StaticResource ArmourTemplate}" />
                                         </DataTrigger>
                                         <DataTrigger
-                                            Binding="{Binding SelectedItemCard.Item, Converter={converters:TypeToStringConverter}}"
+                                            Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
                                             Value="WeaponModel">
                                             <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
                                         </DataTrigger>
@@ -219,12 +219,12 @@
                         <Style TargetType="{x:Type ContentControl}">
                             <Style.Triggers>
                                 <DataTrigger
-                                    Binding="{Binding SelectedItemCard.Item, Converter={converters:TypeToStringConverter}}"
+                                    Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
                                     Value="ArmourModel">
                                     <Setter Property="Template" Value="{StaticResource ArmourProperties}" />
                                 </DataTrigger>
                                 <DataTrigger
-                                    Binding="{Binding SelectedItemCard.Item, Converter={converters:TypeToStringConverter}}"
+                                    Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
                                     Value="WeaponModel">
                                     <Setter Property="Template" Value="{StaticResource WeaponProperties}" />
                                 </DataTrigger>

@@ -35,7 +35,7 @@ namespace CardDesigner.DataAccess.Services
             }
         }
 
-        public async Task<ItemDeckModel> UpdateItemDeck(ItemDeckModel itemDeck)
+        public async Task<ItemDeckModel> UpdateItemDeck(ItemDeckModel itemDeckModel)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
@@ -44,25 +44,24 @@ namespace CardDesigner.DataAccess.Services
                     // Get item deck from database
                     ItemDeckEntity itemDeckEntity = dbContext.ItemDecks
                         .Include(sd => sd.ItemCards)
-                        .Single(sc => sc.ID == itemDeck.ID);
+                        .Single(sc => sc.ID == itemDeckModel.ID);
 
-                    // Loop over cards in source deck
-                    foreach (ItemCardModel itemCard in itemDeck.ItemCards)
+                    // Loop over cards in source deck - ADD
+                    foreach (ItemCardModel itemCardModel in itemDeckModel.ItemCards)
                     {
                         // If any card is new, add it to the list
-                        if (!itemDeckEntity.ItemCards.Where(sd => sd.ID == itemCard.ID).Any())
+                        if (!itemDeckEntity.ItemCards.Where(sd => sd.ID == itemCardModel.ID).Any())
                         {
-                            ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCard);
+                            ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCardModel);
                             itemDeckEntity.ItemCards.Add(itemCardEntity);
                         }
                     }
-                    // Loop over cards in source deck
-                    foreach (ItemCardEntity itemCard in itemDeckEntity.ItemCards)
+                    // Loop over cards in source deck - REMOVE
+                    foreach (ItemCardEntity itemCardEntity in itemDeckEntity.ItemCards)
                     {
                         // If any card is missing, remove it from the list
-                        if (!itemDeck.ItemCards.Any(id => id.ID == itemCard.ID))
+                        if (!itemDeckModel.ItemCards.Any(id => id.ID == itemCardEntity.ID))
                         {
-                            ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCard);
                             itemDeckEntity.ItemCards.Remove(itemCardEntity);
                         }
                     }
