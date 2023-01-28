@@ -26,25 +26,31 @@ namespace CardDesigner.UI.ViewModels
         private string addedSpellDeckName;
 
         [ObservableProperty]
-        private string addedSpellCardName;
+        private string addedItemDeckName;
+
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AssignItemDeckToCharacterCommand))]
+        [NotifyCanExecuteChangedFor(nameof(AssignSpellDeckToCharacterCommand))]
         private CharacterModel selectedCharacter;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AssignSpellDeckToCharacterCommand))]
         private SpellDeckModel selectedSpellDeck;
 
         [ObservableProperty]
-        private SpellCardModel selectedSpellCard;
+        [NotifyCanExecuteChangedFor(nameof(AssignItemDeckToCharacterCommand))]
+        private ItemDeckModel selectedItemDeck;
+
 
         [ObservableProperty]
         private ObservableCollection<SpellCardModel> selectedSpellDeckCards;
 
         [ObservableProperty]
-        private ObservableCollection<SpellCardModel> allSpellCards;
+        private ObservableCollection<SpellDeckModel> allSpellDecks;
 
         [ObservableProperty]
-        private ObservableCollection<SpellDeckModel> allSpellDecks;
+        private ObservableCollection<ItemDeckModel> allItemDecks;
 
         [ObservableProperty]
         private ObservableCollection<CharacterModel> allCharacters;
@@ -104,8 +110,8 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllCharacters = new(_cardDesignerStore.Characters);
-            AllSpellCards = new(_cardDesignerStore.SpellCards);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
+            AllItemDecks = new(_cardDesignerStore.ItemDecks);
         }
 
         #endregion
@@ -130,6 +136,29 @@ namespace CardDesigner.UI.ViewModels
         private async void DeleteCharacter()
         {
             await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand(CanExecute = nameof(CanAssignSpellDeckToCharacter))]
+        private async void AssignSpellDeckToCharacter(SpellDeckModel spellDeck)
+        {
+            SelectedCharacter.SpellDecks.Add(spellDeck);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand(CanExecute = nameof(CanAssignItemDeckToCharacter))]
+        private async void AssignItemDeckToCharacter(ItemDeckModel itemDeck)
+        {
+            SelectedCharacter.ItemDecks.Add(itemDeck);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        private bool CanAssignItemDeckToCharacter()
+        {
+            return SelectedItemDeck != null && SelectedCharacter != null;
+        }
+        private bool CanAssignSpellDeckToCharacter()
+        {
+            return SelectedSpellDeck != null && SelectedCharacter != null;
         }
 
         #endregion

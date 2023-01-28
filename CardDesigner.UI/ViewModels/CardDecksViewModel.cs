@@ -215,8 +215,6 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateCharacter()
         {
-            SelectedCharacter.SpellDeck = SelectedSpellDeck;
-            SelectedCharacter.ItemDeck = SelectedItemDeck;
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 

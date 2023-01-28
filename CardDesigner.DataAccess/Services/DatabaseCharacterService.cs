@@ -43,17 +43,64 @@ namespace CardDesigner.DataAccess.Services
                 {
                     // Get character from database
                     CharacterEntity characterEntity = dbContext.Characters
-                        .Include(d => d.SpellDeck)
-                        .Include(d=>d.ItemDeck)
+                        .Include(d => d.SpellDecks)
+                        .Include(d => d.ItemDecks)
                         .Single(d => d.ID == character.ID);
 
-                    // Get spell deck from database
-                    SpellDeckEntity spellDeckEntity = dbContext.SpellDecks.Single(c => c.Name == character.SpellDeck.Name);
-                    characterEntity.SpellDeck = spellDeckEntity;
 
-                    // Get item deck from database
-                    ItemDeckEntity itemDeckEntity = dbContext.ItemDecks.Single(c => c.Name == character.ItemDeck.Name);
-                    characterEntity.ItemDeck = itemDeckEntity;
+                    // Loop over cards in source deck
+                    foreach (SpellDeckModel spellDeck in character.SpellDecks)
+                    {
+                        // If any card is new, add it to the list
+                        if (!characterEntity.SpellDecks.Where(sd => sd.ID == spellDeck.ID).Any())
+                        {
+                            // Get spell deck from database
+                            SpellDeckEntity spellDeckEntity = dbContext.SpellDecks
+                                .Include(sd => sd.SpellCards)
+                                .Single(sc => sc.ID == spellDeck.ID);
+                            //SpellDeckEntity spellDeckEntity = _mapper.Map<SpellDeckEntity>(spellDeck);
+
+                            // Loop over cards in source deck
+                            foreach (SpellCardModel spellCard in spellDeck.SpellCards)
+                            {
+                                // If any card is new, add it to the list
+                                if (!spellDeckEntity.SpellCards.Where(sd => sd.ID == spellCard.ID).Any())
+                                {
+                                    SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
+                                    spellDeckEntity.SpellCards.Add(spellCardEntity);
+                                }
+                            }
+
+                            characterEntity.SpellDecks.Add(spellDeckEntity);
+                        }
+                    }
+
+                    // Loop over cards in source deck
+                    foreach (ItemDeckModel itemDeck in character.ItemDecks)
+                    {
+                        // If any card is new, add it to the list
+                        if (!characterEntity.ItemDecks.Where(sd => sd.ID == itemDeck.ID).Any())
+                        {
+                            // Get item deck from database
+                            ItemDeckEntity itemDeckEntity = dbContext.ItemDecks
+                                .Include(sd => sd.ItemCards)
+                                .Single(sc => sc.ID == itemDeck.ID);
+                            //ItemDeckEntity itemDeckEntity = _mapper.Map<ItemDeckEntity>(itemDeck);
+
+                            // Loop over cards in source deck
+                            foreach (ItemCardModel itemCard in itemDeck.ItemCards)
+                            {
+                                // If any card is new, add it to the list
+                                if (!itemDeckEntity.ItemCards.Where(sd => sd.ID == itemCard.ID).Any())
+                                {
+                                    ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCard);
+                                    itemDeckEntity.ItemCards.Add(itemCardEntity);
+                                }
+                            }
+
+                            characterEntity.ItemDecks.Add(itemDeckEntity);
+                        }
+                    }
 
                     // Update database
                     if (dbContext.Characters.Contains(characterEntity))
@@ -99,10 +146,8 @@ namespace CardDesigner.DataAccess.Services
             {
                 IEnumerable<CharacterEntity> characterEntities = await
                     context.Characters
-                    .Include(c => c.SpellDeck)
-                    .Include(d => d.SpellDeck.SpellCards)
-                    .Include(c => c.ItemDeck)
-                    .Include(d => d.ItemDeck.ItemCards)
+                    .Include(c => c.SpellDecks)
+                    .Include(c => c.ItemDecks)
                     .ToListAsync();
 
                 //IEnumerable<Character> characterEntities = await

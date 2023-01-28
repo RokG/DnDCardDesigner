@@ -26,8 +26,8 @@
         <Border Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="8*" />
                 </Grid.ColumnDefinitions>
 
                 <!--  Character overview  -->
@@ -49,13 +49,22 @@
                         SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
                         ViewOnly="True" />
 
+                    <Button
+                        Command="{Binding AssignSpellDeckToCharacterCommand}"
+                        CommandParameter="{Binding SelectedSpellDeck}"
+                        Content="Assign SPELL deck to character" />
+
                     <controls:AddEditItem
-                        Title="Spell Card"
-                        AddedItemName="{Binding AddedSpellCardName, Mode=TwoWay}"
-                        ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}"
-                        ViewOnly="True"
-                        Visibility="Collapsed" />
+                        Title="Item Deck"
+                        AddedItemName="{Binding AddedItemDeckName, Mode=TwoWay}"
+                        ItemsSource="{Binding AllItemDecks, Mode=TwoWay}"
+                        SelectedItem="{Binding SelectedItemDeck, Mode=TwoWay}"
+                        ViewOnly="True" />
+
+                    <Button
+                        Command="{Binding AssignItemDeckToCharacterCommand}"
+                        CommandParameter="{Binding SelectedItemDeck}"
+                        Content="Assign ITEM deck to character" />
 
                     <Border Style="{StaticResource VisibleBorder}">
                         <StackPanel>

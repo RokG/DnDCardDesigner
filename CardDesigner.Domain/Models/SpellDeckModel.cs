@@ -7,7 +7,7 @@ namespace CardDesigner.Domain.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public ICollection<SpellCardModel> SpellCards { get; set; }
-        public ICollection<CharacterModel> Characters { get; set; }
+        public List<SpellCardModel> SpellCards { get; set; }
+        public List<CharacterModel> Characters { get; set; }
     }
 }

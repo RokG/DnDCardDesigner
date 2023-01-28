@@ -36,15 +36,26 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CharacterEntity>()
-                .HasOne(c => c.SpellDeck)
-                .WithMany(c => c.Characters)
-                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<SpellDeckEntity>()
-                .HasMany(c => c.Characters)
-                .WithOne(c => c.SpellDeck)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<CharacterEntity>()
+                .HasMany(c => c.SpellDecks)
+               .WithMany(c => c.Characters)
+               .UsingEntity<CharacterSpellDeck>(
+                   j => j
+                       .HasOne(t => t.SpellDeck)
+                       .WithMany(c => c.CharacterSpellDeck)
+                       .HasForeignKey(c => c.SpellDeckID),
+                   j => j
+                       .HasOne(t => t.Character)
+                       .WithMany(c => c.CharacterSpellDeck)
+                       .HasForeignKey(c => c.CharacterID),
+                   j =>
+                   {
+                       j.HasKey(t => new { t.SpellDeckID, t.CharacterID });
+                   });
+
+            modelBuilder.Entity<CharacterSpellDeck>()
+                .HasKey(t => new { t.CharacterID, t.SpellDeckID });
 
             modelBuilder.Entity<SpellDeckSpellCard>()
                 .HasKey(t => new { t.SpellCardID, t.SpellDeckID });
@@ -67,14 +78,24 @@ namespace CardDesigner.DataAccess.DbContexts
                     });
 
             modelBuilder.Entity<CharacterEntity>()
-                .HasOne(c => c.ItemDeck)
-                .WithMany(c => c.Characters)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasMany(c => c.ItemDecks)
+               .WithMany(c => c.Characters)
+               .UsingEntity<CharacterItemDeck>(
+                   j => j
+                       .HasOne(t => t.ItemDeck)
+                       .WithMany(c => c.CharacterItemDeck)
+                       .HasForeignKey(c => c.ItemDeckID),
+                   j => j
+                       .HasOne(t => t.Character)
+                       .WithMany(c => c.CharacterItemDeck)
+                       .HasForeignKey(c => c.CharacterID),
+                   j =>
+                   {
+                       j.HasKey(t => new { t.ItemDeckID, t.CharacterID });
+                   });
 
-            modelBuilder.Entity<ItemDeckEntity>()
-                .HasMany(c => c.Characters)
-                .WithOne(c => c.ItemDeck)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<CharacterItemDeck>()
+                .HasKey(t => new { t.CharacterID, t.ItemDeckID });
 
             modelBuilder.Entity<ItemDeckItemCard>()
                 .HasKey(t => new { t.ItemCardID, t.ItemDeckID });
