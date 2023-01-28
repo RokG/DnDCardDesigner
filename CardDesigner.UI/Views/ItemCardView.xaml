@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CardDesigner.UI.Views.ItemCardView"
+﻿<UserControl x:Class="CardDesigner.UI.Views.ItemCardView" x:Name="itemCardControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
@@ -10,54 +10,23 @@
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
+        <!--
+            There is an issue  if there are two templates binding to same property....
+            for some fucking reason they wont bind correctly....
+            constantly naging about xaml bining issues but everything works reagrdles.
+            Assuming this is an issue with update order
+        -->
         <!--  Templates  -->
-        <ControlTemplate x:Key="ArmorTemplate">
-            <ListBox
-                Height="200"
-                ItemsSource="{Binding AllArmours}"
-                SelectedIndex="0"
-                SelectedItem="{Binding SelectedItemCard.Item}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        <ControlTemplate x:Key="ArmourTemplate">
+            <DataGrid
+                ItemsSource="{Binding DataContext.AllArmours, ElementName=itemCardControl}"
+                SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, ElementName=itemCardControl}" />
         </ControlTemplate>
         <!--  Templates  -->
         <ControlTemplate x:Key="WeaponTemplate">
-            <ListBox
-                Height="200"
-                ItemsSource="{Binding AllWeapons}"
-                SelectedIndex="0"
-                SelectedItem="{Binding SelectedItemCard.Item}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </ControlTemplate>
-        <!--  Armour detailed properties  -->
-        <ControlTemplate x:Key="ArmourProperties">
-            <StackPanel>
-                <controls:DataLabel
-                    Value1="{Binding SelectedItemCard.Item.ArmourClass}"
-                    ValueName="Armour class" />
-            </StackPanel>
-        </ControlTemplate>
-        <!--  Weapon detailed properties  -->
-        <ControlTemplate x:Key="WeaponProperties">
-            <StackPanel>
-                <controls:DataLabel
-                    Value1="{Binding SelectedItemCard.Item.DiceValue}"
-                    Value2="{Binding SelectedItemCard.Item.DiceType}"
-                    Value3="{Binding SelectedItemCard.Item.PhysicalDamageType}"
-                    ValueName="Damage" />
-                <controls:DataLabel
-                    Value1="{Binding SelectedItemCard.Item.DamageModifier, StringFormat='{}+{0}'}"
-                    ValueName="Modifier" />
-            </StackPanel>
+            <DataGrid
+                ItemsSource="{Binding DataContext.AllWeapons, ElementName=itemCardControl}"
+                SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, ElementName=itemCardControl}" />
         </ControlTemplate>
     </UserControl.Resources>
     <Grid Margin="4">
@@ -133,7 +102,7 @@
                 </Border>
 
                 <!--  Item Base Properties  -->
-                <Border
+                <!--<Border
                     BorderThickness="1"
                     Style="{StaticResource VisibleBorder}">
                     <DockPanel>
@@ -144,60 +113,63 @@
                             Height="200"
                             ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
                             SelectedIndex="0"
-                            SelectedItem="{Binding SelectedItemCard.Type}" />
-                        <ContentControl Margin="5,0">
-                            <ContentControl.Style>
-                                <Style TargetType="{x:Type ContentControl}">
-                                    <Style.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding SelectedItemCard.Type}"
-                                            Value="{x:Static enums:ItemType.Armour}">
-                                            <Setter Property="Template" Value="{StaticResource ArmorTemplate}" />
-                                        </DataTrigger>
-                                        <DataTrigger
-                                            Binding="{Binding SelectedItemCard.Type}"
-                                            Value="{x:Static enums:ItemType.Weapon}">
-                                            <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentControl.Style>
-                        </ContentControl>
+                            SelectedItem="{Binding SelectedItemCard.Type, Mode=TwoWay}" />
+                        <StackPanel>
+                            <ContentControl>
+                                <ContentControl.Style>
+                                    <Style TargetType="{x:Type ContentControl}">
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding SelectedItemCard.Type}"
+                                                Value="{x:Static enums:ItemType.Armour}">
+                                                <Setter Property="Template" Value="{StaticResource ArmourTemplate}" />
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding SelectedItemCard.Type}"
+                                                Value="{x:Static enums:ItemType.Weapon}">
+                                                <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
+                        </StackPanel>
                     </DockPanel>
-                </Border>
+                </Border>-->
 
-                <!--  Item Advanced Properties  -->
+                <!--  Item Base Properties  -->
                 <Border
                     BorderThickness="1"
                     Style="{StaticResource VisibleBorder}">
-                    <ContentControl Margin="5,0">
-                        <ContentControl.Style>
-                            <Style TargetType="{x:Type ContentControl}">
-                                <Style.Triggers>
-                                    <!--<DataTrigger
-                                        Binding="{Binding SelectedItemCard.Item}"
-                                        Value="{x:Type models:ArmourModel}">
-                                        <Setter Property="Template" Value="{StaticResource ArmourProperties}" />
-                                    </DataTrigger>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedItemCard.Item}"
-                                        Value="{x:Type models:WeaponModel}">
-                                        <Setter Property="Template" Value="{StaticResource WeaponProperties}" />
-                                    </DataTrigger>-->
-                                    <DataTrigger
-                                        Binding="{Binding SelectedItemCard.Type, Mode=OneWay}"
-                                        Value="{x:Static enums:ItemType.Armour}">
-                                        <Setter Property="Template" Value="{StaticResource ArmourProperties}" />
-                                    </DataTrigger>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedItemCard.Type, Mode=OneWay}"
-                                        Value="{x:Static enums:ItemType.Weapon}">
-                                        <Setter Property="Template" Value="{StaticResource WeaponProperties}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ContentControl.Style>
-                    </ContentControl>
+                    <TabControl
+                        Height="500"
+                        MaxHeight="500"
+                        ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding SelectedItemCard.Type, Mode=TwoWay}">
+                        <TabControl.ContentTemplate>
+                            <DataTemplate>
+                                <ContentControl>
+                                    <ContentControl.Style>
+                                        <Style TargetType="{x:Type ContentControl}">
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding}"
+                                                    Value="Armour">
+                                                    <Setter Property="Template" Value="{StaticResource ArmourTemplate}" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding}"
+                                                    Value="Weapon">
+                                                    <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
+                            </DataTemplate>
+                        </TabControl.ContentTemplate>
+                    </TabControl>
                 </Border>
 
                 <!--  True/False props  -->

@@ -9,7 +9,7 @@
     Height="1080"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3"
-    Icon="/Resources/Images/dnd-icon-13.png"
+    Icon="{StaticResource DefaultImage}"
     Left="0"
     Style="{DynamicResource MainWindowStyle}"
     Top="0">
