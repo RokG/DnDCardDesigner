@@ -221,19 +221,32 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
-        private async void AddSpellCardToDeck()
+        private async void AddSpellCardToDeck(SpellCardModel spellCard)
         {
-            SelectedSpellDeck.SpellCards.Add(SelectedSpellCard);
+            SelectedSpellDeck.SpellCards.Add(spellCard);
             await _cardDesignerStore.UpdateSpellDeck(SelectedSpellDeck);
         }
 
         [RelayCommand]
-        private async void AddItemCardToDeck()
+        private async void AddItemCardToDeck(ItemCardModel itemCard)
         {
-            SelectedItemDeck.ItemCards.Add(SelectedItemCard);
+            SelectedItemDeck.ItemCards.Add(itemCard);
             await _cardDesignerStore.UpdateItemDeck(SelectedItemDeck);
         }
 
+        [RelayCommand]
+        private async void RemoveSpellCardFromDeck(SpellCardModel spellCard)
+        {
+            SelectedSpellDeck.SpellCards.Remove(spellCard);
+            await _cardDesignerStore.UpdateSpellDeck(SelectedSpellDeck);
+        }
+
+        [RelayCommand]
+        private async void RemoveItemCardFromDeck(ItemCardModel itemCard)
+        {
+            SelectedItemDeck.ItemCards.Remove(itemCard);
+            await _cardDesignerStore.UpdateItemDeck(SelectedItemDeck);
+        }
         [RelayCommand]
         private async void DeleteSpellDeck()
         {

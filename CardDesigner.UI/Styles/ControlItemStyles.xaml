@@ -58,6 +58,12 @@
         </Style.Resources>
     </Style>
 
+    <Style x:Key="CardAssignUnassignButton" BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+
     <!--  RadioButton styles  -->
     <Style TargetType="{x:Type RadioButton}">
         <Setter Property="Margin" Value="5" />
