@@ -57,6 +57,17 @@ namespace CardDesigner.DataAccess.Services
                         }
                     }
 
+                    // Loop over cards in source deck
+                    foreach (SpellCardEntity spellCard in spellDeckEntity.SpellCards)
+                    {
+                        // If any card is missing, remove it from the list
+                        if (!spellDeck.SpellCards.Any(id => id.ID == spellCard.ID))
+                        {
+                            SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
+                            spellDeckEntity.SpellCards.Remove(spellCardEntity);
+                        }
+                    }
+
                     await dbContext.SaveChangesAsync();
 
                     return _mapper.Map<SpellDeckModel>(spellDeckEntity); ;

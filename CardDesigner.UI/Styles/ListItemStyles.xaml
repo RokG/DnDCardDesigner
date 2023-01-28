@@ -337,8 +337,8 @@
     <Style TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="Padding" Value="5,0" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Margin" Value="-1,-1,0,0" />
-        <Setter Property="Background" Value="{StaticResource TabItemNormalBGND}" />
+        <Setter Property="Margin" Value="-1" />
+        <Setter Property="Background" Value="{StaticResource TabItemNormalBRDR}" />
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="BorderBrush" Value="{StaticResource TabItemSelectedFGND}" />
         <Setter Property="Foreground" Value="{StaticResource TabItemSelectedFGND}" />
@@ -347,7 +347,8 @@
 
     <Style TargetType="{x:Type DataGridCell}">
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="1,1,0,0" />
+        <Setter Property="Margin" Value="-1" />
         <Setter Property="BorderBrush" Value="{StaticResource TabItemSelectedFGND}" />
         <Setter Property="Background" Value="{StaticResource TabItemNormalBGND}" />
         <Setter Property="Foreground" Value="{StaticResource TabItemNormalFGND}" />

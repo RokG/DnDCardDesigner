@@ -24,5 +24,15 @@ namespace CardDesigner.UI.Views
         {
             InitializeComponent();
         }
+
+        private void DataGrid_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_Selected_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

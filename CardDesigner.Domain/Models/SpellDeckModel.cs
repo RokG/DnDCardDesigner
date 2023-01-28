@@ -9,6 +9,5 @@ namespace CardDesigner.Domain.Models
         public string Name { get; set; }
         public ICollection<SpellCardModel> SpellCards { get; set; }
         public ICollection<CharacterModel> Characters { get; set; }
-
     }
 }

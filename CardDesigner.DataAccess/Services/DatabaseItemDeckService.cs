@@ -56,6 +56,16 @@ namespace CardDesigner.DataAccess.Services
                             itemDeckEntity.ItemCards.Add(itemCardEntity);
                         }
                     }
+                    // Loop over cards in source deck
+                    foreach (ItemCardEntity itemCard in itemDeckEntity.ItemCards)
+                    {
+                        // If any card is missing, remove it from the list
+                        if (!itemDeck.ItemCards.Any(id => id.ID == itemCard.ID))
+                        {
+                            ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCard);
+                            itemDeckEntity.ItemCards.Remove(itemCardEntity);
+                        }
+                    }
 
                     await dbContext.SaveChangesAsync();
 
