@@ -16,18 +16,112 @@
             constantly naging about xaml bining issues but everything works reagrdles.
             Assuming this is an issue with update order
         -->
+
         <!--  Templates  -->
         <ControlTemplate x:Key="ArmourTemplate">
-            <DataGrid
-                ItemsSource="{Binding DataContext.AllArmours, ElementName=itemCardControl}"
-                SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, ElementName=itemCardControl}" />
+            <DockPanel>
+                <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
+                    Background="{StaticResource TabItemNormalBGND}"
+                    BorderBrush="{StaticResource TabItemSelectedFGND}"
+                    BorderThickness="1"
+                    DockPanel.Dock="Top"
+                    InputText="{Binding DataContext.ArmourSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    PlaceholderText="Search.." />
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    ItemsSource="{Binding DataContext.AllArmoursCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                    <DataGrid.Columns>
+                        <!--<DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="assignButton"
+                                        Margin="0"
+                                        Padding="0"
+                                        Content="X"
+                                        Visibility="Collapsed" />
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType=DataGridRow}}"
+                                            Value="True">
+                                            <Setter TargetName="assignButton" Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Name}"
+                            Header="Name" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding ArmourType}"
+                            Header="Type" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding EquipmentSlot}"
+                            Header="Slot" />
+                        <DataGridTextColumn
+                            Width="50"
+                            Binding="{Binding ArmourClass}"
+                            Header="AC" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
         </ControlTemplate>
+
         <!--  Templates  -->
         <ControlTemplate x:Key="WeaponTemplate">
-            <DataGrid
-                ItemsSource="{Binding DataContext.AllWeapons, ElementName=itemCardControl}"
-                SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, ElementName=itemCardControl}" />
+            <DockPanel>
+                <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
+                    Background="{StaticResource TabItemNormalBGND}"
+                    BorderBrush="{StaticResource TabItemSelectedFGND}"
+                    BorderThickness="1"
+                    DockPanel.Dock="Top"
+                    InputText="{Binding DataContext.WeaponSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    PlaceholderText="Search.." />
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    ItemsSource="{Binding DataContext.AllWeaponsCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Name}"
+                            Header="Name" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding WeaponType}"
+                            Header="Type" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding EquipmentSlot}"
+                            Header="Slot" />
+                        <DataGridTemplateColumn
+                            Width="*"
+                            Header="Damage">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>
+                                            <Run Text="{Binding DiceValue}" />
+                                            <Run Text="{Binding DiceType}" />
+                                            <Run Text="{Binding PhysicalDamageType}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding DamageModifier, StringFormat='{}+{0}'}"
+                            Header="Modifier" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
         </ControlTemplate>
+
     </UserControl.Resources>
     <Grid Margin="4">
         <Grid.RowDefinitions>
@@ -62,93 +156,56 @@
                     AddedItemName="{Binding ItemCardName, Mode=TwoWay}"
                     ItemsSource="{Binding AllItemCards, Mode=TwoWay}"
                     SaveCommand="{Binding CreateItemCardCommand}"
-                    SelectedItem="{Binding SelectedItemCard, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ViewOnly="False" />
 
                 <!--  Name and Icon  -->
-                <Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <StackPanel>
-                        <Label
-                            Margin="5,0"
-                            Padding="0"
-                            Content="Card name:" />
-                        <TextBox
-                            Margin="5,0"
-                            Text="{Binding SelectedItemCard.Name}" />
-                        <Label
-                            Margin="5,10,0,0"
-                            Padding="0"
-                            Content="Item image and image fill:" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <controls:FilePicker
-                                Margin="5"
-                                Text="{Binding SelectedItemCard.IconFilePath, Mode=TwoWay}" />
-                            <ComboBox
-                                Grid.Column="1"
-                                SelectedItem="{Binding SelectedItemCard.IconStretch}">
-                                <sys:String>None</sys:String>
-                                <sys:String>Fill</sys:String>
-                                <sys:String>Uniform</sys:String>
-                                <sys:String>Uniform To Fill</sys:String>
-                            </ComboBox>
-                        </Grid>
-                    </StackPanel>
-                </Border>
+                <StackPanel Grid.Row="1">
+                    <Label
+                        Margin="5,0"
+                        Padding="0"
+                        Content="Card name:" />
+                    <TextBox
+                        Margin="5,0"
+                        Text="{Binding SelectedItemCard.Name}" />
+                    <Label
+                        Margin="5,10,0,0"
+                        Padding="0"
+                        Content="Item image and image fill:" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <controls:FilePicker
+                            Margin="5"
+                            Text="{Binding SelectedItemCard.IconFilePath, Mode=TwoWay}" />
+                        <ComboBox
+                            Grid.Column="1"
+                            SelectedItem="{Binding SelectedItemCard.IconStretch}">
+                            <sys:String>None</sys:String>
+                            <sys:String>Fill</sys:String>
+                            <sys:String>Uniform</sys:String>
+                            <sys:String>Uniform To Fill</sys:String>
+                        </ComboBox>
+                    </Grid>
+                </StackPanel>
 
                 <!--  Item Base Properties  -->
-                <!--<Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <DockPanel>
-                        <Label
-                            Padding="0"
-                            Content="Item Type:" />
-                        <ListBox
-                            Height="200"
-                            ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
-                            SelectedIndex="0"
-                            SelectedItem="{Binding SelectedItemCard.Type, Mode=TwoWay}" />
-                        <StackPanel>
-                            <ContentControl>
-                                <ContentControl.Style>
-                                    <Style TargetType="{x:Type ContentControl}">
-                                        <Style.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding SelectedItemCard.Type}"
-                                                Value="{x:Static enums:ItemType.Armour}">
-                                                <Setter Property="Template" Value="{StaticResource ArmourTemplate}" />
-                                            </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding SelectedItemCard.Type}"
-                                                Value="{x:Static enums:ItemType.Weapon}">
-                                                <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ContentControl.Style>
-                            </ContentControl>
-                        </StackPanel>
-                    </DockPanel>
-                </Border>-->
-
-                <!--  Item Base Properties  -->
-                <Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <TabControl
-                        Height="500"
-                        MaxHeight="500"
-                        ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
-                        SelectedIndex="0"
-                        SelectedItem="{Binding SelectedItemCard.Type, Mode=TwoWay}">
-                        <TabControl.ContentTemplate>
-                            <DataTemplate>
+                <TabControl
+                    Grid.Row="2"
+                    Height="500"
+                    MaxHeight="500"
+                    ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
+                    SelectedItem="{Binding SelectedItemCard.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Label
+                                    Background="Transparent"
+                                    Content="{Binding DataContext.SelectedItemCard.Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}"
+                                    ContentStringFormat="{}Currently selected: {0}"
+                                    DockPanel.Dock="Top" />
                                 <ContentControl>
                                     <ContentControl.Style>
                                         <Style TargetType="{x:Type ContentControl}">
@@ -167,30 +224,34 @@
                                         </Style>
                                     </ContentControl.Style>
                                 </ContentControl>
-                            </DataTemplate>
-                        </TabControl.ContentTemplate>
-                    </TabControl>
-                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
+                </TabControl>
+                <StackPanel
+                    Height="40"
+                    Orientation="Horizontal">
+                    <Label
+                        Height="40"
+                        Content="{Binding DataContext.SelectedItemCard.Item.Name, ElementName=itemCardControl}" />
+                </StackPanel>
 
                 <!--  True/False props  -->
-                <Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <StackPanel>
-                        <CheckBox
-                            Content="Magical"
-                            IsChecked="{Binding SelectedItemCard.IsMagical}" />
-                        <CheckBox
-                            Content="Unidentified"
-                            IsChecked="{Binding SelectedItemCard.IsUnidentified}" />
-                        <CheckBox
-                            Content="Attunement"
-                            IsChecked="{Binding SelectedItemCard.RequiresAttunement}" />
-                    </StackPanel>
-                </Border>
+                <StackPanel Grid.Row="3">
+                    <CheckBox
+                        Content="Magical"
+                        IsChecked="{Binding SelectedItemCard.IsMagical}" />
+                    <CheckBox
+                        Content="Unidentified"
+                        IsChecked="{Binding SelectedItemCard.IsUnidentified}" />
+                    <CheckBox
+                        Content="Attunement"
+                        IsChecked="{Binding SelectedItemCard.RequiresAttunement}" />
+                </StackPanel>
 
                 <!--  Manually update button  -->
                 <Button
+                    Grid.Row="4"
                     Command="{Binding UpdateItemCardCommand}"
                     Content="Update" />
 

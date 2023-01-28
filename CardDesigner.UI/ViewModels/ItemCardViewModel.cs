@@ -2,9 +2,12 @@
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -24,7 +27,18 @@ namespace CardDesigner.UI.ViewModels
         private string itemCardName;
 
         [ObservableProperty]
+        private ICollectionView allArmoursCollectionView;
+
+        [ObservableProperty]
+        private ICollectionView allWeaponsCollectionView;
+
+        [ObservableProperty]
         private ItemCardModel selectedItemCard;
+
+        [ObservableProperty]
+        private string armourSearchFilter;
+        [ObservableProperty]
+        private string weaponSearchFilter;
 
         [ObservableProperty]
         private ObservableCollection<ItemCardModel> allItemCards;
@@ -56,8 +70,45 @@ namespace CardDesigner.UI.ViewModels
 
             // TODO: is this OK? how is it different from old method (before MVVM toolkit)
             LoadData();
+
+            allArmoursCollectionView = CollectionViewSource.GetDefaultView(AllArmours);
+            allWeaponsCollectionView = CollectionViewSource.GetDefaultView(AllWeapons);
         }
 
+        partial void OnArmourSearchFilterChanged(string bookingDate)
+        {
+            AllArmoursCollectionView.Filter = new Predicate<object>(ArmourFilter);
+        }
+
+        partial void OnWeaponSearchFilterChanged(string bookingDate)
+        {
+            AllWeaponsCollectionView.Filter = new Predicate<object>(WeaponFilter);
+        }
+
+        private bool ArmourFilter(object obj)
+        {
+            //your logicComplexFilter
+            ArmourModel arm = (ArmourModel)obj;
+            return
+                ArmourSearchFilter == null ? false :
+               arm.Name.Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || arm.EquipmentSlot.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || arm.ArmourClass.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || arm.ArmourType.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase);
+        }
+        private bool WeaponFilter(object obj)
+        {
+            //your logicComplexFilter
+            WeaponModel weapon = (WeaponModel)obj;
+            return
+                WeaponSearchFilter == null ? false :
+               weapon.Name.Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || weapon.EquipmentSlot.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || weapon.WeaponType.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || weapon.DiceType.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || weapon.PhysicalDamageType.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || weapon.DamageModifier.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase);
+        }
         private void OnSpellCardCreated(ItemCardModel itemCard)
         {
             AllItemCards.Add(itemCard);
