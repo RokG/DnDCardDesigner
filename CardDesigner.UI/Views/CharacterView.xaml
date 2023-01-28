@@ -173,72 +173,47 @@
                         </StackPanel>
                     </Border>
 
+
+                    <Button
+                        Command="{Binding UpdateCardCommand}"
+                        Content="TEST" />
                 </StackPanel>
-
-                <!--  Character overview  -->
-                <!--<StackPanel Orientation="Vertical">
-
-                    <controls:AddEditItem
-                        Title="Characters"
-                        AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
-                        DeleteCommand="{Binding DeleteCharacterCommand}"
-                        ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateCharacterCommand}"
-                        SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
-                        ViewOnly="False" />
-
-                    <controls:AddEditItem
-                        Title="Spell Deck"
-                        AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
-                        ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
-                        ViewOnly="True" />
-
-                    <Button
-                        Command="{Binding AssignSpellDeckToCharacterCommand}"
-                        CommandParameter="{Binding SelectedSpellDeck}"
-                        Content="Assign SPELL deck to character" />
-
-                    <controls:AddEditItem
-                        Title="Item Deck"
-                        AddedItemName="{Binding AddedItemDeckName, Mode=TwoWay}"
-                        ItemsSource="{Binding AllItemDecks, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedItemDeck, Mode=TwoWay}"
-                        ViewOnly="True" />
-
-                    <Button
-                        Command="{Binding AssignItemDeckToCharacterCommand}"
-                        CommandParameter="{Binding SelectedItemDeck}"
-                        Content="Assign ITEM deck to character" />
-
-                    <Border Style="{StaticResource VisibleBorder}">
-                        <StackPanel>
-                            <Label Content="Cards in deck : " />
-                            <ListBox
-                                Grid.Row="2"
-                                MinHeight="200"
-                                DisplayMemberPath="Name"
-                                ItemsSource="{Binding SelectedSpellDeckCards}" />
-                        </StackPanel>
-                    </Border>
-
-                </StackPanel>-->
 
                 <!--  Card overview  -->
                 <TabControl Grid.Column="1">
-                    <TabItem Header="Card Rear">
-                        <StackPanel>
-                            <Label Content="Character Cards back side" />
-                            <ComboBox SelectedIndex="0">
-                                <ComboBoxItem Content="DruidSpells" />
-                                <ComboBoxItem Content="WizardSpells" />
-                                <ComboBoxItem Content="CustomBackground1" />
-                            </ComboBox>
-
-                        </StackPanel>
+                    <TabItem Header="Deck Background">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:CardBackgroundControl
+                                Grid.Column="1"
+                                CardDesign="{Binding CardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
                     </TabItem>
-                    <TabItem Header="Card Background" />
-                    <TabItem Header="Card Face" />
+                    <TabItem Header="Spell Card Foreground">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:SpellCardControl
+                                Grid.Column="1"
+                                SpellCard="{Binding TestSpellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Item Card Foregound">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:ItemCardControl
+                                Grid.Column="1"
+                                ItemCard="{Binding TestItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </TabItem>
                 </TabControl>
 
             </Grid>

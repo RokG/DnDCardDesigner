@@ -2,11 +2,9 @@
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -20,6 +18,17 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Properties
+
+        [ObservableProperty]
+        private CardDesignModel cardDesign;
+
+        [ObservableProperty]
+        private ItemCardModel testItemCard;
+
+        [ObservableProperty]
+        private SpellCardModel testSpellCard;
+
+
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateCharacterCommand))]
         private string addedCharacterName;
@@ -65,6 +74,8 @@ namespace CardDesigner.UI.ViewModels
             Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Characters";
 
+            CardDesign = new();
+
             _cardDesignerStore = cardDesignerStore;
 
             _cardDesignerStore.CharacterCreated += OnCharacterCreated;
@@ -72,11 +83,19 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
 
             LoadData();
+
+
+            SelectedCharacter = AllCharacters.FirstOrDefault();
+            TestItemCard = SelectedCharacter.ItemDecks.FirstOrDefault().ItemCards.FirstOrDefault();
+            TestSpellCard = SelectedCharacter.SpellDecks.FirstOrDefault().SpellCards.FirstOrDefault();
+
         }
 
         private void OnCharacterUpdated(CharacterModel character)
         {
             SelectedCharacter = character;
+            TestItemCard = SelectedCharacter.ItemDecks.FirstOrDefault().ItemCards.FirstOrDefault();
+            TestSpellCard = SelectedCharacter.SpellDecks.FirstOrDefault().SpellCards.FirstOrDefault();
         }
 
         #endregion
@@ -168,6 +187,15 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
+        [RelayCommand]
+        private void UpdateCard()
+        {
+            CardDesign = new()
+            {
+                BackLineColor = "#123456",
+                BackBackgroundColor = "#654321",
+            };
+        }
 
         #endregion
     }

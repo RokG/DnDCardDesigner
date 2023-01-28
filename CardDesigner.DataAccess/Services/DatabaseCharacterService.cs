@@ -145,7 +145,20 @@ namespace CardDesigner.DataAccess.Services
                     {
                         dbContext.Characters.Update(characterEntity);
                         await dbContext.SaveChangesAsync();
-                        return _mapper.Map<CharacterModel>(characterEntity); ;
+
+                        CharacterEntity characterEntityOut = dbContext.Characters
+                        .Include(d => d.SpellDecks).ThenInclude(d=>d.SpellCards)
+                        .Include(d => d.ItemDecks).ThenInclude(d => d.ItemCards)
+                        .Single(d => d.ID == characterModel.ID);
+
+                        CharacterModel character = _mapper.Map<CharacterModel>(characterEntity);
+                        List<SpellDeckModel> characterSpellDeck = _mapper.Map<List<SpellDeckModel>>(characterEntity.SpellDecks);
+                        List<ItemDeckModel> characterItemDeck = _mapper.Map<List<ItemDeckModel>>(characterEntity.ItemDecks);
+
+                        character.SpellDecks = characterSpellDeck;
+                        character.ItemDecks = characterItemDeck;
+
+                        return character;
                     }
                     return null;
                 }
@@ -184,12 +197,9 @@ namespace CardDesigner.DataAccess.Services
             {
                 IEnumerable<CharacterEntity> characterEntities = await
                     context.Characters
-                    .Include(c => c.SpellDecks)
-                    .Include(c => c.ItemDecks)
+                    .Include(c => c.SpellDecks).ThenInclude(d=>d.SpellCards)
+                    .Include(c => c.ItemDecks).ThenInclude(d => d.ItemCards)
                     .ToListAsync();
-
-                //IEnumerable<Character> characterEntities = await
-                //   context.Characters.ToListAsync();
 
                 return characterEntities.Select(c => _mapper.Map<CharacterModel>(c));
             }
