@@ -187,6 +187,12 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <controls:ColorPickerControl
+                                    Title="Background Color"
+                                    Width="200"
+                                    CurrentColor="{Binding CardDesign.BackBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
                             <controls:CardBackgroundControl
                                 Grid.Column="1"
                                 CardDesign="{Binding CardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
