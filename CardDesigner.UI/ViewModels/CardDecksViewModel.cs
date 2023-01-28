@@ -76,9 +76,6 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
 
-            _cardDesignerStore.CharacterCreated += OnCharacterCreated;
-            _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
-
             _cardDesignerStore.SpellDeckCreated += OnSpellDeckCreated;
             _cardDesignerStore.SpellDeckUpdated += OnSpellDeckUpdated;
             _cardDesignerStore.SpellDeckDeleted += OnSpellDeckDeleted;
@@ -106,18 +103,6 @@ namespace CardDesigner.UI.ViewModels
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemCards = new(_cardDesignerStore.ItemCards);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
-        }
-
-        private void OnCharacterCreated(CharacterModel character)
-        {
-            AllCharacters.Add(character);
-            SelectedCharacter = character;
-        }
-
-        private void OnCharacterDeleted(CharacterModel character)
-        {
-            AllCharacters.Remove(SelectedCharacter);
-            SelectedCharacter = AllCharacters.FirstOrDefault();
         }
 
         private void OnSpellDeckCreated(SpellDeckModel spellDeck)

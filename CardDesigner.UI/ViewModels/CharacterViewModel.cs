@@ -2,9 +2,11 @@
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -30,21 +32,14 @@ namespace CardDesigner.UI.ViewModels
 
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(AssignItemDeckToCharacterCommand))]
-        [NotifyCanExecuteChangedFor(nameof(AssignSpellDeckToCharacterCommand))]
         private CharacterModel selectedCharacter;
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(AssignSpellDeckToCharacterCommand))]
         private SpellDeckModel selectedSpellDeck;
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(AssignItemDeckToCharacterCommand))]
         private ItemDeckModel selectedItemDeck;
 
-
-        [ObservableProperty]
-        private ObservableCollection<SpellCardModel> selectedSpellDeckCards;
 
         [ObservableProperty]
         private ObservableCollection<SpellDeckModel> allSpellDecks;
@@ -73,9 +68,15 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
 
             _cardDesignerStore.CharacterCreated += OnCharacterCreated;
+            _cardDesignerStore.CharacterUpdated += OnCharacterUpdated;
             _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
 
             LoadData();
+        }
+
+        private void OnCharacterUpdated(CharacterModel character)
+        {
+            SelectedCharacter = character;
         }
 
         #endregion
@@ -100,6 +101,7 @@ namespace CardDesigner.UI.ViewModels
         public static CharacterViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
         {
             CharacterViewModel viewModel = new(cardDesignerStore);
+
             viewModel.LoadData();
 
             return viewModel;
@@ -138,28 +140,34 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
         }
 
-        [RelayCommand(CanExecute = nameof(CanAssignSpellDeckToCharacter))]
-        private async void AssignSpellDeckToCharacter(SpellDeckModel spellDeck)
+        [RelayCommand]
+        private async void AddSpellDeckToCharacter(SpellDeckModel spellDeck)
         {
             SelectedCharacter.SpellDecks.Add(spellDeck);
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
-        [RelayCommand(CanExecute = nameof(CanAssignItemDeckToCharacter))]
-        private async void AssignItemDeckToCharacter(ItemDeckModel itemDeck)
+        [RelayCommand]
+        private async void AddItemDeckToCharacter(ItemDeckModel itemDeck)
         {
             SelectedCharacter.ItemDecks.Add(itemDeck);
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
-        private bool CanAssignItemDeckToCharacter()
+        [RelayCommand]
+        private async void RemoveSpellDeckFromCharacter(SpellDeckModel spellDeck)
         {
-            return SelectedItemDeck != null && SelectedCharacter != null;
+            SelectedCharacter.SpellDecks.Remove(spellDeck);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
-        private bool CanAssignSpellDeckToCharacter()
+
+        [RelayCommand]
+        private async void RemoveItemDeckFromCharacter(ItemDeckModel itemDeck)
         {
-            return SelectedSpellDeck != null && SelectedCharacter != null;
+            SelectedCharacter.ItemDecks.Remove(itemDeck);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
+
 
         #endregion
     }
