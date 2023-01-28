@@ -1,8 +1,10 @@
-﻿namespace CardDesigner.Domain.Models
+﻿using CardDesigner.Domain.Interfaces;
+
+namespace CardDesigner.Domain.Models
 {
-    public class CardDesignModel
+    public class CardDesignModel : ISelectableItem
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string FrontLineColor { get; set; } = "#475356";
         public string FrontBackgroundColor { get; set; } = "#475356";

@@ -12,6 +12,7 @@ namespace CardDesigner.UI.HostBuilder
             hostBuilder.ConfigureServices(services =>
             {
                 services.AddSingleton<ICharacterService, DatabaseCharacterService>();
+                services.AddSingleton<ICardDesignService, DatabaseCardDesignService>();
                 services.AddSingleton<ISpellDeckService, DatabaseSpellDeckService>();
                 services.AddSingleton<ISpellCardService, DatabaseSpellCardService>();
                 services.AddSingleton<IItemDeckService, DatabaseItemDeckService>();

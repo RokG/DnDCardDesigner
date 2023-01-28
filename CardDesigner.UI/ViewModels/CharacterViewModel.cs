@@ -20,14 +20,15 @@ namespace CardDesigner.UI.ViewModels
         #region Properties
 
         [ObservableProperty]
-        private CardDesignModel cardDesign;
-
-        [ObservableProperty]
         private ItemCardModel testItemCard;
 
         [ObservableProperty]
         private SpellCardModel testSpellCard;
 
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateCardDesignCommand))]
+        private string addedCardDesignName;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateCharacterCommand))]
@@ -39,6 +40,8 @@ namespace CardDesigner.UI.ViewModels
         [ObservableProperty]
         private string addedItemDeckName;
 
+        [ObservableProperty]
+        private CardDesignModel selectedCardDesign;
 
         [ObservableProperty]
         private CharacterModel selectedCharacter;
@@ -49,6 +52,9 @@ namespace CardDesigner.UI.ViewModels
         [ObservableProperty]
         private ItemDeckModel selectedItemDeck;
 
+
+        [ObservableProperty]
+        private ObservableCollection<CardDesignModel> allCardDesigns;
 
         [ObservableProperty]
         private ObservableCollection<SpellDeckModel> allSpellDecks;
@@ -74,7 +80,7 @@ namespace CardDesigner.UI.ViewModels
             Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Characters";
 
-            CardDesign = new();
+            SelectedCardDesign = new();
 
             _cardDesignerStore = cardDesignerStore;
 
@@ -86,8 +92,15 @@ namespace CardDesigner.UI.ViewModels
 
 
             SelectedCharacter = AllCharacters.FirstOrDefault();
-            TestItemCard = SelectedCharacter.ItemDecks.FirstOrDefault().ItemCards.FirstOrDefault();
-            TestSpellCard = SelectedCharacter.SpellDecks.FirstOrDefault().SpellCards.FirstOrDefault();
+            try
+            {
+                TestItemCard = SelectedCharacter?.ItemDecks?.FirstOrDefault().ItemCards?.FirstOrDefault();
+                TestSpellCard = SelectedCharacter?.SpellDecks?.FirstOrDefault().SpellCards?.FirstOrDefault();
+            }
+            catch (System.Exception)
+            {
+
+            }
 
         }
 
@@ -131,6 +144,7 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllCharacters = new(_cardDesignerStore.Characters);
+            AllCardDesigns = new(_cardDesignerStore.CardDesigns);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
         }
@@ -138,6 +152,19 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Commands
+
+        [RelayCommand(CanExecute = nameof(CanCreateCardDesign))]
+        private async void CreateCardDesign()
+        {
+            await _cardDesignerStore.CreateCardDesign(new CardDesignModel() { Name = AddedCardDesignName });
+        }
+
+        private bool CanCreateCardDesign()
+        {
+            bool noName = (AddedCardDesignName == string.Empty || AddedCardDesignName == null);
+
+            return !noName;
+        }
 
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
         private async void CreateCharacter()
@@ -157,6 +184,12 @@ namespace CardDesigner.UI.ViewModels
         private async void DeleteCharacter()
         {
             await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
+        } 
+        
+        [RelayCommand]
+        private async void DeleteCardDesign()
+        {
+            await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
         }
 
         [RelayCommand]
@@ -188,15 +221,10 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
-        private void UpdateCard()
+        private async void UpdateCardDesign()
         {
-            CardDesign = new()
-            {
-                BackLineColor = "#123456",
-                BackBackgroundColor = "#654321",
-            };
+            await _cardDesignerStore.UpdateCardDesign(SelectedCardDesign);
         }
-
         #endregion
     }
 }

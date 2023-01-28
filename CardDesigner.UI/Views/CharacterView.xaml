@@ -174,9 +174,17 @@
                         </StackPanel>
                     </Border>
 
+                    <controls:AddEditItem
+                        Title="CardDesigns"
+                        AddedItemName="{Binding AddedCardDesignName, Mode=TwoWay}"
+                        DeleteCommand="{Binding DeleteCardDesignCommand}"
+                        ItemsSource="{Binding AllCardDesigns, Mode=TwoWay}"
+                        SaveCommand="{Binding CreateCardDesignCommand}"
+                        SelectedItem="{Binding SelectedCardDesign, Mode=TwoWay}"
+                        ViewOnly="False" />
 
                     <Button
-                        Command="{Binding UpdateCardCommand}"
+                        Command="{Binding UpdateCardDesignCommand}"
                         Content="TEST" />
                 </StackPanel>
 
@@ -194,22 +202,22 @@
                                 <controls:ColorPickerControl
                                     Title="Line Color"
                                     Width="200"
-                                    CurrentColor="{Binding CardDesign.BackLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedCardDesign.BackLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl
                                     Title="Background Color"
                                     Width="200"
-                                    CurrentColor="{Binding CardDesign.BackBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedCardDesign.BackBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Slider
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Center"
                                     HorizontalContentAlignment="Stretch"
                                     Maximum="20"
                                     Minimum="0"
-                                    Value="{Binding CardDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <controls:FilePicker Text="{Binding CardDesign.BackgroundIconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    Value="{Binding SelectedCardDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:FilePicker Text="{Binding SelectedCardDesign.BackgroundIconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <ComboBox
                                     Grid.Column="1"
-                                    SelectedItem="{Binding CardDesign.BackgroundIconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    SelectedItem="{Binding SelectedCardDesign.BackgroundIconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <sys:String>None</sys:String>
                                     <sys:String>Fill</sys:String>
                                     <sys:String>Uniform</sys:String>
@@ -218,7 +226,7 @@
                             </StackPanel>
                             <controls:CardBackgroundControl
                                 Grid.Column="1"
-                                CardDesign="{Binding CardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                CardDesign="{Binding SelectedCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </TabItem>
                     <TabItem Header="Spell Card Foreground">

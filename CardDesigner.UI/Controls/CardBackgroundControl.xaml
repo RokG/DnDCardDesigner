@@ -18,10 +18,10 @@
 
                 <!--  Item icon  -->
                 <controls:ImageControl
-                    Canvas.Top="37"
                     Width="250"
                     Height="350"
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     ImageSource="{Binding CardDesign.BackgroundIconFilePath, ElementName=cardBackgroundControl}"
                     ImageStretch="{Binding CardDesign.BackgroundIconStretch, ElementName=cardBackgroundControl, Converter={converters:StringToStretchConverter}}" />
             </Border>

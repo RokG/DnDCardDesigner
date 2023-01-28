@@ -9,6 +9,7 @@ namespace CardDesigner.Domain.Entities
         [Key]
         public int ID { get; set; }
         public string Name { get; set; }
+        public CardDesignEntity CardDesign { get; set; }
         public List<SpellDeckEntity> SpellDecks { get; set; }
         public List<CharacterSpellDeck> CharacterSpellDeck { get; set; }
         public List<ItemDeckEntity> ItemDecks { get; set; }

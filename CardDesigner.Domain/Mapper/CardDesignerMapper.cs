@@ -14,12 +14,14 @@ namespace CardDesigner.Domain.Mapper
         {
             MapperConfiguration config = new(cfg =>
             {
+                cfg.CreateMap<CardDesignModel, CardDesignEntity>();
                 cfg.CreateMap<CharacterModel, CharacterEntity>();
                 cfg.CreateMap<SpellCardModel, SpellCardEntity>();
                 cfg.CreateMap<SpellDeckModel, SpellDeckEntity>();
                 cfg.CreateMap<ItemCardModel, ItemCardEntity>();
                 cfg.CreateMap<ItemDeckModel, ItemDeckEntity>();
 
+                cfg.CreateMap<CardDesignEntity, CardDesignModel>();
                 cfg.CreateMap<CharacterEntity, CharacterModel>();
                 cfg.CreateMap<SpellCardEntity, SpellCardModel>();
                 cfg.CreateMap<SpellDeckEntity, SpellDeckModel>();
