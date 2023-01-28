@@ -14,17 +14,17 @@ namespace CardDesigner.UI.Controls
         {
             InitializeComponent();
         }
+
         //https://stackoverflow.com/questions/1922204/open-directory-dialog
+        
         public string Description
         {
             get => (string)GetValue(DescriptionProperty);
             set => SetValue(DescriptionProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for Description.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DescriptionProperty =
                 DependencyProperty.Register(nameof(Description), typeof(string), typeof(FilePicker), new PropertyMetadata(string.Empty));
-
 
         public string Text
         {
@@ -32,7 +32,6 @@ namespace CardDesigner.UI.Controls
             set => SetValue(TextProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextProperty =
                 DependencyProperty.Register(nameof(Text), typeof(string), typeof(FilePicker), new PropertyMetadata(string.Empty));
 

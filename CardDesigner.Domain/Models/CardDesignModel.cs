@@ -12,8 +12,8 @@
         public string FrontFooterColor { get; set; } = "#475356";
         public string FrontHiglightColor { get; set; } = "#475356";
         public string BackLineColor { get; set; } = "#475356";
+        public int BackLineThickness{ get; set; } = 3;
         public string BackBackgroundColor { get; set; } = "#475356";
-        public string BackBackgroundImage { get; set; } = "#475356";
         public string BackgroundIconFilePath { get; set; } = string.Empty;
         public string BackgroundIconStretch { get; set; } = "Uniform";
     }

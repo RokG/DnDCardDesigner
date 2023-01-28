@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <Grid Margin="4">
@@ -187,11 +188,33 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <StackPanel>
+                            <StackPanel
+                                VerticalAlignment="Top"
+                                Orientation="Vertical">
+                                <controls:ColorPickerControl
+                                    Title="Line Color"
+                                    Width="200"
+                                    CurrentColor="{Binding CardDesign.BackLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl
                                     Title="Background Color"
                                     Width="200"
                                     CurrentColor="{Binding CardDesign.BackBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Slider
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Stretch"
+                                    Maximum="20"
+                                    Minimum="0"
+                                    Value="{Binding CardDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:FilePicker Text="{Binding CardDesign.BackgroundIconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <ComboBox
+                                    Grid.Column="1"
+                                    SelectedItem="{Binding CardDesign.BackgroundIconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <sys:String>None</sys:String>
+                                    <sys:String>Fill</sys:String>
+                                    <sys:String>Uniform</sys:String>
+                                    <sys:String>Uniform To Fill</sys:String>
+                                </ComboBox>
                             </StackPanel>
                             <controls:CardBackgroundControl
                                 Grid.Column="1"

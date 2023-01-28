@@ -13,14 +13,15 @@
                 Padding="0"
                 Background="{Binding CardDesign.BackBackgroundColor, ElementName=cardBackgroundControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 BorderBrush="{Binding CardDesign.BackLineColor, ElementName=cardBackgroundControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                BorderThickness="2"
+                BorderThickness="{Binding CardDesign.BackLineThickness, Converter={converters:DoubleToThicknessConverter}, ElementName=cardBackgroundControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 CornerRadius="4">
 
                 <!--  Item icon  -->
                 <controls:ImageControl
                     Canvas.Top="37"
-                    Width="248"
-                    Height="118"
+                    Width="250"
+                    Height="350"
+                    HorizontalAlignment="Center"
                     ImageSource="{Binding CardDesign.BackgroundIconFilePath, ElementName=cardBackgroundControl}"
                     ImageStretch="{Binding CardDesign.BackgroundIconStretch, ElementName=cardBackgroundControl, Converter={converters:StringToStretchConverter}}" />
             </Border>
