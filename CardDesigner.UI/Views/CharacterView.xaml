@@ -189,7 +189,9 @@
                 </StackPanel>
 
                 <!--  Card overview  -->
-                <TabControl Grid.Column="1">
+                <TabControl
+                    Grid.Column="1"
+                    Visibility="Collapsed">
                     <TabItem Header="Deck Background">
                         <Grid>
                             <Grid.ColumnDefinitions>

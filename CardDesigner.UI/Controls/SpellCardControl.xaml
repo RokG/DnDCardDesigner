@@ -10,10 +10,21 @@
             <!--  Card border  -->
             <Border
                 Width="250"
-                Height="350"
+                Height="80"
                 Margin="0"
                 Padding="0"
-                Background="{StaticResource CardHeaderBackgroundColor}"
+                VerticalAlignment="Top"
+                Background="{Binding CardDesign.FrontHeaderColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderBrush="{StaticResource CardLineColor}"
+                BorderThickness="2"
+                CornerRadius="4" />
+            <Border
+                Width="250"
+                Height="80"
+                Margin="0"
+                Padding="0"
+                VerticalAlignment="Bottom"
+                Background="{Binding CardDesign.FrontFooterColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 BorderBrush="{StaticResource CardLineColor}"
                 BorderThickness="2"
                 CornerRadius="4" />
@@ -27,8 +38,8 @@
                     Height="250"
                     Margin="0"
                     Padding="0"
-                    Background="{StaticResource CardBodyBackgroundColor}"
-                    BorderBrush="{StaticResource CardLineColor}"
+                    Background="{Binding CardDesign.FrontBackgroundColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     BorderThickness="0,2,0,2" />
 
                 <!--  School icon  -->
@@ -49,8 +60,8 @@
                         Width="25"
                         Height="25"
                         Margin="2,0,0,0"
-                        Background="{StaticResource CardHeaderIconBackgroundColor}"
-                        BorderBrush="Black"
+                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         Visibility="{Binding SpellCard.HasMaterialComponent, ElementName=spellCard, Converter={converters:BoolToVisibilityConverter}}">
@@ -63,8 +74,8 @@
                         Width="25"
                         Height="25"
                         Margin="2,0,0,0"
-                        Background="{StaticResource CardHeaderIconBackgroundColor}"
-                        BorderBrush="Black"
+                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         Visibility="{Binding SpellCard.HasVerbalComponent, ElementName=spellCard, Converter={converters:BoolToVisibilityConverter}}">
@@ -77,8 +88,8 @@
                         Width="25"
                         Height="25"
                         Margin="2,0,0,0"
-                        Background="{StaticResource CardHeaderIconBackgroundColor}"
-                        BorderBrush="Black"
+                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         Visibility="{Binding SpellCard.HasSomaticComponent, ElementName=spellCard, Converter={converters:BoolToVisibilityConverter}}">
@@ -91,8 +102,8 @@
                         Width="25"
                         Height="25"
                         Margin="50,0,4,0"
-                        Background="{StaticResource CardHeaderIconBackgroundColor}"
-                        BorderBrush="Black"
+                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         DockPanel.Dock="Right">
@@ -104,15 +115,15 @@
                             FontFamily="Arial"
                             FontSize="16"
                             FontWeight="Black"
-                            Foreground="Black" />
+                            Foreground="{Binding CardDesign.FrontHeaderTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Border>
                     <!--  Ritual  -->
                     <Border
                         Width="25"
                         Height="25"
                         Margin="10,0,0,0"
-                        Background="{StaticResource CardHeaderIconBackgroundColor}"
-                        BorderBrush="Black"
+                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         DockPanel.Dock="Right"
@@ -125,8 +136,8 @@
                     <Border
                         Width="25"
                         Height="25"
-                        Background="{StaticResource CardHeaderIconBackgroundColor}"
-                        BorderBrush="Black"
+                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         DockPanel.Dock="Right"
@@ -143,6 +154,7 @@
                     Width="246"
                     Background="Transparent"
                     FontSize="{Binding SpellCard.TitleFontSize, ElementName=spellCard, Mode=TwoWay}"
+                    Foreground="{Binding CardDesign.FrontHeaderTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     InputText="{Binding SpellCard.Title, ElementName=spellCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
 
@@ -154,6 +166,7 @@
                     MaxHeight="300"
                     Background="Transparent"
                     FontSize="{Binding SpellCard.DescriptionFontSize, ElementName=spellCard, Mode=TwoWay}"
+                    Foreground="{Binding CardDesign.FrontDescriptionTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     InputText="{Binding SpellCard.Description, ElementName=spellCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
 
@@ -168,21 +181,29 @@
                     Orientation="Horizontal">
 
                     <controls:IconWithPropertyControl
-                        Height="30"
-                        Icon="{Binding SpellCard.DiceType, Converter={converters:StringToResourceKeyConverter}, ElementName=spellCard}"
-                        Value="{Binding SpellCard.DiceValue, ElementName=spellCard}" />
-                    <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellCastingTime}"
+                        IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Unit="{Binding SpellCard.CastingTimeType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.CastingTimeValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellDuration}"
+                        IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Unit="{Binding SpellCard.DurationType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.DurationValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellRange}"
+                        IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Unit="{Binding SpellCard.RangeType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.RangeValue, ElementName=spellCard}" />
+                    <controls:IconWithPropertyControl
+                        Height="30"
+                        Icon="{Binding SpellCard.DiceType, Converter={converters:StringToResourceKeyConverter}, ElementName=spellCard}"
+                        IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Value="{Binding SpellCard.DiceValue, ElementName=spellCard}" />
                 </WrapPanel>
 
                 <!--  Target description  -->
@@ -195,13 +216,15 @@
                         Height="30">
                         <Label
                             Background="Transparent"
-                            Content="{StaticResource SpellTarget}" />
+                            Content="{StaticResource SpellTarget}"
+                            Foreground="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Viewbox>
                     <!--  Title textbox  -->
                     <controls:TextBoxWithPlaceholderControl
                         Width="150"
                         Background="Transparent"
                         FontSize="10"
+                        Foreground="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         InputText="{Binding SpellCard.Target, ElementName=spellCard, Mode=TwoWay}"
                         IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
                     <ContentControl>
@@ -219,7 +242,9 @@
                         </ContentControl.Style>
 
                         <controls:IconWithPropertyControl
-                            Icon="{StaticResource SpellAOECone}"
+                            Icon="{Binding SpellCard.AreaOfEffect, ElementName=spellCard, Converter={converters:StringToResourceKeyConverter}}"
+                            IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Unit="{Binding SpellCard.AreaOfEffect, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                             Value="{Binding SpellCard.AreaOfEffectValue, ElementName=spellCard}" />
                     </ContentControl>
@@ -232,7 +257,7 @@
                 Height="350"
                 Margin="0"
                 Padding="0"
-                BorderBrush="{StaticResource CardLineColor}"
+                BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 BorderThickness="2"
                 CornerRadius="4" />
         </Grid>

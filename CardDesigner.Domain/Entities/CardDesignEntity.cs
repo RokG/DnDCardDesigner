@@ -11,7 +11,11 @@ namespace CardDesigner.Domain.Entities
         public ICollection<CharacterEntity> Characters { get; set; }
         public string FrontLineColor { get; set; }
         public string FrontBackgroundColor { get; set; }
-        public string FrontTextColor { get; set; }
+        public string FrontHeaderTextColor { get; set; } = "#475356";
+        public string FrontHeaderIconColor { get; set; } = "#475356";
+        public string FrontDescriptionTextColor { get; set; } = "#475356";
+        public string FrontFooterTextColor { get; set; } = "#475356";
+        public string FrontFooterIconColor { get; set; } = "#475356";
         public string FrontForegroundColor { get; set; }
         public string FrontHeaderColor { get; set; }
         public string FrontFooterColor { get; set; }

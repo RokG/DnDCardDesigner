@@ -25,6 +25,24 @@ namespace CardDesigner.UI.Controls
             InitializeComponent();
         }
 
+        public string TextColor
+        {
+            get { return (string)GetValue(TextColorProperty); }
+            set { SetValue(TextColorProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextColorProperty =
+            DependencyProperty.Register(nameof(TextColor), typeof(string), typeof(IconWithPropertyControl), new PropertyMetadata("#FF000000"));
+
+        public string IconColor
+        {
+            get { return (string)GetValue(IconColorProperty); }
+            set { SetValue(IconColorProperty, value); }
+        }
+
+        public static readonly DependencyProperty IconColorProperty =
+            DependencyProperty.Register(nameof(IconColor), typeof(string), typeof(IconWithPropertyControl), new PropertyMetadata("#FF000000"));
+
         public object Icon
         {
             get { return (object)GetValue(IconProperty); }
