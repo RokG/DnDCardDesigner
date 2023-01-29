@@ -25,7 +25,7 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<CharacterEntity> Characters { get; set; }
         public DbSet<CardDesignEntity> CardDesigns { get; set; }
         public DbSet<SpellDeckDesignEntity> SpellDeckDesigns { get; set; }
-        public DbSet<ItemDeckDesignEntity> ItemDeckDesign { get; set; }
+        public DbSet<ItemDeckDesignEntity> ItemDeckDesigns { get; set; }
         public DbSet<SpellDeckEntity> SpellDecks { get; set; }
         public DbSet<ItemDeckEntity> ItemDecks { get; set; }
         public DbSet<SpellCardEntity> SpellCards { get; set; }

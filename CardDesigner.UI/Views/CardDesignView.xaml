@@ -93,7 +93,7 @@
                                 <DataGrid
                                     Grid.Column="2"
                                     AutoGenerateColumns="False"
-                                    ItemsSource="{Binding SelectedCharacter.SpellDecks, Mode=TwoWay}">
+                                    ItemsSource="{Binding CharacterSpellDecks, Mode=TwoWay}">
                                     <DataGrid.Columns>
                                         <DataGridTemplateColumn
                                             Width="*"
@@ -159,7 +159,7 @@
                                 <DataGrid
                                     Grid.Column="2"
                                     AutoGenerateColumns="False"
-                                    ItemsSource="{Binding SelectedCharacter.ItemDecks, Mode=TwoWay}">
+                                    ItemsSource="{Binding CharacterItemDecks, Mode=TwoWay}">
                                     <DataGrid.Columns>
                                         <DataGridTemplateColumn
                                             Width="*"
