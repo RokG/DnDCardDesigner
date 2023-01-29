@@ -30,6 +30,9 @@
             <DataTemplate DataType="{x:Type vms:CharacterViewModel}">
                 <views:CharacterView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CardDesignViewModel}">
+                <views:CardDesignView />
+            </DataTemplate>
         </Grid.Resources>
 
         <Grid.ColumnDefinitions>
@@ -72,6 +75,12 @@
                     Command="{Binding ChangeViewModelCommand}"
                     CommandParameter="CharacterViewModel"
                     Content="Character creator"
+                    DockPanel.Dock="Top" />
+                <RadioButton
+                    Height="60"
+                    Command="{Binding ChangeViewModelCommand}"
+                    CommandParameter="CardDesignViewModel"
+                    Content="Design card"
                     DockPanel.Dock="Top" />
                 <Grid
                     Background="Transparent"

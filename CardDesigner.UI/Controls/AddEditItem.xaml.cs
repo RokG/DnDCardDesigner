@@ -19,10 +19,14 @@ namespace CardDesigner.UI.Controls
         {
             InitializeComponent();
         }
+        
+        #region Events
+
+        public event RoutedEventHandler SelectionChanged;
+
+        #endregion
 
         #region Properties
-
-
 
         public bool ViewOnly
         {
@@ -132,6 +136,11 @@ namespace CardDesigner.UI.Controls
             if (SelectedItem != null)
             {
                 IsEditEnabled = true;
+            }
+
+            if (SelectionChanged != null)
+            {
+                SelectionChanged(this, new RoutedEventArgs());
             }
         } 
 

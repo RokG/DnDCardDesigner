@@ -1,11 +1,9 @@
-﻿using CardDesigner.Domain.Entities;
-using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace CardDesigner.Domain.Stores
 {
@@ -112,7 +110,6 @@ namespace CardDesigner.Domain.Stores
             await UpdateSpellDecksFromDb();
             await UpdateItemDecksFromDb();
             ReadAllItems();
-            AssignItemsToCards();
         }
 
         /// <summary>
@@ -398,6 +395,7 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<CharacterModel> characters = await _characterService.GetAllCharacters();
             _characters.Clear();
             _characters.AddRange(characters);
+            AssignItemsToCharacters();
         }
 
         private async Task UpdateItemCardsFromDb()
@@ -405,6 +403,7 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<ItemCardModel> itemCards = await _itemCardService.GetAllItemCards();
             _itemCards.Clear();
             _itemCards.AddRange(itemCards);
+            AssignItemsToCards(itemCards);
         }
 
         private async Task UpdateSpellDecksFromDb()
@@ -419,6 +418,9 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<CardDesignModel> cardDesigns = await _cardDesignService.GetAllCardDesigns();
             _cardDesigns.Clear();
             _cardDesigns.AddRange(cardDesigns);
+            AssignItemsToCards(ItemCards);
+            AssignItemsToItemDecks(ItemDecks);
+            AssignItemsToCharacters();
         }
 
         private async Task UpdateSpellCardsFromDb()
@@ -433,6 +435,7 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<ItemDeckModel> itemDecks = await _itemDeckService.GetAllItemDecks();
             _itemDecks.Clear();
             _itemDecks.AddRange(itemDecks);
+            AssignItemsToItemDecks(itemDecks);
         }
 
         #endregion
@@ -452,9 +455,9 @@ namespace CardDesigner.Domain.Stores
             _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Items\Weapons\RangedWeapons.json"));
         }
 
-        private void AssignItemsToCards()
+        private void AssignItemsToCards(IEnumerable<ItemCardModel> itemCardModels)
         {
-            foreach (ItemCardModel itemCard in ItemCards)
+            foreach (ItemCardModel itemCard in itemCardModels)
             {
                 switch (itemCard.Type)
                 {
@@ -473,6 +476,22 @@ namespace CardDesigner.Domain.Stores
                     default:
                         break;
                 }
+            }
+        }
+
+        private void AssignItemsToItemDecks(IEnumerable<ItemDeckModel> itemDecks)
+        {
+            foreach (ItemDeckModel itemDeck in itemDecks)
+            {
+                AssignItemsToCards(itemDeck.ItemCards);
+            }
+        }
+
+        private void AssignItemsToCharacters()
+        {
+            foreach (CharacterModel character in Characters)
+            {
+                AssignItemsToItemDecks(character.ItemDecks);
             }
         }
 

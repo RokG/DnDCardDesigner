@@ -5,6 +5,9 @@
     <!--  Color definitions  -->
     <Color x:Key="Unimplemented">Magenta</Color>
 
+    <Brush x:Key="IconColorFooter">Magenta</Brush>
+    <Brush x:Key="IconColorHeader">Magenta</Brush>
+
     <Color x:Key="Color101">#99836B</Color>
     <Color x:Key="Color102">#d5b895</Color>
     <Color x:Key="Color103">#FFF5E2</Color>
@@ -153,4 +156,15 @@
     <SolidColorBrush x:Key="TabItemSelectedBRDR" Color="{StaticResource Color101}" />
 
     <!--  Color brushes  -->
+
+    <Style x:Key="AdjustableFooterIconStyle" TargetType="{x:Type Path}">
+        <Setter Property="Fill" Value="{DynamicResource IconColorFooter}" />
+        <Setter Property="Stroke" Value="{DynamicResource IconColorFooter}" />
+    </Style>
+
+    <Style x:Key="AdjustableHeaderIconStyle" TargetType="{x:Type Path}">
+        <Setter Property="Fill" Value="{DynamicResource IconColorHeader}" />
+        <Setter Property="Stroke" Value="{DynamicResource IconColorHeader}" />
+    </Style>
+
 </ResourceDictionary>

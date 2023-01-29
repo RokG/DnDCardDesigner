@@ -37,7 +37,8 @@ namespace CardDesigner.UI.ViewModels
             NavigationService<ItemCardViewModel> itemCardNavigationService,
             NavigationService<SpellCardViewModel> spellCardNavigationService,
             NavigationService<CardDecksViewModel> spellDeckNavigationService,
-            NavigationService<CharacterViewModel> characterViewNavigationService)
+            NavigationService<CharacterViewModel> characterViewNavigationService,
+            NavigationService<CardDesignViewModel> cardDesignViewNavigationService)
         {
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
@@ -69,6 +70,9 @@ namespace CardDesigner.UI.ViewModels
                     break;
                 case "CharacterViewModel":
                     CurrentViewModel = new CharacterViewModel(_cardDesignerStore);
+                    break;
+                case "CardDesignViewModel":
+                    CurrentViewModel = new CardDesignViewModel(_cardDesignerStore);
                     break;
                 default:
                     break;

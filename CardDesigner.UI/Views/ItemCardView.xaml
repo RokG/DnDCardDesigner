@@ -32,24 +32,6 @@
                     ItemsSource="{Binding DataContext.AllArmoursCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
                     <DataGrid.Columns>
-                        <!--<DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="assignButton"
-                                        Margin="0"
-                                        Padding="0"
-                                        Content="X"
-                                        Visibility="Collapsed" />
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType=DataGridRow}}"
-                                            Value="True">
-                                            <Setter TargetName="assignButton" Property="Visibility" Value="Visible" />
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>-->
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Name}"

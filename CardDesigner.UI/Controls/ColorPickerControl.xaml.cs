@@ -19,6 +19,8 @@ namespace CardDesigner.UI.Controls
             InitializeComponent();
         }
 
+        public event RoutedEventHandler ColorChanged;
+
         public double Saturation
         {
             get { return (double)GetValue(SVXProperty); }
@@ -127,6 +129,11 @@ namespace CardDesigner.UI.Controls
                     Hue = colorCoordinate.Y;
                     CurrentHueValue = GetColorFromRectangle(rectangle, 0, Hue);
                     CurrentColor = GetColorFromRectangle(levelSaturationRectangle, Saturation, Value);
+                }
+
+                if (ColorChanged != null)
+                {
+                    ColorChanged(this, new RoutedEventArgs());
                 }
             }
         }

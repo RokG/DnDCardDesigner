@@ -55,7 +55,15 @@
     <Border Style="{StaticResource VisibleBorder}">
 
         <StackPanel>
-            <Label Content="{Binding Title, ElementName=colorPickerControl}" />
+            <DockPanel HorizontalAlignment="Stretch">
+                <Label Content="{Binding Title, ElementName=colorPickerControl}" />
+                <Label
+                    Width="16"
+                    Height="16"
+                    Margin="8,0"
+                    HorizontalAlignment="Right"
+                    Background="{Binding CurrentColor, ElementName=colorPickerControl}" />
+            </DockPanel>
 
             <Viewbox>
                 <StackPanel Orientation="Horizontal">

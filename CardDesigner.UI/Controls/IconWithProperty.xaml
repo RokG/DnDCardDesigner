@@ -10,7 +10,8 @@
                 Stretch="Fill">
                 <Label
                     Background="Transparent"
-                    Content="{Binding Icon, ElementName=IconWithProperty}" />
+                    Content="{Binding Icon, ElementName=IconWithProperty}"
+                    Foreground="{Binding IconColorFooter, ElementName=IconWithProperty}" />
             </Viewbox>
             <StackPanel
                 Width="100"
@@ -22,7 +23,8 @@
                     HorizontalContentAlignment="Center"
                     Background="Transparent"
                     Content="{Binding Value, ElementName=IconWithProperty}"
-                    FontSize="42">
+                    FontSize="42"
+                    Foreground="{Binding TextColor, ElementName=IconWithProperty}">
                     <Label.Style>
                         <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -48,7 +50,8 @@
                     HorizontalContentAlignment="Center"
                     Background="Transparent"
                     Content="{Binding Unit, ElementName=IconWithProperty}"
-                    FontSize="42">
+                    FontSize="42"
+                    Foreground="{Binding TextColor, ElementName=IconWithProperty}">
                     <Label.Style>
                         <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
                             <Setter Property="Visibility" Value="Visible" />

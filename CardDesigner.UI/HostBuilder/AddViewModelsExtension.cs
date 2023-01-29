@@ -17,12 +17,14 @@ namespace CardDesigner.UI.HostBuilder
                 services.AddTransient((s) => CreateCardDecksViewModel(s));
                 services.AddTransient((s) => CreateItemCardViewModel(s));
                 services.AddTransient((s) => CreateCharacterViewModel(s));
+                services.AddTransient((s) => CreateCardDesignViewModel(s));
 
                 services.AddSingleton<Func<HomeViewModel>>((s) => () => s.GetRequiredService<HomeViewModel>());
                 services.AddSingleton<Func<SpellCardViewModel>>((s) => () => s.GetRequiredService<SpellCardViewModel>());
                 services.AddSingleton<Func<CardDecksViewModel>>((s) => () => s.GetRequiredService<CardDecksViewModel>());
                 services.AddSingleton<Func<ItemCardViewModel>>((s) => () => s.GetRequiredService<ItemCardViewModel>());
                 services.AddSingleton<Func<CharacterViewModel>>((s) => () => s.GetRequiredService<CharacterViewModel>());
+                services.AddSingleton<Func<CardDesignViewModel>>((s) => () => s.GetRequiredService<CardDesignViewModel>());
 
                 services.AddSingleton<MainViewModel>();
             });
@@ -53,6 +55,10 @@ namespace CardDesigner.UI.HostBuilder
         private static CharacterViewModel CreateCharacterViewModel(IServiceProvider s)
         {
             return CharacterViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
+        }
+        private static CardDesignViewModel CreateCardDesignViewModel(IServiceProvider s)
+        {
+            return CardDesignViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
         }
     }
 }
