@@ -2,6 +2,7 @@
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -28,8 +29,12 @@ namespace CardDesigner.UI.ViewModels
 
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(CreateCardDesignCommand))]
-        private string addedCardDesignName;
+        [NotifyCanExecuteChangedFor(nameof(CreateSpellCardDesignCommand))]
+        private string addedSpellCardDesignName;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateItemCardDesignCommand))]
+        private string addedItemCardDesignName;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateCharacterCommand))]
@@ -42,7 +47,10 @@ namespace CardDesigner.UI.ViewModels
         private string addedItemDeckName;
 
         [ObservableProperty]
-        private CardDesignModel selectedCardDesign;
+        private CardDesignModel selectedSpellCardDesign;
+
+        [ObservableProperty]
+        private CardDesignModel selectedItemCardDesign;
 
         [ObservableProperty]
         private CharacterModel selectedCharacter;
@@ -94,19 +102,37 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
 
             _cardDesignerStore.CardDesignUpdated += OnCardDesignUpdated;
+            _cardDesignerStore.CardDesignCreated += OnCardDesignCreated;
+            _cardDesignerStore.CardDesignDeleted += OnCardDesignDeleted;
 
             LoadData();
 
-            SelectedCardDesign = AllCardDesigns.FirstOrDefault();
+            SelectedSpellCardDesign = AllCardDesigns.FirstOrDefault();
+            SelectedItemCardDesign = AllCardDesigns.FirstOrDefault();
             SelectedCharacter = AllCharacters.FirstOrDefault();
             SelectedItemDeck = AllItemDecks.FirstOrDefault();
 
             GetCharacterSpellDecks();
             GetCharacterItemDecks();
-            UpdateCardDesign();
+            UpdateSpellCardDesign();
+            UpdateItemCardDesign();
         }
 
-        private void OnCardDesignUpdated(CardDesignModel obj)
+        private void OnCardDesignDeleted(CardDesignModel cardDesign)
+        {
+            AllCardDesigns.Remove(cardDesign);
+            SelectedSpellCardDesign = AllCardDesigns.FirstOrDefault();
+            SelectedItemCardDesign = AllCardDesigns.FirstOrDefault();
+        }
+
+        private void OnCardDesignCreated(CardDesignModel cardDesign)
+        {
+            AllCardDesigns.Add(cardDesign);
+            SelectedSpellCardDesign = cardDesign;
+            SelectedItemCardDesign = cardDesign;
+        }
+
+        private void OnCardDesignUpdated(CardDesignModel cardDesign)
         {
             try
             {
@@ -128,6 +154,7 @@ namespace CardDesigner.UI.ViewModels
                     CharacterSpellDecks.Add(AllSpellDecks.First(i => i.ID == deckDescriptor.SpellDeckID));
                 }
             }
+            SelectedSpellDeck = CharacterSpellDecks.FirstOrDefault();
         }
 
         private void GetCharacterItemDecks()
@@ -140,6 +167,7 @@ namespace CardDesigner.UI.ViewModels
                     CharacterItemDecks.Add(AllItemDecks.First(i => i.ID == deckDescriptor.ItemDeckID));
                 }
             }
+            SelectedItemDeck = CharacterItemDecks.FirstOrDefault(); 
         }
 
         private void OnCharacterUpdated(CharacterModel character)
@@ -191,15 +219,28 @@ namespace CardDesigner.UI.ViewModels
 
         #region Commands
 
-        [RelayCommand(CanExecute = nameof(CanCreateCardDesign))]
-        private async void CreateCardDesign()
+        [RelayCommand(CanExecute = nameof(CanCreateSpellCardDesign))]
+        private async void CreateSpellCardDesign()
         {
-            await _cardDesignerStore.CreateCardDesign(new CardDesignModel() { Name = AddedCardDesignName });
+            await _cardDesignerStore.CreateCardDesign(new CardDesignModel() { Name = AddedSpellCardDesignName });
         }
 
-        private bool CanCreateCardDesign()
+        private bool CanCreateSpellCardDesign()
         {
-            bool noName = (AddedCardDesignName == string.Empty || AddedCardDesignName == null);
+            bool noName = (AddedSpellCardDesignName == string.Empty || AddedSpellCardDesignName == null);
+
+            return !noName;
+        }
+
+        [RelayCommand(CanExecute = nameof(CanCreateItemCardDesign))]
+        private async void CreateItemCardDesign()
+        {
+            await _cardDesignerStore.CreateCardDesign(new CardDesignModel() { Name = AddedItemCardDesignName });
+        }
+
+        private bool CanCreateItemCardDesign()
+        {
+            bool noName = (AddedItemCardDesignName == string.Empty || AddedItemCardDesignName == null);
 
             return !noName;
         }
@@ -225,9 +266,14 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
-        private async void DeleteCardDesign()
+        private async void DeleteSpellCardDesign()
         {
-            await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
+            //await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
+        }
+        [RelayCommand]
+        private async void DeleteItemCardDesign()
+        {
+            //await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
         }
 
         [RelayCommand]
@@ -240,14 +286,14 @@ namespace CardDesigner.UI.ViewModels
                 {
                     SelectedCharacter.SpellDeckDescriptors
                         .First(d => d.SpellDeckID == spellDeck.ID)
-                        .DesignID = SelectedCardDesign == null ? 0 : SelectedCardDesign.ID;
+                        .DesignID = SelectedSpellCardDesign == null ? 0 : SelectedSpellCardDesign.ID;
                 }
                 else
                 {
                     SelectedCharacter.SpellDeckDescriptors.Add(new()
                     {
                         SpellDeckID = spellDeck.ID,
-                        DesignID = SelectedCardDesign == null ? 0 : SelectedCardDesign.ID
+                        DesignID = SelectedSpellCardDesign == null ? 0 : SelectedSpellCardDesign.ID
                     });
                 }
             }
@@ -259,7 +305,7 @@ namespace CardDesigner.UI.ViewModels
                     new()
                     {
                         SpellDeckID = spellDeck.ID,
-                        DesignID = SelectedCardDesign == null ? 0 : SelectedCardDesign.ID
+                        DesignID = SelectedSpellCardDesign == null ? 0 : SelectedSpellCardDesign.ID
                     }
                 };
             }
@@ -277,14 +323,14 @@ namespace CardDesigner.UI.ViewModels
                 {
                     SelectedCharacter.ItemDeckDescriptors
                         .First(d => d.ItemDeckID == itemDeck.ID)
-                        .DesignID = SelectedCardDesign == null ? 0 : SelectedCardDesign.ID;
+                        .DesignID = SelectedItemCardDesign == null ? 0 : SelectedItemCardDesign.ID;
                 }
                 else
                 {
                     SelectedCharacter.ItemDeckDescriptors.Add(new()
                     {
                         ItemDeckID = itemDeck.ID,
-                        DesignID = SelectedCardDesign == null ? 0 : SelectedCardDesign.ID
+                        DesignID = SelectedItemCardDesign == null ? 0 : SelectedItemCardDesign.ID
                     });
                 }
             }
@@ -296,7 +342,7 @@ namespace CardDesigner.UI.ViewModels
                     new()
                     {
                         ItemDeckID = itemDeck.ID,
-                        DesignID = SelectedCardDesign == null ? 0 : SelectedCardDesign.ID
+                        DesignID = SelectedItemCardDesign == null ? 0 : SelectedItemCardDesign.ID
                     }
                 };
             }
@@ -321,9 +367,14 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
-        private async void UpdateCardDesign()
+        private async void UpdateSpellCardDesign()
         {
-            await _cardDesignerStore.UpdateCardDesign(SelectedCardDesign);
+            await _cardDesignerStore.UpdateCardDesign(SelectedSpellCardDesign);
+        }
+        [RelayCommand]
+        private async void UpdateItemCardDesign()
+        {
+            await _cardDesignerStore.UpdateCardDesign(SelectedItemCardDesign);
         }
         #endregion
     }

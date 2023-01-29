@@ -4,67 +4,63 @@
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls"
     xmlns:validators="clr-namespace:CardDesigner.UI.Validators">
-    <Border
-        BorderThickness="1"
-        Style="{StaticResource VisibleBorder}">
-        <StackPanel>
-            <!--  Title  -->
-            <Label
-                Content="{Binding Title, ElementName=AddEditItemControl}"
-                Style="{StaticResource SubtitleLabel}" />
-            <!--  Add, Edit, Delete buttons  -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <!--  Selection  -->
-                <ComboBox x:Name="SourceItemControl"
-                    Height="40"
-                    DisplayMemberPath="Name"
-                    ItemsSource="{Binding ItemsSource, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedItem, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionChanged="SourceItemControl_SelectionChanged" />
-                <StackPanel
-                    Grid.Column="1"
-                    Orientation="Horizontal"
-                    Visibility="{Binding ViewOnly, ElementName=AddEditItemControl, Converter={converters:BoolToVisibilityConverter FalseValue=Visible, TrueValue=Collapsed}}">
-                    <Button x:Name="AddButton"
-                        Click="OpenEditMode"
-                        Content="New"
-                        DockPanel.Dock="Right" />
-                    <Button x:Name="EditButton"
-                        Click="OpenEditMode"
-                        Content="Edit"
-                        DockPanel.Dock="Right"
-                        IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}"
-                        Visibility="Collapsed" />
-                    <Button x:Name="DeleteButton"
-                        Command="{Binding DeleteCommand, ElementName=AddEditItemControl}"
-                        Content="Delete"
-                        DockPanel.Dock="Right"
-                        IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}" />
-                </StackPanel>
-            </Grid>
-            <!--  Toggled items  -->
+    <StackPanel>
+        <!--  Title  -->
+        <Label
+            Content="{Binding Title, ElementName=AddEditItemControl}"
+            Style="{StaticResource SubtitleLabel}" />
+        <!--  Add, Edit, Delete buttons  -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <!--  Selection  -->
+            <ComboBox x:Name="SourceItemControl"
+                Height="40"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding ItemsSource, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedItem, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectionChanged="SourceItemControl_SelectionChanged" />
             <StackPanel
+                Grid.Column="1"
                 Orientation="Horizontal"
-                Visibility="{Binding EditMode, ElementName=AddEditItemControl}">
-                <Label Content="Name:" />
-                <TextBox x:Name="NameField"
-                    Text="{Binding AddedItemName, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                Visibility="{Binding ViewOnly, ElementName=AddEditItemControl, Converter={converters:BoolToVisibilityConverter FalseValue=Visible, TrueValue=Collapsed}}">
+                <Button x:Name="AddButton"
+                    Click="OpenEditMode"
+                    Content="New"
+                    DockPanel.Dock="Right" />
+                <Button x:Name="EditButton"
+                    Click="OpenEditMode"
+                    Content="Edit"
+                    DockPanel.Dock="Right"
+                    IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}"
+                    Visibility="Collapsed" />
+                <Button x:Name="DeleteButton"
+                    Command="{Binding DeleteCommand, ElementName=AddEditItemControl}"
+                    Content="Delete"
+                    DockPanel.Dock="Right"
+                    IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}" />
             </StackPanel>
-            <StackPanel
-                Orientation="Horizontal"
-                Visibility="{Binding EditMode, ElementName=AddEditItemControl}">
-                <Button x:Name="SaveButton"
-                    Click="CloseEditMode"
-                    Command="{Binding SaveCommand, ElementName=AddEditItemControl}"
-                    Content="Save" />
-                <Button
-                    Click="CloseEditMode"
-                    Content="Cancel" />
-            </StackPanel>
+        </Grid>
+        <!--  Toggled items  -->
+        <StackPanel
+            Orientation="Horizontal"
+            Visibility="{Binding EditMode, ElementName=AddEditItemControl}">
+            <Label Content="Name:" />
+            <TextBox x:Name="NameField"
+                Text="{Binding AddedItemName, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
-    </Border>
+        <StackPanel
+            Orientation="Horizontal"
+            Visibility="{Binding EditMode, ElementName=AddEditItemControl}">
+            <Button x:Name="SaveButton"
+                Click="CloseEditMode"
+                Command="{Binding SaveCommand, ElementName=AddEditItemControl}"
+                Content="Save" />
+            <Button
+                Click="CloseEditMode"
+                Content="Cancel" />
+        </StackPanel>
+    </StackPanel>
 </UserControl>

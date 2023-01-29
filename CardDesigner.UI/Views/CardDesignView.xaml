@@ -179,20 +179,54 @@
                             </Grid>
                         </StackPanel>
                     </Border>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <controls:AddEditItem
+                                Title="Testing Spell deck"
+                                ItemsSource="{Binding CharacterSpellDecks, Mode=TwoWay}"
+                                SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
+                                SelectionChanged="SelectedCardDesign_SelectionChanged"
+                                ViewOnly="True" />
 
-                    <controls:AddEditItem
-                        Title="CardDesigns"
-                        AddedItemName="{Binding AddedCardDesignName, Mode=TwoWay}"
-                        DeleteCommand="{Binding DeleteCardDesignCommand}"
-                        ItemsSource="{Binding AllCardDesigns, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateCardDesignCommand}"
-                        SelectedItem="{Binding SelectedCardDesign, Mode=TwoWay}"
-                        SelectionChanged="SelectedCardDesign_SelectionChanged"
-                        ViewOnly="False" />
+                            <controls:AddEditItem
+                                Title="Selected deck design"
+                                AddedItemName="{Binding AddedSpellCardDesignName, Mode=TwoWay}"
+                                DeleteCommand="{Binding DeleteSpellCardDesignCommand}"
+                                ItemsSource="{Binding AllCardDesigns, Mode=TwoWay}"
+                                SaveCommand="{Binding CreateSpellCardDesignCommand}"
+                                SelectedItem="{Binding SelectedSpellCardDesign, Mode=TwoWay}"
+                                SelectionChanged="SelectedCardDesign_SelectionChanged"
+                                ViewOnly="False" />
+                            <Button
+                                Command="{Binding UpdateSpellCardDesignCommand}"
+                                Content="UPDATE" />
+                        </StackPanel>
+                    </Border>
 
-                    <Button
-                        Command="{Binding UpdateCardDesignCommand}"
-                        Content="TEST" />
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <controls:AddEditItem
+                                Title="Testing Item deck"
+                                ItemsSource="{Binding CharacterItemDecks, Mode=TwoWay}"
+                                SelectedItem="{Binding SelectedItemDeck, Mode=TwoWay}"
+                                SelectionChanged="SelectedCardDesign_SelectionChanged"
+                                ViewOnly="True" />
+
+                            <controls:AddEditItem
+                                Title="Selected deck design"
+                                AddedItemName="{Binding AddedItemCardDesignName, Mode=TwoWay}"
+                                DeleteCommand="{Binding DeleteItemCardDesignCommand}"
+                                ItemsSource="{Binding AllCardDesigns, Mode=TwoWay}"
+                                SaveCommand="{Binding CreateItemCardDesignCommand}"
+                                SelectedItem="{Binding SelectedItemCardDesign, Mode=TwoWay}"
+                                SelectionChanged="SelectedCardDesign_SelectionChanged"
+                                ViewOnly="False" />
+                            <Button
+                                Command="{Binding UpdateItemCardDesignCommand}"
+                                Content="UPDATE" />
+                        </StackPanel>
+                    </Border>
+
                 </StackPanel>
 
                 <!--  Card overview  -->
@@ -212,11 +246,11 @@
                                     <controls:ColorPickerControl x:Name="BackLineColor"
                                         Title="Line Color"
                                         Width="200"
-                                        CurrentColor="{Binding SelectedCardDesign.BackLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        CurrentColor="{Binding SelectedSpellCardDesign.BackLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <controls:ColorPickerControl x:Name="BackBackgroundColor"
                                         Title="Background Color"
                                         Width="200"
-                                        CurrentColor="{Binding SelectedCardDesign.BackBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        CurrentColor="{Binding SelectedSpellCardDesign.BackBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <Border Style="{StaticResource VisibleBorder}">
                                         <StackPanel>
                                             <Label Content="Line width" />
@@ -226,13 +260,13 @@
                                                 HorizontalContentAlignment="Stretch"
                                                 Maximum="20"
                                                 Minimum="0"
-                                                Value="{Binding SelectedCardDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Value="{Binding SelectedSpellCardDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                             <StackPanel>
                                                 <Label Content="Icon" />
-                                                <controls:FilePicker Text="{Binding SelectedCardDesign.BackgroundIconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <controls:FilePicker Text="{Binding SelectedSpellCardDesign.BackgroundIconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 <ComboBox
                                                     Grid.Column="1"
-                                                    SelectedItem="{Binding SelectedCardDesign.BackgroundIconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                    SelectedItem="{Binding SelectedSpellCardDesign.BackgroundIconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                     <sys:String>None</sys:String>
                                                     <sys:String>Fill</sys:String>
                                                     <sys:String>Uniform</sys:String>
@@ -245,7 +279,7 @@
                             </StackPanel>
                             <controls:CardBackgroundControl
                                 Grid.Column="1"
-                                CardDesign="{Binding SelectedCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                CardDesign="{Binding SelectedSpellCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </TabItem>
                     <TabItem Header="Spell Card Foreground">
@@ -260,43 +294,43 @@
                                 Orientation="Horizontal">
                                 <controls:ColorPickerControl x:Name="FrontLineColor"
                                     Title="Line Color"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontBackgroundColor"
                                     Title="Background Color"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontHeaderTextColor"
                                     Title="Header Text Color"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontHeaderTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontHeaderTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontFooterTextColor"
                                     Title="Footer Text Color"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontFooterTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontFooterTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontDescriptionTextColor"
                                     Title="Description Color"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontDescriptionTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontDescriptionTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontHeaderIconColor"
                                     Title="Header Icon Color"
                                     ColorChanged="FrontHeaderIconColor_ColorChanged"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontHeaderIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontHeaderIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontFooterIconColor"
                                     Title="Footer Icon Color"
                                     ColorChanged="FrontFooterIconColor_ColorChanged"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontFooterIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontFooterIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontForegroundColor"
                                     Title="Foreground Color"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontForegroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontForegroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontHeaderColor"
                                     Title="Header Color"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontHeaderColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontHeaderColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontFooterColor"
                                     Title="Footer Color"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontFooterColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontFooterColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontHiglightColor"
                                     Title="Highlight Color"
-                                    CurrentColor="{Binding SelectedCardDesign.FrontHiglightColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedSpellCardDesign.FrontHiglightColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </WrapPanel>
                             <controls:SpellCardControl
                                 Grid.Column="1"
-                                CardDesign="{Binding SelectedCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                CardDesign="{Binding SelectedSpellCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 SpellCard="{Binding TestSpellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </TabItem>
@@ -308,7 +342,7 @@
                             </Grid.ColumnDefinitions>
                             <controls:ItemCardControl
                                 Grid.Column="1"
-                                CardDesign="{Binding SelectedCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                CardDesign="{Binding SelectedItemCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemCard="{Binding TestItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </TabItem>
