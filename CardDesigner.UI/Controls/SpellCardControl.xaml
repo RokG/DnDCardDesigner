@@ -182,26 +182,26 @@
 
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellCastingTime}"
-                        IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IconColorFooter="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Unit="{Binding SpellCard.CastingTimeType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.CastingTimeValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellDuration}"
-                        IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IconColorFooter="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Unit="{Binding SpellCard.DurationType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.DurationValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Icon="{StaticResource SpellRange}"
-                        IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IconColorFooter="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Unit="{Binding SpellCard.RangeType, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                         Value="{Binding SpellCard.RangeValue, ElementName=spellCard}" />
                     <controls:IconWithPropertyControl
                         Height="30"
                         Icon="{Binding SpellCard.DiceType, Converter={converters:StringToResourceKeyConverter}, ElementName=spellCard}"
-                        IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IconColorFooter="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Value="{Binding SpellCard.DiceValue, ElementName=spellCard}" />
                 </WrapPanel>
@@ -243,7 +243,7 @@
 
                         <controls:IconWithPropertyControl
                             Icon="{Binding SpellCard.AreaOfEffect, ElementName=spellCard, Converter={converters:StringToResourceKeyConverter}}"
-                            IconColor="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IconColorFooter="{Binding CardDesign.FrontFooterIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Unit="{Binding SpellCard.AreaOfEffect, ElementName=spellCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
                             Value="{Binding SpellCard.AreaOfEffectValue, ElementName=spellCard}" />

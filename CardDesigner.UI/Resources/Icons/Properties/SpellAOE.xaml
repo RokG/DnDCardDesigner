@@ -11,17 +11,17 @@
                 Canvas.Top="5"
                 Width="90"
                 Height="90"
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3" />
             <Line
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3"
                 X1="40"
                 X2="60"
                 Y1="40"
                 Y2="60" />
             <Line
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3"
                 X1="40"
                 X2="60"
@@ -39,17 +39,17 @@
                 Canvas.Top="5"
                 Width="90"
                 Height="90"
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3" />
             <Line
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3"
                 X1="40"
                 X2="60"
                 Y1="40"
                 Y2="60" />
             <Line
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3"
                 X1="40"
                 X2="60"
@@ -63,21 +63,21 @@
             Width="100"
             Height="100">
             <Line
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3"
                 X1="50"
                 X2="50"
                 Y1="90"
                 Y2="10" />
             <Line
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3"
                 X1="40"
                 X2="60"
                 Y1="100"
                 Y2="80" />
             <Line
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3"
                 X1="40"
                 X2="60"
@@ -92,17 +92,17 @@
             Height="100">
             <Polygon
                 Points="50,80 10,10 90,10"
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3" />
             <Line
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3"
                 X1="40"
                 X2="60"
                 Y1="70"
                 Y2="90" />
             <Line
-                Stroke="{DynamicResource IconColor}"
+                Stroke="{DynamicResource IconColorFooter}"
                 StrokeThickness="3"
                 X1="40"
                 X2="60"
@@ -122,14 +122,14 @@
                 Height="10"
                 Margin="50">
                 <Line
-                    Stroke="{DynamicResource IconColor}"
+                    Stroke="{DynamicResource IconColorFooter}"
                     StrokeThickness="3"
                     X1="4"
                     X2="6"
                     Y1="4"
                     Y2="6" />
                 <Line
-                    Stroke="{DynamicResource IconColor}"
+                    Stroke="{DynamicResource IconColorFooter}"
                     StrokeThickness="3"
                     X1="4"
                     X2="6"
@@ -146,5 +146,5 @@
         Width="90"
         Height="90"
         Fill="{StaticResource CenterTarget}"
-        Stroke="{DynamicResource IconColor}"
+        Stroke="{DynamicResource IconColorFooter}"
         StrokeThickness="3" />-->

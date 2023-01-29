@@ -42,7 +42,13 @@ namespace CardDesigner.UI.Views
                     if (cardDesign.FrontFooterIconColor != null)
                     {
                         SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(cardDesign.FrontFooterIconColor));
-                        Application.Current.Resources["IconColor"] = solidColorBrush;
+                        Application.Current.Resources["IconColorFooter"] = solidColorBrush;
+                    }
+
+                    if (cardDesign.FrontHeaderIconColor != null)
+                    {
+                        SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(cardDesign.FrontHeaderIconColor));
+                        Application.Current.Resources["IconColorHeader"] = solidColorBrush;
                     }
                 }
             }
@@ -94,7 +100,16 @@ namespace CardDesigner.UI.Views
             if (sender is ColorPickerControl colorPicker)
             {
                 SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorPicker.CurrentColor));
-                Application.Current.Resources["IconColor"] = solidColorBrush;
+                Application.Current.Resources["IconColorFooter"] = solidColorBrush;
+            }
+        }
+
+        private void FrontHeaderIconColor_ColorChanged(object sender, RoutedEventArgs e)
+        {
+            if (sender is ColorPickerControl colorPicker)
+            {
+                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorPicker.CurrentColor));
+                Application.Current.Resources["IconColorHeader"] = solidColorBrush;
             }
         }
     }

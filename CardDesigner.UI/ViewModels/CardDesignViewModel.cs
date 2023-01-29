@@ -80,18 +80,25 @@ namespace CardDesigner.UI.ViewModels
             Name = Regex.Replace(nameof(CardDesignViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Card designs";
 
-            SelectedCardDesign = new();
-
             _cardDesignerStore = cardDesignerStore;
 
             _cardDesignerStore.CharacterCreated += OnCharacterCreated;
             _cardDesignerStore.CharacterUpdated += OnCharacterUpdated;
             _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
 
+            _cardDesignerStore.CardDesignUpdated += OnCardDesignUpdated;
+
             LoadData();
 
-
+            SelectedCardDesign = AllCardDesigns.FirstOrDefault();
             SelectedCharacter = AllCharacters.FirstOrDefault();
+            SelectedItemDeck = AllItemDecks.FirstOrDefault();
+
+            UpdateCardDesign();
+        }
+
+        private void OnCardDesignUpdated(CardDesignModel obj)
+        {
             try
             {
                 TestItemCard = SelectedCharacter?.ItemDecks?.FirstOrDefault().ItemCards?.FirstOrDefault();
@@ -99,16 +106,21 @@ namespace CardDesigner.UI.ViewModels
             }
             catch (System.Exception)
             {
-
             }
-
         }
 
         private void OnCharacterUpdated(CharacterModel character)
         {
             SelectedCharacter = character;
-            TestItemCard = SelectedCharacter.ItemDecks.FirstOrDefault().ItemCards.FirstOrDefault();
-            TestSpellCard = SelectedCharacter.SpellDecks.FirstOrDefault().SpellCards.FirstOrDefault();
+            try
+            {
+                TestItemCard = SelectedCharacter.ItemDecks.FirstOrDefault().ItemCards.FirstOrDefault();
+                TestSpellCard = SelectedCharacter.SpellDecks.FirstOrDefault().SpellCards.FirstOrDefault();
+            }
+            catch (System.Exception)
+            {
+
+            }
         }
 
         #endregion
@@ -147,6 +159,7 @@ namespace CardDesigner.UI.ViewModels
             AllCardDesigns = new(_cardDesignerStore.CardDesigns);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
+            AllCardDesigns = new(_cardDesignerStore.CardDesigns);
         }
 
         #endregion

@@ -11,7 +11,7 @@
                 <Label
                     Background="Transparent"
                     Content="{Binding Icon, ElementName=IconWithProperty}"
-                    Foreground="{Binding IconColor, ElementName=IconWithProperty}" />
+                    Foreground="{Binding IconColorFooter, ElementName=IconWithProperty}" />
             </Viewbox>
             <StackPanel
                 Width="100"

@@ -275,6 +275,7 @@
                                     CurrentColor="{Binding SelectedCardDesign.FrontDescriptionTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontHeaderIconColor"
                                     Title="Header Icon Color"
+                                    ColorChanged="FrontHeaderIconColor_ColorChanged"
                                     CurrentColor="{Binding SelectedCardDesign.FrontHeaderIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="FrontFooterIconColor"
                                     Title="Footer Icon Color"
@@ -307,6 +308,7 @@
                             </Grid.ColumnDefinitions>
                             <controls:ItemCardControl
                                 Grid.Column="1"
+                                CardDesign="{Binding SelectedCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemCard="{Binding TestItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </TabItem>

@@ -34,14 +34,14 @@ namespace CardDesigner.UI.Controls
         public static readonly DependencyProperty TextColorProperty =
             DependencyProperty.Register(nameof(TextColor), typeof(string), typeof(IconWithPropertyControl), new PropertyMetadata("#FF000000"));
 
-        public string IconColor
+        public string IconColorFooter
         {
             get { return (string)GetValue(IconColorProperty); }
             set { SetValue(IconColorProperty, value); }
         }
 
         public static readonly DependencyProperty IconColorProperty =
-            DependencyProperty.Register(nameof(IconColor), typeof(string), typeof(IconWithPropertyControl), new PropertyMetadata("#FF000000"));
+            DependencyProperty.Register(nameof(IconColorFooter), typeof(string), typeof(IconWithPropertyControl), new PropertyMetadata("#FF000000"));
 
         public object Icon
         {
