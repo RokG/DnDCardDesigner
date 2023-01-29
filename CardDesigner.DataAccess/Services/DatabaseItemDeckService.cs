@@ -105,7 +105,6 @@ namespace CardDesigner.DataAccess.Services
             {
                 IEnumerable<ItemDeckEntity> itemDeckEntities = await
                     context.ItemDecks
-                    .Include(sd => sd.Characters)
                     .Include(sd => sd.ItemCards)
                     .ToListAsync();
 

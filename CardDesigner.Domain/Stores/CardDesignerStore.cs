@@ -395,7 +395,6 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<CharacterModel> characters = await _characterService.GetAllCharacters();
             _characters.Clear();
             _characters.AddRange(characters);
-            AssignItemsToCharacters();
         }
 
         private async Task UpdateItemCardsFromDb()
@@ -420,7 +419,6 @@ namespace CardDesigner.Domain.Stores
             _cardDesigns.AddRange(cardDesigns);
             AssignItemsToCards(ItemCards);
             AssignItemsToItemDecks(ItemDecks);
-            AssignItemsToCharacters();
         }
 
         private async Task UpdateSpellCardsFromDb()
@@ -487,13 +485,6 @@ namespace CardDesigner.Domain.Stores
             }
         }
 
-        private void AssignItemsToCharacters()
-        {
-            foreach (CharacterModel character in Characters)
-            {
-                AssignItemsToItemDecks(character.ItemDecks);
-            }
-        }
 
         #endregion
     }

@@ -101,8 +101,8 @@ namespace CardDesigner.UI.ViewModels
         {
             try
             {
-                TestItemCard = SelectedCharacter?.ItemDecks?.FirstOrDefault().ItemCards?.FirstOrDefault();
-                TestSpellCard = SelectedCharacter?.SpellDecks?.FirstOrDefault().SpellCards?.FirstOrDefault();
+                //TestItemCard = SelectedCharacter?.ItemDecks?.FirstOrDefault().ItemCards?.FirstOrDefault();
+                //TestSpellCard = SelectedCharacter?.SpellDecks?.FirstOrDefault().SpellCards?.FirstOrDefault();
             }
             catch (System.Exception)
             {
@@ -114,8 +114,8 @@ namespace CardDesigner.UI.ViewModels
             SelectedCharacter = character;
             try
             {
-                TestItemCard = SelectedCharacter.ItemDecks.FirstOrDefault().ItemCards.FirstOrDefault();
-                TestSpellCard = SelectedCharacter.SpellDecks.FirstOrDefault().SpellCards.FirstOrDefault();
+                //TestItemCard = SelectedCharacter.ItemDecks.FirstOrDefault().ItemCards.FirstOrDefault();
+                //TestSpellCard = SelectedCharacter.SpellDecks.FirstOrDefault().SpellCards.FirstOrDefault();
             }
             catch (System.Exception)
             {
@@ -156,7 +156,6 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllCharacters = new(_cardDesignerStore.Characters);
-            AllCardDesigns = new(_cardDesignerStore.CardDesigns);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
             AllCardDesigns = new(_cardDesignerStore.CardDesigns);
@@ -208,29 +207,59 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void AddSpellDeckToCharacter(SpellDeckModel spellDeck)
         {
-            SelectedCharacter.SpellDecks.Add(spellDeck);
+            if (SelectedCharacter.SpellDeckDescriptors.Any())
+            {
+                // If character has any descriptors
+                if (SelectedCharacter.SpellDeckDescriptors.Any(d => d.SpellDeckID == spellDeck.ID))
+                {
+                    SelectedCharacter.SpellDeckDescriptors
+                        .First(d => d.SpellDeckID == spellDeck.ID)
+                        .DesignID = SelectedCardDesign == null ? 0 : SelectedCardDesign.ID;
+                }
+                else
+                {
+                    SelectedCharacter.SpellDeckDescriptors.Add(new()
+                    {
+                        SpellDeckID = spellDeck.ID,
+                        DesignID = SelectedCardDesign == null ? 0 : SelectedCardDesign.ID
+                    });
+                }
+            }
+            else
+            {
+                // Otherwise make a new list
+                SelectedCharacter.SpellDeckDescriptors = new()
+                {
+                    new()
+                    {
+                        SpellDeckID = spellDeck.ID,
+                        DesignID = SelectedCardDesign == null ? 0 : SelectedCardDesign.ID
+                    }
+                };
+            }
+
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         [RelayCommand]
         private async void AddItemDeckToCharacter(ItemDeckModel itemDeck)
         {
-            SelectedCharacter.ItemDecks.Add(itemDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            //SelectedCharacter.ItemDecks.Add(itemDeck);
+            //await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         [RelayCommand]
         private async void RemoveSpellDeckFromCharacter(SpellDeckModel spellDeck)
         {
-            SelectedCharacter.SpellDecks.Remove(spellDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            //SelectedCharacter.SpellDecks.Remove(spellDeck);
+            //await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         [RelayCommand]
         private async void RemoveItemDeckFromCharacter(ItemDeckModel itemDeck)
         {
-            SelectedCharacter.ItemDecks.Remove(itemDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            //SelectedCharacter.ItemDecks.Remove(itemDeck);
+            //await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         [RelayCommand]

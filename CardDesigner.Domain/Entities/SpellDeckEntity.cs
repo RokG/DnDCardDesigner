@@ -7,10 +7,10 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
-        public string Name { get; set; }
         public ICollection<SpellCardEntity> SpellCards { get; set; }
         public List<SpellDeckSpellCard> SpellDeckSpellCards { get; set; }
-        public ICollection<CharacterEntity> Characters { get; set; }
-        public List<CharacterSpellDeck> CharacterSpellDeck { get; set; }
+
+        // Properties
+        public string Name { get; set; }
     }
 }

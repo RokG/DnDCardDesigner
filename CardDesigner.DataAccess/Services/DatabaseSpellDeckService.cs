@@ -107,7 +107,6 @@ namespace CardDesigner.DataAccess.Services
             {
                 IEnumerable<SpellDeckEntity> spellDeckEntities = await
                     context.SpellDecks
-                    .Include(sd => sd.Characters)
                     .Include(sd => sd.SpellCards)
                     .ToListAsync();
 

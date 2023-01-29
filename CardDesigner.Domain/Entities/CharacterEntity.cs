@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Windows.Media.TextFormatting;
 
 namespace CardDesigner.Domain.Entities
 {
@@ -8,11 +7,10 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
+
+        // Properties
         public string Name { get; set; }
-        public CardDesignEntity CardDesign { get; set; }
-        public List<SpellDeckEntity> SpellDecks { get; set; }
-        public List<CharacterSpellDeck> CharacterSpellDeck { get; set; }
-        public List<ItemDeckEntity> ItemDecks { get; set; }
-        public List<CharacterItemDeck> CharacterItemDeck { get; set; }
+        public List<SpellDeckDesignEntity> SpellDeckDescriptors { get; set; }
+        public List<ItemDeckDesignEntity> ItemDeckDescriptors { get; set; }
     }
 }

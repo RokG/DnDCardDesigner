@@ -1,5 +1,4 @@
-﻿using CardDesigner.DataAccess.Migrations;
-using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Models;
 using CardDesigner.UI.Controls;
 using System.Windows;
 using System.Windows.Controls;

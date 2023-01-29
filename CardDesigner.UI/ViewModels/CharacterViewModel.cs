@@ -92,23 +92,10 @@ namespace CardDesigner.UI.ViewModels
 
 
             SelectedCharacter = AllCharacters.FirstOrDefault();
-            try
-            {
-                TestItemCard = SelectedCharacter?.ItemDecks?.FirstOrDefault().ItemCards?.FirstOrDefault();
-                TestSpellCard = SelectedCharacter?.SpellDecks?.FirstOrDefault().SpellCards?.FirstOrDefault();
-            }
-            catch (System.Exception)
-            {
-
-            }
-
         }
 
         private void OnCharacterUpdated(CharacterModel character)
         {
-            SelectedCharacter = character;
-            TestItemCard = SelectedCharacter.ItemDecks.FirstOrDefault().ItemCards.FirstOrDefault();
-            TestSpellCard = SelectedCharacter.SpellDecks.FirstOrDefault().SpellCards.FirstOrDefault();
         }
 
         #endregion
@@ -186,45 +173,6 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
         } 
         
-        [RelayCommand]
-        private async void DeleteCardDesign()
-        {
-            await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
-        }
-
-        [RelayCommand]
-        private async void AddSpellDeckToCharacter(SpellDeckModel spellDeck)
-        {
-            SelectedCharacter.SpellDecks.Add(spellDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void AddItemDeckToCharacter(ItemDeckModel itemDeck)
-        {
-            SelectedCharacter.ItemDecks.Add(itemDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void RemoveSpellDeckFromCharacter(SpellDeckModel spellDeck)
-        {
-            SelectedCharacter.SpellDecks.Remove(spellDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void RemoveItemDeckFromCharacter(ItemDeckModel itemDeck)
-        {
-            SelectedCharacter.ItemDecks.Remove(itemDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void UpdateCardDesign()
-        {
-            await _cardDesignerStore.UpdateCardDesign(SelectedCardDesign);
-        }
         #endregion
     }
 }
