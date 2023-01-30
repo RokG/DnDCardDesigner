@@ -23,7 +23,11 @@ namespace CardDesigner.DataAccess.DbContexts
         // Database objects
 
         public DbSet<CharacterEntity> Characters { get; set; }
-        public DbSet<CardDesignEntity> CardDesigns { get; set; }
+        public DbSet<SpellDeckDesignEntity> SpellDeckDesigns { get; set; }
+        public DbSet<ItemDeckDesignEntity> ItemDeckDesigns { get; set; }
+        public DbSet<SpellDeckDesignLinkerEntity> SpellDeckDesignLinkers { get; set; }
+        public DbSet<ItemDeckDesignLinkerEntity> ItemDeckDesignLinkers { get; set; }
+        public DbSet<CharacterDeckDesignEntity> CharacterDeckDesigns { get; set; }
         public DbSet<SpellDeckEntity> SpellDecks { get; set; }
         public DbSet<ItemDeckEntity> ItemDecks { get; set; }
         public DbSet<SpellCardEntity> SpellCards { get; set; }
@@ -37,34 +41,22 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Character Spell Deck - Deck design
             modelBuilder.Entity<CharacterEntity>()
-               .HasOne(c => c.CardDesign)
-               .WithMany(c => c.Characters)
-               .OnDelete(DeleteBehavior.Restrict);
+                   .HasOne(c => c.DeckBackgroundDesign)
+                   .WithMany(e => e.Characters);
 
+            // Character Spell Deck - Deck design
             modelBuilder.Entity<CharacterEntity>()
-                .HasMany(c => c.SpellDecks)
-               .WithMany(c => c.Characters)
-               .UsingEntity<CharacterSpellDeck>(
-                   j => j
-                       .HasOne(t => t.SpellDeck)
-                       .WithMany(c => c.CharacterSpellDeck)
-                       .HasForeignKey(c => c.SpellDeckID),
-                   j => j
-                       .HasOne(t => t.Character)
-                       .WithMany(c => c.CharacterSpellDeck)
-                       .HasForeignKey(c => c.CharacterID),
-                   j =>
-                   {
-                       j.HasKey(t => new { t.SpellDeckID, t.CharacterID });
-                   });
+                   .HasMany(c => c.SpellDeckDescriptors)
+                   .WithOne(e => e.Character);
 
-            modelBuilder.Entity<CharacterSpellDeck>()
-                .HasKey(t => new { t.CharacterID, t.SpellDeckID });
+            // Character Item Deck - Deck design
+            modelBuilder.Entity<CharacterEntity>()
+                   .HasMany(c => c.ItemDeckDescriptors)
+                   .WithOne(e => e.Character);
 
-            modelBuilder.Entity<SpellDeckSpellCard>()
-                .HasKey(t => new { t.SpellCardID, t.SpellDeckID });
-
+            // Spell Deck - Spell Card
             modelBuilder.Entity<SpellCardEntity>()
                 .HasMany(c => c.SpellDecks)
                 .WithMany(c => c.SpellCards)
@@ -82,26 +74,7 @@ namespace CardDesigner.DataAccess.DbContexts
                         j.HasKey(t => new { t.SpellDeckID, t.SpellCardID });
                     });
 
-            modelBuilder.Entity<CharacterEntity>()
-                .HasMany(c => c.ItemDecks)
-               .WithMany(c => c.Characters)
-               .UsingEntity<CharacterItemDeck>(
-                   j => j
-                       .HasOne(t => t.ItemDeck)
-                       .WithMany(c => c.CharacterItemDeck)
-                       .HasForeignKey(c => c.ItemDeckID),
-                   j => j
-                       .HasOne(t => t.Character)
-                       .WithMany(c => c.CharacterItemDeck)
-                       .HasForeignKey(c => c.CharacterID),
-                   j =>
-                   {
-                       j.HasKey(t => new { t.ItemDeckID, t.CharacterID });
-                   });
-
-            modelBuilder.Entity<CharacterItemDeck>()
-                .HasKey(t => new { t.CharacterID, t.ItemDeckID });
-
+            // Item Deck - Item Card
             modelBuilder.Entity<ItemDeckItemCard>()
                 .HasKey(t => new { t.ItemCardID, t.ItemDeckID });
 

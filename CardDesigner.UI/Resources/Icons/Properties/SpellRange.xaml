@@ -10,20 +10,17 @@
             </Canvas.RenderTransform>
             <Path
                 Data="m 11.734694 67.857142 76.530612 0"
-                Fill="Transparent"
-                StrokeThickness="3"
-                Style="{DynamicResource AdjustableFooterIconStyle}" />
+                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
+                StrokeThickness="3" />
             <Path
                 Data="m 77.768022 61.796532 10.497284 6.06061 -10.497284 6.06061"
-                Fill="Transparent"
-                StrokeThickness="3"
-                Style="{DynamicResource AdjustableFooterIconStyle}" />
+                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
+                StrokeThickness="3" />
             <Path
                 Data="M 11.734694 67.857142 C 18.571562 50.709479 35.652369 42.091836 50 42.091836 c 14.347631 0 31.428438 8.617643 38.265306 25.765306"
-                Fill="Transparent"
+                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
                 StrokeDashArray="2, 2"
-                StrokeThickness="3"
-                Style="{DynamicResource AdjustableFooterIconStyle}" />
+                StrokeThickness="3" />
         </Canvas>
     </Viewbox>
 </ResourceDictionary>

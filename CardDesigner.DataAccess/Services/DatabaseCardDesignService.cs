@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CardDesigner.DataAccess.DbContexts;
 using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using Microsoft.EntityFrameworkCore;
@@ -22,71 +23,135 @@ namespace CardDesigner.DataAccess.Services
             _mapper = mapper;
         }
 
-        public async Task<CardDesignModel> CreateCardDesign(CardDesignModel cardDesign)
+        public async Task<ICardDesign> CreateCardDesign(ICardDesign cardDesign)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                CardDesignEntity cardDesignEntity = _mapper.Map<CardDesignEntity>(cardDesign);
-
-                CardDesignEntity createdCardDesignEntity = dbContext.CardDesigns.Add(cardDesignEntity).Entity;
-                await dbContext.SaveChangesAsync();
-
-                return _mapper.Map<CardDesignModel>(createdCardDesignEntity);
-            }
-        }
-
-        public async Task<CardDesignModel> UpdateCardDesign(CardDesignModel cardDesignModel)
-        {
-            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
-            {
-                try
+                switch (cardDesign)
                 {
-                    CardDesignEntity itemCardEntity = _mapper.Map<CardDesignEntity>(cardDesignModel);
-
-                    CardDesignEntity createdItemCardEntity = dbContext.CardDesigns.Update(itemCardEntity).Entity;
-                    await dbContext.SaveChangesAsync();
-
-                    return _mapper.Map<CardDesignModel>(itemCardEntity);
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            }
-        }
-
-        public async Task<bool> DeleteCardDesign(CardDesignModel cardDesign)
-        {
-            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
-            {
-                try
-                {
-                    CardDesignEntity cardDesignEntity = _mapper.Map<CardDesignEntity>(cardDesign);
-                    if (dbContext.CardDesigns.Contains(cardDesignEntity))
-                    {
-                        dbContext.CardDesigns.Remove(cardDesignEntity);
+                    case SpellDeckDesignModel spellDeckDesignModel:
+                        SpellDeckDesignEntity spellDeckDesignEntity = _mapper.Map<SpellDeckDesignEntity>(spellDeckDesignModel);
+                        SpellDeckDesignEntity createdSpellDeckDesignEntity = dbContext.SpellDeckDesigns.Add(spellDeckDesignEntity).Entity;
                         await dbContext.SaveChangesAsync();
-                        return true;
-                    }
-                    return false;
-                }
-                catch (Exception)
-                {
-                    return false;
+                        return _mapper.Map<SpellDeckDesignModel>(createdSpellDeckDesignEntity);
+                    case ItemDeckDesignModel itemDeckDesignModel:
+                        ItemDeckDesignEntity itemDeckDesignEntity = _mapper.Map<ItemDeckDesignEntity>(itemDeckDesignModel);
+                        ItemDeckDesignEntity createdItemDeckDesignEntity = dbContext.ItemDeckDesigns.Add(itemDeckDesignEntity).Entity;
+                        await dbContext.SaveChangesAsync();
+                        return _mapper.Map<ItemDeckDesignModel>(createdItemDeckDesignEntity);
+                    case CharacterDeckDesignModel characterDeckDesignModel:
+                        CharacterDeckDesignEntity characterDeckDesignEntity = _mapper.Map<CharacterDeckDesignEntity>(characterDeckDesignModel);
+                        CharacterDeckDesignEntity createdCharacterDeckDesignEntity = dbContext.CharacterDeckDesigns.Add(characterDeckDesignEntity).Entity;
+                        await dbContext.SaveChangesAsync();
+                        return _mapper.Map<CharacterDeckDesignModel>(createdCharacterDeckDesignEntity);
+                    default:
+                        return null;
                 }
             }
         }
 
-        public async Task<IEnumerable<CardDesignModel>> GetAllCardDesigns()
+        public async Task<ICardDesign> UpdateCardDesign(ICardDesign cardDesignModel)
+        {
+            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            {
+                switch (cardDesignModel)
+                {
+                    case SpellDeckDesignModel spellDeckDesignModel:
+                        SpellDeckDesignEntity spellDeckDesignEntity = _mapper.Map<SpellDeckDesignEntity>(spellDeckDesignModel);
+                        SpellDeckDesignEntity createdSpellDeckDesignEntity = dbContext.SpellDeckDesigns.Update(spellDeckDesignEntity).Entity;
+                        await dbContext.SaveChangesAsync();
+                        return _mapper.Map<SpellDeckDesignModel>(createdSpellDeckDesignEntity);
+                    case ItemDeckDesignModel itemDeckDesignModel:
+                        ItemDeckDesignEntity itemDeckDesignEntity = _mapper.Map<ItemDeckDesignEntity>(itemDeckDesignModel);
+                        ItemDeckDesignEntity createdItemDeckDesignEntity = dbContext.ItemDeckDesigns.Update(itemDeckDesignEntity).Entity;
+                        await dbContext.SaveChangesAsync();
+                        return _mapper.Map<ItemDeckDesignModel>(createdItemDeckDesignEntity);
+                    case CharacterDeckDesignModel characterDeckDesignModel:
+                        CharacterDeckDesignEntity characterDeckDesignEntity = _mapper.Map<CharacterDeckDesignEntity>(characterDeckDesignModel);
+                        CharacterDeckDesignEntity createdCharacterDeckDesignEntity = dbContext.CharacterDeckDesigns.Update(characterDeckDesignEntity).Entity;
+                        await dbContext.SaveChangesAsync();
+                        return _mapper.Map<CharacterDeckDesignModel>(createdCharacterDeckDesignEntity);
+                    default:
+                        return null;
+                }
+            }
+        }
+
+        public async Task<bool> DeleteCardDesign(ICardDesign cardDesign)
+        {
+            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            {
+                switch (cardDesign)
+                {
+                    case SpellDeckDesignModel spellDeckDesignModel:
+                        SpellDeckDesignEntity spellDeckDesignEntity = _mapper.Map<SpellDeckDesignEntity>(spellDeckDesignModel);
+                        if (dbContext.SpellDeckDesigns.Contains(spellDeckDesignEntity))
+                        {
+                            dbContext.SpellDeckDesigns.Remove(spellDeckDesignEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
+                    case ItemDeckDesignModel itemDeckDesignModel:
+                        ItemDeckDesignEntity itemDeckDesignEntity = _mapper.Map<ItemDeckDesignEntity>(itemDeckDesignModel);
+                        if (dbContext.ItemDeckDesigns.Contains(itemDeckDesignEntity))
+                        {
+                            dbContext.ItemDeckDesigns.Remove(itemDeckDesignEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
+                    case CharacterDeckDesignModel characterDeckDesignModel:
+                        CharacterDeckDesignEntity characterDeckDesignEntity = _mapper.Map<CharacterDeckDesignEntity>(characterDeckDesignModel);
+                        if (dbContext.CharacterDeckDesigns.Contains(characterDeckDesignEntity))
+                        {
+                            dbContext.CharacterDeckDesigns.Remove(characterDeckDesignEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
+                    default:
+                        return false;
+                }
+            }
+        }
+
+        public async Task<IEnumerable<SpellDeckDesignModel>> GetAllSpellDeckDesigns()
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<CardDesignEntity> cardDesignEntities = await
-                    context.CardDesigns
+                IEnumerable<SpellDeckDesignEntity> cardDesignEntities = await
+                    context.SpellDeckDesigns
                     .Include(c => c.Characters)
                     .ToListAsync();
 
-                return cardDesignEntities.Select(c => _mapper.Map<CardDesignModel>(c));
+                return cardDesignEntities.Select(c => _mapper.Map<SpellDeckDesignModel>(c));
+            }
+        }
+
+        public async Task<IEnumerable<ItemDeckDesignModel>> GetAllItemDeckDesigns()
+        {
+            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                IEnumerable<ItemDeckDesignEntity> cardDesignEntities = await
+                    context.ItemDeckDesigns
+                    .Include(c => c.Characters)
+                    .ToListAsync();
+
+                return cardDesignEntities.Select(c => _mapper.Map<ItemDeckDesignModel>(c));
+            }
+        }
+
+        public async Task<IEnumerable<CharacterDeckDesignModel>> GetAllCharacterCardDesigns()
+        {
+            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                IEnumerable<CharacterDeckDesignEntity> cardDesignEntities = await
+                    context.CharacterDeckDesigns
+                    .Include(c => c.Characters)
+                    .ToListAsync();
+
+                return cardDesignEntities.Select(c => _mapper.Map<CharacterDeckDesignModel>(c));
             }
         }
     }

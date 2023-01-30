@@ -41,9 +41,6 @@ namespace CardDesigner.UI.ViewModels
         private string addedItemDeckName;
 
         [ObservableProperty]
-        private CardDesignModel selectedCardDesign;
-
-        [ObservableProperty]
         private CharacterModel selectedCharacter;
 
         [ObservableProperty]
@@ -51,10 +48,6 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ItemDeckModel selectedItemDeck;
-
-
-        [ObservableProperty]
-        private ObservableCollection<CardDesignModel> allCardDesigns;
 
         [ObservableProperty]
         private ObservableCollection<SpellDeckModel> allSpellDecks;
@@ -80,8 +73,6 @@ namespace CardDesigner.UI.ViewModels
             Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Characters";
 
-            SelectedCardDesign = new();
-
             _cardDesignerStore = cardDesignerStore;
 
             _cardDesignerStore.CharacterCreated += OnCharacterCreated;
@@ -90,25 +81,11 @@ namespace CardDesigner.UI.ViewModels
 
             LoadData();
 
-
             SelectedCharacter = AllCharacters.FirstOrDefault();
-            try
-            {
-                TestItemCard = SelectedCharacter?.ItemDecks?.FirstOrDefault().ItemCards?.FirstOrDefault();
-                TestSpellCard = SelectedCharacter?.SpellDecks?.FirstOrDefault().SpellCards?.FirstOrDefault();
-            }
-            catch (System.Exception)
-            {
-
-            }
-
         }
 
         private void OnCharacterUpdated(CharacterModel character)
         {
-            SelectedCharacter = character;
-            TestItemCard = SelectedCharacter.ItemDecks.FirstOrDefault().ItemCards.FirstOrDefault();
-            TestSpellCard = SelectedCharacter.SpellDecks.FirstOrDefault().SpellCards.FirstOrDefault();
         }
 
         #endregion
@@ -144,7 +121,6 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllCharacters = new(_cardDesignerStore.Characters);
-            AllCardDesigns = new(_cardDesignerStore.CardDesigns);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
         }
@@ -156,7 +132,6 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateCardDesign))]
         private async void CreateCardDesign()
         {
-            await _cardDesignerStore.CreateCardDesign(new CardDesignModel() { Name = AddedCardDesignName });
         }
 
         private bool CanCreateCardDesign()
@@ -184,47 +159,8 @@ namespace CardDesigner.UI.ViewModels
         private async void DeleteCharacter()
         {
             await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
-        } 
-        
-        [RelayCommand]
-        private async void DeleteCardDesign()
-        {
-            await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
         }
 
-        [RelayCommand]
-        private async void AddSpellDeckToCharacter(SpellDeckModel spellDeck)
-        {
-            SelectedCharacter.SpellDecks.Add(spellDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void AddItemDeckToCharacter(ItemDeckModel itemDeck)
-        {
-            SelectedCharacter.ItemDecks.Add(itemDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void RemoveSpellDeckFromCharacter(SpellDeckModel spellDeck)
-        {
-            SelectedCharacter.SpellDecks.Remove(spellDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void RemoveItemDeckFromCharacter(ItemDeckModel itemDeck)
-        {
-            SelectedCharacter.ItemDecks.Remove(itemDeck);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void UpdateCardDesign()
-        {
-            await _cardDesignerStore.UpdateCardDesign(SelectedCardDesign);
-        }
         #endregion
     }
 }
