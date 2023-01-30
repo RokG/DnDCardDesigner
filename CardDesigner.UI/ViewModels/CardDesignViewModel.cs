@@ -451,7 +451,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateCharactereckDesign()
         {
-            //await _cardDesignerStore.UpdateCharacterDesign(SelectedCharacterDeckDesign);
+            await _cardDesignerStore.UpdateCardDesign(SelectedCharacterDeckDesign);
         }
         #endregion
     }

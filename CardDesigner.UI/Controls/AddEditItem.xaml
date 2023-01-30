@@ -3,8 +3,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls"
-    xmlns:validators="clr-namespace:CardDesigner.UI.Validators">
-    <StackPanel>
+    xmlns:validators="clr-namespace:CardDesigner.UI.Validators"
+    Margin="3"
+    Padding="3"
+    BorderBrush="{StaticResource WindowBorder}"
+    BorderThickness="1">
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+    </UserControl.Resources>
+    <StackPanel Orientation="{Binding Orientation, ElementName=AddEditItemControl}">
         <!--  Title  -->
         <Label Content="{Binding Title, ElementName=AddEditItemControl}">
             <Label.Style>
@@ -61,7 +70,9 @@
         <StackPanel
             Orientation="Horizontal"
             Visibility="{Binding EditMode, ElementName=AddEditItemControl}">
-            <Label Content="Name:" />
+            <Label
+                Background="Transparent"
+                Content="Name:" />
             <TextBox x:Name="NameField"
                 Text="{Binding AddedItemName, ElementName=AddEditItemControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
@@ -69,10 +80,14 @@
             Orientation="Horizontal"
             Visibility="{Binding EditMode, ElementName=AddEditItemControl}">
             <Button x:Name="SaveButton"
+                Height="40"
+                Padding="5"
                 Click="CloseEditMode"
                 Command="{Binding SaveCommand, ElementName=AddEditItemControl}"
                 Content="Save" />
             <Button
+                Height="40"
+                Padding="5"
                 Click="CloseEditMode"
                 Content="Cancel" />
         </StackPanel>

@@ -14,7 +14,6 @@ namespace CardDesigner.UI.Views
     /// </summary>
     public partial class CardDesignView : UserControl
     {
-
         private struct ColorHSV
         {
             public double Hue, Saturation, Value;
@@ -78,8 +77,6 @@ namespace CardDesigner.UI.Views
             colorPickerControl.Hue = color.Hue;
             colorPickerControl.Saturation = color.Saturation;
             colorPickerControl.Value = color.Value;
-
-            //colorPickerControl.CurrentHueValue = hexValue;
         }
 
         private ColorHSV GetHSV(string colorHexRGB)
