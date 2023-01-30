@@ -81,7 +81,6 @@ namespace CardDesigner.UI.ViewModels
 
             LoadData();
 
-
             SelectedCharacter = AllCharacters.FirstOrDefault();
         }
 

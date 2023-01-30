@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -35,6 +36,9 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private CharacterDeckDesignModel selectedCharacterDeckDesign;
+
+        [ObservableProperty]
+        private CharacterDeckDesignModel selectedCharacterBackgroundDesign;
 
         [ObservableProperty]
         private CharacterModel selectedCharacter;
@@ -183,14 +187,14 @@ namespace CardDesigner.UI.ViewModels
 
         private void OnCardDesignUpdated(ICardDesign cardDesign)
         {
-            try
-            {
-                //TestItemCard = SelectedCharacter?.ItemDecks?.FirstOrDefault().ItemCards?.FirstOrDefault();
-                //TestSpellCard = SelectedCharacter?.SpellDecks?.FirstOrDefault().SpellCards?.FirstOrDefault();
-            }
-            catch (System.Exception)
-            {
-            }
+            //try
+            //{
+            //    //TestItemCard = SelectedCharacter?.ItemDecks?.FirstOrDefault().ItemCards?.FirstOrDefault();
+            //    //TestSpellCard = SelectedCharacter?.SpellDecks?.FirstOrDefault().SpellCards?.FirstOrDefault();
+            //}
+            //catch (System.Exception)
+            //{
+            //}
         }
 
         private void GetCharacterSpellDecks()
@@ -453,6 +457,16 @@ namespace CardDesigner.UI.ViewModels
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedCharacterDeckDesign);
         }
+
+        partial void OnSelectedCharacterChanged(CharacterModel selectedCharacter)
+        {
+            GetCharacterSpellDecks();
+            GetCharacterItemDecks();
+
+            SelectedCharacterDeckDesign = selectedCharacter.DeckBackgroundDesign;
+            SelectedCharacterBackgroundDesign = AllCharacterDeckDesigns.FirstOrDefault(dd=>dd.ID == SelectedCharacterDeckDesign.ID);
+        }
+
         #endregion
     }
 }

@@ -178,6 +178,7 @@ namespace CardDesigner.Domain.Stores
             _spellCards.Add(createdSpellCard);
             OnSpellCardCreated(createdSpellCard);
         }
+
         public async Task CreateItemCard(ItemCardModel itemCard)
         {
             ItemCardModel createdItemCard = await _itemCardService.CreateItemCard(itemCard);

@@ -45,6 +45,7 @@ namespace CardDesigner.DataAccess.Services
                     CharacterEntity characterEntity = dbContext.Characters
                         .Include(sd => sd.SpellDeckDescriptors)
                         .Include(sd => sd.ItemDeckDescriptors)
+                        .Include(sd => sd.DeckBackgroundDesign)
                         .Single(sc => sc.ID == characterModel.ID);
 
                     // Add/Update spell decks
@@ -83,13 +84,36 @@ namespace CardDesigner.DataAccess.Services
                         }
                     }
 
+                    // Add/Update back decks
+                    // If any descriptor is new, add it to the list
+                    if (characterModel.DeckBackgroundDesign != null)
+                    {
+                        if (characterEntity.DeckBackgroundDesign == null)
+                        {
+                            CharacterDeckDesignEntity characterDeckDesignEntity = _mapper.Map<CharacterDeckDesignEntity>(characterModel.DeckBackgroundDesign);
+                            characterEntity.DeckBackgroundDesign = characterDeckDesignEntity;
+                        }
+                        else
+                        {
+                            CharacterDeckDesignEntity characterDeckDesignEntity = dbContext.CharacterDeckDesigns
+                                .Single(sc => sc.ID == characterModel.DeckBackgroundDesign.ID);
+
+                            characterEntity.DeckBackgroundDesign = null;
+                            characterEntity.DeckBackgroundDesign = characterDeckDesignEntity;
+                        }
+                    }
+
                     // Remove spell decks
                     foreach (SpellDeckDesignLinkerEntity spellDeckDesignEntity in characterEntity.SpellDeckDescriptors)
                     {
                         // If any descriptor is missing, remove it from the list
                         if (!characterModel.SpellDeckDescriptors.Any(id => id.SpellDeckID == spellDeckDesignEntity.SpellDeckID))
                         {
-                            SpellDeckDesignLinkerEntity toRemove = dbContext.SpellDeckDesignLinkers.Single(sc => sc.SpellDeckID == spellDeckDesignEntity.SpellDeckID);
+                            SpellDeckDesignLinkerEntity toRemove = dbContext.SpellDeckDesignLinkers.Single(
+                                sc => (
+                                sc.SpellDeckID == spellDeckDesignEntity.SpellDeckID
+                                && sc.Character.ID == characterModel.ID
+                                ));
                             dbContext.SpellDeckDesignLinkers.Remove(toRemove);
                         }
                     }
@@ -100,7 +124,11 @@ namespace CardDesigner.DataAccess.Services
                         // If any descriptor is missing, remove it from the list
                         if (!characterModel.ItemDeckDescriptors.Any(id => id.ItemDeckID == itemDeckDesignEntity.ItemDeckID))
                         {
-                            ItemDeckDesignLinkerEntity toRemove = dbContext.ItemDeckDesignLinkers.Single(sc => sc.ItemDeckID == itemDeckDesignEntity.ItemDeckID);
+                            ItemDeckDesignLinkerEntity toRemove = dbContext.ItemDeckDesignLinkers.Single(
+                                sc => (
+                                sc.ItemDeckID == itemDeckDesignEntity.ItemDeckID
+                                && sc.Character.ID == characterModel.ID
+                                ));
                             dbContext.ItemDeckDesignLinkers.Remove(toRemove);
                         }
                     }
@@ -147,6 +175,7 @@ namespace CardDesigner.DataAccess.Services
                     context.Characters
                     .Include(c => c.SpellDeckDescriptors)
                     .Include(c => c.ItemDeckDescriptors)
+                    .Include(c => c.DeckBackgroundDesign)
                     .ToListAsync();
 
                 return characterEntities.Select(c => _mapper.Map<CharacterModel>(c));

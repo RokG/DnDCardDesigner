@@ -33,6 +33,7 @@
 
                 <StackPanel>
 
+                    <!--  Characters  -->
                     <controls:AddEditItem
                         Title="Characters"
                         AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
@@ -41,6 +42,13 @@
                         SaveCommand="{Binding CreateCharacterCommand}"
                         SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
                         ViewOnly="False" />
+
+                    <!--  Characters  -->
+                    <controls:AddEditItem
+                        Title="Character background"
+                        ItemsSource="{Binding AllCharacterDeckDesigns, Mode=TwoWay}"
+                        SelectedItem="{Binding SelectedCharacterBackgroundDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ViewOnly="True" />
 
                     <!--  Manage spell decks on character  -->
                     <Border BorderThickness="1">
