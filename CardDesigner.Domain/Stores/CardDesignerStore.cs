@@ -454,8 +454,8 @@ namespace CardDesigner.Domain.Stores
             _itemDeckDesigns.AddRange(await _cardDesignService.GetAllItemDeckDesigns());
             _characterDeckDesigns.Clear();
             _characterDeckDesigns.AddRange(await _cardDesignService.GetAllCharacterCardDesigns());
-            //AssignItemsToCards(ItemCards);
-            //AssignItemsToItemDecks(ItemDecks);
+            AssignItemsToCards(ItemCards);
+            AssignItemsToItemDecks(ItemDecks);
         }
 
         private async Task UpdateSpellCardsFromDb()

@@ -45,17 +45,6 @@ namespace CardDesigner.UI.Views
                             SetStartingColors(FrontSpellHeaderColor, spellDeckDesign.FrontHeaderColor);
                             SetStartingColors(FrontSpellHiglightColor, spellDeckDesign.FrontHiglightColor);
                             SetStartingColors(FrontSpellForegroundColor, spellDeckDesign.FrontForegroundColor);
-                            if (spellDeckDesign.FrontFooterIconColor != null)
-                            {
-                                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(spellDeckDesign.FrontFooterIconColor));
-                                Application.Current.Resources["IconColorFooter"] = solidColorBrush;
-                            }
-
-                            if (spellDeckDesign.FrontHeaderIconColor != null)
-                            {
-                                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(spellDeckDesign.FrontHeaderIconColor));
-                                Application.Current.Resources["IconColorHeader"] = solidColorBrush;
-                            }
                             break;
                         case ItemDeckDesignModel itemDeckDesign:
                             // Foregrounds
