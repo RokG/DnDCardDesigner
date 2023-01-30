@@ -49,11 +49,9 @@
                 </Canvas>
             </VisualBrush.Visual>
         </VisualBrush>
-
     </UserControl.Resources>
 
     <Border Style="{StaticResource VisibleBorder}">
-
         <StackPanel>
             <DockPanel HorizontalAlignment="Stretch">
                 <Label Content="{Binding Title, ElementName=colorPickerControl}" />
@@ -64,7 +62,6 @@
                     HorizontalAlignment="Right"
                     Background="{Binding CurrentColor, ElementName=colorPickerControl}" />
             </DockPanel>
-
             <Viewbox>
                 <StackPanel Orientation="Horizontal">
                     <Canvas
@@ -102,6 +99,10 @@
                     </Canvas>
                 </StackPanel>
             </Viewbox>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Hex:" />
+                <TextBox Text="{Binding CurrentColor, ElementName=colorPickerControl}" />
+            </StackPanel>
         </StackPanel>
     </Border>
 </UserControl>

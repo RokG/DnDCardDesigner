@@ -10,5 +10,6 @@ namespace CardDesigner.Domain.Models
         public string Name { get; set; }
         public List<SpellDeckDesignModel> SpellDeckDescriptors { get; set; }
         public List<ItemDeckDesignModel> ItemDeckDescriptors { get; set; }
+        public CardDesignModel DeckBackgroundDesign { get; set; }
     }
 }

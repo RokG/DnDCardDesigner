@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks.Dataflow;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,6 +14,7 @@ namespace CardDesigner.UI.Controls
     /// </summary>
     public partial class ColorPickerControl : UserControl
     {
+
         public ColorPickerControl()
         {
             InitializeComponent();
@@ -23,8 +24,8 @@ namespace CardDesigner.UI.Controls
 
         public double Saturation
         {
-            get { return (double)GetValue(SVXProperty); }
-            set { SetValue(SVXProperty, value); }
+            get => (double)GetValue(SVXProperty);
+            set => SetValue(SVXProperty, value);
         }
 
         public static readonly DependencyProperty SVXProperty =
@@ -32,8 +33,8 @@ namespace CardDesigner.UI.Controls
 
         public double Value
         {
-            get { return (double)GetValue(SVYProperty); }
-            set { SetValue(SVYProperty, value); }
+            get => (double)GetValue(SVYProperty);
+            set => SetValue(SVYProperty, value);
         }
 
         public static readonly DependencyProperty SVYProperty =
@@ -41,12 +42,20 @@ namespace CardDesigner.UI.Controls
 
         public double Hue
         {
-            get { return (double)GetValue(HXProperty); }
-            set { SetValue(HXProperty, value); }
+            get => (double)GetValue(HXProperty);
+            set => SetValue(HXProperty, value);
         }
 
         public static readonly DependencyProperty HXProperty =
-            DependencyProperty.Register(nameof(Hue), typeof(double), typeof(ColorPickerControl), new PropertyMetadata(50.0));
+            DependencyProperty.Register(nameof(Hue), typeof(double), typeof(ColorPickerControl), new PropertyMetadata(50.0, SetHue));
+
+        private static void SetHue(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ColorPickerControl colorPicker && e.NewValue is double hueValue)
+            {
+                colorPicker.CurrentHueValue = colorPicker.GetColorFromRectangle(colorPicker.hueRectangle, 0, hueValue);
+            }
+        }
 
         public string Title
         {
@@ -89,14 +98,14 @@ namespace CardDesigner.UI.Controls
             img.CopyPixels(pixels, stride, 0);
 
             // Clamp values
-            int x = Math.Clamp((int)X, 0, width - 1);
-            int y = Math.Clamp((int)Y, 0, height - 1);
+            int x = Math.Clamp((int)Math.Round(X), 0, width - 1);
+            int y = Math.Clamp((int)Math.Round(Y), 0, height - 1);
 
             // GET RGBA from pixel values (format is in BGRA)
+            byte a = pixels[(x + width * y) * 4 + 3];
             byte r = pixels[(x + width * y) * 4 + 2];
             byte g = pixels[(x + width * y) * 4 + 1];
             byte b = pixels[(x + width * y) * 4 + 0];
-            byte a = pixels[(x + width * y) * 4 + 3];
 
             // Finaly output color
             return Color.FromArgb(a, r, g, b).ToString();
@@ -116,7 +125,7 @@ namespace CardDesigner.UI.Controls
                 {
                     colorCoordinate = e.GetPosition(hueRectangle);
                 }
-                                
+
                 // Output the color
                 if (rectangle.Name == levelSaturationRectangle.Name)
                 {
@@ -130,6 +139,10 @@ namespace CardDesigner.UI.Controls
                     CurrentHueValue = GetColorFromRectangle(rectangle, 0, Hue);
                     CurrentColor = GetColorFromRectangle(levelSaturationRectangle, Saturation, Value);
                 }
+
+                Debug.WriteLine("H:" + Hue);
+                Debug.WriteLine("S:" + Saturation);
+                Debug.WriteLine("V:" + Value);
 
                 if (ColorChanged != null)
                 {

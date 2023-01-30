@@ -6,11 +6,19 @@
     xmlns:validators="clr-namespace:CardDesigner.UI.Validators">
     <StackPanel>
         <!--  Title  -->
-        <Label
-            Content="{Binding Title, ElementName=AddEditItemControl}"
-            Style="{StaticResource SubtitleLabel}" />
+        <Label Content="{Binding Title, ElementName=AddEditItemControl}">
+            <Label.Style>
+                <Style BasedOn="{StaticResource SubtitleLabel}" TargetType="{x:Type Label}">
+                    <Style.Triggers>
+                        <Trigger Property="Content" Value="">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
         <!--  Add, Edit, Delete buttons  -->
-        <Grid>
+        <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -27,16 +35,22 @@
                 Orientation="Horizontal"
                 Visibility="{Binding ViewOnly, ElementName=AddEditItemControl, Converter={converters:BoolToVisibilityConverter FalseValue=Visible, TrueValue=Collapsed}}">
                 <Button x:Name="AddButton"
+                    Height="40"
+                    Padding="5"
                     Click="OpenEditMode"
                     Content="New"
                     DockPanel.Dock="Right" />
                 <Button x:Name="EditButton"
+                    Height="40"
+                    Padding="5"
                     Click="OpenEditMode"
                     Content="Edit"
                     DockPanel.Dock="Right"
                     IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}"
                     Visibility="Collapsed" />
                 <Button x:Name="DeleteButton"
+                    Height="40"
+                    Padding="5"
                     Command="{Binding DeleteCommand, ElementName=AddEditItemControl}"
                     Content="Delete"
                     DockPanel.Dock="Right"

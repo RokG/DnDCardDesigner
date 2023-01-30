@@ -26,6 +26,7 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<CardDesignEntity> CardDesigns { get; set; }
         public DbSet<SpellDeckDesignEntity> SpellDeckDesigns { get; set; }
         public DbSet<ItemDeckDesignEntity> ItemDeckDesigns { get; set; }
+        public DbSet<CardDesignEntity> CharacterDeckDesigns { get; set; }
         public DbSet<SpellDeckEntity> SpellDecks { get; set; }
         public DbSet<ItemDeckEntity> ItemDecks { get; set; }
         public DbSet<SpellCardEntity> SpellCards { get; set; }
@@ -39,6 +40,10 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Character Spell Deck - Deck design
+            modelBuilder.Entity<CharacterEntity>()
+                   .HasOne(c => c.DeckBackgroundDesign)
+                   .WithMany(e => e.Characters);
 
             // Character Spell Deck - Deck design
             modelBuilder.Entity<CharacterEntity>()
