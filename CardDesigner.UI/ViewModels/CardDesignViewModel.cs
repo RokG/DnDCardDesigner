@@ -20,36 +20,18 @@ namespace CardDesigner.UI.ViewModels
 
         #region Properties
 
-        [ObservableProperty]
-        private ItemCardModel testItemCard;
+        #region Character
 
         [ObservableProperty]
-        private SpellCardModel testSpellCard;
-
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(CreateSpellCardDesignCommand))]
-        private string addedSpellCardDesignName;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(CreateItemCardDesignCommand))]
-        private string addedItemCardDesignName;
+        private SpellCardModel testCharacterCard;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateCharacterCommand))]
         private string addedCharacterName;
 
         [ObservableProperty]
-        private string addedSpellDeckName;
-
-        [ObservableProperty]
-        private string addedItemDeckName;
-
-        [ObservableProperty]
-        private SpellDeckDesignModel selectedSpellDeckDesign;
-
-        [ObservableProperty]
-        private ItemDeckDesignModel selectedItemDeckDesign;
+        [NotifyCanExecuteChangedFor(nameof(CreateCharacterDeckDesignCommand))]
+        private string addedCharacterDeckDesignName;
 
         [ObservableProperty]
         private CharacterDeckDesignModel selectedCharacterDeckDesign;
@@ -58,35 +40,65 @@ namespace CardDesigner.UI.ViewModels
         private CharacterModel selectedCharacter;
 
         [ObservableProperty]
-        private SpellDeckModel selectedSpellDeck;
-
-        [ObservableProperty]
-        private ItemDeckModel selectedItemDeck;
-
-
-        [ObservableProperty]
-        private ObservableCollection<SpellDeckDesignModel> allSpellDeckDesigns;
-
-        [ObservableProperty]
-        private ObservableCollection<ItemDeckDesignModel> allItemDeckDesigns;
-
-        [ObservableProperty]
         private ObservableCollection<CharacterDeckDesignModel> allCharacterDeckDesigns;
 
         [ObservableProperty]
-        private ObservableCollection<SpellDeckModel> allSpellDecks;
+        private ObservableCollection<CharacterModel> allCharacters;
 
         [ObservableProperty]
         private ObservableCollection<SpellDeckModel> characterSpellDecks;
 
         [ObservableProperty]
-        private ObservableCollection<ItemDeckModel> allItemDecks;
-
-        [ObservableProperty]
         private ObservableCollection<ItemDeckModel> characterItemDecks;
 
+
+        #endregion
+
+        #region ItemDecks
+
         [ObservableProperty]
-        private ObservableCollection<CharacterModel> allCharacters;
+        private ItemCardModel testItemCard;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateItemDeckDesignCommand))]
+        private string addedItemDeckDesignName;
+
+        [ObservableProperty]
+        private ItemDeckDesignModel selectedItemDeckDesign;
+
+        [ObservableProperty]
+        private ItemDeckModel selectedItemDeck;
+
+        [ObservableProperty]
+        private ObservableCollection<ItemDeckDesignModel> allItemDeckDesigns;
+
+        [ObservableProperty]
+        private ObservableCollection<ItemDeckModel> allItemDecks;
+
+        #endregion
+
+        #region SpellDecks
+
+        [ObservableProperty]
+        private SpellCardModel testSpellCard;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateSpellDeckDesignCommand))]
+        private string addedSpellDeckDesignName;
+
+        [ObservableProperty]
+        private SpellDeckDesignModel selectedSpellDeckDesign;
+
+        [ObservableProperty]
+        private SpellDeckModel selectedSpellDeck;
+
+        [ObservableProperty]
+        private ObservableCollection<SpellDeckDesignModel> allSpellDeckDesigns;
+
+        [ObservableProperty]
+        private ObservableCollection<SpellDeckModel> allSpellDecks;
+
+        #endregion
 
         #endregion
 
@@ -258,31 +270,47 @@ namespace CardDesigner.UI.ViewModels
 
         #region Commands
 
-        [RelayCommand(CanExecute = nameof(CanCreateSpellCardDesign))]
-        private async void CreateSpellCardDesign()
+        [RelayCommand(CanExecute = nameof(CanCreateSpellDeckDesign))]
+        private async void CreateSpellDeckDesign()
         {
-            await _cardDesignerStore.CreateCardDesign(new SpellDeckDesignModel() { Name = AddedSpellCardDesignName });
+            await _cardDesignerStore.CreateCardDesign(new SpellDeckDesignModel() { Name = AddedSpellDeckDesignName });
         }
 
-        private bool CanCreateSpellCardDesign()
+        private bool CanCreateSpellDeckDesign()
         {
-            bool noName = (AddedSpellCardDesignName == string.Empty || AddedSpellCardDesignName == null);
+            bool noName = (AddedSpellDeckDesignName == string.Empty || AddedSpellDeckDesignName == null);
 
             return !noName;
         }
 
-        [RelayCommand(CanExecute = nameof(CanCreateItemCardDesign))]
-        private async void CreateItemCardDesign()
+
+        [RelayCommand(CanExecute = nameof(CanCreateItemDeckDesign))]
+        private async void CreateItemDeckDesign()
         {
-            await _cardDesignerStore.CreateCardDesign(new ItemDeckDesignModel() { Name = AddedItemCardDesignName });
+            await _cardDesignerStore.CreateCardDesign(new ItemDeckDesignModel() { Name = AddedItemDeckDesignName });
         }
 
-        private bool CanCreateItemCardDesign()
+        private bool CanCreateItemDeckDesign()
         {
-            bool noName = (AddedItemCardDesignName == string.Empty || AddedItemCardDesignName == null);
+            bool noName = (AddedItemDeckDesignName == string.Empty || AddedItemDeckDesignName == null);
 
             return !noName;
         }
+
+
+        [RelayCommand(CanExecute = nameof(CanCreateCharacterDeckDesign))]
+        private async void CreateCharacterDeckDesign()
+        {
+            await _cardDesignerStore.CreateCardDesign(new CharacterDeckDesignModel() { Name = AddedCharacterDeckDesignName });
+        }
+
+        private bool CanCreateCharacterDeckDesign()
+        {
+            bool noName = (AddedCharacterDeckDesignName == string.Empty || AddedCharacterDeckDesignName == null);
+
+            return !noName;
+        }
+
 
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
         private async void CreateCharacter()
@@ -305,12 +333,17 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
-        private async void DeleteSpellCardDesign()
+        private async void DeleteSpellDeckDesign()
         {
             //await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
         }
         [RelayCommand]
-        private async void DeleteItemCardDesign()
+        private async void DeleteItemDeckDesign()
+        {
+            //await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
+        }
+        [RelayCommand]
+        private async void DeleteCharacterDeckDesign()
         {
             //await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
         }
@@ -414,6 +447,11 @@ namespace CardDesigner.UI.ViewModels
         private async void UpdateItemDeckDesign()
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedItemDeckDesign);
+        }
+        [RelayCommand]
+        private async void UpdateCharactereckDesign()
+        {
+            //await _cardDesignerStore.UpdateCharacterDesign(SelectedCharacterDeckDesign);
         }
         #endregion
     }

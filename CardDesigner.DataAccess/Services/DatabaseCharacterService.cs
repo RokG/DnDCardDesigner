@@ -145,8 +145,8 @@ namespace CardDesigner.DataAccess.Services
             {
                 IEnumerable<CharacterEntity> characterEntities = await
                     context.Characters
-                    .Include(c=>c.SpellDeckDescriptors)
-                    .Include(c=>c.ItemDeckDescriptors)
+                    .Include(c => c.SpellDeckDescriptors)
+                    .Include(c => c.ItemDeckDescriptors)
                     .ToListAsync();
 
                 return characterEntities.Select(c => _mapper.Map<CharacterModel>(c));
