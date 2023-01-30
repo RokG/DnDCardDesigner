@@ -317,39 +317,39 @@
                                     VerticalAlignment="Top"
                                     ItemWidth="185"
                                     Orientation="Horizontal">
-                                    <controls:ColorPickerControl x:Name="FrontLineColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellLineColor"
                                         Title="Line Color"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontBackgroundColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellBackgroundColor"
                                         Title="Background Color"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontHeaderTextColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellHeaderTextColor"
                                         Title="Header Text Color"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontHeaderTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontFooterTextColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellFooterTextColor"
                                         Title="Footer Text Color"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontFooterTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontDescriptionTextColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellDescriptionTextColor"
                                         Title="Description Color"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontDescriptionTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontHeaderIconColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellHeaderIconColor"
                                         Title="Header Icon Color"
                                         ColorChanged="FrontHeaderIconColor_ColorChanged"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontHeaderIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontFooterIconColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellFooterIconColor"
                                         Title="Footer Icon Color"
                                         ColorChanged="FrontFooterIconColor_ColorChanged"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontFooterIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontForegroundColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellForegroundColor"
                                         Title="Foreground Color"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontForegroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontHeaderColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellHeaderColor"
                                         Title="Header Color"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontHeaderColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontFooterColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellFooterColor"
                                         Title="Footer Color"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontFooterColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <controls:ColorPickerControl x:Name="FrontHiglightColor"
+                                    <controls:ColorPickerControl x:Name="FrontSpellHiglightColor"
                                         Title="Highlight Color"
                                         CurrentColor="{Binding SelectedSpellDeckDesign.FrontHiglightColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </WrapPanel>
@@ -412,6 +412,48 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
+                                <!--  Color pickers  -->
+                                <WrapPanel
+                                    VerticalAlignment="Top"
+                                    ItemWidth="185"
+                                    Orientation="Horizontal">
+                                    <controls:ColorPickerControl x:Name="FrontItemLineColor"
+                                        Title="Line Color"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemBackgroundColor"
+                                        Title="Background Color"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemHeaderTextColor"
+                                        Title="Header Text Color"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontHeaderTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemFooterTextColor"
+                                        Title="Footer Text Color"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontFooterTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemDescriptionTextColor"
+                                        Title="Description Color"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontDescriptionTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemHeaderIconColor"
+                                        Title="Header Icon Color"
+                                        ColorChanged="FrontHeaderIconColor_ColorChanged"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontHeaderIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemFooterIconColor"
+                                        Title="Footer Icon Color"
+                                        ColorChanged="FrontFooterIconColor_ColorChanged"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontFooterIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemForegroundColor"
+                                        Title="Foreground Color"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontForegroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemHeaderColor"
+                                        Title="Header Color"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontHeaderColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemFooterColor"
+                                        Title="Footer Color"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontFooterColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontItemHiglightColor"
+                                        Title="Highlight Color"
+                                        CurrentColor="{Binding SelectedItemDeckDesign.FrontHiglightColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </WrapPanel>
+                                <!--  Card  -->
                                 <controls:ItemCardControl
                                     Grid.Column="1"
                                     Height="820"
