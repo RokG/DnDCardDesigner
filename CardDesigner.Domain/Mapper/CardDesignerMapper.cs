@@ -14,18 +14,22 @@ namespace CardDesigner.Domain.Mapper
         {
             MapperConfiguration config = new(cfg =>
             {
-                cfg.CreateMap<CardDesignModel, CardDesignEntity>();
                 cfg.CreateMap<SpellDeckDesignModel, SpellDeckDesignEntity>();
                 cfg.CreateMap<ItemDeckDesignModel, ItemDeckDesignEntity>();
+                cfg.CreateMap<CharacterDeckDesignModel, CharacterDeckDesignEntity>();
+                cfg.CreateMap<SpellDeckDesignLinkerModel, SpellDeckDesignLinkerEntity>();
+                cfg.CreateMap<ItemDeckDesignLinkerModel, ItemDeckDesignLinkerEntity>();
                 cfg.CreateMap<CharacterModel, CharacterEntity>();
                 cfg.CreateMap<SpellCardModel, SpellCardEntity>();
                 cfg.CreateMap<SpellDeckModel, SpellDeckEntity>();
                 cfg.CreateMap<ItemCardModel, ItemCardEntity>();
                 cfg.CreateMap<ItemDeckModel, ItemDeckEntity>();
 
-                cfg.CreateMap<CardDesignEntity, CardDesignModel>();
                 cfg.CreateMap<SpellDeckDesignEntity, SpellDeckDesignModel>();
                 cfg.CreateMap<ItemDeckDesignEntity, ItemDeckDesignModel>();
+                cfg.CreateMap<CharacterDeckDesignEntity, CharacterDeckDesignModel>();
+                cfg.CreateMap<SpellDeckDesignLinkerEntity, SpellDeckDesignLinkerModel>();
+                cfg.CreateMap<ItemDeckDesignLinkerEntity, ItemDeckDesignLinkerModel>();
                 cfg.CreateMap<CharacterEntity, CharacterModel>();
                 cfg.CreateMap<SpellCardEntity, SpellCardModel>();
                 cfg.CreateMap<SpellDeckEntity, SpellDeckModel>();

@@ -10,8 +10,8 @@ namespace CardDesigner.Domain.Entities
 
         // Properties
         public string Name { get; set; }
-        public List<SpellDeckDesignEntity> SpellDeckDescriptors { get; set; }
-        public List<ItemDeckDesignEntity> ItemDeckDescriptors { get; set; }
-        public CardDesignEntity DeckBackgroundDesign { get; set; }
+        public List<SpellDeckDesignLinkerEntity> SpellDeckDescriptors { get; set; }
+        public List<ItemDeckDesignLinkerEntity> ItemDeckDescriptors { get; set; }
+        public CharacterDeckDesignEntity DeckBackgroundDesign { get; set; }
     }
 }

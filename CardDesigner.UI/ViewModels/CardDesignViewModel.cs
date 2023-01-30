@@ -1,12 +1,11 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Interfaces;
+using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -47,10 +46,13 @@ namespace CardDesigner.UI.ViewModels
         private string addedItemDeckName;
 
         [ObservableProperty]
-        private CardDesignModel selectedSpellCardDesign;
+        private SpellDeckDesignModel selectedSpellDeckDesign;
 
         [ObservableProperty]
-        private CardDesignModel selectedItemCardDesign;
+        private ItemDeckDesignModel selectedItemDeckDesign;
+
+        [ObservableProperty]
+        private CharacterDeckDesignModel selectedCharacterDeckDesign;
 
         [ObservableProperty]
         private CharacterModel selectedCharacter;
@@ -63,7 +65,13 @@ namespace CardDesigner.UI.ViewModels
 
 
         [ObservableProperty]
-        private ObservableCollection<CardDesignModel> allCardDesigns;
+        private ObservableCollection<SpellDeckDesignModel> allSpellDeckDesigns;
+
+        [ObservableProperty]
+        private ObservableCollection<ItemDeckDesignModel> allItemDeckDesigns;
+
+        [ObservableProperty]
+        private ObservableCollection<CharacterDeckDesignModel> allCharacterDeckDesigns;
 
         [ObservableProperty]
         private ObservableCollection<SpellDeckModel> allSpellDecks;
@@ -107,32 +115,61 @@ namespace CardDesigner.UI.ViewModels
 
             LoadData();
 
-            SelectedSpellCardDesign = AllCardDesigns.FirstOrDefault();
-            SelectedItemCardDesign = AllCardDesigns.FirstOrDefault();
+            SelectedSpellDeckDesign = AllSpellDeckDesigns.FirstOrDefault();
+            SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault();
+            SelectedCharacterDeckDesign = AllCharacterDeckDesigns.FirstOrDefault();
             SelectedCharacter = AllCharacters.FirstOrDefault();
             SelectedItemDeck = AllItemDecks.FirstOrDefault();
 
             GetCharacterSpellDecks();
             GetCharacterItemDecks();
-            UpdateSpellCardDesign();
-            UpdateItemCardDesign();
+            UpdateSpellDeckDesign();
+            UpdateItemDeckDesign();
         }
 
-        private void OnCardDesignDeleted(CardDesignModel cardDesign)
+        private void OnCardDesignDeleted(ICardDesign cardDesign)
         {
-            AllCardDesigns.Remove(cardDesign);
-            SelectedSpellCardDesign = AllCardDesigns.FirstOrDefault();
-            SelectedItemCardDesign = AllCardDesigns.FirstOrDefault();
+            switch (cardDesign)
+            {
+                case SpellDeckDesignModel spellDeckDesignModel:
+                    AllSpellDeckDesigns.Remove(spellDeckDesignModel);
+                    SelectedSpellDeckDesign = AllSpellDeckDesigns.FirstOrDefault();
+                    break;
+                case ItemDeckDesignModel characterDeckDesignModel:
+                    AllItemDeckDesigns.Remove(characterDeckDesignModel);
+                    SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault();
+                    break;
+                case CharacterDeckDesignModel itemDeckDesignModel:
+                    AllCharacterDeckDesigns.Remove(itemDeckDesignModel);
+                    SelectedCharacterDeckDesign = AllCharacterDeckDesigns.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
         }
 
-        private void OnCardDesignCreated(CardDesignModel cardDesign)
+        private void OnCardDesignCreated(ICardDesign cardDesign)
         {
-            AllCardDesigns.Add(cardDesign);
-            SelectedSpellCardDesign = cardDesign;
-            SelectedItemCardDesign = cardDesign;
+            switch (cardDesign)
+            {
+                case SpellDeckDesignModel spellDeckDesignModel:
+                    AllSpellDeckDesigns.Add(spellDeckDesignModel);
+                    SelectedSpellDeckDesign = spellDeckDesignModel;
+                    break;
+                case ItemDeckDesignModel itemDeckDesignModel:
+                    AllItemDeckDesigns.Add(itemDeckDesignModel);
+                    SelectedItemDeckDesign = itemDeckDesignModel;
+                    break;
+                case CharacterDeckDesignModel characterDeckDesignModel:
+                    AllCharacterDeckDesigns.Add(characterDeckDesignModel);
+                    SelectedCharacterDeckDesign = characterDeckDesignModel;
+                    break;
+                default:
+                    break;
+            }
         }
 
-        private void OnCardDesignUpdated(CardDesignModel cardDesign)
+        private void OnCardDesignUpdated(ICardDesign cardDesign)
         {
             try
             {
@@ -149,7 +186,7 @@ namespace CardDesigner.UI.ViewModels
             CharacterSpellDecks = new();
             if (SelectedCharacter != null)
             {
-                foreach (SpellDeckDesignModel deckDescriptor in SelectedCharacter.SpellDeckDescriptors)
+                foreach (SpellDeckDesignLinkerModel deckDescriptor in SelectedCharacter.SpellDeckDescriptors)
                 {
                     CharacterSpellDecks.Add(AllSpellDecks.First(i => i.ID == deckDescriptor.SpellDeckID));
                 }
@@ -162,12 +199,12 @@ namespace CardDesigner.UI.ViewModels
             CharacterItemDecks = new();
             if (SelectedCharacter != null)
             {
-                foreach (ItemDeckDesignModel deckDescriptor in SelectedCharacter.ItemDeckDescriptors)
+                foreach (ItemDeckDesignLinkerModel deckDescriptor in SelectedCharacter.ItemDeckDescriptors)
                 {
                     CharacterItemDecks.Add(AllItemDecks.First(i => i.ID == deckDescriptor.ItemDeckID));
                 }
             }
-            SelectedItemDeck = CharacterItemDecks.FirstOrDefault(); 
+            SelectedItemDeck = CharacterItemDecks.FirstOrDefault();
         }
 
         private void OnCharacterUpdated(CharacterModel character)
@@ -212,7 +249,9 @@ namespace CardDesigner.UI.ViewModels
             AllCharacters = new(_cardDesignerStore.Characters);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
-            AllCardDesigns = new(_cardDesignerStore.CardDesigns);
+            AllSpellDeckDesigns = new(_cardDesignerStore.SpellDeckDesigns);
+            AllItemDeckDesigns = new(_cardDesignerStore.ItemDeckDesigns);
+            AllCharacterDeckDesigns = new(_cardDesignerStore.CharacterDeckDesigns);
         }
 
         #endregion
@@ -222,7 +261,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateSpellCardDesign))]
         private async void CreateSpellCardDesign()
         {
-            await _cardDesignerStore.CreateCardDesign(new CardDesignModel() { Name = AddedSpellCardDesignName });
+            await _cardDesignerStore.CreateCardDesign(new SpellDeckDesignModel() { Name = AddedSpellCardDesignName });
         }
 
         private bool CanCreateSpellCardDesign()
@@ -235,7 +274,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateItemCardDesign))]
         private async void CreateItemCardDesign()
         {
-            await _cardDesignerStore.CreateCardDesign(new CardDesignModel() { Name = AddedItemCardDesignName });
+            await _cardDesignerStore.CreateCardDesign(new ItemDeckDesignModel() { Name = AddedItemCardDesignName });
         }
 
         private bool CanCreateItemCardDesign()
@@ -286,14 +325,14 @@ namespace CardDesigner.UI.ViewModels
                 {
                     SelectedCharacter.SpellDeckDescriptors
                         .First(d => d.SpellDeckID == spellDeck.ID)
-                        .DesignID = SelectedSpellCardDesign == null ? 0 : SelectedSpellCardDesign.ID;
+                        .DesignID = SelectedSpellDeckDesign == null ? 0 : SelectedSpellDeckDesign.ID;
                 }
                 else
                 {
                     SelectedCharacter.SpellDeckDescriptors.Add(new()
                     {
                         SpellDeckID = spellDeck.ID,
-                        DesignID = SelectedSpellCardDesign == null ? 0 : SelectedSpellCardDesign.ID
+                        DesignID = SelectedSpellDeckDesign == null ? 0 : SelectedSpellDeckDesign.ID
                     });
                 }
             }
@@ -305,7 +344,7 @@ namespace CardDesigner.UI.ViewModels
                     new()
                     {
                         SpellDeckID = spellDeck.ID,
-                        DesignID = SelectedSpellCardDesign == null ? 0 : SelectedSpellCardDesign.ID
+                        DesignID = SelectedSpellDeckDesign == null ? 0 : SelectedSpellDeckDesign.ID
                     }
                 };
             }
@@ -323,14 +362,14 @@ namespace CardDesigner.UI.ViewModels
                 {
                     SelectedCharacter.ItemDeckDescriptors
                         .First(d => d.ItemDeckID == itemDeck.ID)
-                        .DesignID = SelectedItemCardDesign == null ? 0 : SelectedItemCardDesign.ID;
+                        .DesignID = SelectedItemDeckDesign == null ? 0 : SelectedItemDeckDesign.ID;
                 }
                 else
                 {
                     SelectedCharacter.ItemDeckDescriptors.Add(new()
                     {
                         ItemDeckID = itemDeck.ID,
-                        DesignID = SelectedItemCardDesign == null ? 0 : SelectedItemCardDesign.ID
+                        DesignID = SelectedItemDeckDesign == null ? 0 : SelectedItemDeckDesign.ID
                     });
                 }
             }
@@ -342,7 +381,7 @@ namespace CardDesigner.UI.ViewModels
                     new()
                     {
                         ItemDeckID = itemDeck.ID,
-                        DesignID = SelectedItemCardDesign == null ? 0 : SelectedItemCardDesign.ID
+                        DesignID = SelectedItemDeckDesign == null ? 0 : SelectedItemDeckDesign.ID
                     }
                 };
             }
@@ -353,7 +392,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void RemoveSpellDeckFromCharacter(SpellDeckModel spellDeck)
         {
-            SpellDeckDesignModel toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(sd => sd.SpellDeckID == spellDeck.ID);
+            SpellDeckDesignLinkerModel toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(sd => sd.SpellDeckID == spellDeck.ID);
             SelectedCharacter.SpellDeckDescriptors.Remove(toRemove);
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
@@ -361,20 +400,20 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void RemoveItemDeckFromCharacter(ItemDeckModel itemDeck)
         {
-            ItemDeckDesignModel toRemove = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(sd => sd.ItemDeckID == itemDeck.ID);
+            ItemDeckDesignLinkerModel toRemove = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(sd => sd.ItemDeckID == itemDeck.ID);
             SelectedCharacter.ItemDeckDescriptors.Remove(toRemove);
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         [RelayCommand]
-        private async void UpdateSpellCardDesign()
+        private async void UpdateSpellDeckDesign()
         {
-            await _cardDesignerStore.UpdateCardDesign(SelectedSpellCardDesign);
+            await _cardDesignerStore.UpdateCardDesign(SelectedSpellDeckDesign);
         }
         [RelayCommand]
-        private async void UpdateItemCardDesign()
+        private async void UpdateItemDeckDesign()
         {
-            await _cardDesignerStore.UpdateCardDesign(SelectedItemCardDesign);
+            await _cardDesignerStore.UpdateCardDesign(SelectedItemDeckDesign);
         }
         #endregion
     }

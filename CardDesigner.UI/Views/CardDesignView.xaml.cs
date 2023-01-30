@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Interfaces;
+using CardDesigner.Domain.Models;
 using CardDesigner.UI.Controls;
 using System;
 using System.Globalization;
@@ -28,34 +29,42 @@ namespace CardDesigner.UI.Views
         {
             if (sender is AddEditItem addEditItem)
             {
-                if (addEditItem.SelectedItem is CardDesignModel cardDesign)
+                if (addEditItem.SelectedItem is ICardDesign cardDesign)
                 {
-                    // Backgrounds
-                    SetStartingColors(BackLineColor, cardDesign.BackLineColor);
-                    SetStartingColors(BackBackgroundColor, cardDesign.BackBackgroundColor);
-                    // Foregrounds
-                    SetStartingColors(FrontLineColor, cardDesign.FrontLineColor);
-                    SetStartingColors(FrontBackgroundColor, cardDesign.FrontBackgroundColor);
-                    SetStartingColors(FrontFooterColor, cardDesign.FrontFooterColor);
-                    SetStartingColors(FrontHeaderTextColor, cardDesign.FrontHeaderTextColor);
-                    SetStartingColors(FrontFooterTextColor, cardDesign.FrontFooterTextColor);
-                    SetStartingColors(FrontDescriptionTextColor, cardDesign.FrontDescriptionTextColor);
-                    SetStartingColors(FrontHeaderIconColor, cardDesign.FrontHeaderIconColor);
-                    SetStartingColors(FrontFooterIconColor, cardDesign.FrontFooterIconColor);
-                    SetStartingColors(FrontHeaderColor, cardDesign.FrontHeaderColor);
-                    SetStartingColors(FrontHiglightColor, cardDesign.FrontHiglightColor);
-                    SetStartingColors(FrontForegroundColor, cardDesign.FrontForegroundColor);
-
-                    if (cardDesign.FrontFooterIconColor != null)
+                    switch (cardDesign)
                     {
-                        SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(cardDesign.FrontFooterIconColor));
-                        Application.Current.Resources["IconColorFooter"] = solidColorBrush;
-                    }
+                        case SpellDeckDesignModel spellDeckDesign:
+                            // Foregrounds
+                            SetStartingColors(FrontLineColor, spellDeckDesign.FrontLineColor);
+                            SetStartingColors(FrontBackgroundColor, spellDeckDesign.FrontBackgroundColor);
+                            SetStartingColors(FrontFooterColor, spellDeckDesign.FrontFooterColor);
+                            SetStartingColors(FrontHeaderTextColor, spellDeckDesign.FrontHeaderTextColor);
+                            SetStartingColors(FrontFooterTextColor, spellDeckDesign.FrontFooterTextColor);
+                            SetStartingColors(FrontDescriptionTextColor, spellDeckDesign.FrontDescriptionTextColor);
+                            SetStartingColors(FrontHeaderIconColor, spellDeckDesign.FrontHeaderIconColor);
+                            SetStartingColors(FrontFooterIconColor, spellDeckDesign.FrontFooterIconColor);
+                            SetStartingColors(FrontHeaderColor, spellDeckDesign.FrontHeaderColor);
+                            SetStartingColors(FrontHiglightColor, spellDeckDesign.FrontHiglightColor);
+                            SetStartingColors(FrontForegroundColor, spellDeckDesign.FrontForegroundColor);
+                            if (spellDeckDesign.FrontFooterIconColor != null)
+                            {
+                                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(spellDeckDesign.FrontFooterIconColor));
+                                Application.Current.Resources["IconColorFooter"] = solidColorBrush;
+                            }
 
-                    if (cardDesign.FrontHeaderIconColor != null)
-                    {
-                        SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(cardDesign.FrontHeaderIconColor));
-                        Application.Current.Resources["IconColorHeader"] = solidColorBrush;
+                            if (spellDeckDesign.FrontHeaderIconColor != null)
+                            {
+                                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(spellDeckDesign.FrontHeaderIconColor));
+                                Application.Current.Resources["IconColorHeader"] = solidColorBrush;
+                            }
+                            break;
+                        case CharacterDeckDesignModel characterDeckDesign:
+                            // Backgrounds
+                            SetStartingColors(BackLineColor, characterDeckDesign.BackLineColor);
+                            SetStartingColors(BackBackgroundColor, characterDeckDesign.BackBackgroundColor);
+                            break;
+                        default:
+                            break;
                     }
                 }
             }

@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Interfaces;
+using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,9 @@ namespace CardDesigner.Domain.Stores
         private readonly List<SpellDeckModel> _spellDecks;
         private readonly List<ItemDeckModel> _itemDecks;
         private readonly List<CharacterModel> _characters;
-        private readonly List<CardDesignModel> _cardDesigns;
+        private readonly List<SpellDeckDesignModel> _spellDeckDesigns;
+        private readonly List<ItemDeckDesignModel> _itemDeckDesigns;
+        private readonly List<CharacterDeckDesignModel> _characterDeckDesigns;
         private readonly List<WeaponModel> _weapons;
         private readonly List<ArmourModel> _armours;
 
@@ -33,7 +36,9 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
         public IEnumerable<ItemDeckModel> ItemDecks => _itemDecks;
         public IEnumerable<CharacterModel> Characters => _characters;
-        public IEnumerable<CardDesignModel> CardDesigns => _cardDesigns;
+        public IEnumerable<SpellDeckDesignModel> SpellDeckDesigns => _spellDeckDesigns;
+        public IEnumerable<ItemDeckDesignModel> ItemDeckDesigns => _itemDeckDesigns;
+        public IEnumerable<CharacterDeckDesignModel> CharacterDeckDesigns => _characterDeckDesigns;
         public IEnumerable<WeaponModel> Weapons => _weapons;
         public IEnumerable<ArmourModel> Armours => _armours;
 
@@ -41,9 +46,9 @@ namespace CardDesigner.Domain.Stores
         public event Action<CharacterModel> CharacterUpdated;
         public event Action<CharacterModel> CharacterDeleted;
 
-        public event Action<CardDesignModel> CardDesignCreated;
-        public event Action<CardDesignModel> CardDesignUpdated;
-        public event Action<CardDesignModel> CardDesignDeleted;
+        public event Action<ICardDesign> CardDesignCreated;
+        public event Action<ICardDesign> CardDesignUpdated;
+        public event Action<ICardDesign> CardDesignDeleted;
 
         public event Action<SpellDeckModel> SpellDeckCreated;
         public event Action<SpellDeckModel> SpellDeckUpdated;
@@ -87,7 +92,9 @@ namespace CardDesigner.Domain.Stores
             _initializeLazy = new Lazy<Task>(Initialize);
 
             _characters = new();
-            _cardDesigns = new();
+            _spellDeckDesigns = new();
+            _itemDeckDesigns = new();
+            _characterDeckDesigns = new();
             _itemCards = new();
             _spellCards = new();
             _spellDecks = new();
@@ -129,11 +136,26 @@ namespace CardDesigner.Domain.Stores
             _characters.Add(createdCharacter);
             OnCharacterCreated(createdCharacter);
         }
-        public async Task CreateCardDesign(CardDesignModel cardDesignModel)
+        public async Task CreateCardDesign(ICardDesign cardDesignModel)
         {
-            CardDesignModel createdCardDesign = await _cardDesignService.CreateCardDesign(cardDesignModel);
-            _cardDesigns.Add(createdCardDesign);
-            OnCardDesignCreated(createdCardDesign);
+            if (await _cardDesignService.CreateCardDesign(cardDesignModel) is ICardDesign createdCardDesign)
+            {
+                switch (createdCardDesign)
+                {
+                    case SpellDeckDesignModel spellDeckDesignModel:
+                        _spellDeckDesigns.Add(spellDeckDesignModel);
+                        break;
+                    case ItemDeckDesignModel ItemDeckDesignModel:
+                        _itemDeckDesigns.Add(ItemDeckDesignModel);
+                        break;
+                    case CharacterDeckDesignModel characterDeckDesignModel:
+                        _characterDeckDesigns.Add(characterDeckDesignModel);
+                        break;
+                    default:
+                        break;
+                }
+                OnCardDesignCreated(createdCardDesign);
+            }
         }
 
         public async Task CreateSpellDeck(SpellDeckModel spellDeck)
@@ -175,9 +197,9 @@ namespace CardDesigner.Domain.Stores
                 OnCharacterUpdated(updatedCharacter);
             }
         }
-        public async Task UpdateCardDesign(CardDesignModel cardDesignModel)
+        public async Task UpdateCardDesign(ICardDesign cardDesignModel)
         {
-            if (await _cardDesignService.UpdateCardDesign(cardDesignModel) is CardDesignModel updatedcardDesignModel)
+            if (await _cardDesignService.UpdateCardDesign(cardDesignModel) is ICardDesign updatedcardDesignModel)
             {
                 await UpdateCardDesignsFromDb();
                 OnCardDesignUpdated(updatedcardDesignModel);
@@ -230,12 +252,24 @@ namespace CardDesigner.Domain.Stores
             }
         }
 
-        public async Task DeleteCardDesign(CardDesignModel cardDesignModel)
+        public async Task DeleteCardDesign(ICardDesign cardDesignModel)
         {
-            bool success = await _cardDesignService.DeleteCardDesign(cardDesignModel);
-            if (success)
+            if (await _cardDesignService.DeleteCardDesign(cardDesignModel))
             {
-                _cardDesigns.Remove(cardDesignModel);
+                switch (cardDesignModel)
+                {
+                    case SpellDeckDesignModel spellDeckDesignModel:
+                        _spellDeckDesigns.Remove(spellDeckDesignModel);
+                        break;
+                    case ItemDeckDesignModel itemDeckDesignModel:
+                        _itemDeckDesigns.Remove(itemDeckDesignModel);
+                        break;
+                    case CharacterDeckDesignModel characterDeckDesignModel:
+                        _characterDeckDesigns.Remove(characterDeckDesignModel);
+                        break;
+                    default:
+                        break;
+                }
                 OnCardDesignDeleted(cardDesignModel);
             }
         }
@@ -373,15 +407,15 @@ namespace CardDesigner.Domain.Stores
             SpellCardDeleted?.Invoke(spellCard);
         }
 
-        private void OnCardDesignDeleted(CardDesignModel cardDesign)
+        private void OnCardDesignDeleted(ICardDesign cardDesign)
         {
             CardDesignDeleted?.Invoke(cardDesign);
         }
-        private void OnCardDesignUpdated(CardDesignModel cardDesign)
+        private void OnCardDesignUpdated(ICardDesign cardDesign)
         {
             CardDesignUpdated?.Invoke(cardDesign);
         }
-        private void OnCardDesignCreated(CardDesignModel cardDesign)
+        private void OnCardDesignCreated(ICardDesign cardDesign)
         {
             CardDesignCreated?.Invoke(cardDesign);
         }
@@ -414,11 +448,14 @@ namespace CardDesigner.Domain.Stores
 
         private async Task UpdateCardDesignsFromDb()
         {
-            IEnumerable<CardDesignModel> cardDesigns = await _cardDesignService.GetAllCardDesigns();
-            _cardDesigns.Clear();
-            _cardDesigns.AddRange(cardDesigns);
-            AssignItemsToCards(ItemCards);
-            AssignItemsToItemDecks(ItemDecks);
+            _spellDeckDesigns.Clear();
+            _spellDeckDesigns.AddRange(await _cardDesignService.GetAllSpellDeckDesigns());
+            _itemDeckDesigns.Clear();
+            _itemDeckDesigns.AddRange(await _cardDesignService.GetAllItemDeckDesigns());
+            _characterDeckDesigns.Clear();
+            _characterDeckDesigns.AddRange(await _cardDesignService.GetAllCharacterCardDesigns());
+            //AssignItemsToCards(ItemCards);
+            //AssignItemsToItemDecks(ItemDecks);
         }
 
         private async Task UpdateSpellCardsFromDb()

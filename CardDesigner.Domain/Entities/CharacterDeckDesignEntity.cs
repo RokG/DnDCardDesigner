@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CardDesigner.Domain.Entities
 {
-    public class CardDesignEntity
+    public class CharacterDeckDesignEntity
     {
         [Key]
         public int ID { get; set; }

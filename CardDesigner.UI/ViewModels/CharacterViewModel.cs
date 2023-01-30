@@ -41,9 +41,6 @@ namespace CardDesigner.UI.ViewModels
         private string addedItemDeckName;
 
         [ObservableProperty]
-        private CardDesignModel selectedCardDesign;
-
-        [ObservableProperty]
         private CharacterModel selectedCharacter;
 
         [ObservableProperty]
@@ -51,10 +48,6 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ItemDeckModel selectedItemDeck;
-
-
-        [ObservableProperty]
-        private ObservableCollection<CardDesignModel> allCardDesigns;
 
         [ObservableProperty]
         private ObservableCollection<SpellDeckModel> allSpellDecks;
@@ -79,8 +72,6 @@ namespace CardDesigner.UI.ViewModels
         {
             Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Characters";
-
-            SelectedCardDesign = new();
 
             _cardDesignerStore = cardDesignerStore;
 
@@ -131,7 +122,6 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllCharacters = new(_cardDesignerStore.Characters);
-            AllCardDesigns = new(_cardDesignerStore.CardDesigns);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
         }
@@ -143,7 +133,6 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateCardDesign))]
         private async void CreateCardDesign()
         {
-            await _cardDesignerStore.CreateCardDesign(new CardDesignModel() { Name = AddedCardDesignName });
         }
 
         private bool CanCreateCardDesign()
@@ -171,8 +160,8 @@ namespace CardDesigner.UI.ViewModels
         private async void DeleteCharacter()
         {
             await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
-        } 
-        
+        }
+
         #endregion
     }
 }

@@ -48,12 +48,12 @@ namespace CardDesigner.DataAccess.Services
                         .Single(sc => sc.ID == characterModel.ID);
 
                     // Add/Update spell decks
-                    foreach (SpellDeckDesignModel spellDeckDesignModel in characterModel.SpellDeckDescriptors)
+                    foreach (SpellDeckDesignLinkerModel spellDeckDesignModel in characterModel.SpellDeckDescriptors)
                     {
                         // If any descriptor is new, add it to the list
                         if (!characterEntity.SpellDeckDescriptors.Where(sd => sd.SpellDeckID == spellDeckDesignModel.SpellDeckID).Any())
                         {
-                            SpellDeckDesignEntity spellDeckDesignEntity = _mapper.Map<SpellDeckDesignEntity>(spellDeckDesignModel);
+                            SpellDeckDesignLinkerEntity spellDeckDesignEntity = _mapper.Map<SpellDeckDesignLinkerEntity>(spellDeckDesignModel);
                             characterEntity.SpellDeckDescriptors.Add(spellDeckDesignEntity);
                         }
                         // If any descriptor exists, update it
@@ -66,12 +66,12 @@ namespace CardDesigner.DataAccess.Services
                     }
 
                     // Add/Update item decks
-                    foreach (ItemDeckDesignModel itemDeckDesignModel in characterModel.ItemDeckDescriptors)
+                    foreach (ItemDeckDesignLinkerModel itemDeckDesignModel in characterModel.ItemDeckDescriptors)
                     {
                         // If any descriptor is new, add it to the list
                         if (!characterEntity.ItemDeckDescriptors.Where(sd => sd.ItemDeckID == itemDeckDesignModel.ItemDeckID).Any())
                         {
-                            ItemDeckDesignEntity itemDeckDesignEntity = _mapper.Map<ItemDeckDesignEntity>(itemDeckDesignModel);
+                            ItemDeckDesignLinkerEntity itemDeckDesignEntity = _mapper.Map<ItemDeckDesignLinkerEntity>(itemDeckDesignModel);
                             characterEntity.ItemDeckDescriptors.Add(itemDeckDesignEntity);
                         }
                         // If any descriptor exists, update it
@@ -84,24 +84,24 @@ namespace CardDesigner.DataAccess.Services
                     }
 
                     // Remove spell decks
-                    foreach (SpellDeckDesignEntity spellDeckDesignEntity in characterEntity.SpellDeckDescriptors)
+                    foreach (SpellDeckDesignLinkerEntity spellDeckDesignEntity in characterEntity.SpellDeckDescriptors)
                     {
                         // If any descriptor is missing, remove it from the list
                         if (!characterModel.SpellDeckDescriptors.Any(id => id.SpellDeckID == spellDeckDesignEntity.SpellDeckID))
                         {
-                            SpellDeckDesignEntity toRemove = dbContext.SpellDeckDesigns.Single(sc => sc.SpellDeckID == spellDeckDesignEntity.SpellDeckID);
-                            dbContext.SpellDeckDesigns.Remove(toRemove);
+                            SpellDeckDesignLinkerEntity toRemove = dbContext.SpellDeckDesignLinkers.Single(sc => sc.SpellDeckID == spellDeckDesignEntity.SpellDeckID);
+                            dbContext.SpellDeckDesignLinkers.Remove(toRemove);
                         }
                     }
 
                     // Remove item decks
-                    foreach (ItemDeckDesignEntity itemDeckDesignEntity in characterEntity.ItemDeckDescriptors)
+                    foreach (ItemDeckDesignLinkerEntity itemDeckDesignEntity in characterEntity.ItemDeckDescriptors)
                     {
                         // If any descriptor is missing, remove it from the list
                         if (!characterModel.ItemDeckDescriptors.Any(id => id.ItemDeckID == itemDeckDesignEntity.ItemDeckID))
                         {
-                            ItemDeckDesignEntity toRemove = dbContext.ItemDeckDesigns.Single(sc => sc.ItemDeckID == itemDeckDesignEntity.ItemDeckID);
-                            dbContext.ItemDeckDesigns.Remove(toRemove);
+                            ItemDeckDesignLinkerEntity toRemove = dbContext.ItemDeckDesignLinkers.Single(sc => sc.ItemDeckID == itemDeckDesignEntity.ItemDeckID);
+                            dbContext.ItemDeckDesignLinkers.Remove(toRemove);
                         }
                     }
 

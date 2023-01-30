@@ -1,18 +1,6 @@
 ﻿using CardDesigner.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CardDesigner.UI.Controls
 {
@@ -28,19 +16,19 @@ namespace CardDesigner.UI.Controls
 
         #region Properties
 
-        public CardDesignModel CardDesign
+        public SpellDeckDesignModel CardDesign
         {
-            get { return (CardDesignModel)GetValue(CardDesignProperty); }
-            set { SetValue(CardDesignProperty, value); }
+            get => (SpellDeckDesignModel)GetValue(CardDesignProperty);
+            set => SetValue(CardDesignProperty, value);
         }
 
         public static readonly DependencyProperty CardDesignProperty =
-            DependencyProperty.Register(nameof(CardDesign), typeof(CardDesignModel), typeof(SpellCardControl), new PropertyMetadata(new CardDesignModel()));
+            DependencyProperty.Register(nameof(CardDesign), typeof(SpellDeckDesignModel), typeof(SpellCardControl), new PropertyMetadata(new SpellDeckDesignModel()));
 
         public bool IsEditable
         {
-            get { return (bool)GetValue(IsEditableProperty); }
-            set { SetValue(IsEditableProperty, value); }
+            get => (bool)GetValue(IsEditableProperty);
+            set => SetValue(IsEditableProperty, value);
         }
 
         public static readonly DependencyProperty IsEditableProperty =
@@ -48,8 +36,8 @@ namespace CardDesigner.UI.Controls
 
         public SpellCardModel SpellCard
         {
-            get { return (SpellCardModel)GetValue(SpellCardProperty); }
-            set { SetValue(SpellCardProperty, value); }
+            get => (SpellCardModel)GetValue(SpellCardProperty);
+            set => SetValue(SpellCardProperty, value);
         }
 
         public static readonly DependencyProperty SpellCardProperty =
