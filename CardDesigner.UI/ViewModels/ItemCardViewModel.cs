@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -17,6 +18,7 @@ namespace CardDesigner.UI.ViewModels
         #region Private fields
 
         private readonly CardDesignerStore _cardDesignerStore;
+        private readonly NavigationStore _navigationStore;
 
         #endregion
 
@@ -59,16 +61,15 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public ItemCardViewModel(CardDesignerStore cardDesignerStore)
+        public ItemCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
+            _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
             Name = Regex.Replace(nameof(ItemCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Item Cards";
 
-            _cardDesignerStore = cardDesignerStore;
+            _cardDesignerStore.ItemCardChanged += OnSpellCardChanged;
 
-            _cardDesignerStore.ItemCardCreated += OnSpellCardCreated;
-
-            // TODO: is this OK? how is it different from old method (before MVVM toolkit)
             LoadData();
 
             allArmoursCollectionView = CollectionViewSource.GetDefaultView(AllArmours);
@@ -96,6 +97,7 @@ namespace CardDesigner.UI.ViewModels
             || arm.ArmourClass.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
             || arm.ArmourType.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase);
         }
+
         private bool WeaponFilter(object obj)
         {
             //your logicComplexFilter
@@ -109,10 +111,18 @@ namespace CardDesigner.UI.ViewModels
             || weapon.PhysicalDamageType.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
             || weapon.DamageModifier.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase);
         }
-        private void OnSpellCardCreated(ItemCardModel itemCard)
+
+        private void OnSpellCardChanged(ItemCardModel itemCard, DataChangeType change)
         {
-            AllItemCards.Add(itemCard);
-            SelectedItemCard = itemCard;
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllItemCards.Add(itemCard);
+                    SelectedItemCard = itemCard;
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
@@ -134,9 +144,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static ItemCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        public static ItemCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            ItemCardViewModel viewModel = new(cardDesignerStore);
+            ItemCardViewModel viewModel = new(cardDesignerStore, navigationStore);
             viewModel.LoadData();
 
             return viewModel;
@@ -147,6 +157,7 @@ namespace CardDesigner.UI.ViewModels
         #region Commands
 
         [RelayCommand(CanExecute = nameof(CanCreateItemCard))]
+
         private async void CreateItemCard()
         {
             await _cardDesignerStore.CreateItemCard(new ItemCardModel() { Name = ItemCardName });

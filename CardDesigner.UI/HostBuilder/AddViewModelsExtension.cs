@@ -34,31 +34,31 @@ namespace CardDesigner.UI.HostBuilder
 
         private static HomeViewModel CreateHomeViewModel(IServiceProvider s)
         {
-            return HomeViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
+            return HomeViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
         }
 
         private static SpellCardViewModel CreateSpellCardViewModel(IServiceProvider s)
         {
-            return SpellCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
+            return SpellCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
         }
 
         private static CardDecksViewModel CreateCardDecksViewModel(IServiceProvider s)
         {
-            return CardDecksViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
+            return CardDecksViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
         }
 
         private static ItemCardViewModel CreateItemCardViewModel(IServiceProvider s)
         {
-            return ItemCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
+            return ItemCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
         }
 
         private static CharacterViewModel CreateCharacterViewModel(IServiceProvider s)
         {
-            return CharacterViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
+            return CharacterViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
         }
         private static CardDesignViewModel CreateCardDesignViewModel(IServiceProvider s)
         {
-            return CardDesignViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>());
+            return CardDesignViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
         }
     }
 }

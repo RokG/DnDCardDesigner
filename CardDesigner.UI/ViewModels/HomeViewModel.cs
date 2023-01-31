@@ -11,6 +11,7 @@ namespace CardDesigner.UI.ViewModels
         #region Private fields
 
         private readonly CardDesignerStore _cardDesignerStore;
+        private readonly NavigationStore _navigationStore;
 
         #endregion
 
@@ -34,12 +35,12 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Constructor
-        public HomeViewModel(CardDesignerStore cardDesignerStore)
+        public HomeViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
+            _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
             Name = Regex.Replace(nameof(HomeViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Home screen";
-
-            _cardDesignerStore = cardDesignerStore;
 
             // TODO: is this OK? how is it different from old method (before MVVM toolkit)
             LoadData();
@@ -63,9 +64,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static HomeViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        public static HomeViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            return new(cardDesignerStore);
+            return new(cardDesignerStore, navigationStore);
         }
 
         #endregion

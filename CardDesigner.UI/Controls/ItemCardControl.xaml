@@ -16,7 +16,6 @@
                 <Label
                     Background="Transparent"
                     Content="{Binding ItemCard.Item.EquipmentSlot, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
-                    Foreground="{Binding CardDesign.FrontHeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource IconLabel}" />
             </Grid>
         </ControlTemplate>
@@ -25,12 +24,11 @@
                 <Label
                     Background="Transparent"
                     Content="{Binding ItemCard.Item.EquipmentSlot, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
-                    Foreground="{Binding CardDesign.FrontFooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource IconLabel}" />
                 <Label
                     Background="Transparent"
                     Content="{Binding ItemCard.Item.WeaponType, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
-                    Foreground="{Binding CardDesign.FrontFooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Foreground="{Binding CardDesign.FrontHeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource IconLabel}" />
             </Grid>
         </ControlTemplate>

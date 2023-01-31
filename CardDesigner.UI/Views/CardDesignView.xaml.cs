@@ -43,8 +43,6 @@ namespace CardDesigner.UI.Views
                             SetStartingColors(FrontSpellHeaderIconColor, spellDeckDesign.FrontHeaderIconColor);
                             SetStartingColors(FrontSpellFooterIconColor, spellDeckDesign.FrontFooterIconColor);
                             SetStartingColors(FrontSpellHeaderColor, spellDeckDesign.FrontHeaderColor);
-                            SetStartingColors(FrontSpellHiglightColor, spellDeckDesign.FrontHiglightColor);
-                            SetStartingColors(FrontSpellForegroundColor, spellDeckDesign.FrontForegroundColor);
                             break;
                         case ItemDeckDesignModel itemDeckDesign:
                             // Foregrounds
@@ -57,8 +55,6 @@ namespace CardDesigner.UI.Views
                             SetStartingColors(FrontItemHeaderIconColor, itemDeckDesign.FrontHeaderIconColor);
                             SetStartingColors(FrontItemFooterIconColor, itemDeckDesign.FrontFooterIconColor);
                             SetStartingColors(FrontItemHeaderColor, itemDeckDesign.FrontHeaderColor);
-                            SetStartingColors(FrontItemHiglightColor, itemDeckDesign.FrontHiglightColor);
-                            SetStartingColors(FrontItemForegroundColor, itemDeckDesign.FrontForegroundColor);
                             break;
                         case CharacterDeckDesignModel characterDeckDesign:
                             // Backgrounds
@@ -115,24 +111,6 @@ namespace CardDesigner.UI.Views
             };
 
             return colorHSV;
-        }
-
-        private void FrontFooterIconColor_ColorChanged(object sender, RoutedEventArgs e)
-        {
-            if (sender is ColorPickerControl colorPicker)
-            {
-                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorPicker.CurrentColor));
-                Application.Current.Resources["IconColorFooter"] = solidColorBrush;
-            }
-        }
-
-        private void FrontHeaderIconColor_ColorChanged(object sender, RoutedEventArgs e)
-        {
-            if (sender is ColorPickerControl colorPicker)
-            {
-                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorPicker.CurrentColor));
-                Application.Current.Resources["IconColorHeader"] = solidColorBrush;
-            }
         }
     }
 }

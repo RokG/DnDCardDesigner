@@ -115,7 +115,7 @@
                             FontFamily="Arial"
                             FontSize="16"
                             FontWeight="Black"
-                            Foreground="{Binding CardDesign.FrontHeaderTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            Foreground="{Binding CardDesign.FrontHeaderIconColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Border>
                     <!--  Ritual  -->
                     <Border
