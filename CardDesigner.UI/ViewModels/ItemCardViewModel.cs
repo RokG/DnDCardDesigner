@@ -39,9 +39,19 @@ namespace CardDesigner.UI.ViewModels
         private ItemCardModel selectedItemCard;
 
         [ObservableProperty]
+        private WeaponModel selectedWeapon;
+
+        [ObservableProperty]
+        private ArmourModel selectedArmour;
+
+        [ObservableProperty]
         private string armourSearchFilter;
+
         [ObservableProperty]
         private string weaponSearchFilter;
+
+        [ObservableProperty]
+        private ItemDeckDesignModel selectedItemDeckDesign;
 
         [ObservableProperty]
         private ObservableCollection<ItemCardModel> allItemCards;
@@ -71,12 +81,42 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.ItemCardChanged += OnSpellCardChanged;
+            _cardDesignerStore.ItemCardChanged += OnItemCardChanged;
 
             LoadData();
 
             allArmoursCollectionView = CollectionViewSource.GetDefaultView(AllArmours);
             allWeaponsCollectionView = CollectionViewSource.GetDefaultView(AllWeapons);
+
+            //SetSelectionFromNavigation();
+
+            //SelectedItemCard = AllItemCards.First();
+        }
+        private void SetSelectionFromNavigation()
+        {
+            if (_navigationStore != null)
+            {
+                switch (_navigationStore.CurrentViewModel.Type)
+                {
+                    case ViewModelType.Unknown:
+                        return;
+                    case ViewModelType.Home:
+                        return;
+                    case ViewModelType.SpellCardCreator:
+                        return;
+                    case ViewModelType.ItemCardCreator:
+                        return;
+                    case ViewModelType.DeckCreator:
+                        return;
+                    case ViewModelType.CharacterCreator:
+                        return;
+                    case ViewModelType.DeckDesigner:
+                        SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                        return;
+                    default:
+                        break;
+                }
+            }
         }
 
         partial void OnArmourSearchFilterChanged(string bookingDate)
@@ -115,7 +155,7 @@ namespace CardDesigner.UI.ViewModels
             || weapon.DamageModifier.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase);
         }
 
-        private void OnSpellCardChanged(ItemCardModel itemCard, DataChangeType change)
+        private void OnItemCardChanged(ItemCardModel itemCard, DataChangeType change)
         {
             switch (change)
             {
@@ -125,6 +165,24 @@ namespace CardDesigner.UI.ViewModels
                     break;
                 default:
                     break;
+            }
+        }
+
+        partial void OnSelectedItemCardChanged(ItemCardModel value)
+        {
+            if (value != null)
+            {
+                switch (value.Type)
+                {
+                    case ItemType.Weapon:
+                        SelectedItemCard.Item = AllWeapons.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
+                    case ItemType.Armour:
+                        SelectedItemCard.Item = AllArmours.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

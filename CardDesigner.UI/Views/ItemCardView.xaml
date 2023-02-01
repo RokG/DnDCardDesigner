@@ -13,12 +13,16 @@
 
         <Style x:Key="listboxLabel" BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
             <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Padding" Value="10,0,0,0" />
             <Setter Property="Margin" Value="0" />
         </Style>
 
         <Style x:Key="ItemListboxItem" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -107,7 +111,7 @@
                     PlaceholderText="Search.." />
                 <ListBox
                     Grid.IsSharedSizeScope="True"
-                    ItemContainerStyle="{StaticResource test}"
+                    ItemContainerStyle="{StaticResource ItemListboxItem}"
                     ItemsSource="{Binding DataContext.AllWeaponsCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
                     <ListBox.ItemTemplate>
@@ -302,6 +306,7 @@
             <!--  Card view  -->
             <controls:ItemCardControl
                 Grid.Column="1"
+                CardDesign="{Binding SelectedItemDeckDesign}"
                 IsEditable="True"
                 ItemCard="{Binding SelectedItemCard, Mode=TwoWay}" />
         </Grid>

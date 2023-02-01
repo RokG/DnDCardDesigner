@@ -150,7 +150,7 @@ namespace CardDesigner.UI.ViewModels
         {
             _navigationStore.SelectedItemDeck = SelectedItemDeck;
             _navigationStore.SelectedSpellDeck = SelectedSpellDeck;
-
+            _navigationStore.SelectedItemDeckDesign= SelectedItemDeckDesign;
             _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
         }
 
