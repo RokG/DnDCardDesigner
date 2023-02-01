@@ -1,4 +1,5 @@
 ﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -72,10 +73,12 @@ namespace CardDesigner.UI.ViewModels
 
         public CharacterViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            _cardDesignerStore = cardDesignerStore;
-            _navigationStore = navigationStore;
             Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Characters";
+            Type = ViewModelType.CharacterCreator;
+
+            _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
             _cardDesignerStore.CharacterChanged += OnCharacterCreated;
 

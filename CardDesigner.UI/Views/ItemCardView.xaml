@@ -27,10 +27,7 @@
                     DockPanel.Dock="Top"
                     InputText="{Binding DataContext.ArmourSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
-                <DataGrid
-                    AutoGenerateColumns="False"
-                    ItemsSource="{Binding DataContext.AllArmoursCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                <DataGrid AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="*"
@@ -63,10 +60,7 @@
                     DockPanel.Dock="Top"
                     InputText="{Binding DataContext.WeaponSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
-                <DataGrid
-                    AutoGenerateColumns="False"
-                    ItemsSource="{Binding DataContext.AllWeaponsCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                <DataGrid AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="*"

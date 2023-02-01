@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
@@ -37,10 +38,12 @@ namespace CardDesigner.UI.ViewModels
         #region Constructor
         public HomeViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            _cardDesignerStore = cardDesignerStore;
-            _navigationStore = navigationStore;
             Name = Regex.Replace(nameof(HomeViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Home screen";
+            Type = ViewModelType.Home;
+
+            _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
             // TODO: is this OK? how is it different from old method (before MVVM toolkit)
             LoadData();

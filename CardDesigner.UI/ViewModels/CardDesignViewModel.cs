@@ -1,9 +1,11 @@
 ﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -115,15 +117,19 @@ namespace CardDesigner.UI.ViewModels
 
         public CardDesignViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            _cardDesignerStore = cardDesignerStore;
-            _navigationStore = navigationStore;
             Name = Regex.Replace(nameof(CardDesignViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Card designs";
+            Type = ViewModelType.DeckDesigner;
+
+            _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
             _cardDesignerStore.CharacterChanged += OnCharacterChanged;
             _cardDesignerStore.SpellDeckDesignChanged += OnSpellDeckDesignChanged;
             _cardDesignerStore.ItemDeckDesignChanged += OnItemDeckDesignChanged;
             _cardDesignerStore.CharacterDeckDesignChanged += OnCharacterDeckDesignChanged;
+
+            _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
 
             LoadData();
 
@@ -138,6 +144,14 @@ namespace CardDesigner.UI.ViewModels
             GetCharacterBackgroundDeck();
             UpdateSpellDeckDesign();
             UpdateItemDeckDesign();
+        }
+
+        private void OnNavigatingAway()
+        {
+            _navigationStore.SelectedItemDeck = SelectedItemDeck;
+            _navigationStore.SelectedSpellDeck = SelectedSpellDeck;
+
+            _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
         }
 
         #endregion

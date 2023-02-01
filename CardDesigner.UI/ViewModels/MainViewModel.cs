@@ -30,8 +30,7 @@ namespace CardDesigner.UI.ViewModels
         /// <param name="cardDesignerStore"></param>
         /// <param name="cardDisplayNavigationService"></param>
         /// <param name="cardCreatorNavigationService"></param>
-        public MainViewModel(NavigationStore navigationStore,
-            CardDesignerStore cardDesignerStore)
+        public MainViewModel(NavigationStore navigationStore, CardDesignerStore cardDesignerStore)
         {
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
@@ -46,7 +45,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private void ChangeViewModel(string viewModelType)
         {
-            _navigationStore.CurrentViewModel = CurrentViewModel;
+            StoreCurrentViewModelSelections();
             // TODO: check how to do this better?
             switch (viewModelType)
             {
@@ -71,6 +70,21 @@ namespace CardDesigner.UI.ViewModels
                 default:
                     break;
             }
+        }
+
+        private void StoreCurrentViewModelSelections()
+        {
+            //switch (CurrentViewModel)
+            //{
+            //    case CardDesignViewModel cardDesign:
+            //        _navigationStore.SelectedSpellDeckDesign = cardDesign.
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            _navigationStore.CurrentViewModel = CurrentViewModel;
+
         }
 
         #endregion

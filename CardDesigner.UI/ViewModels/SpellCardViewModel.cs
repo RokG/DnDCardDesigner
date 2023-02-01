@@ -40,10 +40,12 @@ namespace CardDesigner.UI.ViewModels
 
         public SpellCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            _cardDesignerStore = cardDesignerStore;
-            _navigationStore = navigationStore;
             Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Spell Cards";
+            Type = ViewModelType.SpellCardCreator;
+
+            _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
             _cardDesignerStore.SpellCardChanged += OnSpellCardChanged;
 

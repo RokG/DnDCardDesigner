@@ -1,8 +1,10 @@
 ﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -68,17 +70,48 @@ namespace CardDesigner.UI.ViewModels
 
         public CardDecksViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            _cardDesignerStore = cardDesignerStore;
-            _navigationStore = navigationStore;
             Name = Regex.Replace(nameof(CardDecksViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Spell Decks";
+            Type = ViewModelType.DeckCreator;
 
+            _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
             _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
             _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
 
             LoadData();
 
+            SetSelectionFromNavigation();
+
+        }
+
+        private void SetSelectionFromNavigation()
+        {
+            if (_navigationStore != null)
+            {
+                switch (_navigationStore.CurrentViewModel.Type)
+                {
+                    case ViewModelType.Unknown:
+                        return;
+                    case ViewModelType.Home:
+                        return;
+                    case ViewModelType.SpellCardCreator:
+                        return;
+                    case ViewModelType.ItemCardCreator:
+                        return;
+                    case ViewModelType.DeckCreator:
+                        return;
+                    case ViewModelType.CharacterCreator:
+                        return;
+                    case ViewModelType.DeckDesigner:
+                        SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
+                        SelectedItemDeck= _navigationStore.SelectedItemDeck;
+                        return;
+                    default:
+                        break;
+                }
+            }
             SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
             SelectedItemDeck = AllItemDecks.FirstOrDefault();
         }

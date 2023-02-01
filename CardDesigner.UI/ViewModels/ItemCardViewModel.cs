@@ -1,4 +1,5 @@
 ﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -63,10 +64,12 @@ namespace CardDesigner.UI.ViewModels
 
         public ItemCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            _cardDesignerStore = cardDesignerStore;
-            _navigationStore = navigationStore;
             Name = Regex.Replace(nameof(ItemCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Item Cards";
+            Type = ViewModelType.ItemCardCreator;
+
+            _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
             _cardDesignerStore.ItemCardChanged += OnSpellCardChanged;
 

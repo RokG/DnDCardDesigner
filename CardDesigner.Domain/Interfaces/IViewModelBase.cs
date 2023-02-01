@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using CardDesigner.Domain.Enums;
+using System.ComponentModel;
 
 namespace CardDesigner.Domain.Interfaces
 {
@@ -6,5 +7,6 @@ namespace CardDesigner.Domain.Interfaces
     {
         string Name { get; set; }
         string Description { get; set; }
+        public ViewModelType Type { get; set; }
     }
 }
