@@ -11,7 +11,7 @@
                 <Label
                     Background="Transparent"
                     Content="{Binding ItemCard.Item.ArmourType, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
-                    Foreground="{Binding CardDesign.FrontHeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Foreground="{Binding CardDesign.HeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource IconLabel}" />
                 <Label
                     Background="Transparent"
@@ -28,7 +28,7 @@
                 <Label
                     Background="Transparent"
                     Content="{Binding ItemCard.Item.WeaponType, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
-                    Foreground="{Binding CardDesign.FrontHeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Foreground="{Binding CardDesign.HeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource IconLabel}" />
             </Grid>
         </ControlTemplate>
@@ -45,8 +45,8 @@
                     Height="30"
                     Background="Transparent"
                     Icon="{Binding ItemCard.Item.DiceType, Converter={converters:StringToResourceKeyConverter}, ElementName=itemCard}"
-                    IconColorFooter="{Binding CardDesign.FrontFooterIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    TextColor="{Binding CardDesign.FrontFooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextColor="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Value="{Binding ItemCard.Item.DiceValue, ElementName=itemCard}" />
                 <Label
                     Margin="0,5,0,0"
@@ -55,7 +55,7 @@
                     Background="Transparent"
                     Content="{Binding ItemCard.Item.PhysicalDamageType, ElementName=itemCard}"
                     FontSize="12"
-                    Foreground="{Binding CardDesign.FrontFooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Foreground="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </WrapPanel>
         </ControlTemplate>
         <ControlTemplate x:Key="ArmourProperties">
@@ -75,7 +75,7 @@
                     Background="Transparent"
                     Content="AC: "
                     FontSize="12"
-                    Foreground="{Binding CardDesign.FrontFooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Foreground="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Label
                     Margin="0,5,0,0"
                     Padding="0"
@@ -83,7 +83,7 @@
                     Background="Transparent"
                     Content="{Binding ItemCard.Item.ArmourClass, ElementName=itemCard}"
                     FontSize="12"
-                    Foreground="{Binding CardDesign.FrontFooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Foreground="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </WrapPanel>
         </ControlTemplate>
     </UserControl.Resources>
@@ -96,7 +96,7 @@
                 Margin="0"
                 Padding="0"
                 VerticalAlignment="Top"
-                Background="{Binding CardDesign.FrontHeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Background="{Binding CardDesign.HeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 BorderBrush="{StaticResource CardLineColor}"
                 BorderThickness="2"
                 CornerRadius="4" />
@@ -106,7 +106,7 @@
                 Margin="0"
                 Padding="0"
                 VerticalAlignment="Bottom"
-                Background="{Binding CardDesign.FrontFooterColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Background="{Binding CardDesign.FooterColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 BorderBrush="{StaticResource CardLineColor}"
                 BorderThickness="2"
                 CornerRadius="4" />
@@ -120,8 +120,8 @@
                     Height="280"
                     Margin="0"
                     Padding="0"
-                    Background="{Binding CardDesign.FrontBackgroundColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Background="{Binding CardDesign.BackgroundColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderBrush="{Binding CardDesign.LineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     BorderThickness="0,2,0,2" />
 
                 <!--  Item icon  -->
@@ -131,7 +131,6 @@
                     Height="118"
                     ImageSource="{Binding ItemCard.IconFilePath, ElementName=itemCard}"
                     ImageStretch="{Binding ItemCard.IconStretch, ElementName=itemCard, Converter={converters:StringToStretchConverter}}" />
-
 
                 <!--  Components  -->
                 <DockPanel
@@ -144,8 +143,8 @@
                         Width="25"
                         Height="25"
                         Margin="2,0,10,0"
-                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Background="{Binding CardDesign.HeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.LineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         DockPanel.Dock="Left">
@@ -176,8 +175,8 @@
                         Width="25"
                         Height="25"
                         Margin="2,0,0,0"
-                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Background="{Binding CardDesign.HeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.LineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         Visibility="{Binding ItemCard.RequiresAttunement, ElementName=itemCard, Converter={converters:BoolToVisibilityConverter}}">
@@ -190,8 +189,8 @@
                         Width="25"
                         Height="25"
                         Margin="2,0,0,0"
-                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Background="{Binding CardDesign.HeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.LineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         Visibility="{Binding ItemCard.IsUnidentified, ElementName=itemCard, Converter={converters:BoolToVisibilityConverter}}">
@@ -204,8 +203,8 @@
                         Width="25"
                         Height="25"
                         Margin="2,0,0,0"
-                        Background="{Binding CardDesign.FrontHeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Background="{Binding CardDesign.HeaderColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="{Binding CardDesign.LineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="2"
                         CornerRadius="20"
                         Visibility="{Binding ItemCard.IsMagical, ElementName=itemCard, Converter={converters:BoolToVisibilityConverter}}">
@@ -222,8 +221,8 @@
                     Height="158"
                     Margin="0"
                     Padding="0"
-                    Background="{Binding CardDesign.FrontBackgroundColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Background="{Binding CardDesign.BackgroundColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderBrush="{Binding CardDesign.LineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     BorderThickness="0,2,0,0">
                     <!--  Description textbox  -->
                     <controls:TextBoxWithPlaceholderControl
@@ -231,7 +230,7 @@
                         MaxHeight="160"
                         Background="Transparent"
                         FontSize="{Binding ItemCard.DescriptionFontSize, Mode=TwoWay, ElementName=itemCard}"
-                        Foreground="{Binding CardDesign.FrontDescriptionTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         InputText="{Binding ItemCard.Description, ElementName=itemCard, Mode=TwoWay}"
                         IsEnabled="{Binding IsEditable, ElementName=itemCard}" />
                 </Border>
@@ -273,7 +272,7 @@
                         Width="246"
                         Background="Transparent"
                         FontSize="{Binding ItemCard.TitleFontSize, Mode=TwoWay, ElementName=itemCard, UpdateSourceTrigger=PropertyChanged}"
-                        Foreground="{Binding CardDesign.FrontHeaderTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Foreground="{Binding CardDesign.HeaderTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         InputText="{Binding ItemCard.Title, ElementName=itemCard, Mode=TwoWay}"
                         IsEnabled="{Binding IsEditable, ElementName=itemCard}" />
                 </Border>
@@ -296,7 +295,7 @@
                 Height="350"
                 Margin="0"
                 Padding="0"
-                BorderBrush="{Binding CardDesign.FrontLineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderBrush="{Binding CardDesign.LineColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 BorderThickness="2"
                 CornerRadius="4" />
         </Grid>

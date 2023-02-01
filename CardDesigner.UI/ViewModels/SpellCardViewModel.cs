@@ -29,6 +29,9 @@ namespace CardDesigner.UI.ViewModels
         private string spellCardName;
 
         [ObservableProperty]
+        private SpellDeckDesignModel selectedSpellDeckDesign = new();
+
+        [ObservableProperty]
         private SpellCardModel selectedSpellCard;
 
         [ObservableProperty]

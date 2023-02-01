@@ -51,7 +51,7 @@ namespace CardDesigner.UI.ViewModels
         private string weaponSearchFilter;
 
         [ObservableProperty]
-        private ItemDeckDesignModel selectedItemDeckDesign;
+        private ItemDeckDesignModel selectedItemDeckDesign = new();
 
         [ObservableProperty]
         private ObservableCollection<ItemCardModel> allItemCards;
