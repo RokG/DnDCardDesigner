@@ -16,8 +16,7 @@ namespace CardDesigner.Domain.Stores
         private readonly ICharacterService _characterService;
         private readonly ICardDesignService _cardDesignService;
         private readonly ISpellDeckService _spellDeckService;
-        private readonly ISpellCardService _spellCardService;
-        private readonly IItemCardService _itemCardService;
+        private readonly ICardService _cardService;
         private readonly IItemDeckService _itemDeckService;
         private readonly IJsonFileItemService _jsonFileItemService;
 
@@ -67,16 +66,14 @@ namespace CardDesigner.Domain.Stores
             ICharacterService characterService,
             ICardDesignService cardDesignService,
             ISpellDeckService spellDeckService,
-            ISpellCardService spellCardService,
-            IItemCardService itemCardService,
+            ICardService cardService,
             IItemDeckService itemDeckService,
             IJsonFileItemService jsonFileItemService)
         {
             _characterService = characterService;
             _cardDesignService = cardDesignService;
             _spellDeckService = spellDeckService;
-            _spellCardService = spellCardService;
-            _itemCardService = itemCardService;
+            _cardService = cardService;
             _itemDeckService = itemDeckService;
 
             _initializeLazy = new Lazy<Task>(Initialize);
@@ -167,14 +164,14 @@ namespace CardDesigner.Domain.Stores
 
         public async Task CreateSpellCard(SpellCardModel spellCard)
         {
-            SpellCardModel createdSpellCard = await _spellCardService.CreateSpellCard(spellCard);
+            SpellCardModel createdSpellCard = (SpellCardModel)await _cardService.CreateCard(spellCard);
             _spellCards.Add(createdSpellCard);
             SpellCardChanged?.Invoke(createdSpellCard, DataChangeType.Created);
         }
 
         public async Task CreateItemCard(ItemCardModel itemCard)
         {
-            ItemCardModel createdItemCard = await _itemCardService.CreateItemCard(itemCard);
+            ItemCardModel createdItemCard = (ItemCardModel)await _cardService.CreateCard(itemCard);
             _itemCards.Add(createdItemCard);
             ItemCardChanged?.Invoke(createdItemCard, DataChangeType.Created);
         }
@@ -234,7 +231,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateSpellCard(SpellCardModel spellCard)
         {
-            if (await _spellCardService.UpdateSpellCard(spellCard) is SpellCardModel updatedSpellCard)
+            if ((SpellCardModel)await _cardService.UpdateCard(spellCard) is SpellCardModel updatedSpellCard)
             {
                 SpellCardChanged?.Invoke(updatedSpellCard, DataChangeType.Updated);
             }
@@ -242,7 +239,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateItemCard(ItemCardModel itemCard)
         {
-            if (await _itemCardService.UpdateItemCard(itemCard) is ItemCardModel updatedItemCard)
+            if ((ItemCardModel)await _cardService.UpdateCard(itemCard) is ItemCardModel updatedItemCard)
             {
                 ItemCardChanged?.Invoke(updatedItemCard, DataChangeType.Updated);
             }
@@ -324,7 +321,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task DeleteSpellCard(SpellCardModel spellCard)
         {
-            bool success = await _spellCardService.DeleteSpellCard(spellCard);
+            bool success = await _cardService.DeleteCard(spellCard);
             if (success)
             {
                 _spellCards.Remove(spellCard);
@@ -334,7 +331,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task DeleteItemCard(ItemCardModel itemCard)
         {
-            bool success = await _itemCardService.DeleteItemCard(itemCard);
+            bool success = await _cardService.DeleteCard(itemCard);
             if (success)
             {
                 _itemCards.Remove(itemCard);
@@ -354,7 +351,7 @@ namespace CardDesigner.Domain.Stores
 
         private async Task UpdateItemCardsFromDb()
         {
-            IEnumerable<ItemCardModel> itemCards = await _itemCardService.GetAllItemCards();
+            IEnumerable<ItemCardModel> itemCards = await _cardService.GetAllCards<ItemCardModel>();
             _itemCards.Clear();
             _itemCards.AddRange(itemCards);
             AssignItemsToCards(itemCards);
@@ -381,7 +378,7 @@ namespace CardDesigner.Domain.Stores
 
         private async Task UpdateSpellCardsFromDb()
         {
-            IEnumerable<SpellCardModel> spellCards = await _spellCardService.GetAllSpellCards();
+            IEnumerable<SpellCardModel> spellCards = await _cardService.GetAllCards<SpellCardModel>();
             _spellCards.Clear();
             _spellCards.AddRange(spellCards);
         }
