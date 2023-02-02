@@ -166,6 +166,7 @@
             <!--  Card view  -->
             <controls:SpellCardControl
                 Grid.Column="1"
+                CardDesign="{Binding SelectedSpellDeckDesign}"
                 IsEditable="True"
                 SpellCard="{Binding SelectedSpellCard, Mode=TwoWay}" />
         </Grid>

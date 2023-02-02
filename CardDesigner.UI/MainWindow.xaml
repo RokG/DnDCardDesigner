@@ -75,7 +75,8 @@
                     Command="{Binding ChangeViewModelCommand}"
                     CommandParameter="CharacterViewModel"
                     Content="Character creator"
-                    DockPanel.Dock="Top" />
+                    DockPanel.Dock="Top"
+                    Visibility="Collapsed" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"

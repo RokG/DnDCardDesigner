@@ -1,4 +1,6 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -17,6 +19,7 @@ namespace CardDesigner.UI.ViewModels
         #region Private fields
 
         private readonly CardDesignerStore _cardDesignerStore;
+        private readonly NavigationStore _navigationStore;
 
         #endregion
 
@@ -36,9 +39,19 @@ namespace CardDesigner.UI.ViewModels
         private ItemCardModel selectedItemCard;
 
         [ObservableProperty]
+        private WeaponModel selectedWeapon;
+
+        [ObservableProperty]
+        private ArmourModel selectedArmour;
+
+        [ObservableProperty]
         private string armourSearchFilter;
+
         [ObservableProperty]
         private string weaponSearchFilter;
+
+        [ObservableProperty]
+        private ItemDeckDesignModel selectedItemDeckDesign = new();
 
         [ObservableProperty]
         private ObservableCollection<ItemCardModel> allItemCards;
@@ -59,20 +72,51 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public ItemCardViewModel(CardDesignerStore cardDesignerStore)
+        public ItemCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
             Name = Regex.Replace(nameof(ItemCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Item Cards";
+            Type = ViewModelType.ItemCardCreator;
 
             _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
-            _cardDesignerStore.ItemCardCreated += OnSpellCardCreated;
+            _cardDesignerStore.ItemCardChanged += OnItemCardChanged;
 
-            // TODO: is this OK? how is it different from old method (before MVVM toolkit)
             LoadData();
 
             allArmoursCollectionView = CollectionViewSource.GetDefaultView(AllArmours);
             allWeaponsCollectionView = CollectionViewSource.GetDefaultView(AllWeapons);
+
+            //SetSelectionFromNavigation();
+
+            //SelectedItemCard = AllItemCards.First();
+        }
+        private void SetSelectionFromNavigation()
+        {
+            if (_navigationStore != null)
+            {
+                switch (_navigationStore.CurrentViewModel.Type)
+                {
+                    case ViewModelType.Unknown:
+                        return;
+                    case ViewModelType.Home:
+                        return;
+                    case ViewModelType.SpellCardCreator:
+                        return;
+                    case ViewModelType.ItemCardCreator:
+                        return;
+                    case ViewModelType.DeckCreator:
+                        return;
+                    case ViewModelType.CharacterCreator:
+                        return;
+                    case ViewModelType.DeckDesigner:
+                        SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                        return;
+                    default:
+                        break;
+                }
+            }
         }
 
         partial void OnArmourSearchFilterChanged(string bookingDate)
@@ -96,6 +140,7 @@ namespace CardDesigner.UI.ViewModels
             || arm.ArmourClass.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
             || arm.ArmourType.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase);
         }
+
         private bool WeaponFilter(object obj)
         {
             //your logicComplexFilter
@@ -109,10 +154,36 @@ namespace CardDesigner.UI.ViewModels
             || weapon.PhysicalDamageType.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
             || weapon.DamageModifier.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase);
         }
-        private void OnSpellCardCreated(ItemCardModel itemCard)
+
+        private void OnItemCardChanged(ItemCardModel itemCard, DataChangeType change)
         {
-            AllItemCards.Add(itemCard);
-            SelectedItemCard = itemCard;
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllItemCards.Add(itemCard);
+                    SelectedItemCard = itemCard;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        partial void OnSelectedItemCardChanged(ItemCardModel value)
+        {
+            if (value != null)
+            {
+                switch (value.Type)
+                {
+                    case ItemType.Weapon:
+                        SelectedItemCard.Item = AllWeapons.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
+                    case ItemType.Armour:
+                        SelectedItemCard.Item = AllArmours.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         #endregion
@@ -134,9 +205,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static ItemCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        public static ItemCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            ItemCardViewModel viewModel = new(cardDesignerStore);
+            ItemCardViewModel viewModel = new(cardDesignerStore, navigationStore);
             viewModel.LoadData();
 
             return viewModel;
@@ -147,6 +218,7 @@ namespace CardDesigner.UI.ViewModels
         #region Commands
 
         [RelayCommand(CanExecute = nameof(CanCreateItemCard))]
+
         private async void CreateItemCard()
         {
             await _cardDesignerStore.CreateItemCard(new ItemCardModel() { Name = ItemCardName });

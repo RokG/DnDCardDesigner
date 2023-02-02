@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Interfaces;
+﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using System;
@@ -31,6 +32,10 @@ namespace CardDesigner.Domain.Stores
         private readonly List<WeaponModel> _weapons;
         private readonly List<ArmourModel> _armours;
 
+        //public SpellDeckModel SelectedSpellDeckModel { get; set; }
+        //public SpellCardModel SelectedSpellCardModel { get; set; }
+        //public SpellDeckDesignModel SelectedSpellCardDesignModel { get; set; }
+
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
         public IEnumerable<ItemCardModel> ItemCards => _itemCards;
         public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
@@ -42,29 +47,14 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<WeaponModel> Weapons => _weapons;
         public IEnumerable<ArmourModel> Armours => _armours;
 
-        public event Action<CharacterModel> CharacterCreated;
-        public event Action<CharacterModel> CharacterUpdated;
-        public event Action<CharacterModel> CharacterDeleted;
-
-        public event Action<ICardDesign> CardDesignCreated;
-        public event Action<ICardDesign> CardDesignUpdated;
-        public event Action<ICardDesign> CardDesignDeleted;
-
-        public event Action<SpellDeckModel> SpellDeckCreated;
-        public event Action<SpellDeckModel> SpellDeckUpdated;
-        public event Action<SpellDeckModel> SpellDeckDeleted;
-
-        public event Action<SpellCardModel> SpellCardCreated;
-        public event Action<SpellCardModel> SpellCardUpdated;
-        public event Action<SpellCardModel> SpellCardDeleted;
-
-        public event Action<ItemDeckModel> ItemDeckCreated;
-        public event Action<ItemDeckModel> ItemDeckUpdated;
-        public event Action<ItemDeckModel> ItemDeckDeleted;
-
-        public event Action<ItemCardModel> ItemCardCreated;
-        public event Action<ItemCardModel> ItemCardUpdated;
-        public event Action<ItemCardModel> ItemCardDeleted;
+        public event Action<CharacterModel, DataChangeType> CharacterChanged;
+        public event Action<SpellDeckDesignModel, DataChangeType> SpellDeckDesignChanged;
+        public event Action<ItemDeckDesignModel, DataChangeType> ItemDeckDesignChanged;
+        public event Action<CharacterDeckDesignModel, DataChangeType> CharacterDeckDesignChanged;
+        public event Action<SpellDeckModel, DataChangeType> SpellDeckChanged;
+        public event Action<SpellCardModel, DataChangeType> SpellCardChanged;
+        public event Action<ItemDeckModel, DataChangeType> ItemDeckChanged;
+        public event Action<ItemCardModel, DataChangeType> ItemCardChanged;
 
         /// <summary>
         /// Constructor
@@ -134,8 +124,9 @@ namespace CardDesigner.Domain.Stores
         {
             CharacterModel createdCharacter = await _characterService.CreateCharacter(character);
             _characters.Add(createdCharacter);
-            OnCharacterCreated(createdCharacter);
+            CharacterChanged?.Invoke(character, DataChangeType.Created);
         }
+
         public async Task CreateCardDesign(ICardDesign cardDesignModel)
         {
             if (await _cardDesignService.CreateCardDesign(cardDesignModel) is ICardDesign createdCardDesign)
@@ -144,17 +135,19 @@ namespace CardDesigner.Domain.Stores
                 {
                     case SpellDeckDesignModel spellDeckDesignModel:
                         _spellDeckDesigns.Add(spellDeckDesignModel);
+                        SpellDeckDesignChanged?.Invoke(spellDeckDesignModel, DataChangeType.Created);
                         break;
                     case ItemDeckDesignModel ItemDeckDesignModel:
                         _itemDeckDesigns.Add(ItemDeckDesignModel);
+                        ItemDeckDesignChanged?.Invoke(ItemDeckDesignModel, DataChangeType.Created);
                         break;
                     case CharacterDeckDesignModel characterDeckDesignModel:
                         _characterDeckDesigns.Add(characterDeckDesignModel);
+                        CharacterDeckDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Created);
                         break;
                     default:
                         break;
                 }
-                OnCardDesignCreated(createdCardDesign);
             }
         }
 
@@ -162,28 +155,28 @@ namespace CardDesigner.Domain.Stores
         {
             SpellDeckModel createdSpellDeck = await _spellDeckService.CreateSpellDeck(spellDeck);
             _spellDecks.Add(createdSpellDeck);
-            OnSpellDeckCreated(createdSpellDeck);
+            SpellDeckChanged?.Invoke(createdSpellDeck, DataChangeType.Created);
         }
 
         public async Task CreateItemDeck(ItemDeckModel itemDeck)
         {
             ItemDeckModel createdItemDeck = await _itemDeckService.CreateItemDeck(itemDeck);
             _itemDecks.Add(createdItemDeck);
-            OnItemDeckCreated(createdItemDeck);
+            ItemDeckChanged?.Invoke(createdItemDeck, DataChangeType.Created);
         }
 
         public async Task CreateSpellCard(SpellCardModel spellCard)
         {
             SpellCardModel createdSpellCard = await _spellCardService.CreateSpellCard(spellCard);
             _spellCards.Add(createdSpellCard);
-            OnSpellCardCreated(createdSpellCard);
+            SpellCardChanged?.Invoke(createdSpellCard, DataChangeType.Created);
         }
 
         public async Task CreateItemCard(ItemCardModel itemCard)
         {
             ItemCardModel createdItemCard = await _itemCardService.CreateItemCard(itemCard);
             _itemCards.Add(createdItemCard);
-            OnItemCardCreated(createdItemCard);
+            ItemCardChanged?.Invoke(createdItemCard, DataChangeType.Created);
         }
 
         #endregion
@@ -195,31 +188,47 @@ namespace CardDesigner.Domain.Stores
             if (await _characterService.UpdateCharacter(character) is CharacterModel updatedCharacter)
             {
                 await UpdateCharactersFromDb();
-                OnCharacterUpdated(updatedCharacter);
+                CharacterChanged?.Invoke(updatedCharacter, DataChangeType.Updated);
             }
         }
+
         public async Task UpdateCardDesign(ICardDesign cardDesignModel)
         {
             if (await _cardDesignService.UpdateCardDesign(cardDesignModel) is ICardDesign updatedcardDesignModel)
             {
                 await UpdateCardDesignsFromDb();
-                OnCardDesignUpdated(updatedcardDesignModel);
+                switch (updatedcardDesignModel)
+                {
+                    case SpellDeckDesignModel spellDeckDesignModel:
+                        SpellDeckDesignChanged?.Invoke(spellDeckDesignModel, DataChangeType.Updated);
+                        break;
+                    case ItemDeckDesignModel itemDeckDesignModel:
+                        ItemDeckDesignChanged?.Invoke(itemDeckDesignModel, DataChangeType.Updated);
+                        break;
+                    case CharacterDeckDesignModel characterDeckDesignModel:
+                        CharacterDeckDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Updated);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
         public async Task UpdateSpellDeck(SpellDeckModel spellDeck)
         {
             if (await _spellDeckService.UpdateSpellDeck(spellDeck) is SpellDeckModel updatedSpellDeck)
             {
                 await UpdateSpellDecksFromDb();
-                OnSpellDeckUpdated(updatedSpellDeck);
+                SpellDeckChanged?.Invoke(updatedSpellDeck, DataChangeType.Updated);
             }
         }
+
         public async Task UpdateItemDeck(ItemDeckModel itemDeck)
         {
             if (await _itemDeckService.UpdateItemDeck(itemDeck) is ItemDeckModel updatedItemDeck)
             {
                 await UpdateSpellDecksFromDb();
-                OnItemDeckUpdated(updatedItemDeck);
+                ItemDeckChanged?.Invoke(updatedItemDeck, DataChangeType.Updated);
             }
         }
 
@@ -227,7 +236,7 @@ namespace CardDesigner.Domain.Stores
         {
             if (await _spellCardService.UpdateSpellCard(spellCard) is SpellCardModel updatedSpellCard)
             {
-                OnSpellCardUpdated(updatedSpellCard);
+                SpellCardChanged?.Invoke(updatedSpellCard, DataChangeType.Updated);
             }
         }
 
@@ -235,7 +244,7 @@ namespace CardDesigner.Domain.Stores
         {
             if (await _itemCardService.UpdateItemCard(itemCard) is ItemCardModel updatedItemCard)
             {
-                OnItemCardUpdated(updatedItemCard);
+                ItemCardChanged?.Invoke(updatedItemCard, DataChangeType.Updated);
             }
         }
 
@@ -249,7 +258,7 @@ namespace CardDesigner.Domain.Stores
             if (success)
             {
                 _characters.Remove(character);
-                OnCharacterDeleted(character);
+                CharacterChanged?.Invoke(character, DataChangeType.Deleted);
             }
         }
 
@@ -261,17 +270,19 @@ namespace CardDesigner.Domain.Stores
                 {
                     case SpellDeckDesignModel spellDeckDesignModel:
                         _spellDeckDesigns.Remove(spellDeckDesignModel);
+                        SpellDeckDesignChanged?.Invoke(spellDeckDesignModel, DataChangeType.Deleted);
                         break;
                     case ItemDeckDesignModel itemDeckDesignModel:
                         _itemDeckDesigns.Remove(itemDeckDesignModel);
+                        ItemDeckDesignChanged?.Invoke(itemDeckDesignModel, DataChangeType.Deleted);
                         break;
                     case CharacterDeckDesignModel characterDeckDesignModel:
                         _characterDeckDesigns.Remove(characterDeckDesignModel);
+                        CharacterDeckDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Deleted);
                         break;
                     default:
                         break;
                 }
-                OnCardDesignDeleted(cardDesignModel);
             }
         }
 
@@ -288,7 +299,7 @@ namespace CardDesigner.Domain.Stores
                 if (success)
                 {
                     _spellDecks.Remove(spellDeck);
-                    OnSpellDeckDeleted(spellDeck);
+                    SpellDeckChanged?.Invoke(spellDeck, DataChangeType.Deleted);
                 }
             }
         }
@@ -306,7 +317,7 @@ namespace CardDesigner.Domain.Stores
                 if (success)
                 {
                     _itemDecks.Remove(itemDeck);
-                    OnItemDeckDeleted(itemDeck);
+                    ItemDeckChanged?.Invoke(itemDeck, DataChangeType.Deleted);
                 }
             }
         }
@@ -317,110 +328,19 @@ namespace CardDesigner.Domain.Stores
             if (success)
             {
                 _spellCards.Remove(spellCard);
-                OnSpellCardDeleted(spellCard);
+                SpellCardChanged(spellCard, DataChangeType.Deleted);
             }
         }
+
         public async Task DeleteItemCard(ItemCardModel itemCard)
         {
             bool success = await _itemCardService.DeleteItemCard(itemCard);
             if (success)
             {
                 _itemCards.Remove(itemCard);
-                OnItemCardDeleted(itemCard);
+                ItemCardChanged?.Invoke(itemCard, DataChangeType.Deleted);
             }
         }
-        #endregion
-
-        #region Invokers
-
-        private void OnCharacterCreated(CharacterModel character)
-        {
-            CharacterCreated?.Invoke(character);
-        }
-
-        private void OnCharacterUpdated(CharacterModel character)
-        {
-            CharacterUpdated?.Invoke(character);
-        }
-
-        private void OnCharacterDeleted(CharacterModel character)
-        {
-            CharacterDeleted?.Invoke(character);
-        }
-
-        private void OnSpellDeckCreated(SpellDeckModel spellDeck)
-        {
-            SpellDeckCreated?.Invoke(spellDeck);
-        }
-
-        private void OnSpellDeckUpdated(SpellDeckModel spellDeck)
-        {
-            SpellDeckUpdated?.Invoke(spellDeck);
-        }
-
-        private void OnSpellDeckDeleted(SpellDeckModel spellDeck)
-        {
-            SpellDeckDeleted?.Invoke(spellDeck);
-        }
-
-        private void OnItemDeckCreated(ItemDeckModel itemDeck)
-        {
-            ItemDeckCreated?.Invoke(itemDeck);
-        }
-
-        private void OnItemDeckUpdated(ItemDeckModel itemDeck)
-        {
-            ItemDeckUpdated?.Invoke(itemDeck);
-        }
-
-        private void OnItemDeckDeleted(ItemDeckModel itemDeck)
-        {
-            ItemDeckDeleted?.Invoke(itemDeck);
-        }
-
-        private void OnSpellCardCreated(SpellCardModel spellCard)
-        {
-            SpellCardCreated?.Invoke(spellCard);
-        }
-
-        private void OnItemCardCreated(ItemCardModel itemCard)
-        {
-            ItemCardCreated?.Invoke(itemCard);
-        }
-
-        private void OnItemCardDeleted(ItemCardModel itemCard)
-        {
-            ItemCardDeleted?.Invoke(itemCard);
-        }
-
-        private void OnItemCardUpdated(ItemCardModel itemCard)
-        {
-            ItemCardUpdated?.Invoke(itemCard);
-        }
-
-        private void OnSpellCardUpdated(SpellCardModel spellCard)
-        {
-            SpellCardUpdated?.Invoke(spellCard);
-        }
-
-        private void OnSpellCardDeleted(SpellCardModel spellCard)
-        {
-            SpellCardDeleted?.Invoke(spellCard);
-        }
-
-        private void OnCardDesignDeleted(ICardDesign cardDesign)
-        {
-            CardDesignDeleted?.Invoke(cardDesign);
-        }
-        private void OnCardDesignUpdated(ICardDesign cardDesign)
-        {
-            CardDesignUpdated?.Invoke(cardDesign);
-        }
-        private void OnCardDesignCreated(ICardDesign cardDesign)
-        {
-            CardDesignCreated?.Invoke(cardDesign);
-        }
-
         #endregion
 
         #region Updates
@@ -522,7 +442,6 @@ namespace CardDesigner.Domain.Stores
                 AssignItemsToCards(itemDeck.ItemCards);
             }
         }
-
 
         #endregion
     }

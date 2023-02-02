@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Enums;
+﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,6 +15,7 @@ namespace CardDesigner.UI.ViewModels
         #region Private fields
 
         private readonly CardDesignerStore _cardDesignerStore;
+        private readonly NavigationStore _navigationStore;
 
         #endregion
 
@@ -27,6 +29,9 @@ namespace CardDesigner.UI.ViewModels
         private string spellCardName;
 
         [ObservableProperty]
+        private SpellDeckDesignModel selectedSpellDeckDesign = new();
+
+        [ObservableProperty]
         private SpellCardModel selectedSpellCard;
 
         [ObservableProperty]
@@ -36,16 +41,17 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public SpellCardViewModel(CardDesignerStore cardDesignerStore)
+        public SpellCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
             Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Spell Cards";
+            Type = ViewModelType.SpellCardCreator;
 
             _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
-            _cardDesignerStore.SpellCardCreated += OnSpellCardCreated;
+            _cardDesignerStore.SpellCardChanged += OnSpellCardChanged;
 
-            // TODO: is this OK? how is it different from old method (before MVVM toolkit)
             LoadData();
         }
 
@@ -62,19 +68,30 @@ namespace CardDesigner.UI.ViewModels
             SelectedSpellCard = AllSpellCards.FirstOrDefault();
         }
 
-        private void OnSpellCardCreated(SpellCardModel spellCard)
+        private void OnSpellCardChanged(SpellCardModel spellCard, DataChangeType change)
         {
-            AllSpellCards.Add(spellCard);
-            SelectedSpellCard = spellCard;
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllSpellCards.Add(spellCard);
+                    SelectedSpellCard = spellCard;
+                    break;
+                case DataChangeType.Deleted:
+                    AllSpellCards.Remove(spellCard);
+                    SelectedSpellCard = AllSpellCards.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
 
         #region Public methods
 
-        public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            SpellCardViewModel viewModel = new(cardDesignerStore);
+            SpellCardViewModel viewModel = new(cardDesignerStore, navigationStore);
             viewModel.LoadData();
 
             return viewModel;

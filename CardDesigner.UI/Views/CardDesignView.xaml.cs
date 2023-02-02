@@ -34,36 +34,32 @@ namespace CardDesigner.UI.Views
                     {
                         case SpellDeckDesignModel spellDeckDesign:
                             // Foregrounds
-                            SetStartingColors(FrontSpellLineColor, spellDeckDesign.FrontLineColor);
-                            SetStartingColors(FrontSpellBackgroundColor, spellDeckDesign.FrontBackgroundColor);
-                            SetStartingColors(FrontSpellFooterColor, spellDeckDesign.FrontFooterColor);
-                            SetStartingColors(FrontSpellHeaderTextColor, spellDeckDesign.FrontHeaderTextColor);
-                            SetStartingColors(FrontSpellFooterTextColor, spellDeckDesign.FrontFooterTextColor);
-                            SetStartingColors(FrontSpellDescriptionTextColor, spellDeckDesign.FrontDescriptionTextColor);
-                            SetStartingColors(FrontSpellHeaderIconColor, spellDeckDesign.FrontHeaderIconColor);
-                            SetStartingColors(FrontSpellFooterIconColor, spellDeckDesign.FrontFooterIconColor);
-                            SetStartingColors(FrontSpellHeaderColor, spellDeckDesign.FrontHeaderColor);
-                            SetStartingColors(FrontSpellHiglightColor, spellDeckDesign.FrontHiglightColor);
-                            SetStartingColors(FrontSpellForegroundColor, spellDeckDesign.FrontForegroundColor);
+                            SetStartingColors(FrontSpellLineColor, spellDeckDesign.LineColor);
+                            SetStartingColors(FrontSpellBackgroundColor, spellDeckDesign.BackgroundColor);
+                            SetStartingColors(FrontSpellFooterColor, spellDeckDesign.FooterColor);
+                            SetStartingColors(FrontSpellHeaderTextColor, spellDeckDesign.HeaderTextColor);
+                            SetStartingColors(FrontSpellFooterTextColor, spellDeckDesign.FooterTextColor);
+                            SetStartingColors(FrontSpellDescriptionTextColor, spellDeckDesign.DescriptionTextColor);
+                            SetStartingColors(FrontSpellHeaderIconColor, spellDeckDesign.HeaderIconColor);
+                            SetStartingColors(FrontSpellFooterIconColor, spellDeckDesign.FooterIconColor);
+                            SetStartingColors(FrontSpellHeaderColor, spellDeckDesign.HeaderColor);
                             break;
                         case ItemDeckDesignModel itemDeckDesign:
                             // Foregrounds
-                            SetStartingColors(FrontItemLineColor, itemDeckDesign.FrontLineColor);
-                            SetStartingColors(FrontItemBackgroundColor, itemDeckDesign.FrontBackgroundColor);
-                            SetStartingColors(FrontItemFooterColor, itemDeckDesign.FrontFooterColor);
-                            SetStartingColors(FrontItemHeaderTextColor, itemDeckDesign.FrontHeaderTextColor);
-                            SetStartingColors(FrontItemFooterTextColor, itemDeckDesign.FrontFooterTextColor);
-                            SetStartingColors(FrontItemDescriptionTextColor, itemDeckDesign.FrontDescriptionTextColor);
-                            SetStartingColors(FrontItemHeaderIconColor, itemDeckDesign.FrontHeaderIconColor);
-                            SetStartingColors(FrontItemFooterIconColor, itemDeckDesign.FrontFooterIconColor);
-                            SetStartingColors(FrontItemHeaderColor, itemDeckDesign.FrontHeaderColor);
-                            SetStartingColors(FrontItemHiglightColor, itemDeckDesign.FrontHiglightColor);
-                            SetStartingColors(FrontItemForegroundColor, itemDeckDesign.FrontForegroundColor);
+                            SetStartingColors(FrontItemLineColor, itemDeckDesign.LineColor);
+                            SetStartingColors(FrontItemBackgroundColor, itemDeckDesign.BackgroundColor);
+                            SetStartingColors(FrontItemFooterColor, itemDeckDesign.FooterColor);
+                            SetStartingColors(FrontItemHeaderTextColor, itemDeckDesign.HeaderTextColor);
+                            SetStartingColors(FrontItemFooterTextColor, itemDeckDesign.FooterTextColor);
+                            SetStartingColors(FrontItemDescriptionTextColor, itemDeckDesign.DescriptionTextColor);
+                            SetStartingColors(FrontItemHeaderIconColor, itemDeckDesign.HeaderIconColor);
+                            SetStartingColors(FrontItemFooterIconColor, itemDeckDesign.FooterIconColor);
+                            SetStartingColors(FrontItemHeaderColor, itemDeckDesign.HeaderColor);
                             break;
                         case CharacterDeckDesignModel characterDeckDesign:
                             // Backgrounds
-                            SetStartingColors(BackLineColor, characterDeckDesign.BackLineColor);
-                            SetStartingColors(BackBackgroundColor, characterDeckDesign.BackBackgroundColor);
+                            SetStartingColors(BackLineColor, characterDeckDesign.LineColor);
+                            SetStartingColors(BackBackgroundColor, characterDeckDesign.BackgroundColor);
                             break;
                         default:
                             break;
@@ -115,24 +111,6 @@ namespace CardDesigner.UI.Views
             };
 
             return colorHSV;
-        }
-
-        private void FrontFooterIconColor_ColorChanged(object sender, RoutedEventArgs e)
-        {
-            if (sender is ColorPickerControl colorPicker)
-            {
-                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorPicker.CurrentColor));
-                Application.Current.Resources["IconColorFooter"] = solidColorBrush;
-            }
-        }
-
-        private void FrontHeaderIconColor_ColorChanged(object sender, RoutedEventArgs e)
-        {
-            if (sender is ColorPickerControl colorPicker)
-            {
-                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorPicker.CurrentColor));
-                Application.Current.Resources["IconColorHeader"] = solidColorBrush;
-            }
         }
     }
 }

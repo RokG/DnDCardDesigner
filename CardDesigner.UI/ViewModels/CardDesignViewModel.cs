@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Interfaces;
+﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -6,7 +7,6 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -16,6 +16,7 @@ namespace CardDesigner.UI.ViewModels
         #region Private fields
 
         private readonly CardDesignerStore _cardDesignerStore;
+        private readonly NavigationStore _navigationStore;
 
         #endregion
 
@@ -35,7 +36,7 @@ namespace CardDesigner.UI.ViewModels
         private string addedCharacterDeckDesignName;
 
         [ObservableProperty]
-        private CharacterDeckDesignModel selectedCharacterDeckDesign;
+        private CharacterDeckDesignModel selectedBackgroundDesign;
 
         [ObservableProperty]
         private CharacterDeckDesignModel selectedCharacterBackgroundDesign;
@@ -54,7 +55,6 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<ItemDeckModel> characterItemDecks;
-
 
         #endregion
 
@@ -114,93 +114,138 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public CardDesignViewModel(CardDesignerStore cardDesignerStore)
+        public CardDesignViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
             Name = Regex.Replace(nameof(CardDesignViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Card designs";
+            Type = ViewModelType.DeckDesigner;
 
             _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
-            _cardDesignerStore.CharacterCreated += OnCharacterCreated;
-            _cardDesignerStore.CharacterUpdated += OnCharacterUpdated;
-            _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
+            _cardDesignerStore.CharacterChanged += OnCharacterChanged;
+            _cardDesignerStore.SpellDeckDesignChanged += OnSpellDeckDesignChanged;
+            _cardDesignerStore.ItemDeckDesignChanged += OnItemDeckDesignChanged;
+            _cardDesignerStore.CharacterDeckDesignChanged += OnCharacterDeckDesignChanged;
 
-            _cardDesignerStore.CardDesignUpdated += OnCardDesignUpdated;
-            _cardDesignerStore.CardDesignCreated += OnCardDesignCreated;
-            _cardDesignerStore.CardDesignDeleted += OnCardDesignDeleted;
+            _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
 
             LoadData();
 
             SelectedSpellDeckDesign = AllSpellDeckDesigns.FirstOrDefault();
             SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault();
-            SelectedCharacterDeckDesign = AllCharacterDeckDesigns.FirstOrDefault();
+            selectedCharacterBackgroundDesign = AllCharacterDeckDesigns.FirstOrDefault();
             SelectedCharacter = AllCharacters.FirstOrDefault();
             SelectedItemDeck = AllItemDecks.FirstOrDefault();
 
             GetCharacterSpellDecks();
             GetCharacterItemDecks();
+            GetCharacterBackgroundDeck();
             UpdateSpellDeckDesign();
             UpdateItemDeckDesign();
         }
 
-        private void OnCardDesignDeleted(ICardDesign cardDesign)
+        private void OnNavigatingAway()
         {
-            switch (cardDesign)
+            _navigationStore.SelectedItemDeck = SelectedItemDeck;
+            _navigationStore.SelectedSpellDeck = SelectedSpellDeck;
+            _navigationStore.SelectedItemDeckDesign = SelectedItemDeckDesign;
+            _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void OnItemDeckDesignChanged(ItemDeckDesignModel itemDeckDesign, DataChangeType change)
+        {
+            switch (change)
             {
-                case SpellDeckDesignModel spellDeckDesignModel:
-                    AllSpellDeckDesigns.Remove(spellDeckDesignModel);
-                    SelectedSpellDeckDesign = AllSpellDeckDesigns.FirstOrDefault();
-                    break;
-                case ItemDeckDesignModel characterDeckDesignModel:
-                    AllItemDeckDesigns.Remove(characterDeckDesignModel);
+                case DataChangeType.Created:
+                    AllItemDeckDesigns.Remove(itemDeckDesign);
                     SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault();
                     break;
-                case CharacterDeckDesignModel itemDeckDesignModel:
-                    AllCharacterDeckDesigns.Remove(itemDeckDesignModel);
-                    SelectedCharacterDeckDesign = AllCharacterDeckDesigns.FirstOrDefault();
+                case DataChangeType.Removed:
+                    break;
+                case DataChangeType.Updated:
+                    break;
+                case DataChangeType.Deleted:
+                    AllItemDeckDesigns.Add(itemDeckDesign);
+                    SelectedItemDeckDesign = itemDeckDesign;
                     break;
                 default:
                     break;
             }
         }
 
-        private void OnCardDesignCreated(ICardDesign cardDesign)
+        private void OnCharacterDeckDesignChanged(CharacterDeckDesignModel characterDeckDesign, DataChangeType change)
         {
-            switch (cardDesign)
+            switch (change)
             {
-                case SpellDeckDesignModel spellDeckDesignModel:
-                    AllSpellDeckDesigns.Add(spellDeckDesignModel);
-                    SelectedSpellDeckDesign = spellDeckDesignModel;
+                case DataChangeType.Created:
+                    AllCharacterDeckDesigns.Add(characterDeckDesign);
+                    SelectedBackgroundDesign = characterDeckDesign;
                     break;
-                case ItemDeckDesignModel itemDeckDesignModel:
-                    AllItemDeckDesigns.Add(itemDeckDesignModel);
-                    SelectedItemDeckDesign = itemDeckDesignModel;
+                case DataChangeType.Removed:
                     break;
-                case CharacterDeckDesignModel characterDeckDesignModel:
-                    AllCharacterDeckDesigns.Add(characterDeckDesignModel);
-                    SelectedCharacterDeckDesign = characterDeckDesignModel;
+                case DataChangeType.Updated:
+                    break;
+                case DataChangeType.Deleted:
+                    AllCharacterDeckDesigns.Remove(characterDeckDesign);
+                    SelectedBackgroundDesign = AllCharacterDeckDesigns.FirstOrDefault();
                     break;
                 default:
                     break;
             }
         }
 
-        private void OnCardDesignUpdated(ICardDesign cardDesign)
+        private void OnSpellDeckDesignChanged(SpellDeckDesignModel spellDeckDesign, DataChangeType change)
         {
-            //try
-            //{
-            //    //TestItemCard = SelectedCharacter?.ItemDecks?.FirstOrDefault().ItemCards?.FirstOrDefault();
-            //    //TestSpellCard = SelectedCharacter?.SpellDecks?.FirstOrDefault().SpellCards?.FirstOrDefault();
-            //}
-            //catch (System.Exception)
-            //{
-            //}
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllSpellDeckDesigns.Add(spellDeckDesign);
+                    SelectedSpellDeckDesign = spellDeckDesign;
+                    break;
+                case DataChangeType.Removed:
+                    break;
+                case DataChangeType.Updated:
+                    break;
+                case DataChangeType.Deleted:
+                    AllSpellDeckDesigns.Remove(spellDeckDesign);
+                    SelectedSpellDeckDesign = AllSpellDeckDesigns.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OnCharacterChanged(CharacterModel character, DataChangeType change)
+        {
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllCharacters.Add(character);
+                    SelectedCharacter = character;
+                    break;
+                case DataChangeType.Updated:
+                    SelectedCharacter = character;
+                    GetCharacterSpellDecks();
+                    GetCharacterItemDecks();
+                    break;
+                case DataChangeType.Deleted:
+                    AllCharacters.Remove(SelectedCharacter);
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void GetCharacterSpellDecks()
         {
             CharacterSpellDecks = new();
-            if (SelectedCharacter != null)
+            if (SelectedCharacter?.SpellDeckDescriptors != null)
             {
                 foreach (SpellDeckDesignLinkerModel deckDescriptor in SelectedCharacter.SpellDeckDescriptors)
                 {
@@ -213,7 +258,7 @@ namespace CardDesigner.UI.ViewModels
         private void GetCharacterItemDecks()
         {
             CharacterItemDecks = new();
-            if (SelectedCharacter != null)
+            if (SelectedCharacter?.ItemDeckDescriptors != null)
             {
                 foreach (ItemDeckDesignLinkerModel deckDescriptor in SelectedCharacter.ItemDeckDescriptors)
                 {
@@ -223,35 +268,13 @@ namespace CardDesigner.UI.ViewModels
             SelectedItemDeck = CharacterItemDecks.FirstOrDefault();
         }
 
-        private void OnCharacterUpdated(CharacterModel character)
-        {
-            SelectedCharacter = character;
-            GetCharacterSpellDecks();
-            GetCharacterItemDecks();
-        }
-
-        #endregion
-
-        #region Private methods
-        private void OnCharacterCreated(CharacterModel character)
-        {
-            AllCharacters.Add(character);
-            SelectedCharacter = character;
-        }
-
-        private void OnCharacterDeleted(CharacterModel character)
-        {
-            AllCharacters.Remove(SelectedCharacter);
-            SelectedCharacter = AllCharacters.FirstOrDefault();
-        }
-
         #endregion
 
         #region Public methods
 
-        public static CardDesignViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        public static CardDesignViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            CardDesignViewModel viewModel = new(cardDesignerStore);
+            CardDesignViewModel viewModel = new(cardDesignerStore, navigationStore);
 
             viewModel.LoadData();
 
@@ -455,16 +478,22 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateCharactereckDesign()
         {
-            await _cardDesignerStore.UpdateCardDesign(SelectedCharacterDeckDesign);
+            await _cardDesignerStore.UpdateCardDesign(SelectedBackgroundDesign);
         }
 
         partial void OnSelectedCharacterChanged(CharacterModel selectedCharacter)
         {
             GetCharacterSpellDecks();
             GetCharacterItemDecks();
+            GetCharacterBackgroundDeck();
+        }
 
-            SelectedCharacterDeckDesign = selectedCharacter.DeckBackgroundDesign;
-            SelectedCharacterBackgroundDesign = AllCharacterDeckDesigns.FirstOrDefault(dd=>dd.ID == SelectedCharacterDeckDesign.ID);
+        private void GetCharacterBackgroundDeck()
+        {
+            SelectedCharacterBackgroundDesign = SelectedCharacter?.DeckBackgroundDesign != null
+                ? AllCharacterDeckDesigns.FirstOrDefault(dd => dd.ID == SelectedCharacter.DeckBackgroundDesign.ID)
+                : AllCharacterDeckDesigns.FirstOrDefault();
+            SelectedBackgroundDesign = SelectedCharacterBackgroundDesign;
         }
 
         #endregion

@@ -11,8 +11,8 @@
                 Height="350"
                 Margin="0"
                 Padding="0"
-                Background="{Binding CardDesign.BackBackgroundColor, ElementName=cardBackgroundControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                BorderBrush="{Binding CardDesign.BackLineColor, ElementName=cardBackgroundControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Background="{Binding CardDesign.BackgroundColor, ElementName=cardBackgroundControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderBrush="{Binding CardDesign.LineColor, ElementName=cardBackgroundControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 BorderThickness="{Binding CardDesign.BackLineThickness, Converter={converters:DoubleToThicknessConverter}, ElementName=cardBackgroundControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 CornerRadius="4">
 
@@ -22,8 +22,8 @@
                     Height="350"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    ImageSource="{Binding CardDesign.BackgroundIconFilePath, ElementName=cardBackgroundControl}"
-                    ImageStretch="{Binding CardDesign.BackgroundIconStretch, ElementName=cardBackgroundControl, Converter={converters:StringToStretchConverter}}" />
+                    ImageSource="{Binding CardDesign.IconFilePath, ElementName=cardBackgroundControl}"
+                    ImageStretch="{Binding CardDesign.IconStretch, ElementName=cardBackgroundControl, Converter={converters:StringToStretchConverter}}" />
             </Border>
         </Grid>
     </Viewbox>

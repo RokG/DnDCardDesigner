@@ -1,4 +1,6 @@
-﻿using CardDesigner.Domain.Models;
+﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -14,6 +16,7 @@ namespace CardDesigner.UI.ViewModels
         #region Private fields
 
         private readonly CardDesignerStore _cardDesignerStore;
+        private readonly NavigationStore _navigationStore;
 
         #endregion
 
@@ -24,7 +27,6 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private SpellCardModel testSpellCard;
-
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateCardDesignCommand))]
@@ -68,36 +70,33 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public CharacterViewModel(CardDesignerStore cardDesignerStore)
+        public CharacterViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
             Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Characters";
+            Type = ViewModelType.CharacterCreator;
 
             _cardDesignerStore = cardDesignerStore;
+            _navigationStore = navigationStore;
 
-            _cardDesignerStore.CharacterCreated += OnCharacterCreated;
-            _cardDesignerStore.CharacterUpdated += OnCharacterUpdated;
-            _cardDesignerStore.CharacterDeleted += OnCharacterDeleted;
+            _cardDesignerStore.CharacterChanged += OnCharacterCreated;
 
             LoadData();
 
             SelectedCharacter = AllCharacters.FirstOrDefault();
         }
 
-        private void OnCharacterUpdated(CharacterModel character)
-        {
-        }
-
         #endregion
 
         #region Private methods
-        private void OnCharacterCreated(CharacterModel character)
+
+        private void OnCharacterCreated(CharacterModel character, DataChangeType change)
         {
             AllCharacters.Add(character);
             SelectedCharacter = character;
         }
 
-        private void OnCharacterDeleted(CharacterModel character)
+        private void OnCharacterDeleted(CharacterModel character, DataChangeType change)
         {
             AllCharacters.Remove(SelectedCharacter);
             SelectedCharacter = AllCharacters.FirstOrDefault();
@@ -107,9 +106,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static CharacterViewModel LoadViewModel(CardDesignerStore cardDesignerStore)
+        public static CharacterViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            CharacterViewModel viewModel = new(cardDesignerStore);
+            CharacterViewModel viewModel = new(cardDesignerStore, navigationStore);
 
             viewModel.LoadData();
 
