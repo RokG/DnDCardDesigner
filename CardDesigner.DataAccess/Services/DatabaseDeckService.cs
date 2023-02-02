@@ -1,0 +1,188 @@
+﻿using AutoMapper;
+using CardDesigner.DataAccess.DbContexts;
+using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Interfaces;
+using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace CardDesigner.DataAccess.Services
+{
+    public class DatabaseDeckService : IDeckService
+    {
+        private readonly CardDesignerDbContextFactory _dbContextFactory;
+        private readonly IMapper _mapper;
+
+        public DatabaseDeckService(CardDesignerDbContextFactory dbContextFactory, IMapper mapper)
+        {
+            _dbContextFactory = dbContextFactory;
+            _mapper = mapper;
+        }
+
+        public async Task<IDeck> CreateDeck(IDeck deckModel)
+        {
+            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            {
+                switch (deckModel)
+                {
+                    case SpellDeckModel spellDeckModel:
+                        SpellDeckEntity spellDeckEntity = _mapper.Map<SpellDeckEntity>(spellDeckModel);
+                        SpellDeckEntity createdSpellDeckEntity = dbContext.SpellDecks.Add(spellDeckEntity).Entity;
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<SpellDeckModel>(createdSpellDeckEntity);
+                    case ItemDeckModel itemDeckModel:
+                        ItemDeckEntity itemDeckEntity = _mapper.Map<ItemDeckEntity>(itemDeckModel);
+                        ItemDeckEntity createdItemDeckEntity = dbContext.ItemDecks.Add(itemDeckEntity).Entity;
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<ItemDeckModel>(createdItemDeckEntity);
+
+                    default:
+                        return null;
+                }
+            }
+        }
+
+        public async Task<IDeck> UpdateDeck(IDeck deckModel)
+        {
+            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            {
+                switch (deckModel)
+                {
+                    case SpellDeckModel spellDeckModel:
+                        // Get spell deck from database
+                        SpellDeckEntity spellDeckEntity = dbContext.SpellDecks
+                            .Include(sd => sd.SpellCards)
+                            .Single(sc => sc.ID == spellDeckModel.ID);
+
+                        // Loop over cards in source deck - ADD
+                        foreach (SpellCardModel spellCard in spellDeckModel.SpellCards)
+                        {
+                            // If any card is new, add it to the list
+                            if (!spellDeckEntity.SpellCards.Where(sd => sd.ID == spellCard.ID).Any())
+                            {
+                                SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
+                                spellDeckEntity.SpellCards.Add(spellCardEntity);
+                            }
+                        }
+
+                        // Loop over cards in source deck - REMOVE
+                        foreach (SpellCardEntity spellCard in spellDeckEntity.SpellCards)
+                        {
+                            // If any card is missing, remove it from the list
+                            if (!spellDeckModel.SpellCards.Any(id => id.ID == spellCard.ID))
+                            {
+                                SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
+                                spellDeckEntity.SpellCards.Remove(spellCardEntity);
+                            }
+                        }
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<SpellDeckModel>(spellDeckEntity); ;
+                    case ItemDeckModel itemDeckModel:
+                        // Get item deck from database
+                        ItemDeckEntity itemDeckEntity = dbContext.ItemDecks
+                            .Include(sd => sd.ItemCards)
+                            .Single(sc => sc.ID == itemDeckModel.ID);
+
+                        // Loop over cards in source deck - ADD
+                        foreach (ItemCardModel itemCardModel in itemDeckModel.ItemCards)
+                        {
+                            // If any card is new, add it to the list
+                            if (!itemDeckEntity.ItemCards.Where(sd => sd.ID == itemCardModel.ID).Any())
+                            {
+                                ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCardModel);
+                                itemDeckEntity.ItemCards.Add(itemCardEntity);
+                            }
+                        }
+                        // Loop over cards in source deck - REMOVE
+                        foreach (ItemCardEntity itemCardEntity in itemDeckEntity.ItemCards)
+                        {
+                            // If any card is missing, remove it from the list
+                            if (!itemDeckModel.ItemCards.Any(id => id.ID == itemCardEntity.ID))
+                            {
+                                itemDeckEntity.ItemCards.Remove(itemCardEntity);
+                            }
+                        }
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<ItemDeckModel>(itemDeckEntity); ;
+
+                    default:
+                        return null;
+                }
+            }
+        }
+
+        public async Task<bool> DeleteDeck(IDeck deckModel)
+        {
+            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            {
+                switch (deckModel)
+                {
+                    case SpellDeckModel spellDeckModel:
+                        SpellDeckEntity spellDeckEntity = _mapper.Map<SpellDeckEntity>(spellDeckModel);
+                        if (dbContext.SpellDecks.Contains(spellDeckEntity))
+                        {
+                            dbContext.SpellDecks.Remove(spellDeckEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
+                    case ItemDeckModel itemDeckModel:
+                        ItemDeckEntity itemDeckEntity = _mapper.Map<ItemDeckEntity>(itemDeckModel);
+                        if (dbContext.ItemDecks.Contains(itemDeckEntity))
+                        {
+                            dbContext.ItemDecks.Remove(itemDeckEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
+
+                    default:
+                        return false; ;
+                }
+            }
+        }
+
+        public async Task<IEnumerable<T>> GetAllDecks<T>()
+        {
+            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                if (typeof(T) == typeof(SpellDeckModel))
+                {
+                    IEnumerable<SpellDeckEntity> spellDeckEntities = await
+                        context.SpellDecks
+                        .Include(sd => sd.SpellCards)
+                        .ToListAsync();
+
+                    return (IEnumerable<T>)spellDeckEntities.Select(c => _mapper.Map<SpellDeckModel>(c));
+                }
+                else if (typeof(T) == typeof(ItemDeckModel))
+                {
+                    IEnumerable<ItemDeckEntity> itemDeckEntities = await
+                        context.ItemDecks
+                        .Include(sd => sd.ItemCards)
+                        .ToListAsync();
+
+                    return (IEnumerable<T>)itemDeckEntities.Select(c => _mapper.Map<ItemDeckModel>(c));
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+        }
+    }
+
+}

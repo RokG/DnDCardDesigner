@@ -15,9 +15,8 @@ namespace CardDesigner.Domain.Stores
 
         private readonly ICharacterService _characterService;
         private readonly ICardDesignService _cardDesignService;
-        private readonly ISpellDeckService _spellDeckService;
+        private readonly IDeckService _deckService;
         private readonly ICardService _cardService;
-        private readonly IItemDeckService _itemDeckService;
         private readonly IJsonFileItemService _jsonFileItemService;
 
         private readonly List<SpellCardModel> _spellCards;
@@ -65,16 +64,14 @@ namespace CardDesigner.Domain.Stores
         public CardDesignerStore(
             ICharacterService characterService,
             ICardDesignService cardDesignService,
-            ISpellDeckService spellDeckService,
+            IDeckService deckService,
             ICardService cardService,
-            IItemDeckService itemDeckService,
             IJsonFileItemService jsonFileItemService)
         {
             _characterService = characterService;
             _cardDesignService = cardDesignService;
-            _spellDeckService = spellDeckService;
             _cardService = cardService;
-            _itemDeckService = itemDeckService;
+            _deckService = deckService;
 
             _initializeLazy = new Lazy<Task>(Initialize);
 
@@ -150,14 +147,14 @@ namespace CardDesigner.Domain.Stores
 
         public async Task CreateSpellDeck(SpellDeckModel spellDeck)
         {
-            SpellDeckModel createdSpellDeck = await _spellDeckService.CreateSpellDeck(spellDeck);
+            SpellDeckModel createdSpellDeck = (SpellDeckModel) await _deckService.CreateDeck(spellDeck);
             _spellDecks.Add(createdSpellDeck);
             SpellDeckChanged?.Invoke(createdSpellDeck, DataChangeType.Created);
         }
 
         public async Task CreateItemDeck(ItemDeckModel itemDeck)
         {
-            ItemDeckModel createdItemDeck = await _itemDeckService.CreateItemDeck(itemDeck);
+            ItemDeckModel createdItemDeck = (ItemDeckModel) await _deckService.CreateDeck(itemDeck);
             _itemDecks.Add(createdItemDeck);
             ItemDeckChanged?.Invoke(createdItemDeck, DataChangeType.Created);
         }
@@ -213,7 +210,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateSpellDeck(SpellDeckModel spellDeck)
         {
-            if (await _spellDeckService.UpdateSpellDeck(spellDeck) is SpellDeckModel updatedSpellDeck)
+            if (await _deckService.UpdateDeck(spellDeck) is SpellDeckModel updatedSpellDeck)
             {
                 await UpdateSpellDecksFromDb();
                 SpellDeckChanged?.Invoke(updatedSpellDeck, DataChangeType.Updated);
@@ -222,7 +219,7 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateItemDeck(ItemDeckModel itemDeck)
         {
-            if (await _itemDeckService.UpdateItemDeck(itemDeck) is ItemDeckModel updatedItemDeck)
+            if (await _deckService.UpdateDeck(itemDeck) is ItemDeckModel updatedItemDeck)
             {
                 await UpdateSpellDecksFromDb();
                 ItemDeckChanged?.Invoke(updatedItemDeck, DataChangeType.Updated);
@@ -292,7 +289,7 @@ namespace CardDesigner.Domain.Stores
             // Remove it from database if found
             if (a.Any())
             {
-                bool success = await _spellDeckService.DeleteSpellDeck(a.First());
+                bool success = await _deckService.DeleteDeck(a.First());
                 if (success)
                 {
                     _spellDecks.Remove(spellDeck);
@@ -310,7 +307,7 @@ namespace CardDesigner.Domain.Stores
             // Remove it from database if found
             if (a.Any())
             {
-                bool success = await _itemDeckService.DeleteItemDeck(a.First());
+                bool success = await _deckService.DeleteDeck(a.First());
                 if (success)
                 {
                     _itemDecks.Remove(itemDeck);
@@ -359,7 +356,7 @@ namespace CardDesigner.Domain.Stores
 
         private async Task UpdateSpellDecksFromDb()
         {
-            IEnumerable<SpellDeckModel> spellDecks = await _spellDeckService.GetAllSpellDecks();
+            IEnumerable<SpellDeckModel> spellDecks = await _deckService.GetAllDecks<SpellDeckModel>();
             _spellDecks.Clear();
             _spellDecks.AddRange(spellDecks);
         }
@@ -385,7 +382,7 @@ namespace CardDesigner.Domain.Stores
 
         private async Task UpdateItemDecksFromDb()
         {
-            IEnumerable<ItemDeckModel> itemDecks = await _itemDeckService.GetAllItemDecks();
+            IEnumerable<ItemDeckModel> itemDecks = await _deckService.GetAllDecks<ItemDeckModel>();
             _itemDecks.Clear();
             _itemDecks.AddRange(itemDecks);
             AssignItemsToItemDecks(itemDecks);

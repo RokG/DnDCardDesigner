@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CardDesigner.Domain.Models
 {
-    public class ItemDeckModel : ISelectableItem
+    public class ItemDeckModel : ISelectableItem, IDeck
     {
         public int ID { get; set; }
         public string Name { get; set; }
