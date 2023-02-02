@@ -26,11 +26,90 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!--  Character decks area  -->
+            <StackPanel
+                Grid.Column="0"
+                Orientation="Vertical">
+
+                <!--  Manage decks  -->
+                <controls:AddEditItem
+                    Title="Character Deck"
+                    AddedItemName="{Binding AddedCharacterDeckName, Mode=TwoWay}"
+                    DeleteCommand="{Binding DeleteCharacterDeckCommand}"
+                    ItemsSource="{Binding AllCharacterDecks, Mode=TwoWay}"
+                    SaveCommand="{Binding CreateCharacterDeckCommand}"
+                    SelectedItem="{Binding SelectedCharacterDeck, Mode=TwoWay}"
+                    ViewOnly="False" />
+
+                <!--  Manage cards in decks  -->
+                <Border BorderThickness="1">
+                    <Border.Style>
+                        <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedCharacterDeck}"
+                                    Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <DataGrid
+                            Grid.Column="0"
+                            AutoGenerateColumns="False"
+                            ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn
+                                    Width="*"
+                                    Header="All available cards">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                Command="{Binding DataContext.AddCharacterCardToDeckCommand, ElementName=deckControl}"
+                                                CommandParameter="{Binding}"
+                                                Content="{Binding Name}"
+                                                Style="{StaticResource CardAssignUnassignButton}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <DataGrid
+                            Grid.Column="2"
+                            AutoGenerateColumns="False"
+                            ItemsSource="{Binding SelectedCharacterDeck.CharacterCards, Mode=TwoWay}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn
+                                    Width="*"
+                                    Header="Cards in deck">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                Command="{Binding DataContext.RemoveCharacterCardFromDeckCommand, ElementName=deckControl}"
+                                                CommandParameter="{Binding}"
+                                                Content="{Binding Name}"
+                                                Style="{StaticResource CardAssignUnassignButton}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+            </StackPanel>
             <!--  Spell decks area  -->
             <StackPanel
-                Grid.Row="1"
+                Grid.Column="1"
                 Orientation="Vertical">
 
                 <!--  Manage decks  -->
@@ -109,7 +188,7 @@
 
             <!--  Item decks area  -->
             <StackPanel
-                Grid.Column="1"
+                Grid.Column="2"
                 Orientation="Vertical">
 
                 <!--  Manage decks  -->

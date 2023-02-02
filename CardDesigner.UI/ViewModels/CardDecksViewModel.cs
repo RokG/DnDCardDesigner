@@ -34,10 +34,8 @@ namespace CardDesigner.UI.ViewModels
         private string addedItemDeckName;
 
         [ObservableProperty]
-        private string addedSpellCardName;
-
-        [ObservableProperty]
-        private string addedItemCardName;
+        [NotifyCanExecuteChangedFor(nameof(CreateCharacterDeckCommand))]
+        private string addedCharacterDeckName;
 
         [ObservableProperty]
         private SpellDeckModel selectedSpellDeck;
@@ -46,10 +44,16 @@ namespace CardDesigner.UI.ViewModels
         private ItemDeckModel selectedItemDeck;
 
         [ObservableProperty]
+        private CharacterDeckModel selectedCharacterDeck;
+
+        [ObservableProperty]
         private SpellCardModel selectedSpellCard;
 
         [ObservableProperty]
         private ItemCardModel selectedItemCard;
+
+        [ObservableProperty]
+        private CharacterCardModel selectedCharacterCard;
 
         [ObservableProperty]
         private ObservableCollection<SpellCardModel> allSpellCards;
@@ -58,10 +62,16 @@ namespace CardDesigner.UI.ViewModels
         private ObservableCollection<ItemCardModel> allItemCards;
 
         [ObservableProperty]
+        private ObservableCollection<CharacterCardModel> allCharacterCards;
+
+        [ObservableProperty]
         private ObservableCollection<SpellDeckModel> allSpellDecks;
 
         [ObservableProperty]
         private ObservableCollection<ItemDeckModel> allItemDecks;
+
+        [ObservableProperty]
+        private ObservableCollection<CharacterDeckModel> allCharacterDecks;
 
         #endregion
 
@@ -78,11 +88,11 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
             _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
+            _cardDesignerStore.CharacterDeckChanged += OnCharacterDeckChanged;
 
             LoadData();
 
             SetSelectionFromNavigation();
-
         }
 
         private void SetSelectionFromNavigation()
@@ -124,9 +134,11 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllSpellCards = new(_cardDesignerStore.SpellCards);
-            AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemCards = new(_cardDesignerStore.ItemCards);
+            AllCharacterCards = new(_cardDesignerStore.CharacterCards);
+            AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
+            AllCharacterDecks = new(_cardDesignerStore.CharacterDecks);
         }
 
         private void OnSpellDeckChanged(SpellDeckModel spellDeck, DataChangeType change)
@@ -163,6 +175,26 @@ namespace CardDesigner.UI.ViewModels
                 case DataChangeType.Deleted:
                     AllItemDecks.Remove(SelectedItemDeck);
                     SelectedItemDeck = AllItemDecks.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OnCharacterDeckChanged(CharacterDeckModel characterDeck, DataChangeType change)
+        {
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllCharacterDecks.Add(characterDeck);
+                    SelectedCharacterDeck = characterDeck;
+                    break;
+                case DataChangeType.Updated:
+                    SelectedCharacterDeck = characterDeck;
+                    break;
+                case DataChangeType.Deleted:
+                    AllCharacterDecks.Remove(SelectedCharacterDeck);
+                    SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault();
                     break;
                 default:
                     break;
@@ -213,6 +245,20 @@ namespace CardDesigner.UI.ViewModels
             return (!noName && !itemDeckExists);
         }
 
+        [RelayCommand(CanExecute = nameof(CanCreateCharacterDeck))]
+        private async void CreateCharacterDeck()
+        {
+            await _cardDesignerStore.CreateCharacterDeck(new CharacterDeckModel() { Name = AddedCharacterDeckName });
+        }
+
+        private bool CanCreateCharacterDeck()
+        {
+            bool noName = (AddedCharacterDeckName == string.Empty || AddedCharacterDeckName == null);
+            bool characterDeckExists = AllCharacterDecks == null ? false : AllCharacterDecks.Where(c => c.Name == AddedCharacterDeckName).Any();
+
+            return (!noName && !characterDeckExists);
+        }
+
         [RelayCommand]
         private async void AddSpellCardToDeck(SpellCardModel spellCard)
         {
@@ -252,6 +298,27 @@ namespace CardDesigner.UI.ViewModels
         {
             await _cardDesignerStore.DeleteItemDeck(SelectedItemDeck);
         }
+
+        [RelayCommand]
+        private async void AddCharacterCardToDeck(CharacterCardModel characterCard)
+        {
+            SelectedCharacterDeck.CharacterCards.Add(characterCard);
+            await _cardDesignerStore.UpdateCharacterDeck(SelectedCharacterDeck);
+        }
+
+        [RelayCommand]
+        private async void RemoveCharacterCardFromDeck(CharacterCardModel characterCard)
+        {
+            SelectedCharacterDeck.CharacterCards.Remove(characterCard);
+            await _cardDesignerStore.UpdateCharacterDeck(SelectedCharacterDeck);
+        }
+
+        [RelayCommand]
+        private async void DeleteCharacterDeck()
+        {
+            await _cardDesignerStore.DeleteCharacterDeck(SelectedCharacterDeck);
+        }
+
         #endregion
     }
 }
