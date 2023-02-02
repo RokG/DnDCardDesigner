@@ -1,0 +1,174 @@
+﻿<UserControl x:Class="CardDesigner.UI.Views.CharacterCardView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
+    xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
+    xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    BorderBrush="{StaticResource WindowBorder}"
+    BorderThickness="3,0,0,0">
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  header area  -->
+        <Border BorderThickness="0,0,0,1">
+            <StackPanel>
+                <Label
+                    Content="{Binding Name}"
+                    ContentStringFormat="{}{0}s"
+                    FontSize="32" />
+                <Label Content="{Binding Description}" />
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <!--  Content area  -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Card Settings  -->
+            <StackPanel Orientation="Vertical">
+
+                <!--  Database control  -->
+                <controls:AddEditItem
+                    Title="Character Card"
+                    AddedItemName="{Binding CharacterCardName, Mode=TwoWay}"
+                    ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}"
+                    SaveCommand="{Binding CreateCharacterCardCommand}"
+                    SelectedItem="{Binding SelectedCharacterCard, Mode=TwoWay}"
+                    ViewOnly="False" />
+
+                <!--  Name/school/level  -->
+                <Border
+                    BorderThickness="1"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label
+                            Margin="5,0"
+                            Padding="0"
+                            Content="Card name:" />
+                        <TextBox
+                            Margin="5,0"
+                            Text="{Binding SelectedCharacterCard.Name}" />
+                        <Label
+                            Margin="5,10,0,0"
+                            Padding="0"
+                            Content="Character school:" />
+                        <!--<ComboBox
+                            ItemsSource="{Binding Source={StaticResource MagicSchoolEnum}}"
+                            SelectedItem="{Binding SelectedCharacterCard.School}" />-->
+                        <Label
+                            Margin="5,10,0,0"
+                            Padding="0"
+                            Content="Character Requirements:" />
+                        <!--  Level  -->
+                        <!--<DockPanel HorizontalAlignment="Stretch">
+                            <Label Content="Level: " />
+                            <Slider
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Stretch"
+                                Maximum="9"
+                                Minimum="0"
+                                Value="{Binding SelectedCharacterCard.Level}" />
+                        </DockPanel>-->
+                    </StackPanel>
+                </Border>
+
+                <!--  True/False props  -->
+                <!--<Border
+                    BorderThickness="1"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <CheckBox
+                            Content="Concentration"
+                            IsChecked="{Binding SelectedCharacterCard.IsConcentration}" />
+                        <CheckBox
+                            Content="Ritual"
+                            IsChecked="{Binding SelectedCharacterCard.IsRitual}" />
+                        <CheckBox
+                            Content="Somatic"
+                            IsChecked="{Binding SelectedCharacterCard.HasSomaticComponent}" />
+                        <CheckBox
+                            Content="Verbal"
+                            IsChecked="{Binding SelectedCharacterCard.HasVerbalComponent}" />
+                        <CheckBox
+                            Content="Material"
+                            IsChecked="{Binding SelectedCharacterCard.HasMaterialComponent}" />
+                    </StackPanel>
+                </Border>-->
+
+                <!--  Advanced properties  -->
+                <!--<Border
+                    BorderThickness="1"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+
+                        <controls:SliderControl
+                            Title="Range:"
+                            SelectedValueType="{Binding SelectedCharacterCard.RangeType, Mode=TwoWay}"
+                            ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
+                            Value="{Binding SelectedCharacterCard.RangeValue, Mode=TwoWay}" />
+
+                        <controls:SliderControl
+                            Title="Duration:"
+                            SelectedValueType="{Binding SelectedCharacterCard.DurationType, Mode=TwoWay}"
+                            ValueTypes="{Binding Source={StaticResource DurationTypeEnum}}"
+                            Value="{Binding SelectedCharacterCard.DurationValue, Mode=TwoWay}" />
+
+                        <controls:SliderControl
+                            Title="Casting time:"
+                            SelectedValueType="{Binding SelectedCharacterCard.CastingTimeType, Mode=TwoWay}"
+                            ValueTypes="{Binding Source={StaticResource CastingTimeEnum}}"
+                            Value="{Binding SelectedCharacterCard.CastingTimeValue, Mode=TwoWay}" />
+                        <ContentControl>
+                            <controls:SliderControl
+                                Title="Area of effect:"
+                                SelectedValueType="{Binding SelectedCharacterCard.AreaOfEffect, Mode=TwoWay}"
+                                ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
+                                Value="{Binding SelectedCharacterCard.AreaOfEffectValue, Mode=TwoWay}" />
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding SelectedCharacterCard.RangeType}"
+                                            Value="{x:Static enums:RangeType.Distance}">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+
+                        <controls:SliderControl
+                            Title="Roll:"
+                            SelectedUnitType="{Binding SelectedCharacterCard.DamageType, Mode=TwoWay}"
+                            SelectedValueType="{Binding SelectedCharacterCard.DiceType, Mode=TwoWay}"
+                            UnitTypes="{Binding Source={StaticResource MagicDamageTypeEnum}}"
+                            ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
+                            Value="{Binding SelectedCharacterCard.DiceValue, Mode=TwoWay}" />
+
+                    </StackPanel>
+                </Border>-->
+
+                <!--  Manually update button  -->
+                <!--<Button
+                    Command="{Binding UpdateCharacterCardCommand}"
+                    Content="Update" />-->
+            </StackPanel>
+
+            <!--  Card view  -->
+            <!--<controls:CharacterCardControl
+                Grid.Column="1"
+                CardDesign="{Binding SelectedCharacterDeckDesign}"
+                IsEditable="True"
+                CharacterCard="{Binding SelectedCharacterCard, Mode=TwoWay}" />-->
+        </Grid>
+    </Grid>
+</UserControl>

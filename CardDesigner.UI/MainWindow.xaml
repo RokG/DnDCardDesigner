@@ -18,6 +18,9 @@
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
                 <views:HomeView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CharacterCardViewModel}">
+                <views:CharacterCardView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:SpellCardViewModel}">
                 <views:SpellCardView />
             </DataTemplate>
@@ -43,6 +46,7 @@
         <!--  SidePanel column  -->
         <Grid
             Grid.Column="0"
+            Width="250"
             Background="{StaticResource WindowBackgroundDark}">
             <DockPanel LastChildFill="False">
                 <RadioButton
@@ -52,6 +56,12 @@
                     Content="HOME"
                     DockPanel.Dock="Top"
                     IsChecked="True" />
+                <RadioButton
+                    Height="60"
+                    Command="{Binding ChangeViewModelCommand}"
+                    CommandParameter="CharacterCardViewModel"
+                    Content="Character Card creator"
+                    DockPanel.Dock="Top" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"

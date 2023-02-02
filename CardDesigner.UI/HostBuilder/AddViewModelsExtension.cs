@@ -16,13 +16,16 @@ namespace CardDesigner.UI.HostBuilder
                 services.AddTransient((s) => CreateSpellCardViewModel(s));
                 services.AddTransient((s) => CreateCardDecksViewModel(s));
                 services.AddTransient((s) => CreateItemCardViewModel(s));
+                services.AddTransient((s) => CreateCharacterCardViewModel(s));
                 services.AddTransient((s) => CreateCharacterViewModel(s));
+                services.AddTransient((s) => CreateDeckDesignViewModel(s));
                 services.AddTransient((s) => CreateDeckDesignViewModel(s));
 
                 services.AddSingleton<Func<HomeViewModel>>((s) => () => s.GetRequiredService<HomeViewModel>());
                 services.AddSingleton<Func<SpellCardViewModel>>((s) => () => s.GetRequiredService<SpellCardViewModel>());
                 services.AddSingleton<Func<CardDecksViewModel>>((s) => () => s.GetRequiredService<CardDecksViewModel>());
                 services.AddSingleton<Func<ItemCardViewModel>>((s) => () => s.GetRequiredService<ItemCardViewModel>());
+                services.AddSingleton<Func<CharacterCardViewModel>>((s) => () => s.GetRequiredService<CharacterCardViewModel>());
                 services.AddSingleton<Func<CharacterViewModel>>((s) => () => s.GetRequiredService<CharacterViewModel>());
                 services.AddSingleton<Func<DeckDesignViewModel>>((s) => () => s.GetRequiredService<DeckDesignViewModel>());
 
@@ -52,10 +55,16 @@ namespace CardDesigner.UI.HostBuilder
             return ItemCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
         }
 
+        private static CharacterCardViewModel CreateCharacterCardViewModel(IServiceProvider s)
+        {
+            return CharacterCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
+        }
+
         private static CharacterViewModel CreateCharacterViewModel(IServiceProvider s)
         {
             return CharacterViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
         }
+
         private static DeckDesignViewModel CreateDeckDesignViewModel(IServiceProvider s)
         {
             return DeckDesignViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());

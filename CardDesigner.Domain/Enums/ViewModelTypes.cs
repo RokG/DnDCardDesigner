@@ -6,6 +6,7 @@
         Home,
         SpellCardCreator,
         ItemCardCreator,
+        CharacterCardCreator,
         DeckCreator,
         CharacterCreator,
         DeckDesigner

@@ -55,6 +55,9 @@ namespace CardDesigner.UI.ViewModels
                 case "SpellCardViewModel":
                     CurrentViewModel = new SpellCardViewModel(_cardDesignerStore, _navigationStore);
                     break;
+                case "CharacterCardViewModel":
+                    CurrentViewModel = new CharacterCardViewModel(_cardDesignerStore, _navigationStore);
+                    break;
                 case "ItemCardViewModel":
                     CurrentViewModel = new ItemCardViewModel(_cardDesignerStore, _navigationStore);
                     break;
