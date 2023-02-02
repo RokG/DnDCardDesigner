@@ -30,10 +30,6 @@ namespace CardDesigner.Domain.Stores
         private readonly List<WeaponModel> _weapons;
         private readonly List<ArmourModel> _armours;
 
-        //public SpellDeckModel SelectedSpellDeckModel { get; set; }
-        //public SpellCardModel SelectedSpellCardModel { get; set; }
-        //public SpellDeckDesignModel SelectedSpellCardDesignModel { get; set; }
-
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
         public IEnumerable<ItemCardModel> ItemCards => _itemCards;
         public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
@@ -57,10 +53,6 @@ namespace CardDesigner.Domain.Stores
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="characterService"></param>
-        /// <param name="characterService"></param>
-        /// <param name="spellCardService"></param>
-        /// <param name="spellCardService"></param>
         public CardDesignerStore(
             ICharacterService characterService,
             ICardDesignService cardDesignService,
