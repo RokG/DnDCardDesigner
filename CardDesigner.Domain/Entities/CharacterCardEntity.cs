@@ -13,6 +13,10 @@ namespace CardDesigner.Domain.Entities
 
         // Properties
         public string Name { get; set; }
+        public string Title { get; set; }
+        public double TitleFontSize { get; set; }
+        public string Description { get; set; }
+        public double DescriptionFontSize { get; set; }
         public CharacterCardType Type { get; set; }
     }
 }

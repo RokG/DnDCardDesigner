@@ -168,6 +168,12 @@ namespace CardDesigner.UI.ViewModels
                 && !AllCharacterCards.Where(c => c.Name == CharacterCardName).Any();
         }
 
+        [RelayCommand]
+        private async void UpdateCharacterCard()
+        {
+            await _cardDesignerStore.UpdateCharacterCard(SelectedCharacterCard);
+        }
+
         #endregion
 
     }

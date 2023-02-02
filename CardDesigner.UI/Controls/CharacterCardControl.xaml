@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="CardDesigner.UI.Controls.CharacterCardControl" x:Name="characterCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
+    xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
+    xmlns:local="clr-namespace:CardDesigner.UI.Controls">
+    <Viewbox>
+        <Grid>
+            <!--  Card border  -->
+            <Border
+                Width="250"
+                Height="80"
+                Margin="0"
+                Padding="0"
+                VerticalAlignment="Top"
+                Background="{Binding CardDesign.HeaderColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderBrush="{StaticResource CardLineColor}"
+                BorderThickness="2"
+                CornerRadius="4" />
+            <Border
+                Width="250"
+                Height="80"
+                Margin="0"
+                Padding="0"
+                VerticalAlignment="Bottom"
+                Background="{Binding CardDesign.FooterColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderBrush="{StaticResource CardLineColor}"
+                BorderThickness="2"
+                CornerRadius="4" />
+            <!--  Card contents  -->
+            <Canvas>
+
+                <!--  Body lines  -->
+                <Border
+                    Canvas.Top="35"
+                    Width="250"
+                    Height="250"
+                    Margin="0"
+                    Padding="0"
+                    Background="{Binding CardDesign.BackgroundColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderBrush="{Binding CardDesign.LineColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderThickness="0,2,0,2" />
+
+                <!--  School icon  -->
+                <!--<Label
+                    Canvas.Top="35"
+                    Content="{Binding CharacterCard.School, ElementName=characterCard, Converter={converters:StringToResourceKeyConverter Formatter=MagicSchool(I)Icon}}"
+                    Opacity=".15"
+                    Style="{StaticResource IconLabel}" />-->
+
+                <!--  Components  -->
+                <DockPanel
+                    Canvas.Left="2"
+                    Canvas.Top="25"
+                    Width="248"
+                    LastChildFill="False" />
+
+                <!--  Title textbox  -->
+                <controls:TextBoxWithPlaceholderControl
+                    Canvas.Left="2"
+                    Width="246"
+                    Background="Transparent"
+                    FontSize="{Binding CharacterCard.TitleFontSize, ElementName=characterCard, Mode=TwoWay}"
+                    Foreground="{Binding CardDesign.HeaderTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    InputText="{Binding CharacterCard.Title, ElementName=characterCard, Mode=TwoWay}"
+                    IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
+
+                <!--  Description textbox  -->
+                <controls:TextBoxWithPlaceholderControl
+                    Canvas.Left="2"
+                    Canvas.Top="50"
+                    Width="246"
+                    MaxHeight="300"
+                    Background="Transparent"
+                    FontSize="{Binding CharacterCard.DescriptionFontSize, ElementName=characterCard, Mode=TwoWay}"
+                    Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    InputText="{Binding CharacterCard.Description, ElementName=characterCard, Mode=TwoWay}"
+                    IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
+
+            </Canvas>
+            <!--  Card border  -->
+            <Border
+                Width="250"
+                Height="350"
+                Margin="0"
+                Padding="0"
+                BorderBrush="{Binding CardDesign.LineColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderThickness="2"
+                CornerRadius="4" />
+        </Grid>
+    </Viewbox>
+</UserControl>

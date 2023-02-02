@@ -158,17 +158,17 @@
                 </Border>-->
 
                 <!--  Manually update button  -->
-                <!--<Button
+                <Button
                     Command="{Binding UpdateCharacterCardCommand}"
-                    Content="Update" />-->
+                    Content="Update" />
             </StackPanel>
 
             <!--  Card view  -->
-            <!--<controls:CharacterCardControl
+            <controls:CharacterCardControl
                 Grid.Column="1"
                 CardDesign="{Binding SelectedCharacterDeckDesign}"
-                IsEditable="True"
-                CharacterCard="{Binding SelectedCharacterCard, Mode=TwoWay}" />-->
+                CharacterCard="{Binding SelectedCharacterCard, Mode=TwoWay}"
+                IsEditable="True" />
         </Grid>
     </Grid>
 </UserControl>
