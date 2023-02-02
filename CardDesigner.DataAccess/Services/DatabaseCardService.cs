@@ -44,6 +44,13 @@ namespace CardDesigner.DataAccess.Services
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<ItemCardModel>(createdItemCardEntity);
+                    case CharacterCardModel characterCardModel:
+                        CharacterCardEntity characterCardEntity = _mapper.Map<CharacterCardEntity>(characterCardModel);
+                        CharacterCardEntity createdCharacterCardEntity = dbContext.CharacterCards.Add(characterCardEntity).Entity;
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<CharacterCardModel>(createdCharacterCardEntity);
                     default:
                         return null;
                 }
@@ -70,6 +77,13 @@ namespace CardDesigner.DataAccess.Services
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<ItemCardModel>(createdItemCardEntity);
+                    case CharacterCardModel characterCardModel:
+                        CharacterCardEntity characterCardEntity = _mapper.Map<CharacterCardEntity>(characterCardModel);
+                        CharacterCardEntity createdCharacterCardEntity = dbContext.CharacterCards.Update(characterCardEntity).Entity;
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<CharacterCardModel>(createdCharacterCardEntity);
                     default:
                         return null;
                 }
@@ -102,6 +116,15 @@ namespace CardDesigner.DataAccess.Services
                             return true;
                         }
                         return false;
+                    case CharacterCardModel characterCardModel:
+                        CharacterCardEntity characterCardEntity = _mapper.Map<CharacterCardEntity>(characterCardModel);
+                        if (dbContext.CharacterCards.Contains(characterCardEntity))
+                        {
+                            dbContext.CharacterCards.Remove(characterCardEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
                     default:
                         return false;
                 }
@@ -129,6 +152,15 @@ namespace CardDesigner.DataAccess.Services
                         .ToListAsync();
 
                     return (IEnumerable<T>)itemCardEntities.Select(c => _mapper.Map<ItemCardModel>(c));
+                }
+                else if (typeof(T) == typeof(CharacterCardModel))
+                {
+                    IEnumerable<CharacterCardEntity> characterCardEntities = await
+                        context.CharacterCards
+                        .Include(sc => sc.CharacterDecks)
+                        .ToListAsync();
+
+                    return (IEnumerable<T>)characterCardEntities.Select(c => _mapper.Map<CharacterCardModel>(c));
                 }
                 else
                 {

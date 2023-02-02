@@ -21,8 +21,10 @@ namespace CardDesigner.Domain.Stores
 
         private readonly List<SpellCardModel> _spellCards;
         private readonly List<ItemCardModel> _itemCards;
+        private readonly List<CharacterCardModel> _characterCards;
         private readonly List<SpellDeckModel> _spellDecks;
         private readonly List<ItemDeckModel> _itemDecks;
+        private readonly List<CharacterDeckModel> _characterDecks;
         private readonly List<CharacterModel> _characters;
         private readonly List<SpellDeckDesignModel> _spellDeckDesigns;
         private readonly List<ItemDeckDesignModel> _itemDeckDesigns;
@@ -32,8 +34,10 @@ namespace CardDesigner.Domain.Stores
 
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
         public IEnumerable<ItemCardModel> ItemCards => _itemCards;
+        public IEnumerable<CharacterCardModel> CharacterCards => _characterCards;
         public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
         public IEnumerable<ItemDeckModel> ItemDecks => _itemDecks;
+        public IEnumerable<CharacterDeckModel> CharacterDecks => _characterDecks;
         public IEnumerable<CharacterModel> Characters => _characters;
         public IEnumerable<SpellDeckDesignModel> SpellDeckDesigns => _spellDeckDesigns;
         public IEnumerable<ItemDeckDesignModel> ItemDeckDesigns => _itemDeckDesigns;
@@ -45,10 +49,12 @@ namespace CardDesigner.Domain.Stores
         public event Action<SpellDeckDesignModel, DataChangeType> SpellDeckDesignChanged;
         public event Action<ItemDeckDesignModel, DataChangeType> ItemDeckDesignChanged;
         public event Action<CharacterDeckDesignModel, DataChangeType> CharacterDeckDesignChanged;
-        public event Action<SpellDeckModel, DataChangeType> SpellDeckChanged;
         public event Action<SpellCardModel, DataChangeType> SpellCardChanged;
-        public event Action<ItemDeckModel, DataChangeType> ItemDeckChanged;
         public event Action<ItemCardModel, DataChangeType> ItemCardChanged;
+        public event Action<CharacterCardModel, DataChangeType> CharacterCardChanged;
+        public event Action<SpellDeckModel, DataChangeType> SpellDeckChanged;
+        public event Action<ItemDeckModel, DataChangeType> ItemDeckChanged;
+        public event Action<CharacterDeckModel, DataChangeType> CharacterDeckChanged;
 
         /// <summary>
         /// Constructor
@@ -71,10 +77,12 @@ namespace CardDesigner.Domain.Stores
             _spellDeckDesigns = new();
             _itemDeckDesigns = new();
             _characterDeckDesigns = new();
-            _itemCards = new();
             _spellCards = new();
+            _itemCards = new();
+            _characterCards = new();
             _spellDecks = new();
             _itemDecks = new();
+            _characterDecks = new();
             _armours = new();
             _weapons = new();
             _jsonFileItemService = jsonFileItemService;
@@ -88,10 +96,12 @@ namespace CardDesigner.Domain.Stores
         {
             await UpdateSpellCardsFromDb();
             await UpdateItemCardsFromDb();
+            await UpdateCharacterCardsFromDb();
             await UpdateCharactersFromDb();
             await UpdateCardDesignsFromDb();
             await UpdateSpellDecksFromDb();
             await UpdateItemDecksFromDb();
+            await UpdateCharacterDecksFromDb();
             ReadAllItems();
         }
 
@@ -139,16 +149,23 @@ namespace CardDesigner.Domain.Stores
 
         public async Task CreateSpellDeck(SpellDeckModel spellDeck)
         {
-            SpellDeckModel createdSpellDeck = (SpellDeckModel) await _deckService.CreateDeck(spellDeck);
+            SpellDeckModel createdSpellDeck = (SpellDeckModel)await _deckService.CreateDeck(spellDeck);
             _spellDecks.Add(createdSpellDeck);
             SpellDeckChanged?.Invoke(createdSpellDeck, DataChangeType.Created);
         }
 
         public async Task CreateItemDeck(ItemDeckModel itemDeck)
         {
-            ItemDeckModel createdItemDeck = (ItemDeckModel) await _deckService.CreateDeck(itemDeck);
+            ItemDeckModel createdItemDeck = (ItemDeckModel)await _deckService.CreateDeck(itemDeck);
             _itemDecks.Add(createdItemDeck);
             ItemDeckChanged?.Invoke(createdItemDeck, DataChangeType.Created);
+        }
+
+        public async Task CreateCharacterDeck(CharacterDeckModel characterDeck)
+        {
+            CharacterDeckModel createdCharacterDeck = (CharacterDeckModel)await _deckService.CreateDeck(characterDeck);
+            _characterDecks.Add(createdCharacterDeck);
+            CharacterDeckChanged?.Invoke(createdCharacterDeck, DataChangeType.Created);
         }
 
         public async Task CreateSpellCard(SpellCardModel spellCard)
@@ -163,6 +180,13 @@ namespace CardDesigner.Domain.Stores
             ItemCardModel createdItemCard = (ItemCardModel)await _cardService.CreateCard(itemCard);
             _itemCards.Add(createdItemCard);
             ItemCardChanged?.Invoke(createdItemCard, DataChangeType.Created);
+        }
+
+        public async Task CreateCharacterCard(CharacterCardModel characterCard)
+        {
+            CharacterCardModel createdCharacterCard = (CharacterCardModel)await _cardService.CreateCard(characterCard);
+            _characterCards.Add(createdCharacterCard);
+            CharacterCardChanged?.Invoke(createdCharacterCard, DataChangeType.Created);
         }
 
         #endregion
@@ -218,6 +242,15 @@ namespace CardDesigner.Domain.Stores
             }
         }
 
+        public async Task UpdateCharacterDeck(CharacterDeckModel characterDeck)
+        {
+            if (await _deckService.UpdateDeck(characterDeck) is CharacterDeckModel updatedCharacterDeck)
+            {
+                await UpdateSpellDecksFromDb();
+                CharacterDeckChanged?.Invoke(updatedCharacterDeck, DataChangeType.Updated);
+            }
+        }
+
         public async Task UpdateSpellCard(SpellCardModel spellCard)
         {
             if ((SpellCardModel)await _cardService.UpdateCard(spellCard) is SpellCardModel updatedSpellCard)
@@ -231,6 +264,14 @@ namespace CardDesigner.Domain.Stores
             if ((ItemCardModel)await _cardService.UpdateCard(itemCard) is ItemCardModel updatedItemCard)
             {
                 ItemCardChanged?.Invoke(updatedItemCard, DataChangeType.Updated);
+            }
+        }
+
+        public async Task UpdateCharacterCard(CharacterCardModel characterCard)
+        {
+            if ((CharacterCardModel)await _cardService.UpdateCard(characterCard) is CharacterCardModel updatedCharacterCard)
+            {
+                CharacterCardChanged?.Invoke(updatedCharacterCard, DataChangeType.Updated);
             }
         }
 
@@ -308,6 +349,24 @@ namespace CardDesigner.Domain.Stores
             }
         }
 
+        public async Task DeleteCharacterDeck(CharacterDeckModel characterDeck)
+        {
+            // Update data from database
+            await UpdateCharacterDecksFromDb();
+            // Find the deck to delete
+            IEnumerable<CharacterDeckModel> a = CharacterDecks.Where(sd => sd.ID == characterDeck.ID);
+            // Remove it from database if found
+            if (a.Any())
+            {
+                bool success = await _deckService.DeleteDeck(a.First());
+                if (success)
+                {
+                    _characterDecks.Remove(characterDeck);
+                    CharacterDeckChanged?.Invoke(characterDeck, DataChangeType.Deleted);
+                }
+            }
+        }
+
         public async Task DeleteSpellCard(SpellCardModel spellCard)
         {
             bool success = await _cardService.DeleteCard(spellCard);
@@ -327,6 +386,17 @@ namespace CardDesigner.Domain.Stores
                 ItemCardChanged?.Invoke(itemCard, DataChangeType.Deleted);
             }
         }
+
+        public async Task DeleteCharacterCard(CharacterCardModel characterCard)
+        {
+            bool success = await _cardService.DeleteCard(characterCard);
+            if (success)
+            {
+                _characterCards.Remove(characterCard);
+                CharacterCardChanged?.Invoke(characterCard, DataChangeType.Deleted);
+            }
+        }
+
         #endregion
 
         #region Updates
@@ -378,6 +448,20 @@ namespace CardDesigner.Domain.Stores
             _itemDecks.Clear();
             _itemDecks.AddRange(itemDecks);
             AssignItemsToItemDecks(itemDecks);
+        }
+
+        private async Task UpdateCharacterDecksFromDb()
+        {
+            IEnumerable<CharacterDeckModel> characterDecks = await _deckService.GetAllDecks<CharacterDeckModel>();
+            _characterDecks.Clear();
+            _characterDecks.AddRange(characterDecks);
+        }
+
+        private async Task UpdateCharacterCardsFromDb()
+        {
+            IEnumerable<CharacterCardModel> characterCards = await _cardService.GetAllCards<CharacterCardModel>();
+            _characterCards.Clear();
+            _characterCards.AddRange(characterCards);
         }
 
         #endregion

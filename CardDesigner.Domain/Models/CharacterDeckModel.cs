@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace CardDesigner.Domain.Models
 {
-    public class ItemDeckModel : ISelectableItem, IDeck
+    public class CharacterDeckModel : IDeck
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public List<ItemCardModel> ItemCards { get; set; }
+        public List<CharacterCardModel> CharacterCards { get; set; }
         public List<CharacterModel> Characters { get; set; }
     }
 }

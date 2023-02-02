@@ -43,7 +43,13 @@ namespace CardDesigner.DataAccess.Services
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<ItemDeckModel>(createdItemDeckEntity);
+                    case CharacterDeckModel characterDeckModel:
+                        CharacterDeckEntity characterDeckEntity = _mapper.Map<CharacterDeckEntity>(characterDeckModel);
+                        CharacterDeckEntity createdCharacterDeckEntity = dbContext.CharacterDecks.Add(characterDeckEntity).Entity;
 
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<CharacterDeckModel>(createdCharacterDeckEntity);
                     default:
                         return null;
                 }
@@ -86,7 +92,7 @@ namespace CardDesigner.DataAccess.Services
 
                         await dbContext.SaveChangesAsync();
 
-                        return _mapper.Map<SpellDeckModel>(spellDeckEntity); ;
+                        return _mapper.Map<SpellDeckModel>(spellDeckEntity);
                     case ItemDeckModel itemDeckModel:
                         // Get item deck from database
                         ItemDeckEntity itemDeckEntity = dbContext.ItemDecks
@@ -115,8 +121,36 @@ namespace CardDesigner.DataAccess.Services
 
                         await dbContext.SaveChangesAsync();
 
-                        return _mapper.Map<ItemDeckModel>(itemDeckEntity); ;
+                        return _mapper.Map<ItemDeckModel>(itemDeckEntity);
+                    case CharacterDeckModel characterDeckModel:
+                        // Get character deck from database
+                        CharacterDeckEntity characterDeckEntity = dbContext.CharacterDecks
+                            .Include(sd => sd.CharacterCards)
+                            .Single(sc => sc.ID == characterDeckModel.ID);
 
+                        // Loop over cards in source deck - ADD
+                        foreach (CharacterCardModel characterCardModel in characterDeckModel.CharacterCards)
+                        {
+                            // If any card is new, add it to the list
+                            if (!characterDeckEntity.CharacterCards.Where(sd => sd.ID == characterCardModel.ID).Any())
+                            {
+                                CharacterCardEntity characterCardEntity = _mapper.Map<CharacterCardEntity>(characterCardModel);
+                                characterDeckEntity.CharacterCards.Add(characterCardEntity);
+                            }
+                        }
+                        // Loop over cards in source deck - REMOVE
+                        foreach (CharacterCardEntity characterCardEntity in characterDeckEntity.CharacterCards)
+                        {
+                            // If any card is missing, remove it from the list
+                            if (!characterDeckModel.CharacterCards.Any(id => id.ID == characterCardEntity.ID))
+                            {
+                                characterDeckEntity.CharacterCards.Remove(characterCardEntity);
+                            }
+                        }
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<CharacterDeckModel>(characterDeckEntity);
                     default:
                         return null;
                 }
@@ -147,7 +181,15 @@ namespace CardDesigner.DataAccess.Services
                             return true;
                         }
                         return false;
-
+                    case CharacterDeckModel characterDeckModel:
+                        CharacterDeckEntity characterDeckEntity = _mapper.Map<CharacterDeckEntity>(characterDeckModel);
+                        if (dbContext.CharacterDecks.Contains(characterDeckEntity))
+                        {
+                            dbContext.CharacterDecks.Remove(characterDeckEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
                     default:
                         return false; ;
                 }
@@ -175,6 +217,15 @@ namespace CardDesigner.DataAccess.Services
                         .ToListAsync();
 
                     return (IEnumerable<T>)itemDeckEntities.Select(c => _mapper.Map<ItemDeckModel>(c));
+                }
+                else if (typeof(T) == typeof(CharacterDeckModel))
+                {
+                    IEnumerable<CharacterDeckEntity> characterDeckEntities = await
+                        context.CharacterDecks
+                        .Include(sd => sd.CharacterCards)
+                        .ToListAsync();
+
+                    return (IEnumerable<T>)characterDeckEntities.Select(c => _mapper.Map<CharacterDeckModel>(c));
                 }
                 else
                 {

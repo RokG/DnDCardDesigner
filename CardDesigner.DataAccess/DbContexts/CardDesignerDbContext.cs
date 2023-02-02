@@ -32,6 +32,8 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<ItemDeckEntity> ItemDecks { get; set; }
         public DbSet<SpellCardEntity> SpellCards { get; set; }
         public DbSet<ItemCardEntity> ItemCards { get; set; }
+        public DbSet<CharacterCardEntity> CharacterCards { get; set; }
+        public DbSet<CharacterDeckEntity> CharacterDecks { get; set; }
 
         //https://stackoverflow.com/questions/19342908/how-to-create-a-many-to-many-mapping-in-entity-framework
 
@@ -93,6 +95,27 @@ namespace CardDesigner.DataAccess.DbContexts
                    j =>
                    {
                        j.HasKey(t => new { t.ItemDeckID, t.ItemCardID });
+                   });
+
+            // Character Deck - Character Card
+            modelBuilder.Entity<CharacterDeckCharacterCard>()
+                .HasKey(t => new { t.CharacterCardID, t.CharacterDeckID });
+
+            modelBuilder.Entity<CharacterCardEntity>()
+               .HasMany(c => c.CharacterDecks)
+               .WithMany(c => c.CharacterCards)
+               .UsingEntity<CharacterDeckCharacterCard>(
+                   j => j
+                       .HasOne(t => t.CharacterDeck)
+                       .WithMany(c => c.CharacterDeckCharacterCards)
+                       .HasForeignKey(c => c.CharacterDeckID),
+                   j => j
+                       .HasOne(t => t.CharacterCard)
+                       .WithMany(c => c.CharacterDeckCharacterCards)
+                       .HasForeignKey(c => c.CharacterCardID),
+                   j =>
+                   {
+                       j.HasKey(t => new { t.CharacterDeckID, t.CharacterCardID });
                    });
         }
     }
