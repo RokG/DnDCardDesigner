@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CardDesigner.UI.Views.CardDesignView" x:Name="characterControl"
+﻿<UserControl x:Class="CardDesigner.UI.Views.DeckDesignView" x:Name="characterControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"

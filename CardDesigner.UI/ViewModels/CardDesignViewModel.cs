@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
-    public partial class CardDesignViewModel : ViewModelBase
+    public partial class DeckDesignViewModel : ViewModelBase
     {
         #region Private fields
 
@@ -114,9 +114,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public CardDesignViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public DeckDesignViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            Name = Regex.Replace(nameof(CardDesignViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = Regex.Replace(nameof(DeckDesignViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Card designs";
             Type = ViewModelType.DeckDesigner;
 
@@ -272,9 +272,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static CardDesignViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public static DeckDesignViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            CardDesignViewModel viewModel = new(cardDesignerStore, navigationStore);
+            DeckDesignViewModel viewModel = new(cardDesignerStore, navigationStore);
 
             viewModel.LoadData();
 
