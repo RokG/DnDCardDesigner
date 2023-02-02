@@ -4,7 +4,6 @@ using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -106,7 +105,7 @@ namespace CardDesigner.UI.ViewModels
                         return;
                     case ViewModelType.DeckDesigner:
                         SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
-                        SelectedItemDeck= _navigationStore.SelectedItemDeck;
+                        SelectedItemDeck = _navigationStore.SelectedItemDeck;
                         return;
                     default:
                         break;

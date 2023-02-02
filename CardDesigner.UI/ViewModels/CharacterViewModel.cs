@@ -28,7 +28,6 @@ namespace CardDesigner.UI.ViewModels
         [ObservableProperty]
         private SpellCardModel testSpellCard;
 
-
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateCardDesignCommand))]
         private string addedCardDesignName;

@@ -5,7 +5,6 @@ using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -150,7 +149,7 @@ namespace CardDesigner.UI.ViewModels
         {
             _navigationStore.SelectedItemDeck = SelectedItemDeck;
             _navigationStore.SelectedSpellDeck = SelectedSpellDeck;
-            _navigationStore.SelectedItemDeckDesign= SelectedItemDeckDesign;
+            _navigationStore.SelectedItemDeckDesign = SelectedItemDeckDesign;
             _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
         }
 
