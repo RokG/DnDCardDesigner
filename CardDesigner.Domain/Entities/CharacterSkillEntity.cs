@@ -3,15 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CardDesigner.Domain.Entities
 {
-    public class CharacterClassEntity
+    public class CharacterSkillEntity
     {
         [Key]
         public int ID { get; set; }
         public CharacterEntity Character { get; set; }
 
-        // Properties
-        public int Level { get; set; }
-        public CharacterClassType Class { get; set; }
-        public DiceType HitDice { get; set; }
+        public Skill Skill { get; set; }
+        public bool IsProficient { get; set; }
+        public bool IsExpert { get; set; }
     }
 }

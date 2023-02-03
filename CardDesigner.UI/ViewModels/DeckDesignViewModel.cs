@@ -346,8 +346,13 @@ namespace CardDesigner.UI.ViewModels
                 new CharacterModel() { Name = AddedCharacterName, 
                     Classes = new() {
                         new CharacterClassModel() { Class = CharacterClassType.Barbarian, Level=3 },
-                        new CharacterClassModel() { Class = CharacterClassType.Druid, Level=5 },
-                    }});
+                        new CharacterClassModel() { Class = CharacterClassType.Druid, Level=5 }},
+                    Skills= new() { 
+                        new CharacterSkillModel() {Skill = Skill.Athletics, IsProficient=true},
+                        new CharacterSkillModel() {Skill = Skill.Acrobatics},
+                        new CharacterSkillModel() {Skill = Skill.AnimalHandling, IsExpert=true},
+                    }
+                });
         }
 
         private bool CanCreateCharacter()
