@@ -34,6 +34,7 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<ItemCardEntity> ItemCards { get; set; }
         public DbSet<CharacterCardEntity> CharacterCards { get; set; }
         public DbSet<CharacterDeckEntity> CharacterDecks { get; set; }
+        public DbSet<CharacterClassEntity> CharacterClasses { get; set; }
 
         //https://stackoverflow.com/questions/19342908/how-to-create-a-many-to-many-mapping-in-entity-framework
 
@@ -43,6 +44,11 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Character Spell Deck - Deck design
+            modelBuilder.Entity<CharacterClassEntity>()
+                   .HasOne(c => c.Character)
+                   .WithMany(e => e.Classes);
+
             // Character Spell Deck - Deck design
             modelBuilder.Entity<CharacterEntity>()
                    .HasOne(c => c.DeckBackgroundDesign)

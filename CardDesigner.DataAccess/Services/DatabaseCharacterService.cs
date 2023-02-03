@@ -176,6 +176,7 @@ namespace CardDesigner.DataAccess.Services
                     .Include(c => c.SpellDeckDescriptors)
                     .Include(c => c.ItemDeckDescriptors)
                     .Include(c => c.DeckBackgroundDesign)
+                    .Include(c => c.Classes)
                     .ToListAsync();
 
                 return characterEntities.Select(c => _mapper.Map<CharacterModel>(c));

@@ -342,7 +342,12 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
         private async void CreateCharacter()
         {
-            await _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = AddedCharacterName });
+            await _cardDesignerStore.CreateCharacter(
+                new CharacterModel() { Name = AddedCharacterName, 
+                    Classes = new() {
+                        new CharacterClassModel() { Class = CharacterClassType.Barbarian, Level=3 },
+                        new CharacterClassModel() { Class = CharacterClassType.Druid, Level=5 },
+                    }});
         }
 
         private bool CanCreateCharacter()

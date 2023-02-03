@@ -20,6 +20,7 @@ namespace CardDesigner.Domain.Mapper
                 cfg.CreateMap<SpellDeckDesignLinkerModel, SpellDeckDesignLinkerEntity>();
                 cfg.CreateMap<ItemDeckDesignLinkerModel, ItemDeckDesignLinkerEntity>();
                 cfg.CreateMap<CharacterModel, CharacterEntity>();
+                cfg.CreateMap<CharacterClassModel, CharacterClassEntity>();
                 cfg.CreateMap<SpellCardModel, SpellCardEntity>();
                 cfg.CreateMap<ItemCardModel, ItemCardEntity>();
                 cfg.CreateMap<CharacterCardModel, CharacterCardEntity>();
@@ -32,6 +33,7 @@ namespace CardDesigner.Domain.Mapper
                 cfg.CreateMap<CharacterDeckDesignEntity, CharacterDeckDesignModel>();
                 cfg.CreateMap<SpellDeckDesignLinkerEntity, SpellDeckDesignLinkerModel>();
                 cfg.CreateMap<ItemDeckDesignLinkerEntity, ItemDeckDesignLinkerModel>();
+                cfg.CreateMap<CharacterClassEntity, CharacterClassModel>();
                 cfg.CreateMap<CharacterEntity, CharacterModel>();
                 cfg.CreateMap<SpellCardEntity, SpellCardModel>();
                 cfg.CreateMap<ItemCardEntity, ItemCardModel>();
