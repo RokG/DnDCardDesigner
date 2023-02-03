@@ -28,10 +28,6 @@ namespace CardDesigner.UI.ViewModels
         private SpellCardModel testCharacterCard;
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(CreateCharacterCommand))]
-        private string addedCharacterName;
-
-        [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateCharacterDeckDesignCommand))]
         private string addedCharacterDeckDesignName;
 
@@ -336,37 +332,6 @@ namespace CardDesigner.UI.ViewModels
             bool noName = (AddedCharacterDeckDesignName == string.Empty || AddedCharacterDeckDesignName == null);
 
             return !noName;
-        }
-
-
-        [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
-        private async void CreateCharacter()
-        {
-            await _cardDesignerStore.CreateCharacter(
-                new CharacterModel() { Name = AddedCharacterName, 
-                    Classes = new() {
-                        new CharacterClassModel() { Class = CharacterClassType.Barbarian, Level=3 },
-                        new CharacterClassModel() { Class = CharacterClassType.Druid, Level=5 }},
-                    Skills= new() { 
-                        new CharacterSkillModel() {Skill = Skill.Athletics, IsProficient=true},
-                        new CharacterSkillModel() {Skill = Skill.Acrobatics},
-                        new CharacterSkillModel() {Skill = Skill.AnimalHandling, IsExpert=true},
-                    }
-                });
-        }
-
-        private bool CanCreateCharacter()
-        {
-            bool noName = (AddedCharacterName == string.Empty || AddedCharacterName == null);
-            bool spellDeckExists = AllCharacters == null ? false : AllCharacters.Where(c => c.Name == AddedCharacterName).Any();
-
-            return (!noName && !spellDeckExists);
-        }
-
-        [RelayCommand]
-        private async void DeleteCharacter()
-        {
-            await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
         }
 
         [RelayCommand]

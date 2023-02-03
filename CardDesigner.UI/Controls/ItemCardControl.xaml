@@ -112,7 +112,6 @@
                 CornerRadius="4" />
             <!--  Card contents  -->
             <Canvas>
-
                 <!--  Body lines  -->
                 <Border
                     Canvas.Top="35"

@@ -36,12 +36,9 @@
                     <!--  Characters  -->
                     <controls:AddEditItem
                         Title="Characters"
-                        AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
-                        DeleteCommand="{Binding DeleteCharacterCommand}"
                         ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateCharacterCommand}"
                         SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
-                        ViewOnly="False" />
+                        ViewOnly="True" />
 
                     <!--  Characters  -->
                     <controls:AddEditItem

@@ -3,9 +3,8 @@
     public enum CharacterCardType
     {
         Avatar,
-        Skills,
         Abilities,
-        Feats,
-        Description
+        Stats,
+        Feats
     }
 }

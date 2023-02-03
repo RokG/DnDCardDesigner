@@ -16,6 +16,9 @@ namespace CardDesigner.Domain.Entities
         public CharacterDeckDesignEntity DeckBackgroundDesign { get; set; }
         public List<CharacterClassEntity> Classes { get; set; }
 
+        public string AvatarImagePath { get; set; }
+        public string AvatarImageStretch { get; set; }
+
         public int Proficiency { get; set; }
         public int PassivePerception { get; set; }
         public int PassiveInsight { get; set; }

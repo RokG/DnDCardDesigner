@@ -27,29 +27,18 @@ namespace CardDesigner.UI.ViewModels
         #region Properties
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateCharacterCommand))]
+        private string addedCharacterName;
+
+        [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateCharacterCardCommand))]
         private string characterCardName;
 
         [ObservableProperty]
-        private ICollectionView allArmoursCollectionView;
-
-        [ObservableProperty]
-        private ICollectionView allWeaponsCollectionView;
+        private CharacterModel selectedCharacter;
 
         [ObservableProperty]
         private CharacterCardModel selectedCharacterCard;
-
-        [ObservableProperty]
-        private WeaponModel selectedWeapon;
-
-        [ObservableProperty]
-        private ArmourModel selectedArmour;
-
-        [ObservableProperty]
-        private string armourSearchFilter;
-
-        [ObservableProperty]
-        private string weaponSearchFilter;
 
         [ObservableProperty]
         private CharacterDeckDesignModel selectedCharacterDeckDesign = new();
@@ -58,10 +47,7 @@ namespace CardDesigner.UI.ViewModels
         private ObservableCollection<CharacterCardModel> allCharacterCards;
 
         [ObservableProperty]
-        private ObservableCollection<WeaponModel> allWeapons;
-
-        [ObservableProperty]
-        private ObservableCollection<ArmourModel> allArmours;
+        private ObservableCollection<CharacterModel> allCharacters;
 
         #endregion
 
@@ -136,6 +122,8 @@ namespace CardDesigner.UI.ViewModels
 
             AllCharacterCards = new(_cardDesignerStore.CharacterCards);
             SelectedCharacterCard = AllCharacterCards.FirstOrDefault();
+            AllCharacters = new(_cardDesignerStore.Characters);
+            SelectedCharacter = AllCharacters.FirstOrDefault();
         }
 
         #endregion
@@ -173,6 +161,40 @@ namespace CardDesigner.UI.ViewModels
         {
             await _cardDesignerStore.UpdateCharacterCard(SelectedCharacterCard);
         }
+
+
+        [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
+        private async void CreateCharacter()
+        {
+            await _cardDesignerStore.CreateCharacter(
+                new CharacterModel()
+                {
+                    Name = AddedCharacterName,
+                    Classes = new() {
+                        new CharacterClassModel() { Class = CharacterClassType.Barbarian, Level=3 },
+                        new CharacterClassModel() { Class = CharacterClassType.Druid, Level=5 }},
+                    Skills = new() {
+                        new CharacterSkillModel() {Skill = Skill.Athletics, IsProficient=true},
+                        new CharacterSkillModel() {Skill = Skill.Acrobatics},
+                        new CharacterSkillModel() {Skill = Skill.AnimalHandling, IsExpert=true},
+                    }
+                });
+        }
+
+        private bool CanCreateCharacter()
+        {
+            bool noName = (AddedCharacterName == string.Empty || AddedCharacterName == null);
+            bool spellDeckExists = AllCharacters == null ? false : AllCharacters.Where(c => c.Name == AddedCharacterName).Any();
+
+            return (!noName && !spellDeckExists);
+        }
+
+        [RelayCommand]
+        private async void DeleteCharacter()
+        {
+            await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
+        }
+
 
         #endregion
 

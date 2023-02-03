@@ -43,6 +43,15 @@ namespace CardDesigner.UI.Controls
         public static readonly DependencyProperty CharacterCardProperty =
             DependencyProperty.Register(nameof(CharacterCard), typeof(CharacterCardModel), typeof(CharacterCardControl), new PropertyMetadata(null));
 
+        public CharacterModel Character
+        {
+            get { return (CharacterModel)GetValue(CharacterProperty); }
+            set { SetValue(CharacterProperty, value); }
+        }
+
+        public static readonly DependencyProperty CharacterProperty =
+            DependencyProperty.Register(nameof(Character), typeof(CharacterModel), typeof(CharacterCardControl), new PropertyMetadata(null));
+
         #endregion
     }
 }

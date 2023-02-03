@@ -16,6 +16,9 @@ namespace CardDesigner.Domain.Models
         public CharacterDeckDesignModel DeckBackgroundDesign { get; set; }
         public List<CharacterClassModel> Classes { get; set; }
 
+        public string AvatarImagePath { get; set; } = string.Empty;
+        public string AvatarImageStretch{ get; set; } = "Uniform";
+
         public int Proficiency { get; set; }
         public int PassivePerception { get; set; }
         public int PassiveInsight { get; set; }
