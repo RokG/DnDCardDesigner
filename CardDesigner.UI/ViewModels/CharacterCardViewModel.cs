@@ -69,6 +69,7 @@ namespace CardDesigner.UI.ViewModels
             _navigationStore = navigationStore;
 
             _cardDesignerStore.CharacterCardChanged += OnCharacterCardChanged;
+            _cardDesignerStore.CharacterChanged += OnCharacterChanged;
 
             LoadData();
         }
@@ -99,6 +100,25 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
+        private void OnCharacterChanged(CharacterModel character, DataChangeType change)
+        {
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllCharacters.Add(character);
+                    SelectedCharacter = character;
+                    break;
+                case DataChangeType.Updated:
+                    SelectedCharacter = character;
+                    break;
+                case DataChangeType.Deleted:
+                    AllCharacters.Remove(SelectedCharacter);
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
+        }
         private void OnCharacterCardChanged(CharacterCardModel characterCard, DataChangeType change)
         {
             switch (change)
@@ -160,6 +180,7 @@ namespace CardDesigner.UI.ViewModels
         private async void UpdateCharacterCard()
         {
             await _cardDesignerStore.UpdateCharacterCard(SelectedCharacterCard);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
 

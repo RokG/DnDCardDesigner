@@ -11,23 +11,37 @@
     <UserControl.Resources>
         <!--  Avatar template  -->
         <ControlTemplate x:Key="AvatarTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <controls:FilePicker
-                    Margin="5"
-                    Text="{Binding DataContext.SelectedCharacter.AvatarImagePath, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <ComboBox
-                    Grid.Column="1"
-                    SelectedItem="{Binding DataContext.SelectedCharacter.AvatarImageStretch, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <sys:String>None</sys:String>
-                    <sys:String>Fill</sys:String>
-                    <sys:String>Uniform</sys:String>
-                    <sys:String>Uniform To Fill</sys:String>
-                </ComboBox>
-            </Grid>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Name: " />
+                    <TextBox />
+                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <controls:FilePicker
+                        Margin="5"
+                        Text="{Binding DataContext.SelectedCharacter.AvatarImagePath, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <ComboBox
+                        Grid.Column="1"
+                        SelectedItem="{Binding DataContext.SelectedCharacter.AvatarImageStretch, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <sys:String>None</sys:String>
+                        <sys:String>Fill</sys:String>
+                        <sys:String>Uniform</sys:String>
+                        <sys:String>Uniform To Fill</sys:String>
+                    </ComboBox>
+                </Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Race: " />
+                    <TextBox />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Alignment: " />
+                    <TextBox />
+                </StackPanel>
+            </StackPanel>
         </ControlTemplate>
         <!--  Feat template  -->
         <ControlTemplate x:Key="FeatsTemplate">
@@ -52,7 +66,6 @@
                 </DockPanel>
             </StackPanel>
         </ControlTemplate>
-
         <!--  Ability template  -->
         <ControlTemplate x:Key="AbilitiesTemplate">
             <Grid>

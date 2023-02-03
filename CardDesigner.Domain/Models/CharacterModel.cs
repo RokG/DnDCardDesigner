@@ -1,6 +1,4 @@
-﻿using CardDesigner.Domain.Entities;
-using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.Interfaces;
+﻿using CardDesigner.Domain.Interfaces;
 using System.Collections.Generic;
 
 namespace CardDesigner.Domain.Models
@@ -11,13 +9,14 @@ namespace CardDesigner.Domain.Models
         public CharacterModel Character { get; set; }
 
         public string Name { get; set; }
+        public string Title { get; set; }
         public List<SpellDeckDesignLinkerModel> SpellDeckDescriptors { get; set; }
         public List<ItemDeckDesignLinkerModel> ItemDeckDescriptors { get; set; }
         public CharacterDeckDesignModel DeckBackgroundDesign { get; set; }
         public List<CharacterClassModel> Classes { get; set; }
 
         public string AvatarImagePath { get; set; } = string.Empty;
-        public string AvatarImageStretch{ get; set; } = "Uniform";
+        public string AvatarImageStretch { get; set; } = "Uniform";
 
         public int Proficiency { get; set; }
         public int PassivePerception { get; set; }

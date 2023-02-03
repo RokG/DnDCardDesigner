@@ -41,6 +41,9 @@ namespace CardDesigner.DataAccess.Services
             {
                 try
                 {
+                    // ToDo: Figure out how to do this with descriptors
+                    //CharacterEntity characterEntity = _mapper.Map<CharacterEntity>(characterModel);
+
                     // Get spell deck from database
                     CharacterEntity characterEntity = dbContext.Characters
                         .Include(sd => sd.SpellDeckDescriptors)
