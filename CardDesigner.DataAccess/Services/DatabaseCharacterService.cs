@@ -35,16 +35,13 @@ namespace CardDesigner.DataAccess.Services
             }
         }
 
-        public async Task<CharacterModel> UpdateCharacter(CharacterModel characterModel)
+        public async Task<CharacterModel> UpdateCharacterDecks(CharacterModel characterModel)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
                 try
                 {
-                    // ToDo: Figure out how to do this with descriptors
-                    //CharacterEntity characterEntity = _mapper.Map<CharacterEntity>(characterModel);
-
-                    // Get spell deck from database
+                     //Get spell deck from database
                     CharacterEntity characterEntity = dbContext.Characters
                         .Include(sd => sd.SpellDeckDescriptors)
                         .Include(sd => sd.ItemDeckDescriptors)
@@ -136,10 +133,33 @@ namespace CardDesigner.DataAccess.Services
                         }
                     }
 
+                    CharacterEntity createdCharacterEntity = dbContext.Characters.Update(characterEntity).Entity;
+
                     // Update and return
                     await dbContext.SaveChangesAsync();
 
-                    return _mapper.Map<CharacterModel>(characterEntity);
+                    return _mapper.Map<CharacterModel>(createdCharacterEntity);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public async Task<CharacterModel> UpdateCharacter(CharacterModel characterModel)
+        {
+            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            {
+                try
+                {
+                    CharacterEntity characterEntity = _mapper.Map<CharacterEntity>(characterModel);
+
+                    CharacterEntity createdCharacterEntity = dbContext.Characters.Update(characterEntity).Entity;
+
+                    await dbContext.SaveChangesAsync();
+
+                    return _mapper.Map<CharacterModel>(createdCharacterEntity);
                 }
                 catch (Exception)
                 {

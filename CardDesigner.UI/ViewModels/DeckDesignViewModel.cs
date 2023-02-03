@@ -384,7 +384,7 @@ namespace CardDesigner.UI.ViewModels
                 };
             }
 
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            await _cardDesignerStore.UpdateCharacterDecks(SelectedCharacter);
         }
 
         [RelayCommand]
@@ -421,7 +421,7 @@ namespace CardDesigner.UI.ViewModels
                 };
             }
 
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            await _cardDesignerStore.UpdateCharacterDecks(SelectedCharacter);
         }
 
         [RelayCommand]
@@ -429,7 +429,7 @@ namespace CardDesigner.UI.ViewModels
         {
             SpellDeckDesignLinkerModel toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(sd => sd.SpellDeckID == spellDeck.ID);
             SelectedCharacter.SpellDeckDescriptors.Remove(toRemove);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            await _cardDesignerStore.UpdateCharacterDecks(SelectedCharacter);
         }
 
         [RelayCommand]
@@ -437,7 +437,7 @@ namespace CardDesigner.UI.ViewModels
         {
             ItemDeckDesignLinkerModel toRemove = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(sd => sd.ItemDeckID == itemDeck.ID);
             SelectedCharacter.ItemDeckDescriptors.Remove(toRemove);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            await _cardDesignerStore.UpdateCharacterDecks(SelectedCharacter);
         }
 
         [RelayCommand]

@@ -8,6 +8,7 @@ namespace CardDesigner.Domain.Services
     {
         Task<CharacterModel> CreateCharacter(CharacterModel Character);
         Task<CharacterModel> UpdateCharacter(CharacterModel Character);
+        Task<CharacterModel> UpdateCharacterDecks(CharacterModel Character);
         Task<bool> DeleteCharacter(CharacterModel Character);
         public Task<IEnumerable<CharacterModel>> GetAllCharacters();
     }

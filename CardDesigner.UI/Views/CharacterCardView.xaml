@@ -12,10 +12,6 @@
         <!--  Avatar template  -->
         <ControlTemplate x:Key="AvatarTemplate">
             <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Name: " />
-                    <TextBox />
-                </StackPanel>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
