@@ -31,6 +31,7 @@ namespace CardDesigner.Domain.Stores
         private readonly List<CharacterDeckDesignModel> _characterDeckDesigns;
         private readonly List<WeaponModel> _weapons;
         private readonly List<ArmourModel> _armours;
+        private readonly List<ClassModel> _classes;
 
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
         public IEnumerable<ItemCardModel> ItemCards => _itemCards;
@@ -44,6 +45,7 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<CharacterDeckDesignModel> CharacterDeckDesigns => _characterDeckDesigns;
         public IEnumerable<WeaponModel> Weapons => _weapons;
         public IEnumerable<ArmourModel> Armours => _armours;
+        public IEnumerable<ClassModel> Classes => _classes;
 
         public event Action<CharacterModel, DataChangeType> CharacterChanged;
         public event Action<SpellDeckDesignModel, DataChangeType> SpellDeckDesignChanged;
@@ -85,6 +87,7 @@ namespace CardDesigner.Domain.Stores
             _characterDecks = new();
             _armours = new();
             _weapons = new();
+            _classes = new();
             _jsonFileItemService = jsonFileItemService;
         }
 
@@ -480,14 +483,17 @@ namespace CardDesigner.Domain.Stores
         private void ReadAllItems()
         {
             _armours.Clear();
-            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\ChestArmours.json"));
-            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\HeadArmours.json"));
-            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\LegArmours.json"));
-            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Items\Armour\Shields.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Configs\Armour\ChestArmours.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Configs\Armour\HeadArmours.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Configs\Armour\LegArmours.json"));
+            _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Configs\Armour\Shields.json"));
 
-            _weapons.Clear();
-            _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Items\Weapons\MeleeWeapons.json"));
-            _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Items\Weapons\RangedWeapons.json"));
+            _weapons.Clear();                                                
+            _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Configs\Weapons\MeleeWeapons.json"));
+            _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Configs\Weapons\RangedWeapons.json"));
+                                                                             
+            _classes.Clear();                                                
+            _classes.AddRange(_jsonFileItemService.LoadClasses(@".\Resources\Configs\Classes\Classes.json"));
         }
 
         private void AssignItemsToCards(IEnumerable<ItemCardModel> itemCardModels)

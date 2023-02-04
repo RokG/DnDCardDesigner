@@ -3,7 +3,6 @@ using CardDesigner.Domain.Services;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace CardDesigner.DataAccess.Services
 {
@@ -19,6 +18,12 @@ namespace CardDesigner.DataAccess.Services
         {
             string json = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<IEnumerable<WeaponModel>>(json);
+        }
+
+        public IEnumerable<ClassModel> LoadClasses(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<IEnumerable<ClassModel>>(json);
         }
     }
 }

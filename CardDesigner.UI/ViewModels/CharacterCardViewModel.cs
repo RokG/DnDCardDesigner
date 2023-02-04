@@ -51,6 +51,15 @@ namespace CardDesigner.UI.ViewModels
         [ObservableProperty]
         private ObservableCollection<CharacterModel> allCharacters;
 
+        [ObservableProperty]
+        private string selectedSpecialization;
+
+        [ObservableProperty]
+        private ClassModel selectedClass;
+
+        [ObservableProperty]
+        private ObservableCollection<ClassModel> allClasses;
+
         #endregion
 
         #region Actions, Events, Commands
@@ -146,6 +155,7 @@ namespace CardDesigner.UI.ViewModels
             SelectedCharacterCard = AllCharacterCards.FirstOrDefault();
             AllCharacters = new(_cardDesignerStore.Characters);
             SelectedCharacter = AllCharacters.FirstOrDefault();
+            AllClasses = new(_cardDesignerStore.Classes);
         }
 
         #endregion
@@ -181,39 +191,35 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateCharacterCard()
         {
-            await _cardDesignerStore.UpdateCharacterCard(SelectedCharacterCard);
+            AddClassToCharacter();
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            await _cardDesignerStore.UpdateCharacterCard(SelectedCharacterCard);
         }
 
+        private void AddClassToCharacter()
+        {
+            CharacterClassModel characterClassModel = new();
+            characterClassModel.Class = SelectedClass;
+            //characterClassModel.Character = SelectedClass;
+            characterClassModel.ClassID = SelectedClass.ID;
+            characterClassModel.ClassSpecialization = SelectedSpecialization;
+
+            if (SelectedCharacter.Classes == null)
+            {
+                SelectedCharacter.Classes = new();
+                SelectedCharacter.Classes.Add(characterClassModel);
+            }
+            else
+            {
+                SelectedCharacter.Classes.Add(characterClassModel);
+            }
+
+        }
 
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
         private async void CreateCharacter()
         {
-            await _cardDesignerStore.CreateCharacter(
-                new CharacterModel()
-                {
-                    Name = AddedCharacterName,
-                    Classes = new() {
-                        new CharacterClassModel() { Class = CharacterClassType.Barbarian, Level=3 },
-                        new CharacterClassModel() { Class = CharacterClassType.Druid, Level=5 }},
-                    Attributes = new() 
-                    { 
-                        Strength = new() 
-                        { 
-                            Level = 13, 
-                            SavingThrows=true, 
-                            Type= Domain.Enums.Attribute.Strength, 
-                            Skills = new() 
-                            { 
-                                new SkillModel()
-                                {
-                                    Type = Skill.Athletics,
-                                    IsProficient = true,
-                                } 
-                            } 
-                        }  
-                    }
-                });
+            await _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = AddedCharacterName, Attributes=new(), Classes = new() });
         }
 
         private bool CanCreateCharacter()

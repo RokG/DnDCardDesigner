@@ -37,6 +37,13 @@
                     <Label Content="Alignment: " />
                     <TextBox />
                 </StackPanel>
+                <ComboBox
+                    DisplayMemberPath="Name"
+                    ItemsSource="{Binding DataContext.AllClasses, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedClass, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox
+                    ItemsSource="{Binding DataContext.SelectedClass.Specializations, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedSpecialization, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </ControlTemplate>
         <!--  Feat template  -->

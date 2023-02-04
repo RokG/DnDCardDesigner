@@ -1,14 +1,14 @@
-﻿using CardDesigner.Domain.Enums;
-
-namespace CardDesigner.Domain.Models
+﻿namespace CardDesigner.Domain.Models
 {
     public class CharacterClassModel
     {
         public int ID { get; set; }
         public CharacterModel Character { get; set; }
 
+        // Properties
         public int Level { get; set; }
-        public CharacterClassType Class { get; set; }
-        public DiceType HitDice { get; set; }
+        public string ClassID { get; set; }
+        public string ClassSpecialization { get; set; }
+        public ClassModel Class { get; set; }
     }
 }

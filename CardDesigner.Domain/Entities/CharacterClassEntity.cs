@@ -1,5 +1,4 @@
-﻿using CardDesigner.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CardDesigner.Domain.Entities
 {
@@ -11,7 +10,7 @@ namespace CardDesigner.Domain.Entities
 
         // Properties
         public int Level { get; set; }
-        public CharacterClassType Class { get; set; }
-        public DiceType HitDice { get; set; }
+        public string ClassID { get; set; }
+        public string ClassSpecialization { get; set; }
     }
 }
