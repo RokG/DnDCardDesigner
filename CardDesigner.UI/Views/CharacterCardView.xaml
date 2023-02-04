@@ -220,14 +220,6 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-            <!--<StackPanel>
-                <Label Content="Proficiency:" />
-                <Label Content="Passive perception:" />
-                <Label Content="Passive insight:" />
-                <Label Content="Spell Attack:" />
-                <Label Content="Spell Save DC:" />
-            </StackPanel>-->
-
         </ControlTemplate>
         <!--  Feat template  -->
         <ControlTemplate x:Key="FeatsTemplate">
