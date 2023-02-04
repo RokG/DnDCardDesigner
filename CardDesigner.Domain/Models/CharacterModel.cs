@@ -14,6 +14,7 @@ namespace CardDesigner.Domain.Models
         public List<ItemDeckDesignLinkerModel> ItemDeckDescriptors { get; set; }
         public CharacterDeckDesignModel DeckBackgroundDesign { get; set; }
         public List<CharacterClassModel> Classes { get; set; }
+        public CharacterAttributesModel Attributes { get; set; }
 
         public string AvatarImagePath { get; set; } = string.Empty;
         public string AvatarImageStretch { get; set; } = "Uniform";
@@ -42,9 +43,5 @@ namespace CardDesigner.Domain.Models
         public int ArmourClass { get; set; }
         public int SpellAttackBonus { get; set; }
         public int SpellSaveDC { get; set; }
-
-        // TODO
-        //public List<ToolProficiency> ToolProficiencies { get; set; }
-        public List<CharacterSkillModel> Skills { get; set; }
     }
 }

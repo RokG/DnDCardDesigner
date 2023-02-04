@@ -15,6 +15,7 @@ namespace CardDesigner.Domain.Entities
         public List<ItemDeckDesignLinkerEntity> ItemDeckDescriptors { get; set; }
         public CharacterDeckDesignEntity DeckBackgroundDesign { get; set; }
         public List<CharacterClassEntity> Classes { get; set; }
+        public CharacterAttributesEntity Attributes { get; set; }
 
         public string AvatarImagePath { get; set; }
         public string AvatarImageStretch { get; set; }
@@ -43,9 +44,5 @@ namespace CardDesigner.Domain.Entities
         public int ArmourClass { get; set; }
         public int SpellAttackBonus { get; set; }
         public int SpellSaveDC { get; set; }
-
-        // TODO
-        //public List<ToolProficiency> ToolProficiencies { get; set; }
-        public List<CharacterSkillEntity> Skills { get; set; }
     }
 }

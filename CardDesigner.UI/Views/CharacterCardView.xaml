@@ -64,44 +64,10 @@
         </ControlTemplate>
         <!--  Ability template  -->
         <ControlTemplate x:Key="AbilitiesTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Content="Strength" />
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Content="Dexterity" />
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Content="Constitution" />
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Content="Inteligence" />
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Content="Wisdom" />
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Content="Charisma" />
+            <StackPanel>
+                <controls:AttributesControl Attributes="{Binding DataContext.SelectedCharacter.Attributes, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-
-            </Grid>
-
+            </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
     <Grid Margin="4">
@@ -124,8 +90,8 @@
         <Grid Grid.Row="1">
             <!--  Content area  -->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="6*" />
             </Grid.ColumnDefinitions>
 
             <!--  Card Settings  -->

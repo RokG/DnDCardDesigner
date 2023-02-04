@@ -1,5 +1,6 @@
 ﻿using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Printing;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -194,10 +196,22 @@ namespace CardDesigner.UI.ViewModels
                     Classes = new() {
                         new CharacterClassModel() { Class = CharacterClassType.Barbarian, Level=3 },
                         new CharacterClassModel() { Class = CharacterClassType.Druid, Level=5 }},
-                    Skills = new() {
-                        new CharacterSkillModel() {Skill = Skill.Athletics, IsProficient=true},
-                        new CharacterSkillModel() {Skill = Skill.Acrobatics},
-                        new CharacterSkillModel() {Skill = Skill.AnimalHandling, IsExpert=true},
+                    Attributes = new() 
+                    { 
+                        Strength = new() 
+                        { 
+                            Level = 13, 
+                            SavingThrows=true, 
+                            Type= Domain.Enums.Attribute.Strength, 
+                            Skills = new() 
+                            { 
+                                new SkillModel()
+                                {
+                                    Type = Skill.Athletics,
+                                    IsProficient = true,
+                                } 
+                            } 
+                        }  
                     }
                 });
         }
