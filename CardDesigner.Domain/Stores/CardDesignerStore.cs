@@ -97,6 +97,7 @@ namespace CardDesigner.Domain.Stores
         /// <returns></returns>
         private async Task Initialize()
         {
+            ReadAllItems();
             await UpdateSpellCardsFromDb();
             await UpdateItemCardsFromDb();
             await UpdateCharacterCardsFromDb();
@@ -105,7 +106,6 @@ namespace CardDesigner.Domain.Stores
             await UpdateSpellDecksFromDb();
             await UpdateItemDecksFromDb();
             await UpdateCharacterDecksFromDb();
-            ReadAllItems();
         }
 
         /// <summary>
@@ -201,6 +201,7 @@ namespace CardDesigner.Domain.Stores
             if (await _characterService.UpdateCharacter(character) is CharacterModel updatedCharacter)
             {
                 await UpdateCharactersFromDb();
+                AssignClassesToCharacter(updatedCharacter);
                 CharacterChanged?.Invoke(updatedCharacter, DataChangeType.Updated);
             }
         }
@@ -210,6 +211,16 @@ namespace CardDesigner.Domain.Stores
             if (await _characterService.UpdateCharacterDecks(character) is CharacterModel updatedCharacter)
             {
                 await UpdateCharactersFromDb();
+                CharacterChanged?.Invoke(updatedCharacter, DataChangeType.Updated);
+            }
+        }
+
+        public async Task UpdateCharacterClasses(CharacterModel character)
+        {
+            if (await _characterService.UpdateCharacterClasses(character) is CharacterModel updatedCharacter)
+            {
+                await UpdateCharactersFromDb();
+                AssignClassesToCharacter(updatedCharacter);
                 CharacterChanged?.Invoke(updatedCharacter, DataChangeType.Updated);
             }
         }
@@ -418,6 +429,7 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<CharacterModel> characters = await _characterService.GetAllCharacters();
             _characters.Clear();
             _characters.AddRange(characters);
+            AssignClassesToAllCharacter(Characters);
         }
 
         private async Task UpdateItemCardsFromDb()
@@ -425,7 +437,7 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<ItemCardModel> itemCards = await _cardService.GetAllCards<ItemCardModel>();
             _itemCards.Clear();
             _itemCards.AddRange(itemCards);
-            AssignItemsToCards(itemCards);
+            AssignItemsToCards(ItemCards);
         }
 
         private async Task UpdateSpellDecksFromDb()
@@ -525,6 +537,22 @@ namespace CardDesigner.Domain.Stores
             foreach (ItemDeckModel itemDeck in itemDecks)
             {
                 AssignItemsToCards(itemDeck.ItemCards);
+            }
+        }
+
+        private void AssignClassesToAllCharacter(IEnumerable<CharacterModel> characterModels)
+        {
+            foreach (CharacterModel characterModel in characterModels)
+            {
+                AssignClassesToCharacter(characterModel);
+            }
+        }
+
+        private void AssignClassesToCharacter(CharacterModel characterModel)
+        {
+            foreach (CharacterClassModel characterClassModel in characterModel.Classes)
+            {
+                characterClassModel.Class = Classes.First(c => c.ID == characterClassModel.ClassID);
             }
         }
 

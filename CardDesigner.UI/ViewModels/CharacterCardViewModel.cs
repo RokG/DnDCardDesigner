@@ -32,6 +32,8 @@ namespace CardDesigner.UI.ViewModels
         private string characterCardName;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AddClassToCharacterCommand))]
+        [NotifyCanExecuteChangedFor(nameof(RemoveClassFromCharacterCommand))]
         private CharacterModel selectedCharacter;
 
         [ObservableProperty]
@@ -54,6 +56,9 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<ClassModel> allClasses;
+
+        [ObservableProperty]
+        private CharacterClassModel characterClasses;
 
         #endregion
 
@@ -169,8 +174,60 @@ namespace CardDesigner.UI.ViewModels
 
         #region Commands
 
-        [RelayCommand(CanExecute = nameof(CanCreateCharacterCard))]
 
+        [RelayCommand(CanExecute = nameof(CanAddClassToCharacter))]
+        private async void AddClassToCharacter(ClassModel classModel)
+        {
+            CharacterClassModel characterClassModel = new()
+            {
+                Class = classModel,
+                ClassID = classModel.ID,
+                ClassSpecialization = classModel.Specializations.FirstOrDefault()
+            };
+
+            if (SelectedCharacter.Classes == null)
+            {
+                SelectedCharacter.Classes = new()
+                {
+                    characterClassModel
+                };
+            }
+            else
+            {
+                SelectedCharacter.Classes.Add(characterClassModel);
+            }
+            await _cardDesignerStore.UpdateCharacterClasses(SelectedCharacter);
+            OnPropertyChanged(nameof(SelectedCharacter.Classes));
+        }
+
+        private bool CanAddClassToCharacter()
+        {
+            return SelectedCharacter.Classes.Count < 3;
+        }
+
+        [RelayCommand(CanExecute = nameof(CanRemoveClassFromCharacter))]
+        private async void RemoveClassFromCharacter(ClassModel classModel)
+        {
+            if (SelectedCharacter.Classes != null && classModel != null)
+            {
+                if (SelectedCharacter.Classes.Count > 0)
+                {
+                    CharacterClassModel existingClass = SelectedCharacter.Classes.FirstOrDefault(c => c.ClassID == classModel.ID);
+                    if (existingClass != null)
+                    {
+                        SelectedCharacter.Classes.Remove(existingClass);
+                        await _cardDesignerStore.UpdateCharacterClasses(SelectedCharacter);
+                    }
+                }
+            }
+        }
+
+        private bool CanRemoveClassFromCharacter()
+        {
+            return SelectedCharacter.Classes.Count > 0;
+        }
+
+        [RelayCommand(CanExecute = nameof(CanCreateCharacterCard))]
         private async void CreateCharacterCard()
         {
             await _cardDesignerStore.CreateCharacterCard(new CharacterCardModel() { Name = CharacterCardName });
@@ -186,31 +243,9 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateCharacterCard()
         {
-            AddClassToCharacter();
+            //AddClassToCharacter();
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
             await _cardDesignerStore.UpdateCharacterCard(SelectedCharacterCard);
-        }
-
-        private void AddClassToCharacter()
-        {
-            CharacterClassModel characterClassModel = new()
-            {
-                Class = SelectedClass,
-                //characterClassModel.Character = SelectedClass;
-                ClassID = SelectedClass.ID,
-                ClassSpecialization = SelectedSpecialization
-            };
-
-            if (SelectedCharacter.Classes == null)
-            {
-                SelectedCharacter.Classes = new();
-                SelectedCharacter.Classes.Add(characterClassModel);
-            }
-            else
-            {
-                SelectedCharacter.Classes.Add(characterClassModel);
-            }
-
         }
 
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]

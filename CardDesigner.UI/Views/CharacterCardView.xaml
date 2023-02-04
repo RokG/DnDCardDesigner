@@ -42,6 +42,46 @@
                         ItemsSource="{Binding Source={StaticResource AlignmentEnum}}"
                         SelectedItem="{Binding DataContext.SelectedCharacter.Alignment, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
+
+                <!--  Character classes  -->
+                <ListBox ItemsSource="{Binding DataContext.SelectedCharacter.Classes, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <StackPanel>
+                                    <StackPanel>
+                                        <DockPanel LastChildFill="False">
+                                            <Label Content="Class: " />
+                                            <Label Content="{Binding Class.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Label Content="{Binding ClassSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Button
+                                                Padding="7,0,7,3"
+                                                Command="{Binding DataContext.RemoveClassFromCharacterCommand, ElementName=characterCardControl}"
+                                                CommandParameter="{Binding Class}"
+                                                Content="X"
+                                                DockPanel.Dock="Right"
+                                                FontSize="16"
+                                                FontWeight="Bold" />
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <Label Content="Level: " />
+                                            <Slider
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Stretch"
+                                                Background="Transparent"
+                                                Maximum="20"
+                                                Minimum="0"
+                                                Value="{Binding Level}" />
+                                        </DockPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <!--  Add class to character  -->
                 <StackPanel>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -49,23 +89,21 @@
                             <ComboBox
                                 DisplayMemberPath="Name"
                                 ItemsSource="{Binding DataContext.AllClasses, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedIndex="0"
                                 SelectedItem="{Binding DataContext.SelectedClass, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Label Content="Specialization: " />
                             <ComboBox
                                 ItemsSource="{Binding DataContext.SelectedClass.Specializations, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedIndex="0"
                                 SelectedItem="{Binding DataContext.SelectedSpecialization, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button
+                                Padding="5,0,5,3"
+                                Command="{Binding DataContext.AddClassToCharacterCommand, ElementName=characterCardControl}"
+                                CommandParameter="{Binding DataContext.SelectedClass, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Content="+"
+                                FontSize="20"
+                                FontWeight="Bold" />
                         </StackPanel>
-                        <DockPanel>
-                            <Label Content="Level: " />
-                            <Slider
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                HorizontalContentAlignment="Stretch"
-                                Background="Transparent"
-                                Maximum="20"
-                                Minimum="0"
-                                Value="{Binding DataContext.SelectedClass.Level, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </DockPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

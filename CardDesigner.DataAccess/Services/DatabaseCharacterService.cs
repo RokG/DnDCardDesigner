@@ -147,6 +147,70 @@ namespace CardDesigner.DataAccess.Services
             }
         }
 
+        public async Task<CharacterModel> UpdateCharacterClasses(CharacterModel characterModel)
+        {
+            using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
+            {
+                try
+                {
+                    //Get spell deck from database
+                    CharacterEntity characterEntity = dbContext.Characters
+                        .Include(sd => sd.Classes)
+                        .Single(sc => sc.ID == characterModel.ID);
+
+                    // Add/Update spell decks
+                    foreach (CharacterClassModel characterClassModel in characterModel.Classes)
+                    {
+                        // If any descriptor is new, add it to the list
+                        if (!characterEntity.Classes.Where(sd => sd.ClassID == characterClassModel.ClassID).Any())
+                        {
+                            CharacterClassEntity characterClassEntity = _mapper.Map<CharacterClassEntity>(characterClassModel);
+                            characterEntity.Classes.Add(characterClassEntity);
+                        }
+                        // If any descriptor exists, update it
+                        else
+                        {
+                            characterEntity.Classes
+                                .First(d => d.ClassID == characterClassModel.ClassID)
+                                .ClassID = characterClassModel.ClassID;
+                            characterEntity.Classes
+                                .First(d => d.ClassID == characterClassModel.ClassID)
+                                .ClassSpecialization = characterClassModel.ClassSpecialization;
+                            characterEntity.Classes
+                                .First(d => d.ClassID == characterClassModel.ClassID)
+                                .Character = characterEntity;
+                        }
+                    }
+
+                    // Remove item decks
+                    foreach (CharacterClassEntity characterClassEntity in characterEntity.Classes)
+                    {
+                        // If any descriptor is missing, remove it from the list
+                        if (!characterModel.Classes.Any(id => id.ClassID == characterClassEntity.ClassID))
+                        {
+                            CharacterClassEntity toRemove = dbContext.CharacterClasses.Single(
+                                sc => (
+                                sc.ClassID == characterClassEntity.ClassID
+                                && sc.Character.ID == characterModel.ID
+                                ));
+                            dbContext.CharacterClasses.Remove(toRemove);
+                        }
+                    }
+
+                    CharacterEntity createdCharacterEntity = dbContext.Characters.Update(characterEntity).Entity;
+
+                    // Update and return
+                    await dbContext.SaveChangesAsync();
+
+                    return _mapper.Map<CharacterModel>(createdCharacterEntity);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
         public async Task<CharacterModel> UpdateCharacter(CharacterModel characterModel)
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
