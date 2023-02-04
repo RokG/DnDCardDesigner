@@ -59,6 +59,12 @@
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
+                    CommandParameter="CharacterViewModel"
+                    Content="Character creator"
+                    DockPanel.Dock="Top" />
+                <RadioButton
+                    Height="60"
+                    Command="{Binding ChangeViewModelCommand}"
                     CommandParameter="CharacterCardViewModel"
                     Content="Character Card creator"
                     DockPanel.Dock="Top" />
@@ -80,13 +86,6 @@
                     CommandParameter="CardDecksViewModel"
                     Content="Deck creator"
                     DockPanel.Dock="Top" />
-                <RadioButton
-                    Height="60"
-                    Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="CharacterViewModel"
-                    Content="Character creator"
-                    DockPanel.Dock="Top"
-                    Visibility="Collapsed" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
