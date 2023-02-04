@@ -24,7 +24,6 @@
                     <Label
                         VerticalAlignment="Bottom"
                         Content="{Binding Name}"
-                        ContentStringFormat="{}{0}s"
                         FontSize="32" />
                     <Label
                         Margin="0,10"
