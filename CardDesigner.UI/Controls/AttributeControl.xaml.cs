@@ -27,6 +27,16 @@ namespace CardDesigner.UI.Controls
             remove { RemoveHandler(CheckChangedEvent, value); }
         }
 
+        public static readonly RoutedEvent SliderChangedEvent =
+         EventManager.RegisterRoutedEvent(nameof(SliderChangedEvent), RoutingStrategy.Bubble,
+         typeof(RoutedEventHandler), typeof(AttributeControl));
+
+        public event RoutedEventHandler SliderChanged
+        {
+            add { AddHandler(SliderChangedEvent, value); }
+            remove { RemoveHandler(SliderChangedEvent, value); }
+        }
+
         public AttributeModel Attribute
         {
             get => (AttributeModel)GetValue(AttributeProperty);
@@ -38,8 +48,13 @@ namespace CardDesigner.UI.Controls
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("C");
             RaiseEvent(new RoutedEventArgs(CheckChangedEvent));
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            RaiseEvent(new RoutedEventArgs(SliderChangedEvent));
+
         }
     }
 }

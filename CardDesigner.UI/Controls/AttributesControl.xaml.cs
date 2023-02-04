@@ -23,7 +23,7 @@ namespace CardDesigner.UI.Controls
         public static readonly DependencyProperty AttributesProperty =
             DependencyProperty.Register(nameof(Attributes), typeof(CharacterAttributesModel), typeof(AttributesControl), new PropertyMetadata(null));
 
-        private void AttributeControl_CheckChanged(object sender, RoutedEventArgs e)
+        private void AttributeControl_ValueChanged(object sender, RoutedEventArgs e)
         {
             if (sender is AttributeControl attributeControl)
             {

@@ -45,6 +45,7 @@
                     Padding="0"
                     Maximum="20"
                     Minimum="0"
+                    ValueChanged="Slider_ValueChanged"
                     Value="{Binding Attribute.Level, ElementName=attributeControl, FallbackValue=10}" />
             </StackPanel>
             <!--  Saving throws  -->

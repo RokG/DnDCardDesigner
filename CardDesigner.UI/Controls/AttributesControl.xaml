@@ -8,21 +8,28 @@
     <WrapPanel>
         <local:AttributeControl
             Attribute="{Binding Attributes, ElementName=attributesControl, Converter={converters:AttributesConverter}, ConverterParameter={x:Static enums:Attribute.Strength}}"
-            CheckChanged="AttributeControl_CheckChanged" />
+            CheckChanged="AttributeControl_ValueChanged" 
+            SliderChanged="AttributeControl_ValueChanged"
+            />
         <local:AttributeControl
             Attribute="{Binding Attributes, ElementName=attributesControl, Converter={converters:AttributesConverter}, ConverterParameter={x:Static enums:Attribute.Dexterity}}"
-            CheckChanged="AttributeControl_CheckChanged" />
+            CheckChanged="AttributeControl_ValueChanged"
+            SliderChanged="AttributeControl_ValueChanged" />
         <local:AttributeControl
             Attribute="{Binding Attributes, ElementName=attributesControl, Converter={converters:AttributesConverter}, ConverterParameter={x:Static enums:Attribute.Constitution}}"
-            CheckChanged="AttributeControl_CheckChanged" />
+            CheckChanged="AttributeControl_ValueChanged"
+            SliderChanged="AttributeControl_ValueChanged" />
         <local:AttributeControl
             Attribute="{Binding Attributes, ElementName=attributesControl, Converter={converters:AttributesConverter}, ConverterParameter={x:Static enums:Attribute.Inteligence}}"
-            CheckChanged="AttributeControl_CheckChanged" />
+            CheckChanged="AttributeControl_ValueChanged"
+            SliderChanged="AttributeControl_ValueChanged" />
         <local:AttributeControl
             Attribute="{Binding Attributes, ElementName=attributesControl, Converter={converters:AttributesConverter}, ConverterParameter={x:Static enums:Attribute.Wisdom}}"
-            CheckChanged="AttributeControl_CheckChanged" />
+            CheckChanged="AttributeControl_ValueChanged"
+            SliderChanged="AttributeControl_ValueChanged" />
         <local:AttributeControl
             Attribute="{Binding Attributes, ElementName=attributesControl, Converter={converters:AttributesConverter}, ConverterParameter={x:Static enums:Attribute.Charisma}}"
-            CheckChanged="AttributeControl_CheckChanged" />
+            CheckChanged="AttributeControl_ValueChanged"
+            SliderChanged="AttributeControl_ValueChanged" />
     </WrapPanel>
 </UserControl>
