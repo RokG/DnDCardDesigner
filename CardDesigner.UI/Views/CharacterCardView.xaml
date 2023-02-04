@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <!--  Avatar template  -->
         <ControlTemplate x:Key="AvatarTemplate">
-            <StackPanel>
+            <StackPanel Margin="0,10">
                 <Grid Background="Transparent">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -32,7 +32,10 @@
                         <sys:String>Uniform To Fill</sys:String>
                     </ComboBox>
                 </Grid>
-                <StackPanel Orientation="Horizontal">
+
+                <StackPanel
+                    Margin="0,10"
+                    Orientation="Horizontal">
                     <Label Content="Race: " />
                     <ComboBox
                         ItemsSource="{Binding Source={StaticResource RaceEnum}}"
@@ -44,48 +47,11 @@
                 </StackPanel>
 
                 <!--  Character classes  -->
-                <ListBox ItemsSource="{Binding DataContext.SelectedCharacter.Classes, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border>
-                                <StackPanel>
-                                    <StackPanel>
-                                        <DockPanel LastChildFill="False">
-                                            <Label Content="Class: " />
-                                            <Label Content="{Binding Class.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                            <Label Content="{Binding ClassSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                            <Button
-                                                Padding="7,0,7,3"
-                                                Command="{Binding DataContext.RemoveClassFromCharacterCommand, ElementName=characterCardControl}"
-                                                CommandParameter="{Binding Class}"
-                                                Content="X"
-                                                DockPanel.Dock="Right"
-                                                FontSize="16"
-                                                FontWeight="Bold" />
-                                        </DockPanel>
-                                        <DockPanel>
-                                            <Label Content="Level: " />
-                                            <Slider
-                                                HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Center"
-                                                HorizontalContentAlignment="Stretch"
-                                                Background="Transparent"
-                                                Maximum="20"
-                                                Minimum="0"
-                                                Value="{Binding Level}" />
-                                        </DockPanel>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
-                <!--  Add class to character  -->
-                <StackPanel>
-                    <StackPanel>
+                <StackPanel Margin="0,10">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Classes: " />
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Class: " />
+                            <Label Content="Add Class: " />
                             <ComboBox
                                 DisplayMemberPath="Name"
                                 ItemsSource="{Binding DataContext.AllClasses, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -105,7 +71,99 @@
                                 FontWeight="Bold" />
                         </StackPanel>
                     </StackPanel>
+                    <ListView
+                        Width="585"
+                        Padding="0"
+                        Background="{StaticResource ListAreaBGND}"
+                        ItemsSource="{Binding DataContext.SelectedCharacter.Classes, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel
+                                    Width="280"
+                                    Margin="0"
+                                    HorizontalAlignment="Left">
+                                    <DockPanel LastChildFill="False">
+                                        <Label Content="Class: " />
+                                        <Label Content="{Binding Class.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <Button
+                                            Padding="7,0,7,3"
+                                            Command="{Binding DataContext.RemoveClassFromCharacterCommand, ElementName=characterCardControl}"
+                                            CommandParameter="{Binding Class}"
+                                            Content="X"
+                                            DockPanel.Dock="Right"
+                                            FontSize="16"
+                                            FontWeight="Bold" />
+                                    </DockPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Specialization: " />
+                                        <Label Content="{Binding ClassSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </StackPanel>
+                                    <DockPanel>
+                                        <Label Content="Level: " />
+                                        <Slider
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center"
+                                            HorizontalContentAlignment="Stretch"
+                                            Background="Transparent"
+                                            Maximum="20"
+                                            Minimum="0"
+                                            Value="{Binding Level}" />
+                                    </DockPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel
+                                    Width="580"
+                                    Margin="0"
+                                    Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border>
+                                                <ContentPresenter />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
                 </StackPanel>
+
+                <!--  Character visuals  -->
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Height: " />
+                            <TextBox Text="{Binding DataContext.SelectedCharacter.Height, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Weight: " />
+                            <TextBox Text="{Binding DataContext.SelectedCharacter.Weight, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Eyes: " />
+                            <TextBox Text="{Binding DataContext.SelectedCharacter.Eyes, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Skin: " />
+                            <TextBox Text="{Binding DataContext.SelectedCharacter.Skin, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Hair: " />
+                            <TextBox Text="{Binding DataContext.SelectedCharacter.Hair, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <!--  Add class to character  -->
             </StackPanel>
         </ControlTemplate>
         <!--  Ability template  -->

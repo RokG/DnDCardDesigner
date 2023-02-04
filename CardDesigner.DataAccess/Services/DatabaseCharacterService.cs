@@ -41,7 +41,7 @@ namespace CardDesigner.DataAccess.Services
             {
                 try
                 {
-                     //Get spell deck from database
+                    //Get spell deck from database
                     CharacterEntity characterEntity = dbContext.Characters
                         .Include(sd => sd.SpellDeckDescriptors)
                         .Include(sd => sd.ItemDeckDescriptors)

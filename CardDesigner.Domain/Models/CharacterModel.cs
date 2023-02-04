@@ -23,6 +23,12 @@ namespace CardDesigner.Domain.Models
         public string AvatarImagePath { get; set; } = string.Empty;
         public string AvatarImageStretch { get; set; } = "Uniform";
 
+        public string Height { get; set; }
+        public string Weight { get; set; }
+        public string Eyes { get; set; }
+        public string Skin { get; set; }
+        public string Hair { get; set; }
+
         public int Proficiency { get; set; }
         public int PassivePerception { get; set; }
         public int PassiveInsight { get; set; }

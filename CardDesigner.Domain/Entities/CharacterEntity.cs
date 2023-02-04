@@ -21,6 +21,12 @@ namespace CardDesigner.Domain.Entities
         public Race Race { get; set; }
         public Alignment Alignment { get; set; }
 
+        public string Height { get; set; }
+        public string Weight { get; set; }
+        public string Eyes { get; set; }
+        public string Skin { get; set; }
+        public string Hair { get; set; }
+
         public string AvatarImagePath { get; set; }
         public string AvatarImageStretch { get; set; }
 
