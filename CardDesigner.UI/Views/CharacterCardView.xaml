@@ -148,20 +148,6 @@
                             <TextBox Text="{Binding DataContext.SelectedCharacter.Weight, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Eyes: " />
-                            <TextBox Text="{Binding DataContext.SelectedCharacter.Eyes, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Skin: " />
-                            <TextBox Text="{Binding DataContext.SelectedCharacter.Skin, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Hair: " />
-                            <TextBox Text="{Binding DataContext.SelectedCharacter.Hair, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </StackPanel>
                 </StackPanel>
                 <!--  Add class to character  -->
             </StackPanel>
@@ -175,12 +161,72 @@
         <!--  Stats template  -->
         <ControlTemplate x:Key="StatsTemplate">
             <StackPanel>
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label Content="Basic stats" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Proficiency: " />
+                            <TextBox
+                                Width="40"
+                                MinWidth="40"
+                                Text="{Binding DataContext.SelectedCharacter.Skin, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Passive Insight: " />
+                            <TextBox
+                                Width="40"
+                                MinWidth="40"
+                                Text="{Binding DataContext.SelectedCharacter.Hair, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Passive Proficiency: " />
+                            <TextBox
+                                Width="40"
+                                MinWidth="40"
+                                Text="{Binding DataContext.SelectedCharacter.Hair, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Armour class: " />
+                            <TextBox
+                                Width="40"
+                                MinWidth="40"
+                                Text="{Binding DataContext.SelectedCharacter.Skin, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Initiative: " />
+                            <TextBox
+                                Width="40"
+                                MinWidth="40"
+                                Text="{Binding DataContext.SelectedCharacter.Hair, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Speed: " />
+                            <TextBox
+                                Width="40"
+                                MinWidth="40"
+                                Text="{Binding DataContext.SelectedCharacter.Hair, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label Content="Proficiencies" />
+                        <StackPanel
+                            Margin="5"
+                            Orientation="Horizontal">
+                            <CheckBox Content="Light armour" />
+                            <CheckBox Content="Medium armour" />
+                            <CheckBox Content="Heavy armour" />
+                        </StackPanel>
+                        <StackPanel
+                            Margin="5"
+                            Orientation="Horizontal">
+                            <CheckBox Content="Simple weapons" />
+                            <CheckBox Content="Martial weapons" />
+                            <CheckBox Content="Shields" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <!--<StackPanel>
                 <Label Content="Proficiency:" />
                 <Label Content="Passive perception:" />
                 <Label Content="Passive insight:" />
                 <Label Content="Spell Attack:" />
                 <Label Content="Spell Save DC:" />
-            </StackPanel>
+            </StackPanel>-->
 
         </ControlTemplate>
         <!--  Feat template  -->
@@ -301,83 +347,6 @@
                         </TabControl>
                     </StackPanel>
                 </Border>
-
-                <!--  True/False props  -->
-                <!--<Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <StackPanel>
-                        <CheckBox
-                            Content="Concentration"
-                            IsChecked="{Binding SelectedCharacterCard.IsConcentration}" />
-                        <CheckBox
-                            Content="Ritual"
-                            IsChecked="{Binding SelectedCharacterCard.IsRitual}" />
-                        <CheckBox
-                            Content="Somatic"
-                            IsChecked="{Binding SelectedCharacterCard.HasSomaticComponent}" />
-                        <CheckBox
-                            Content="Verbal"
-                            IsChecked="{Binding SelectedCharacterCard.HasVerbalComponent}" />
-                        <CheckBox
-                            Content="Material"
-                            IsChecked="{Binding SelectedCharacterCard.HasMaterialComponent}" />
-                    </StackPanel>
-                </Border>-->
-
-                <!--  Advanced properties  -->
-                <!--<Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <StackPanel>
-
-                        <controls:SliderControl
-                            Title="Range:"
-                            SelectedValueType="{Binding SelectedCharacterCard.RangeType, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
-                            Value="{Binding SelectedCharacterCard.RangeValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Duration:"
-                            SelectedValueType="{Binding SelectedCharacterCard.DurationType, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource DurationTypeEnum}}"
-                            Value="{Binding SelectedCharacterCard.DurationValue, Mode=TwoWay}" />
-
-                        <controls:SliderControl
-                            Title="Casting time:"
-                            SelectedValueType="{Binding SelectedCharacterCard.CastingTimeType, Mode=TwoWay}"
-                            ValueTypes="{Binding Source={StaticResource CastingTimeEnum}}"
-                            Value="{Binding SelectedCharacterCard.CastingTimeValue, Mode=TwoWay}" />
-                        <ContentControl>
-                            <controls:SliderControl
-                                Title="Area of effect:"
-                                SelectedValueType="{Binding SelectedCharacterCard.AreaOfEffect, Mode=TwoWay}"
-                                ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
-                                Value="{Binding SelectedCharacterCard.AreaOfEffectValue, Mode=TwoWay}" />
-                            <ContentControl.Style>
-                                <Style TargetType="{x:Type ContentControl}">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                    <Style.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding SelectedCharacterCard.RangeType}"
-                                            Value="{x:Static enums:RangeType.Distance}">
-                                            <Setter Property="Visibility" Value="Visible" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentControl.Style>
-                        </ContentControl>
-
-                        <controls:SliderControl
-                            Title="Roll:"
-                            SelectedUnitType="{Binding SelectedCharacterCard.DamageType, Mode=TwoWay}"
-                            SelectedValueType="{Binding SelectedCharacterCard.DiceType, Mode=TwoWay}"
-                            UnitTypes="{Binding Source={StaticResource MagicDamageTypeEnum}}"
-                            ValueTypes="{Binding Source={StaticResource DiceTypeEnum}}"
-                            Value="{Binding SelectedCharacterCard.DiceValue, Mode=TwoWay}" />
-
-                    </StackPanel>
-                </Border>-->
 
                 <!--  Manually update button  -->
                 <Button
