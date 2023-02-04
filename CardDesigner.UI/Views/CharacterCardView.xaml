@@ -253,47 +253,54 @@
                     ViewOnly="False" />
 
                 <!--  Card Type  -->
-                <TabControl
-                    Grid.Row="2"
-                    Height="500"
-                    MaxHeight="500"
-                    ItemsSource="{Binding Source={StaticResource CharacterCardTypeEnum}}"
-                    SelectedItem="{Binding SelectedCharacterCard.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <TabControl.ContentTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <ContentControl>
-                                    <ContentControl.Style>
-                                        <Style TargetType="{x:Type ContentControl}">
-                                            <Style.Triggers>
-                                                <DataTrigger
-                                                    Binding="{Binding}"
-                                                    Value="Avatar">
-                                                    <Setter Property="Template" Value="{StaticResource AvatarTemplate}" />
-                                                </DataTrigger>
-                                                <DataTrigger
-                                                    Binding="{Binding}"
-                                                    Value="Feats">
-                                                    <Setter Property="Template" Value="{StaticResource FeatsTemplate}" />
-                                                </DataTrigger>
-                                                <DataTrigger
-                                                    Binding="{Binding}"
-                                                    Value="Stats">
-                                                    <Setter Property="Template" Value="{StaticResource StatsTemplate}" />
-                                                </DataTrigger>
-                                                <DataTrigger
-                                                    Binding="{Binding}"
-                                                    Value="Abilities">
-                                                    <Setter Property="Template" Value="{StaticResource AbilitiesTemplate}" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </ContentControl.Style>
-                                </ContentControl>
-                            </StackPanel>
-                        </DataTemplate>
-                    </TabControl.ContentTemplate>
-                </TabControl>
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label
+                            Content="Character Card Type"
+                            FontSize="16" />
+                        <TabControl
+                            Grid.Row="2"
+                            Height="500"
+                            MaxHeight="500"
+                            ItemsSource="{Binding Source={StaticResource CharacterCardTypeEnum}}"
+                            SelectedItem="{Binding SelectedCharacterCard.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <TabControl.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <ContentControl>
+                                            <ContentControl.Style>
+                                                <Style TargetType="{x:Type ContentControl}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Avatar">
+                                                            <Setter Property="Template" Value="{StaticResource AvatarTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Feats">
+                                                            <Setter Property="Template" Value="{StaticResource FeatsTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Stats">
+                                                            <Setter Property="Template" Value="{StaticResource StatsTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Abilities">
+                                                            <Setter Property="Template" Value="{StaticResource AbilitiesTemplate}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ContentControl.Style>
+                                        </ContentControl>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </TabControl.ContentTemplate>
+                        </TabControl>
+                    </StackPanel>
+                </Border>
 
                 <!--  True/False props  -->
                 <!--<Border
