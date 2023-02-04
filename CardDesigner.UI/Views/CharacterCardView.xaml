@@ -37,23 +37,36 @@
                     <ComboBox
                         ItemsSource="{Binding Source={StaticResource RaceEnum}}"
                         SelectedItem="{Binding DataContext.SelectedCharacter.Race, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
                     <Label Content="Alignment: " />
                     <ComboBox
                         ItemsSource="{Binding Source={StaticResource AlignmentEnum}}"
                         SelectedItem="{Binding DataContext.SelectedCharacter.Alignment, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Class: " />
-                    <ComboBox
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding DataContext.AllClasses, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedItem="{Binding DataContext.SelectedClass, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Label Content="Specialization: " />
-                    <ComboBox
-                        ItemsSource="{Binding DataContext.SelectedClass.Specializations, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedItem="{Binding DataContext.SelectedSpecialization, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <StackPanel>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Class: " />
+                            <ComboBox
+                                DisplayMemberPath="Name"
+                                ItemsSource="{Binding DataContext.AllClasses, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding DataContext.SelectedClass, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Specialization: " />
+                            <ComboBox
+                                ItemsSource="{Binding DataContext.SelectedClass.Specializations, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding DataContext.SelectedSpecialization, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <DockPanel>
+                            <Label Content="Level: " />
+                            <Slider
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Stretch"
+                                Background="Transparent"
+                                Maximum="20"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedClass.Level, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </ControlTemplate>
@@ -61,7 +74,6 @@
         <ControlTemplate x:Key="AbilitiesTemplate">
             <StackPanel>
                 <controls:AttributesControl Attributes="{Binding DataContext.SelectedCharacter.Attributes, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
             </StackPanel>
         </ControlTemplate>
         <!--  Stats template  -->
