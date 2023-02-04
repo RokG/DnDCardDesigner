@@ -147,7 +147,7 @@ namespace CardDesigner.UI.ViewModels
 
         private bool CanAddClassToCharacter()
         {
-            return SelectedCharacter.Classes.Count < 3;
+            return SelectedCharacter == null ? false : SelectedCharacter.Classes.Count < 3;
         }
 
         [RelayCommand(CanExecute = nameof(CanRemoveClassFromCharacter))]
@@ -169,7 +169,7 @@ namespace CardDesigner.UI.ViewModels
 
         private bool CanRemoveClassFromCharacter()
         {
-            return SelectedCharacter.Classes.Count > 0;
+            return SelectedCharacter == null ? false : SelectedCharacter.Classes.Count > 0;
         }
 
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]

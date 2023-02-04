@@ -177,13 +177,35 @@
 
         <!--  header area  -->
         <Border BorderThickness="0,0,0,1">
-            <StackPanel>
-                <Label
-                    Content="{Binding Name}"
-                    ContentStringFormat="{}{0}s"
-                    FontSize="32" />
-                <Label Content="{Binding Description}" />
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Name}"
+                        ContentStringFormat="{}{0}s"
+                        FontSize="32" />
+                    <Label
+                        Margin="0,10"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Description}" />
+                </StackPanel>
+                <!--  Character creation  -->
+                <controls:AddEditItem
+                    Grid.Column="1"
+                    AddedItemName="{Binding ItemCardName, Mode=TwoWay}"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    ItemsSource="{Binding AllItemCards, Mode=TwoWay}"
+                    Orientation="Horizontal"
+                    SaveCommand="{Binding CreateItemCardCommand}"
+                    SelectedItem="{Binding SelectedItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ViewOnly="False" />
+            </Grid>
         </Border>
 
         <!--  Content Area  -->
@@ -195,15 +217,6 @@
 
             <!--  Card Settings  -->
             <StackPanel Orientation="Vertical">
-
-                <!--  Database control  -->
-                <controls:AddEditItem
-                    Title="Item Card"
-                    AddedItemName="{Binding ItemCardName, Mode=TwoWay}"
-                    ItemsSource="{Binding AllItemCards, Mode=TwoWay}"
-                    SaveCommand="{Binding CreateItemCardCommand}"
-                    SelectedItem="{Binding SelectedItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ViewOnly="False" />
 
                 <!--  Name, Icon, Item  -->
                 <Border

@@ -14,12 +14,24 @@
 
         <!--  header area  -->
         <Border BorderThickness="0,0,0,1">
-            <StackPanel>
-                <Label
-                    Content="{Binding Name}"
-                    FontSize="32" />
-                <Label Content="{Binding Description}" />
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Name}"
+                        ContentStringFormat="{}{0}s"
+                        FontSize="32" />
+                    <Label
+                        Margin="0,10"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Description}" />
+                </StackPanel>
+            </Grid>
         </Border>
 
         <Grid Grid.Row="1">

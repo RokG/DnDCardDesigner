@@ -9,6 +9,35 @@
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
+
+        <!--  Avatar template  -->
+        <ControlTemplate x:Key="AvatarTemplate">
+            <Grid Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Content="Avatar: " />
+                <controls:FilePicker
+                    Grid.Column="1"
+                    Margin="5"
+                    Text="{Binding DataContext.SelectedCharacter.AvatarImagePath, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox
+                    Grid.Column="2"
+                    SelectedItem="{Binding DataContext.SelectedCharacter.AvatarImageStretch, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <sys:String>None</sys:String>
+                    <sys:String>Fill</sys:String>
+                    <sys:String>Uniform</sys:String>
+                    <sys:String>Uniform To Fill</sys:String>
+                </ComboBox>
+            </Grid>
+        </ControlTemplate>
+        <!--  Abilities template  -->
+        <ControlTemplate x:Key="AbilitiesTemplate">
+            <!--  To switch where the modifier and skill elvel is displayed  -->
+            <CheckBox Content="Switch + and A" />
+        </ControlTemplate>
         <!--  Feat template  -->
         <ControlTemplate x:Key="FeatsTemplate">
             <StackPanel>
@@ -41,13 +70,35 @@
 
         <!--  header area  -->
         <Border BorderThickness="0,0,0,1">
-            <StackPanel>
-                <Label
-                    Content="{Binding Name}"
-                    ContentStringFormat="{}{0}s"
-                    FontSize="32" />
-                <Label Content="{Binding Description}" />
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Name}"
+                        ContentStringFormat="{}{0}s"
+                        FontSize="32" />
+                    <Label
+                        Margin="0,10"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Description}" />
+                </StackPanel>
+                <!--  Character creation  -->
+                <controls:AddEditItem
+                    Grid.Column="1"
+                    AddedItemName="{Binding CharacterCardName, Mode=TwoWay}"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}"
+                    Orientation="Horizontal"
+                    SaveCommand="{Binding CreateCharacterCardCommand}"
+                    SelectedItem="{Binding SelectedCharacterCard, Mode=TwoWay}"
+                    ViewOnly="False" />
+            </Grid>
         </Border>
 
         <Grid Grid.Row="1">
@@ -66,15 +117,6 @@
                     ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
                     ViewOnly="True" />
-
-                <!--  Database control  -->
-                <controls:AddEditItem
-                    Title="Character Card"
-                    AddedItemName="{Binding CharacterCardName, Mode=TwoWay}"
-                    ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}"
-                    SaveCommand="{Binding CreateCharacterCardCommand}"
-                    SelectedItem="{Binding SelectedCharacterCard, Mode=TwoWay}"
-                    ViewOnly="False" />
 
                 <!--  Card Type  -->
                 <Border Style="{StaticResource VisibleBorder}">
@@ -95,25 +137,25 @@
                                             <ContentControl.Style>
                                                 <Style TargetType="{x:Type ContentControl}">
                                                     <Style.Triggers>
-                                                        <!--<DataTrigger
+                                                        <DataTrigger
                                                             Binding="{Binding}"
                                                             Value="Avatar">
                                                             <Setter Property="Template" Value="{StaticResource AvatarTemplate}" />
-                                                        </DataTrigger>-->
+                                                        </DataTrigger>
                                                         <DataTrigger
                                                             Binding="{Binding}"
                                                             Value="Feats">
                                                             <Setter Property="Template" Value="{StaticResource FeatsTemplate}" />
                                                         </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Abilities">
+                                                            <Setter Property="Template" Value="{StaticResource AbilitiesTemplate}" />
+                                                        </DataTrigger>
                                                         <!--<DataTrigger
                                                             Binding="{Binding}"
                                                             Value="Stats">
                                                             <Setter Property="Template" Value="{StaticResource StatsTemplate}" />
-                                                        </DataTrigger>-->
-                                                        <!--<DataTrigger
-                                                            Binding="{Binding}"
-                                                            Value="Abilities">
-                                                            <Setter Property="Template" Value="{StaticResource AbilitiesTemplate}" />
                                                         </DataTrigger>-->
                                                     </Style.Triggers>
                                                 </Style>

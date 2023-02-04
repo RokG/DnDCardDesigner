@@ -57,6 +57,8 @@
                     IsChecked="{Binding Attribute.SavingThrows, ElementName=attributeControl, FallbackValue=True}"
                     Unchecked="RadioButton_Checked" />
                 <ListBox
+                    MinHeight="0"
+                    Margin="3"
                     ItemContainerStyle="{StaticResource ItemListboxItem}"
                     ItemsSource="{Binding Attribute.Skills, ElementName=attributeControl, FallbackValue=True}">
                     <ListBox.ItemTemplate>
@@ -99,6 +101,17 @@
                             </DockPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+                    <ListBox.Style>
+                        <Style BasedOn="{StaticResource {x:Type ListBox}}" TargetType="{x:Type ListBox}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Setter Property="MinHeight" Value="0" />
+                            <Style.Triggers>
+                                <Trigger Property="HasItems" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.Style>
                 </ListBox>
             </StackPanel>
         </Grid>
