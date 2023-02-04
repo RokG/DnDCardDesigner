@@ -27,7 +27,10 @@ namespace CardDesigner.UI.Controls
         {
             if (sender is AttributeControl attributeControl)
             {
-                Attributes.SetAttribute(attributeControl.Attribute);
+                if (attributeControl.Attribute != null)
+                {
+                    Attributes.SetAttribute(attributeControl.Attribute);
+                }
             }
         }
     }

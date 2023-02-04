@@ -16,7 +16,7 @@ namespace CardDesigner.UI.Converters
             }
             else
             {
-                return Binding.DoNothing;
+                return new CharacterAttributesModel();
             }
         }
 
