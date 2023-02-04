@@ -5,12 +5,11 @@
     xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls">
 
-    <WrapPanel>
+    <WrapPanel Background="Transparent">
         <local:AttributeControl
             Attribute="{Binding Attributes, ElementName=attributesControl, Converter={converters:AttributesConverter}, ConverterParameter={x:Static enums:Attribute.Strength}}"
-            CheckChanged="AttributeControl_ValueChanged" 
-            SliderChanged="AttributeControl_ValueChanged"
-            />
+            CheckChanged="AttributeControl_ValueChanged"
+            SliderChanged="AttributeControl_ValueChanged" />
         <local:AttributeControl
             Attribute="{Binding Attributes, ElementName=attributesControl, Converter={converters:AttributesConverter}, ConverterParameter={x:Static enums:Attribute.Dexterity}}"
             CheckChanged="AttributeControl_ValueChanged"

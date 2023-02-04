@@ -1,17 +1,12 @@
 ﻿using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Printing;
 using System.Text.RegularExpressions;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
@@ -198,11 +193,13 @@ namespace CardDesigner.UI.ViewModels
 
         private void AddClassToCharacter()
         {
-            CharacterClassModel characterClassModel = new();
-            characterClassModel.Class = SelectedClass;
-            //characterClassModel.Character = SelectedClass;
-            characterClassModel.ClassID = SelectedClass.ID;
-            characterClassModel.ClassSpecialization = SelectedSpecialization;
+            CharacterClassModel characterClassModel = new()
+            {
+                Class = SelectedClass,
+                //characterClassModel.Character = SelectedClass;
+                ClassID = SelectedClass.ID,
+                ClassSpecialization = SelectedSpecialization
+            };
 
             if (SelectedCharacter.Classes == null)
             {
@@ -219,7 +216,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
         private async void CreateCharacter()
         {
-            await _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = AddedCharacterName, Attributes=new(), Classes = new() });
+            await _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = AddedCharacterName, Attributes = new(), Classes = new() });
         }
 
         private bool CanCreateCharacter()

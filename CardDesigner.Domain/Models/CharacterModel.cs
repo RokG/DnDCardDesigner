@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Interfaces;
+﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Interfaces;
 using System.Collections.Generic;
 
 namespace CardDesigner.Domain.Models
@@ -15,6 +16,9 @@ namespace CardDesigner.Domain.Models
         public CharacterDeckDesignModel DeckBackgroundDesign { get; set; }
         public List<CharacterClassModel> Classes { get; set; }
         public CharacterAttributesModel Attributes { get; set; }
+
+        public Race Race { get; set; }
+        public Alignment Alignment { get; set; }
 
         public string AvatarImagePath { get; set; } = string.Empty;
         public string AvatarImageStretch { get; set; } = "Uniform";

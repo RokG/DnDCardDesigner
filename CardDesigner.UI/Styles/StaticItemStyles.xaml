@@ -12,7 +12,7 @@
 
     <!--  Label styles  -->
     <Style TargetType="{x:Type Label}">
-        <Setter Property="Background" Value="{StaticResource WindowBackgroundLight}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{StaticResource WindowForeground}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Padding" Value="10,10,10,10" />

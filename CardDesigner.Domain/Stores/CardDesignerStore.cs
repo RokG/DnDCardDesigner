@@ -200,7 +200,7 @@ namespace CardDesigner.Domain.Stores
         {
             if (await _characterService.UpdateCharacter(character) is CharacterModel updatedCharacter)
             {
-                //await UpdateCharactersFromDb();
+                await UpdateCharactersFromDb();
                 CharacterChanged?.Invoke(updatedCharacter, DataChangeType.Updated);
             }
         }
@@ -209,7 +209,7 @@ namespace CardDesigner.Domain.Stores
         {
             if (await _characterService.UpdateCharacterDecks(character) is CharacterModel updatedCharacter)
             {
-                //await UpdateCharactersFromDb();
+                await UpdateCharactersFromDb();
                 CharacterChanged?.Invoke(updatedCharacter, DataChangeType.Updated);
             }
         }

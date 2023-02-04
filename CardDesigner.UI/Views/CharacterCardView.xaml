@@ -12,16 +12,19 @@
         <!--  Avatar template  -->
         <ControlTemplate x:Key="AvatarTemplate">
             <StackPanel>
-                <Grid>
+                <Grid Background="Transparent">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
+                    <Label Content="Avatar: " />
                     <controls:FilePicker
+                        Grid.Column="1"
                         Margin="5"
                         Text="{Binding DataContext.SelectedCharacter.AvatarImagePath, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <ComboBox
-                        Grid.Column="1"
+                        Grid.Column="2"
                         SelectedItem="{Binding DataContext.SelectedCharacter.AvatarImageStretch, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <sys:String>None</sys:String>
                         <sys:String>Fill</sys:String>
@@ -31,20 +34,46 @@
                 </Grid>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Race: " />
-                    <TextBox />
+                    <ComboBox
+                        ItemsSource="{Binding Source={StaticResource RaceEnum}}"
+                        SelectedItem="{Binding DataContext.SelectedCharacter.Race, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Alignment: " />
-                    <TextBox />
+                    <ComboBox
+                        ItemsSource="{Binding Source={StaticResource AlignmentEnum}}"
+                        SelectedItem="{Binding DataContext.SelectedCharacter.Alignment, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
-                <ComboBox
-                    DisplayMemberPath="Name"
-                    ItemsSource="{Binding DataContext.AllClasses, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.SelectedClass, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <ComboBox
-                    ItemsSource="{Binding DataContext.SelectedClass.Specializations, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding DataContext.SelectedSpecialization, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Class: " />
+                    <ComboBox
+                        DisplayMemberPath="Name"
+                        ItemsSource="{Binding DataContext.AllClasses, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding DataContext.SelectedClass, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Content="Specialization: " />
+                    <ComboBox
+                        ItemsSource="{Binding DataContext.SelectedClass.Specializations, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding DataContext.SelectedSpecialization, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
             </StackPanel>
+        </ControlTemplate>
+        <!--  Ability template  -->
+        <ControlTemplate x:Key="AbilitiesTemplate">
+            <StackPanel>
+                <controls:AttributesControl Attributes="{Binding DataContext.SelectedCharacter.Attributes, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            </StackPanel>
+        </ControlTemplate>
+        <!--  Stats template  -->
+        <ControlTemplate x:Key="StatsTemplate">
+            <StackPanel>
+                <Label Content="Proficiency:" />
+                <Label Content="Passive perception:" />
+                <Label Content="Passive insight:" />
+                <Label Content="Spell Attack:" />
+                <Label Content="Spell Save DC:" />
+            </StackPanel>
+
         </ControlTemplate>
         <!--  Feat template  -->
         <ControlTemplate x:Key="FeatsTemplate">
@@ -67,13 +96,6 @@
                         Background="Transparent"
                         Content="Class: " />
                 </DockPanel>
-            </StackPanel>
-        </ControlTemplate>
-        <!--  Ability template  -->
-        <ControlTemplate x:Key="AbilitiesTemplate">
-            <StackPanel>
-                <controls:AttributesControl Attributes="{Binding DataContext.SelectedCharacter.Attributes, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
             </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
@@ -145,6 +167,11 @@
                                                     Binding="{Binding}"
                                                     Value="Feats">
                                                     <Setter Property="Template" Value="{StaticResource FeatsTemplate}" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding}"
+                                                    Value="Stats">
+                                                    <Setter Property="Template" Value="{StaticResource StatsTemplate}" />
                                                 </DataTrigger>
                                                 <DataTrigger
                                                     Binding="{Binding}"

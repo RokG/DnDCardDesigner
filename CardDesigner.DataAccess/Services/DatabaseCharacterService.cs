@@ -155,11 +155,12 @@ namespace CardDesigner.DataAccess.Services
                 {
                     CharacterEntity characterEntity = _mapper.Map<CharacterEntity>(characterModel);
 
-                    CharacterEntity createdCharacterEntity = dbContext.Characters.Update(characterEntity).Entity;
+                    // This made two characters
+                    //CharacterEntity createdCharacterEntity = dbContext.Characters.Update(characterEntity).Entity;
 
                     await dbContext.SaveChangesAsync();
 
-                    return _mapper.Map<CharacterModel>(createdCharacterEntity);
+                    return _mapper.Map<CharacterModel>(characterEntity);
                 }
                 catch (Exception)
                 {

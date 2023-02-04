@@ -31,73 +31,76 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
     </UserControl.Resources>
-    <Grid>
-        <StackPanel>
-            <!--  Name and level  -->
+    <Border
+        Background="#22ffffff"
+        Style="{StaticResource VisibleBorder}">
+        <Grid Background="Transparent">
             <StackPanel>
-                <Label
-                    Padding="5,0"
-                    Content="{Binding Attribute.Type, ElementName=attributeControl, FallbackValue='Attribute'}" />
-                <Slider
-                    Grid.Column="1"
-                    Padding="0"
-                    Maximum="20"
-                    Minimum="0"
-                    ValueChanged="Slider_ValueChanged"
-                    Value="{Binding Attribute.Level, ElementName=attributeControl, FallbackValue=10}" />
+                <!--  Name and level  -->
+                <StackPanel>
+                    <Label
+                        Padding="5,0"
+                        Content="{Binding Attribute.Type, ElementName=attributeControl, FallbackValue='Attribute'}" />
+                    <Slider
+                        Grid.Column="1"
+                        Padding="0"
+                        Maximum="20"
+                        Minimum="0"
+                        ValueChanged="Slider_ValueChanged"
+                        Value="{Binding Attribute.Level, ElementName=attributeControl, FallbackValue=10}" />
+                </StackPanel>
+                <!--  Saving throws  -->
+                <CheckBox
+                    Checked="RadioButton_Checked"
+                    Content="Saving throws"
+                    IsChecked="{Binding Attribute.SavingThrows, ElementName=attributeControl, FallbackValue=True}"
+                    Unchecked="RadioButton_Checked" />
+                <ListBox
+                    ItemContainerStyle="{StaticResource ItemListboxItem}"
+                    ItemsSource="{Binding Attribute.Skills, ElementName=attributeControl, FallbackValue=True}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel
+                                Margin="0"
+                                VerticalAlignment="Center"
+                                LastChildFill="False">
+                                <Label
+                                    Margin="0"
+                                    Padding="0"
+                                    Background="Transparent"
+                                    Content="{Binding Type}"
+                                    DockPanel.Dock="Left"
+                                    Style="{StaticResource listboxLabel}" />
+                                <RadioButton
+                                    Margin="0"
+                                    Padding="5,0"
+                                    Checked="RadioButton_Checked"
+                                    Content="E"
+                                    DockPanel.Dock="Right"
+                                    FontSize="12"
+                                    IsChecked="{Binding IsExpert}" />
+                                <RadioButton
+                                    Margin="0"
+                                    Padding="5,0"
+                                    Checked="RadioButton_Checked"
+                                    Content="P"
+                                    DockPanel.Dock="Right"
+                                    FontSize="12"
+                                    IsChecked="{Binding IsProficient}" />
+                                <RadioButton
+                                    Margin="0"
+                                    Padding="5,0"
+                                    Checked="RadioButton_Checked"
+                                    Content="0"
+                                    DockPanel.Dock="Right"
+                                    FontSize="12"
+                                    IsChecked="{Binding IsBasic}" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </StackPanel>
-            <!--  Saving throws  -->
-            <CheckBox
-                Checked="RadioButton_Checked"
-                Content="Saving throws"
-                IsChecked="{Binding Attribute.SavingThrows, ElementName=attributeControl, FallbackValue=True}"
-                Unchecked="RadioButton_Checked" />
-            <ListBox
-                ItemContainerStyle="{StaticResource ItemListboxItem}"
-                ItemsSource="{Binding Attribute.Skills, ElementName=attributeControl, FallbackValue=True}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel
-                            Margin="0"
-                            VerticalAlignment="Center"
-                            LastChildFill="False">
-                            <Label
-                                Margin="0"
-                                Padding="0"
-                                Background="Transparent"
-                                Content="{Binding Type}"
-                                DockPanel.Dock="Left"
-                                Style="{StaticResource listboxLabel}" />
-                            <RadioButton
-                                Margin="0"
-                                Padding="5,0"
-                                Checked="RadioButton_Checked"
-                                Content="E"
-                                DockPanel.Dock="Right"
-                                FontSize="12"
-                                IsChecked="{Binding IsExpert}" />
-                            <RadioButton
-                                Margin="0"
-                                Padding="5,0"
-                                Checked="RadioButton_Checked"
-                                Content="P"
-                                DockPanel.Dock="Right"
-                                FontSize="12"
-                                IsChecked="{Binding IsProficient}" />
-                            <RadioButton
-                                Margin="0"
-                                Padding="5,0"
-                                Checked="RadioButton_Checked"
-                                Content="0"
-                                DockPanel.Dock="Right"
-                                FontSize="12"
-                                IsChecked="{Binding IsBasic}" />
-                        </DockPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>
