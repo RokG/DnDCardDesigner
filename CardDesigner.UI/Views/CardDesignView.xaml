@@ -35,6 +35,7 @@
                     Title="Selected Character"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
                     BorderThickness="0"
                     ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
                     Orientation="Horizontal"

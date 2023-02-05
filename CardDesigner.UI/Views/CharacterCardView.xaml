@@ -89,7 +89,7 @@
                 </StackPanel>
                 <!--  Character creation  -->
                 <controls:AddEditItem
-                    Title="Selected character: "
+                    Title="Selected character card: "
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Right"
@@ -107,8 +107,8 @@
         <Grid Grid.Row="1">
             <!--  Content area  -->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*" />
-                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <!--  Card Settings  -->
@@ -120,7 +120,17 @@
                     ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
                     ViewOnly="True" />
-
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label
+                            Margin="5,0"
+                            Padding="0"
+                            Content="Card name:" />
+                        <TextBox
+                            Margin="5,0"
+                            Text="{Binding SelectedCharacterCard.Name}" />
+                    </StackPanel>
+                </Border>
                 <!--  Card Type  -->
                 <Border Style="{StaticResource VisibleBorder}">
                     <StackPanel>
@@ -180,6 +190,7 @@
             <!--  Card view  -->
             <controls:CharacterCardControl
                 Grid.Column="1"
+                HorizontalAlignment="Right"
                 CardDesign="{Binding SelectedCharacterDeckDesign}"
                 Character="{Binding SelectedCharacter, Mode=TwoWay}"
                 CharacterCard="{Binding SelectedCharacterCard, Mode=TwoWay}"

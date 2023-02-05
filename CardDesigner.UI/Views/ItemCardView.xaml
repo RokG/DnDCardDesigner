@@ -214,8 +214,8 @@
         <!--  Content Area  -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <!--  Card Settings  -->
@@ -322,6 +322,7 @@
             <!--  Card view  -->
             <controls:ItemCardControl
                 Grid.Column="1"
+                HorizontalAlignment="Right"
                 CardDesign="{Binding SelectedItemDeckDesign}"
                 IsEditable="True"
                 ItemCard="{Binding SelectedItemCard, Mode=TwoWay}" />

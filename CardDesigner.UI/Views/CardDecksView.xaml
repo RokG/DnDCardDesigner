@@ -132,79 +132,35 @@
 
             <!--  Spell decks  -->
             <StackPanel Grid.Column="1">
-                <StackPanel Orientation="Vertical">
-                    <!--  Manage decks  -->
-                    <controls:AddEditItem
-                        Title="Spell Deck"
-                        AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
-                        DeleteCommand="{Binding DeleteSpellDeckCommand}"
-                        ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateSpellDeckCommand}"
-                        SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
-                        ViewOnly="False" />
-                    <!--  Manage spell cards in decks  -->
-                    <Border BorderThickness="1">
-                        <Border.Style>
-                            <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
-                                <Setter Property="Visibility" Value="Visible" />
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedSpellDeck}"
-                                        Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <DataGrid
-                                Grid.Column="0"
-                                AutoGenerateColumns="False"
-                                ItemsSource="{Binding AllSpellCards, Mode=TwoWay}">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn
-                                        Width="*"
-                                        Header="All available cards">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Command="{Binding DataContext.AddSpellCardToDeckCommand, ElementName=deckControl}"
-                                                    CommandParameter="{Binding}"
-                                                    Content="{Binding Name}"
-                                                    Style="{StaticResource CardAssignUnassignButton}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            <DataGrid
-                                Grid.Column="2"
-                                AutoGenerateColumns="False"
-                                ItemsSource="{Binding SelectedSpellDeck.SpellCards, Mode=TwoWay}">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn
-                                        Width="*"
-                                        Header="Cards in deck">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    Command="{Binding DataContext.RemoveSpellCardFromDeckCommand, ElementName=deckControl}"
-                                                    CommandParameter="{Binding}"
-                                                    Content="{Binding Name}"
-                                                    Style="{StaticResource CardAssignUnassignButton}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Grid>
-                    </Border>
-                </StackPanel>
+                <!--  Manage decks  -->
+                <controls:AddEditItem
+                    Title="Spell Deck"
+                    AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
+                    DeleteCommand="{Binding DeleteSpellDeckCommand}"
+                    ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
+                    SaveCommand="{Binding CreateSpellDeckCommand}"
+                    SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
+                    ViewOnly="False" />
+                <!--  Manage spell cards in decks  -->
+                <Border>
+                    <Border.Style>
+                        <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedSpellDeck}"
+                                    Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <controls:ItemTransferControl
+                        AddCommand="{Binding DataContext.AddSpellCardToDeckCommand, ElementName=deckControl}"
+                        ItemsDestination="{Binding SelectedSpellDeck.SpellCards, Mode=TwoWay}"
+                        ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
+                        RemoveCommand="{Binding DataContext.RemoveSpellCardFromDeckCommand, ElementName=deckControl}" />
+                </Border>
             </StackPanel>
 
             <!--  Item decks  -->
@@ -219,7 +175,7 @@
                     SelectedItem="{Binding SelectedItemDeck, Mode=TwoWay}"
                     ViewOnly="False" />
                 <!--  Manage item cards in deck  -->
-                <Border BorderThickness="1">
+                <Border>
                     <Border.Style>
                         <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -232,53 +188,11 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <DataGrid
-                            Grid.Column="0"
-                            AutoGenerateColumns="False"
-                            ItemsSource="{Binding AllItemCards, Mode=TwoWay}">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn
-                                    Width="*"
-                                    Header="All available cards">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Command="{Binding DataContext.AddItemCardToDeckCommand, ElementName=deckControl}"
-                                                CommandParameter="{Binding}"
-                                                Content="{Binding Name}"
-                                                Style="{StaticResource CardAssignUnassignButton}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <DataGrid
-                            Grid.Column="2"
-                            AutoGenerateColumns="False"
-                            ItemsSource="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay}">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn
-                                    Width="*"
-                                    Header="Cards in deck">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Command="{Binding DataContext.RemoveItemCardFromDeckCommand, ElementName=deckControl}"
-                                                CommandParameter="{Binding}"
-                                                Content="{Binding Name}"
-                                                Style="{StaticResource CardAssignUnassignButton}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
+                    <controls:ItemTransferControl
+                        AddCommand="{Binding DataContext.AddItemCardToDeckCommand, ElementName=deckControl}"
+                        ItemsDestination="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay}"
+                        ItemsSource="{Binding AllItemCards, Mode=TwoWay}"
+                        RemoveCommand="{Binding DataContext.RemoveItemCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
             </StackPanel>
         </Grid>
@@ -327,53 +241,11 @@
                 </Border.Style>
                 <StackPanel>
                     <Label Content="Spell decks" />
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <DataGrid
-                            Grid.Column="0"
-                            AutoGenerateColumns="False"
-                            ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn
-                                    Width="*"
-                                    Header="Available decks">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Command="{Binding DataContext.AddSpellDeckToCharacterCommand, ElementName=deckControl}"
-                                                CommandParameter="{Binding}"
-                                                Content="{Binding Name}"
-                                                Style="{StaticResource CardAssignUnassignButton}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <DataGrid
-                            Grid.Column="2"
-                            AutoGenerateColumns="False"
-                            ItemsSource="{Binding CharacterSpellDecks, Mode=TwoWay}">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn
-                                    Width="*"
-                                    Header="Decks on character">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Command="{Binding DataContext.RemoveSpellDeckFromCharacterCommand, ElementName=deckControl}"
-                                                CommandParameter="{Binding}"
-                                                Content="{Binding Name}"
-                                                Style="{StaticResource CardAssignUnassignButton}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
+                    <controls:ItemTransferControl
+                        AddCommand="{Binding DataContext.AddSpellDeckToCharacterCommand, ElementName=deckControl}"
+                        ItemsDestination="{Binding CharacterSpellDecks, Mode=TwoWay}"
+                        ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
+                        RemoveCommand="{Binding DataContext.RemoveSpellDeckFromCharacterCommand, ElementName=deckControl}" />
                 </StackPanel>
             </Border>
 
@@ -395,53 +267,11 @@
                 </Border.Style>
                 <StackPanel>
                     <Label Content="Item decks" />
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <DataGrid
-                            Grid.Column="0"
-                            AutoGenerateColumns="False"
-                            ItemsSource="{Binding AllItemDecks, Mode=TwoWay}">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn
-                                    Width="*"
-                                    Header="Available decks">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Command="{Binding DataContext.AddItemDeckToCharacterCommand, ElementName=deckControl}"
-                                                CommandParameter="{Binding}"
-                                                Content="{Binding Name}"
-                                                Style="{StaticResource CardAssignUnassignButton}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <DataGrid
-                            Grid.Column="2"
-                            AutoGenerateColumns="False"
-                            ItemsSource="{Binding CharacterItemDecks, Mode=TwoWay}">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn
-                                    Width="*"
-                                    Header="Decks on character">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Command="{Binding DataContext.RemoveItemDeckFromCharacterCommand, ElementName=deckControl}"
-                                                CommandParameter="{Binding}"
-                                                Content="{Binding Name}"
-                                                Style="{StaticResource CardAssignUnassignButton}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
+                    <controls:ItemTransferControl
+                        AddCommand="{Binding DataContext.AddItemDeckToCharacterCommand, ElementName=deckControl}"
+                        ItemsDestination="{Binding CharacterItemDecks, Mode=TwoWay}"
+                        ItemsSource="{Binding AllItemDecks, Mode=TwoWay}"
+                        RemoveCommand="{Binding DataContext.RemoveItemDeckFromCharacterCommand, ElementName=deckControl}" />
                 </StackPanel>
             </Border>
         </Grid>
