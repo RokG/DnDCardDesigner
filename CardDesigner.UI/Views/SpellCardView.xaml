@@ -34,7 +34,10 @@
                 </StackPanel>
                 <!--  Character creation  -->
                 <controls:AddEditItem
+                    Title="Selected spell card: "
                     Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
                     AddedItemName="{Binding SpellCardName, Mode=TwoWay}"
                     BorderBrush="Transparent"
                     BorderThickness="0"

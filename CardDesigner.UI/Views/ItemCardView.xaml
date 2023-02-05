@@ -196,7 +196,10 @@
                 </StackPanel>
                 <!--  Character creation  -->
                 <controls:AddEditItem
+                    Title="Selected item card: "
                     Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
                     AddedItemName="{Binding ItemCardName, Mode=TwoWay}"
                     BorderBrush="Transparent"
                     BorderThickness="0"
