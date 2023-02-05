@@ -47,6 +47,16 @@ namespace CardDesigner.DataAccess.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Character Classes
+            modelBuilder.Entity<SpellDeckDesignLinkerEntity>()
+                   .HasOne(c => c.Character)
+                   .WithMany(e => e.SpellDeckDescriptors);
+
+            // Character Classes
+            modelBuilder.Entity<ItemDeckDesignLinkerEntity>()
+                   .HasOne(c => c.Character)
+                   .WithMany(e => e.ItemDeckDescriptors);
+
+            // Character Classes
             modelBuilder.Entity<CharacterClassEntity>()
                    .HasOne(c => c.Character)
                    .WithMany(e => e.Classes);

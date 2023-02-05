@@ -45,9 +45,12 @@ namespace CardDesigner.DataAccess.Services
                     .Include(c => c.ItemDeckDescriptors)
                     .Include(c => c.DeckBackgroundDesign)
                     .Include(c => c.Classes)
-                    .Include(c => c.CasterStats)
-                    .Include(c => c.Attributes)
                     .Single(c => c.ID == characterModel.ID);
+
+                // Update attributes
+
+                characterEntity.Attributes = _mapper.Map<CharacterAttributesEntity>(characterModel.Attributes);
+                characterEntity.CasterStats = _mapper.Map<CasterStatsEntity>(characterModel.CasterStats);
 
                 // Add classes
                 foreach (CharacterClassModel characterClassModel in characterModel.Classes)
