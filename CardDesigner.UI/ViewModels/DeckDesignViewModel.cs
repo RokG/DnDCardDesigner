@@ -32,12 +32,17 @@ namespace CardDesigner.UI.ViewModels
         private string addedCharacterDeckDesignName;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateBackgroundDeckDesignCommand))]
         private CharacterDeckDesignModel selectedBackgroundDesign;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateBackgroundDeckDesignCommand))]
         private CharacterDeckDesignModel selectedCharacterBackgroundDesign;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateItemDeckDesignCommand))]
+        [NotifyCanExecuteChangedFor(nameof(UpdateSpellDeckDesignCommand))]
+        [NotifyCanExecuteChangedFor(nameof(UpdateBackgroundDeckDesignCommand))]
         private CharacterModel selectedCharacter;
 
         [ObservableProperty]
@@ -64,9 +69,11 @@ namespace CardDesigner.UI.ViewModels
         private string addedItemDeckDesignName;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateItemDeckDesignCommand))]
         private ItemDeckDesignModel selectedItemDeckDesign;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateItemDeckDesignCommand))]
         private ItemDeckModel selectedItemDeck;
 
         [ObservableProperty]
@@ -87,9 +94,11 @@ namespace CardDesigner.UI.ViewModels
         private string addedSpellDeckDesignName;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateSpellDeckDesignCommand))]
         private SpellDeckDesignModel selectedSpellDeckDesign;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateSpellDeckDesignCommand))]
         private SpellDeckModel selectedSpellDeck;
 
         [ObservableProperty]
@@ -139,6 +148,9 @@ namespace CardDesigner.UI.ViewModels
             GetCharacterBackgroundDeck();
             UpdateSpellDeckDesign();
             UpdateItemDeckDesign();
+
+            // Without this, the selected character in list on UI does not update?
+            SelectedCharacter = AllCharacters.FirstOrDefault();
         }
 
         private void OnNavigatingAway()
@@ -352,21 +364,50 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.DeleteCardDesign(SelectedBackgroundDesign);
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUpdateSpellDeckDesign))]
         private async void UpdateSpellDeckDesign()
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedSpellDeckDesign);
+            if (SelectedSpellDeckDesign != null)
+            {
+                SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(c => c.SpellDeckID == SelectedSpellDeck.ID).DesignID = SelectedSpellDeckDesign.ID;
+            }
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
-        [RelayCommand]
+
+        private bool CanUpdateSpellDeckDesign()
+        {
+            return SelectedCharacter != null && SelectedSpellDeckDesign != null && SelectedSpellDeck != null;
+        }
+
+        [RelayCommand(CanExecute = nameof(CanUpdateItemDeckDesign))]
         private async void UpdateItemDeckDesign()
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedItemDeckDesign);
+            if (SelectedItemDeckDesign != null)
+            {
+                SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(c => c.ItemDeckID == SelectedItemDeck.ID).DesignID = SelectedItemDeckDesign.ID;
+            }
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+        private bool CanUpdateItemDeckDesign()
+        {
+            return SelectedCharacter != null && SelectedItemDeckDesign != null && SelectedItemDeck != null;
         }
 
-        [RelayCommand]
-        private async void UpdateCharactereckDesign()
+        [RelayCommand(CanExecute = nameof(CanUpdateBackgroundDeckDesign))]
+        private async void UpdateBackgroundDeckDesign()
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedBackgroundDesign);
+            if (SelectedBackgroundDesign != null)
+            {
+                SelectedCharacter.DeckBackgroundDesign = SelectedBackgroundDesign;
+            }
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+        private bool CanUpdateBackgroundDeckDesign()
+        {
+            return SelectedCharacter != null && SelectedBackgroundDesign != null;
         }
 
         partial void OnSelectedCharacterChanged(CharacterModel characterModel)

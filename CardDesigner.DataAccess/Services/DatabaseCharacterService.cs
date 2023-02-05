@@ -47,8 +47,7 @@ namespace CardDesigner.DataAccess.Services
                     .Include(c => c.Classes)
                     .Single(c => c.ID == characterModel.ID);
 
-                // Update attributes
-
+                // Update attributes and caster stats
                 characterEntity.Attributes = _mapper.Map<CharacterAttributesEntity>(characterModel.Attributes);
                 characterEntity.CasterStats = _mapper.Map<CasterStatsEntity>(characterModel.CasterStats);
 
