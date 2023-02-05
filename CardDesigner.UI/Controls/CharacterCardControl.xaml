@@ -1,0 +1,210 @@
+﻿<UserControl x:Class="CardDesigner.UI.Controls.CharacterCardControl" x:Name="characterCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
+    xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
+    xmlns:local="clr-namespace:CardDesigner.UI.Controls">
+    <UserControl.Resources>
+        <!--  Character header  -->
+        <ControlTemplate x:Key="CharacterHeaderTemplate">
+            <Canvas Width="246">
+                <controls:TextBoxWithPlaceholderControl
+                    Width="246"
+                    Background="Transparent"
+                    FontSize="{Binding CharacterCard.TitleFontSize, ElementName=characterCard, Mode=TwoWay}"
+                    Foreground="{Binding CardDesign.HeaderTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    InputText="{Binding Character.Title, ElementName=characterCard, Mode=TwoWay}"
+                    IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
+                <ItemsControl
+                    Canvas.Top="25"
+                    Canvas.Right="5"
+                    ItemsSource="{Binding Character.Classes, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Border
+                                    Width="25"
+                                    Height="25"
+                                    Margin="2,0,0,0"
+                                    Background="{Binding CardDesign.HeaderColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    BorderBrush="{Binding CardDesign.LineColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    BorderThickness="2"
+                                    CornerRadius="20">
+                                    <Label
+                                        Content="{StaticResource Druid}"
+                                        Style="{StaticResource IconLabel}" />
+                                </Border>
+                                <Border
+                                    Width="25"
+                                    Height="25"
+                                    Margin="2,0,0,0"
+                                    Background="{Binding CardDesign.HeaderColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    BorderBrush="{Binding CardDesign.LineColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    BorderThickness="2"
+                                    CornerRadius="20">
+                                    <Label
+                                        Padding="0"
+                                        HorizontalAlignment="Center"
+                                        Background="Transparent"
+                                        Content="{Binding Level}" />
+                                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Canvas>
+        </ControlTemplate>
+        <!--  Feat header  -->
+        <ControlTemplate x:Key="FeatHeaderTemplate">
+            <Canvas Width="246">
+                <controls:TextBoxWithPlaceholderControl
+                    Width="246"
+                    Background="Transparent"
+                    FontSize="{Binding CharacterCard.TitleFontSize, ElementName=characterCard, Mode=TwoWay}"
+                    Foreground="{Binding CardDesign.HeaderTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    InputText="{Binding CharacterCard.Title, ElementName=characterCard, Mode=TwoWay}"
+                    IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
+                <Border
+                    Canvas.Top="25"
+                    Canvas.Right="5"
+                    Width="25"
+                    Height="25"
+                    Margin="2,0,0,0"
+                    Background="{Binding CardDesign.HeaderColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderBrush="{Binding CardDesign.LineColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderThickness="2"
+                    CornerRadius="20">
+                    <Label
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        Background="Transparent"
+                        Content="{Binding CharacterCard.Level, ElementName=characterCard, Mode=TwoWay}" />
+                </Border>
+            </Canvas>
+        </ControlTemplate>
+        <!--  Abilities content  -->
+        <ControlTemplate x:Key="AbilitiesContentTemplate">
+            <Label Content="AAAA" />
+        </ControlTemplate>
+        <!--  Avatar content  -->
+        <ControlTemplate x:Key="AvatarContentTemplate">
+            <!--  Item icon  -->
+            <controls:ImageControl
+                ImageSource="{Binding Character.AvatarImagePath, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ImageStretch="{Binding Character.AvatarImageStretch, ElementName=characterCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
+        </ControlTemplate>
+        <!--  Description textbox  -->
+        <ControlTemplate x:Key="DescriptionContentTemplate">
+            <controls:TextBoxWithPlaceholderControl
+                Width="246"
+                MaxHeight="300"
+                Background="Transparent"
+                FontSize="{Binding CharacterCard.DescriptionFontSize, ElementName=characterCard, Mode=TwoWay}"
+                Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                InputText="{Binding CharacterCard.Description, ElementName=characterCard, Mode=TwoWay}"
+                IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
+        </ControlTemplate>
+    </UserControl.Resources>
+    <Viewbox>
+        <Grid>
+            <!--  Card Header  -->
+            <Border
+                Width="250"
+                Height="80"
+                Margin="0"
+                Padding="0"
+                VerticalAlignment="Top"
+                Background="{Binding CardDesign.HeaderColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderBrush="{StaticResource CardLineColor}"
+                BorderThickness="2"
+                CornerRadius="4" />
+            <!--  Card Footer  -->
+            <Border
+                Width="250"
+                Height="80"
+                Margin="0"
+                Padding="0"
+                VerticalAlignment="Bottom"
+                Background="{Binding CardDesign.FooterColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderBrush="{StaticResource CardLineColor}"
+                BorderThickness="2"
+                CornerRadius="4" />
+            <!--  Card contents  -->
+            <Canvas>
+                <!--  Body lines  -->
+                <Border
+                    Canvas.Top="35"
+                    Width="250"
+                    Height="280"
+                    Margin="0"
+                    Padding="0"
+                    Background="{Binding CardDesign.BackgroundColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderBrush="{Binding CardDesign.LineColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderThickness="0,2,0,2" />
+
+                <!--  Header  -->
+                <ContentControl
+                    Canvas.Left="2"
+                    Width="248"
+                    Margin="0,0,5,0">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Setter Property="Template" Value="{StaticResource CharacterHeaderTemplate}" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
+                                    Value="{x:Static enums:CharacterCardType.Feats}">
+                                    <Setter Property="Template" Value="{StaticResource FeatHeaderTemplate}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+
+                <!--  Content  -->
+                <ContentControl
+                    Canvas.Left="2"
+                    Canvas.Top="50"
+                    Width="248">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
+                                    Value="{x:Static enums:CharacterCardType.Abilities}">
+                                    <Setter Property="Template" Value="{StaticResource AbilitiesContentTemplate}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
+                                    Value="{x:Static enums:CharacterCardType.Avatar}">
+                                    <Setter Property="Template" Value="{StaticResource AvatarContentTemplate}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
+                                    Value="{x:Static enums:CharacterCardType.Feats}">
+                                    <Setter Property="Template" Value="{StaticResource DescriptionContentTemplate}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+
+            </Canvas>
+            <!--  Card border  -->
+            <Border
+                Width="250"
+                Height="350"
+                Margin="0"
+                Padding="0"
+                BorderBrush="{Binding CardDesign.LineColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderThickness="2"
+                CornerRadius="4" />
+        </Grid>
+    </Viewbox>
+</UserControl>

@@ -129,7 +129,7 @@
             BorderBrush="{TemplateBinding BorderBrush}"
             BorderThickness="{TemplateBinding BorderThickness}"
             SnapsToDevicePixels="True">
-            <Grid>
+            <Grid Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition
@@ -225,7 +225,6 @@
     </Style>
 
 
-    <Style TargetType="{x:Type Slider}"
-        BasedOn="{StaticResource SliderStyle}" />
+    <Style BasedOn="{StaticResource SliderStyle}" TargetType="{x:Type Slider}" />
 
 </ResourceDictionary>

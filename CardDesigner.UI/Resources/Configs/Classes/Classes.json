@@ -1,0 +1,20 @@
+[
+  {
+    "ID": "class1",
+    "Name": "Barbarian",
+    "Specializations": ["A","B","C"],
+    "DiceType": "d8"
+  },
+  {
+    "ID": "class2",
+    "Name": "Cloister",
+    "Specializations": [ "A1", "B1", "C1" ],
+    "DiceType": "d8"
+  },
+  {
+    "ID": "class3",
+    "Name": "Armaggedon",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d8"
+  }
+]

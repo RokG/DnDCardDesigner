@@ -49,6 +49,8 @@
                 <ResourceDictionary Source="Resources/Icons/Properties/SpellConcentration.xaml" />
                 <ResourceDictionary Source="Resources/Icons/Properties/SpellAOE.xaml" />
 
+                <ResourceDictionary Source="Resources/Icons/Classes/CharacterClasses.xaml" />
+
                 <!--  Styles  -->
                 <ResourceDictionary Source="Styles/StaticItemStyles.xaml" />
                 <ResourceDictionary Source="Styles/ControlItemStyles.xaml" />

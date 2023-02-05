@@ -10,16 +10,16 @@ using System.Windows.Media;
 namespace CardDesigner.UI.Views
 {
     /// <summary>
-    /// Interaction logic for CardDesignView.xaml
+    /// Interaction logic for DeckDesignView.xaml
     /// </summary>
-    public partial class CardDesignView : UserControl
+    public partial class DeckDesignView : UserControl
     {
         private struct ColorHSV
         {
             public double Hue, Saturation, Value;
         }
 
-        public CardDesignView()
+        public DeckDesignView()
         {
             InitializeComponent();
         }

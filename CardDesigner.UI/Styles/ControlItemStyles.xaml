@@ -103,8 +103,8 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="FontWeight" Value="Bold" />
                             <Setter Property="Background" Value="{StaticResource ButtonHighlightBGND}" />
-                            <Setter Property="Foreground" Value="{StaticResource ButtonHighlightFGND}" />
-                            <Setter Property="BorderBrush" Value="{StaticResource ButtonHighlightBRDR}" />
+                            <Setter Property="Foreground" Value="{StaticResource CheckboxNormalFGND}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource CheckboxNormalFGND}" />
                             <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                     </ControlTemplate.Triggers>

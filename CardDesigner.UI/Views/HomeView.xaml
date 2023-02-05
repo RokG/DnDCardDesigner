@@ -13,14 +13,24 @@
         </Grid.RowDefinitions>
 
         <!--  header area  -->
-        <Border BorderThickness="0,0,0,1">
-            <StackPanel>
-                <Label
-                    Content="{Binding Name}"
-                    ContentStringFormat="{}{0}"
-                    FontSize="32" />
-                <Label Content="{Binding Description}" />
-            </StackPanel>
+        <Border BorderThickness="0,0,0,3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Name}"
+                        FontSize="32" />
+                    <Label
+                        Margin="0,10"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Description}" />
+                </StackPanel>
+            </Grid>
         </Border>
 
         <!--  Content Area  -->

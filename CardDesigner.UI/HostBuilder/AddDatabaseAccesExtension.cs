@@ -13,10 +13,8 @@ namespace CardDesigner.UI.HostBuilder
             {
                 services.AddSingleton<ICharacterService, DatabaseCharacterService>();
                 services.AddSingleton<ICardDesignService, DatabaseCardDesignService>();
-                services.AddSingleton<ISpellDeckService, DatabaseSpellDeckService>();
-                services.AddSingleton<ISpellCardService, DatabaseSpellCardService>();
-                services.AddSingleton<IItemDeckService, DatabaseItemDeckService>();
-                services.AddSingleton<IItemCardService, DatabaseItemCardService>();
+                services.AddSingleton<IDeckService, DatabaseDeckService>();
+                services.AddSingleton<ICardService, DatabaseCardService>();
                 services.AddSingleton<IJsonFileItemService, JsonFileItemsService>();
             });
 

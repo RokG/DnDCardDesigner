@@ -23,43 +23,29 @@ namespace CardDesigner.UI.ViewModels
         #region Properties
 
         [ObservableProperty]
-        private ItemCardModel testItemCard;
-
-        [ObservableProperty]
-        private SpellCardModel testSpellCard;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(CreateCardDesignCommand))]
-        private string addedCardDesignName;
-
-        [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateCharacterCommand))]
         private string addedCharacterName;
 
         [ObservableProperty]
-        private string addedSpellDeckName;
-
-        [ObservableProperty]
-        private string addedItemDeckName;
-
-        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AddClassToCharacterCommand))]
+        [NotifyCanExecuteChangedFor(nameof(RemoveClassFromCharacterCommand))]
         private CharacterModel selectedCharacter;
-
-        [ObservableProperty]
-        private SpellDeckModel selectedSpellDeck;
-
-        [ObservableProperty]
-        private ItemDeckModel selectedItemDeck;
-
-        [ObservableProperty]
-        private ObservableCollection<SpellDeckModel> allSpellDecks;
-
-        [ObservableProperty]
-        private ObservableCollection<ItemDeckModel> allItemDecks;
 
         [ObservableProperty]
         private ObservableCollection<CharacterModel> allCharacters;
 
+        [ObservableProperty]
+        private string selectedSpecialization;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AddClassToCharacterCommand))]
+        private ClassModel selectedClass;
+
+        [ObservableProperty]
+        private ObservableCollection<ClassModel> allClasses;
+
+        [ObservableProperty]
+        private CharacterClassModel characterClasses;
         #endregion
 
         #region Actions, Events, Commands
@@ -79,7 +65,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.CharacterChanged += OnCharacterCreated;
+            _cardDesignerStore.CharacterChanged += OnCharacterChanged;
 
             LoadData();
 
@@ -89,18 +75,6 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Private methods
-
-        private void OnCharacterCreated(CharacterModel character, DataChangeType change)
-        {
-            AllCharacters.Add(character);
-            SelectedCharacter = character;
-        }
-
-        private void OnCharacterDeleted(CharacterModel character, DataChangeType change)
-        {
-            AllCharacters.Remove(SelectedCharacter);
-            SelectedCharacter = AllCharacters.FirstOrDefault();
-        }
 
         #endregion
 
@@ -120,24 +94,84 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllCharacters = new(_cardDesignerStore.Characters);
-            AllSpellDecks = new(_cardDesignerStore.SpellDecks);
-            AllItemDecks = new(_cardDesignerStore.ItemDecks);
+            AllClasses = new(_cardDesignerStore.Classes);
+        }
+
+        private void OnCharacterChanged(CharacterModel character, DataChangeType change)
+        {
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllCharacters.Add(character);
+                    SelectedCharacter = character;
+                    break;
+                case DataChangeType.Updated:
+                    SelectedCharacter = character;
+                    break;
+                case DataChangeType.Deleted:
+                    AllCharacters.Remove(SelectedCharacter);
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
 
         #region Commands
 
-        [RelayCommand(CanExecute = nameof(CanCreateCardDesign))]
-        private async void CreateCardDesign()
+
+        [RelayCommand(CanExecute = nameof(CanAddClassToCharacter))]
+        private async void AddClassToCharacter(ClassModel classModel)
         {
+            CharacterClassModel characterClassModel = new()
+            {
+                Class = classModel,
+                ClassID = classModel.ID,
+                ClassSpecialization = classModel.Specializations.FirstOrDefault()
+            };
+
+            if (SelectedCharacter.Classes == null)
+            {
+                SelectedCharacter.Classes = new()
+                {
+                    characterClassModel
+                };
+            }
+            else
+            {
+                SelectedCharacter.Classes.Add(characterClassModel);
+            }
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            OnPropertyChanged(nameof(SelectedCharacter.Classes));
         }
 
-        private bool CanCreateCardDesign()
+        private bool CanAddClassToCharacter()
         {
-            bool noName = (AddedCardDesignName == string.Empty || AddedCardDesignName == null);
+            return (SelectedClass != null) && (SelectedCharacter == null ? false : SelectedCharacter.Classes.Count < 3);
+        }
 
-            return !noName;
+        [RelayCommand(CanExecute = nameof(CanRemoveClassFromCharacter))]
+        private async void RemoveClassFromCharacter(ClassModel classModel)
+        {
+            if (SelectedCharacter.Classes != null && classModel != null)
+            {
+                if (SelectedCharacter.Classes.Count > 0)
+                {
+                    CharacterClassModel existingClass = SelectedCharacter.Classes.FirstOrDefault(c => c.ClassID == classModel.ID);
+                    if (existingClass != null)
+                    {
+                        SelectedCharacter.Classes.Remove(existingClass);
+                        await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+                    }
+                }
+            }
+        }
+
+        private bool CanRemoveClassFromCharacter()
+        {
+            return SelectedCharacter == null ? false : SelectedCharacter.Classes.Count > 0;
         }
 
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
@@ -158,6 +192,12 @@ namespace CardDesigner.UI.ViewModels
         private async void DeleteCharacter()
         {
             await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand]
+        private async void UpdateCharacter()
+        {
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         #endregion

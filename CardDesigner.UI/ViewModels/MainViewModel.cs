@@ -55,6 +55,9 @@ namespace CardDesigner.UI.ViewModels
                 case "SpellCardViewModel":
                     CurrentViewModel = new SpellCardViewModel(_cardDesignerStore, _navigationStore);
                     break;
+                case "CharacterCardViewModel":
+                    CurrentViewModel = new CharacterCardViewModel(_cardDesignerStore, _navigationStore);
+                    break;
                 case "ItemCardViewModel":
                     CurrentViewModel = new ItemCardViewModel(_cardDesignerStore, _navigationStore);
                     break;
@@ -64,8 +67,8 @@ namespace CardDesigner.UI.ViewModels
                 case "CharacterViewModel":
                     CurrentViewModel = new CharacterViewModel(_cardDesignerStore, _navigationStore);
                     break;
-                case "CardDesignViewModel":
-                    CurrentViewModel = new CardDesignViewModel(_cardDesignerStore, _navigationStore);
+                case "DeckDesignViewModel":
+                    CurrentViewModel = new DeckDesignViewModel(_cardDesignerStore, _navigationStore);
                     break;
                 default:
                     break;
@@ -76,7 +79,7 @@ namespace CardDesigner.UI.ViewModels
         {
             //switch (CurrentViewModel)
             //{
-            //    case CardDesignViewModel cardDesign:
+            //    case DeckDesignViewModel cardDesign:
             //        _navigationStore.SelectedSpellDeckDesign = cardDesign.
             //        break;
             //    default:

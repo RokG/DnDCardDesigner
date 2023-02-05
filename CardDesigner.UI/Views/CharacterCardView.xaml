@@ -1,0 +1,197 @@
+﻿<UserControl x:Class="CardDesigner.UI.Views.CharacterCardView" x:Name="characterCardControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
+    xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
+    xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    BorderBrush="{StaticResource WindowBorder}"
+    BorderThickness="3,0,0,0">
+    <UserControl.Resources>
+
+        <!--  Avatar template  -->
+        <ControlTemplate x:Key="AvatarTemplate">
+            <Grid Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Content="Avatar: " />
+                <controls:FilePicker
+                    Grid.Column="1"
+                    Margin="5"
+                    Text="{Binding DataContext.SelectedCharacter.AvatarImagePath, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox
+                    Grid.Column="2"
+                    SelectedItem="{Binding DataContext.SelectedCharacter.AvatarImageStretch, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <sys:String>None</sys:String>
+                    <sys:String>Fill</sys:String>
+                    <sys:String>Uniform</sys:String>
+                    <sys:String>Uniform To Fill</sys:String>
+                </ComboBox>
+            </Grid>
+        </ControlTemplate>
+        <!--  Abilities template  -->
+        <ControlTemplate x:Key="AbilitiesTemplate">
+            <!--  To switch where the modifier and skill elvel is displayed  -->
+            <CheckBox Content="Switch + and A" />
+        </ControlTemplate>
+        <!--  Feat template  -->
+        <ControlTemplate x:Key="FeatsTemplate">
+            <StackPanel>
+                <DockPanel HorizontalAlignment="Stretch">
+                    <Label
+                        Background="Transparent"
+                        Content="Level: " />
+                    <Slider
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Stretch"
+                        Background="Transparent"
+                        Maximum="20"
+                        Minimum="0"
+                        Value="{Binding DataContext.SelectedCharacterCard.Level, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+                <DockPanel HorizontalAlignment="Stretch">
+                    <Label
+                        Background="Transparent"
+                        Content="Class: " />
+                </DockPanel>
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  header area  -->
+        <Border BorderThickness="0,0,0,3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Name}"
+                        ContentStringFormat="{}{0}s"
+                        FontSize="32" />
+                    <Label
+                        Margin="0,10"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Description}" />
+                </StackPanel>
+                <!--  Character creation  -->
+                <controls:AddEditItem
+                    Title="Selected character card: "
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
+                    AddedItemName="{Binding CharacterCardName, Mode=TwoWay}"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}"
+                    Orientation="Horizontal"
+                    SaveCommand="{Binding CreateCharacterCardCommand}"
+                    SelectedItem="{Binding SelectedCharacterCard, Mode=TwoWay}"
+                    UpdateCommand="{Binding UpdateCharacterCardCommand}"
+                    ViewOnly="False" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <!--  Content area  -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Card Settings  -->
+            <StackPanel Orientation="Vertical">
+                <!--  Card name  -->
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label
+                            Margin="5,0"
+                            Padding="0"
+                            Content="Card name:" />
+                        <TextBox
+                            Margin="5,0"
+                            Text="{Binding SelectedCharacterCard.Name}" />
+                    </StackPanel>
+                </Border>
+                <!--  Characters  -->
+                <controls:AddEditItem
+                    Title="Characters"
+                    ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
+                    ViewOnly="True" />
+                <!--  Card Type  -->
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label
+                            Content="Character Card Type"
+                            FontSize="16" />
+                        <TabControl
+                            Grid.Row="2"
+                            Height="500"
+                            MaxHeight="500"
+                            ItemsSource="{Binding Source={StaticResource CharacterCardTypeEnum}}"
+                            SelectedItem="{Binding SelectedCharacterCard.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <TabControl.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <ContentControl>
+                                            <ContentControl.Style>
+                                                <Style TargetType="{x:Type ContentControl}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Avatar">
+                                                            <Setter Property="Template" Value="{StaticResource AvatarTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Feats">
+                                                            <Setter Property="Template" Value="{StaticResource FeatsTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Abilities">
+                                                            <Setter Property="Template" Value="{StaticResource AbilitiesTemplate}" />
+                                                        </DataTrigger>
+                                                        <!--<DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Stats">
+                                                            <Setter Property="Template" Value="{StaticResource StatsTemplate}" />
+                                                        </DataTrigger>-->
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ContentControl.Style>
+                                        </ContentControl>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </TabControl.ContentTemplate>
+                        </TabControl>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+
+            <!--  Card view  -->
+            <controls:CharacterCardControl
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                CardDesign="{Binding SelectedCharacterDeckDesign}"
+                Character="{Binding SelectedCharacter, Mode=TwoWay}"
+                CharacterCard="{Binding SelectedCharacterCard, Mode=TwoWay}"
+                IsEditable="True" />
+        </Grid>
+    </Grid>
+</UserControl>

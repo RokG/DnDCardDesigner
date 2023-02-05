@@ -1,6 +1,5 @@
 ﻿using CardDesigner.Domain.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace CardDesigner.Domain.Services
 {
@@ -8,5 +7,6 @@ namespace CardDesigner.Domain.Services
     {
         public IEnumerable<ArmourModel> LoadArmours(string filePath);
         public IEnumerable<WeaponModel> LoadWeapons(string filePath);
+        public IEnumerable<ClassModel> LoadClasses(string filePath);
     }
 }

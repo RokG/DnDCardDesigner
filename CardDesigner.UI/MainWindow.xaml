@@ -18,6 +18,9 @@
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
                 <views:HomeView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CharacterCardViewModel}">
+                <views:CharacterCardView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:SpellCardViewModel}">
                 <views:SpellCardView />
             </DataTemplate>
@@ -30,8 +33,8 @@
             <DataTemplate DataType="{x:Type vms:CharacterViewModel}">
                 <views:CharacterView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:CardDesignViewModel}">
-                <views:CardDesignView />
+            <DataTemplate DataType="{x:Type vms:DeckDesignViewModel}">
+                <views:DeckDesignView />
             </DataTemplate>
         </Grid.Resources>
 
@@ -43,6 +46,7 @@
         <!--  SidePanel column  -->
         <Grid
             Grid.Column="0"
+            Width="250"
             Background="{StaticResource WindowBackgroundDark}">
             <DockPanel LastChildFill="False">
                 <RadioButton
@@ -52,6 +56,18 @@
                     Content="HOME"
                     DockPanel.Dock="Top"
                     IsChecked="True" />
+                <RadioButton
+                    Height="60"
+                    Command="{Binding ChangeViewModelCommand}"
+                    CommandParameter="CharacterViewModel"
+                    Content="Character creator"
+                    DockPanel.Dock="Top" />
+                <RadioButton
+                    Height="60"
+                    Command="{Binding ChangeViewModelCommand}"
+                    CommandParameter="CharacterCardViewModel"
+                    Content="Character Card creator"
+                    DockPanel.Dock="Top" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
@@ -73,14 +89,7 @@
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="CharacterViewModel"
-                    Content="Character creator"
-                    DockPanel.Dock="Top"
-                    Visibility="Collapsed" />
-                <RadioButton
-                    Height="60"
-                    Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="CardDesignViewModel"
+                    CommandParameter="DeckDesignViewModel"
                     Content="Design card"
                     DockPanel.Dock="Top" />
                 <Grid

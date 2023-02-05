@@ -5,8 +5,6 @@ using System.Windows.Markup;
 
 namespace CardDesigner.UI.Converters
 {
-
-
     public class TypeToStringConverter : MarkupExtension, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

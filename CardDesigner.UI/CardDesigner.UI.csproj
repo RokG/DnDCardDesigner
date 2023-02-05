@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <UseWPF>true</UseWPF>
     <OutputPath>$(SolutionDir.Substring(0,3))Coding\CardDesigner\Output\</OutputPath>
@@ -10,21 +10,24 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>none</DebugType>
+    <DebugType>portable</DebugType>
+    <NoWarn>1701;1702;CS8826</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>none</DebugType>
+    <DebugType>portable</DebugType>
+    <NoWarn>1701;1702;CS8826</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Configs\Classes\Classes.json" />
     <None Remove="Resources\Images\dnd-icon-13.png" />
-    <None Remove="Resources\Items\Armour\ChestArmours.json" />
-    <None Remove="Resources\Items\Armour\HeadArmours.json" />
-    <None Remove="Resources\Items\Armour\LegArmours.json" />
-    <None Remove="Resources\Items\Armour\Shields.json" />
-    <None Remove="Resources\Items\Weapons\MeleeWeapons.json" />
-    <None Remove="Resources\Items\Weapons\RangedWeapons.json" />
+    <None Remove="Resources\Configs\Armour\ChestArmours.json" />
+    <None Remove="Resources\Configs\Armour\HeadArmours.json" />
+    <None Remove="Resources\Configs\Armour\LegArmours.json" />
+    <None Remove="Resources\Configs\Armour\Shields.json" />
+    <None Remove="Resources\Configs\Weapons\MeleeWeapons.json" />
+    <None Remove="Resources\Configs\Weapons\RangedWeapons.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,26 +48,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Configs\Classes\Classes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\dnd-icon-13.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Untitled-2.ico" />
-    <Content Include="Resources\Items\Armour\HeadArmours.json">
+    <Content Include="Resources\Configs\Armour\HeadArmours.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Items\Armour\LegArmours.json">
+    <Content Include="Resources\Configs\Armour\LegArmours.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Items\Armour\ChestArmours.json">
+    <Content Include="Resources\Configs\Armour\ChestArmours.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Items\Armour\Shields.json">
+    <Content Include="Resources\Configs\Armour\Shields.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Items\Weapons\RangedWeapons.json">
+    <Content Include="Resources\Configs\Weapons\RangedWeapons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Items\Weapons\MeleeWeapons.json">
+    <Content Include="Resources\Configs\Weapons\MeleeWeapons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

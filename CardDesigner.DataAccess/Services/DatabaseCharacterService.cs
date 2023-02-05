@@ -39,109 +39,103 @@ namespace CardDesigner.DataAccess.Services
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                try
+                // Get matching entity
+                CharacterEntity characterEntity = dbContext.Characters
+                    .Include(c => c.SpellDeckDescriptors)
+                    .Include(c => c.ItemDeckDescriptors)
+                    .Include(c => c.DeckBackgroundDesign)
+                    .Include(c => c.Classes)
+                    .Single(c => c.ID == characterModel.ID);
+
+                // Update attributes and caster stats
+                characterEntity.Attributes = _mapper.Map<CharacterAttributesEntity>(characterModel.Attributes);
+                characterEntity.CasterStats = _mapper.Map<CasterStatsEntity>(characterModel.CasterStats);
+
+                // Add classes
+                foreach (CharacterClassModel characterClassModel in characterModel.Classes)
                 {
-                    // Get spell deck from database
-                    CharacterEntity characterEntity = dbContext.Characters
-                        .Include(sd => sd.SpellDeckDescriptors)
-                        .Include(sd => sd.ItemDeckDescriptors)
-                        .Include(sd => sd.DeckBackgroundDesign)
-                        .Single(sc => sc.ID == characterModel.ID);
-
-                    // Add/Update spell decks
-                    foreach (SpellDeckDesignLinkerModel spellDeckDesignModel in characterModel.SpellDeckDescriptors)
+                    CharacterClassEntity matchingEntity = characterEntity.Classes.FirstOrDefault(c => c.ClassID == characterClassModel.ClassID);
+                    //If any class is new, add it to the list
+                    if (matchingEntity == null)
                     {
-                        // If any descriptor is new, add it to the list
-                        if (!characterEntity.SpellDeckDescriptors.Where(sd => sd.SpellDeckID == spellDeckDesignModel.SpellDeckID).Any())
-                        {
-                            SpellDeckDesignLinkerEntity spellDeckDesignEntity = _mapper.Map<SpellDeckDesignLinkerEntity>(spellDeckDesignModel);
-                            characterEntity.SpellDeckDescriptors.Add(spellDeckDesignEntity);
-                        }
-                        // If any descriptor exists, update it
-                        else
-                        {
-                            characterEntity.SpellDeckDescriptors
-                                .First(d => d.SpellDeckID == spellDeckDesignModel.SpellDeckID)
-                                .DesignID = spellDeckDesignModel.DesignID;
-                        }
+                        CharacterClassEntity characterClassEntity = _mapper.Map<CharacterClassEntity>(characterClassModel);
+                        characterEntity.Classes.Add(characterClassEntity);
                     }
-
-                    // Add/Update item decks
-                    foreach (ItemDeckDesignLinkerModel itemDeckDesignModel in characterModel.ItemDeckDescriptors)
+                    // If any class exists, update it
+                    else
                     {
-                        // If any descriptor is new, add it to the list
-                        if (!characterEntity.ItemDeckDescriptors.Where(sd => sd.ItemDeckID == itemDeckDesignModel.ItemDeckID).Any())
-                        {
-                            ItemDeckDesignLinkerEntity itemDeckDesignEntity = _mapper.Map<ItemDeckDesignLinkerEntity>(itemDeckDesignModel);
-                            characterEntity.ItemDeckDescriptors.Add(itemDeckDesignEntity);
-                        }
-                        // If any descriptor exists, update it
-                        else
-                        {
-                            characterEntity.ItemDeckDescriptors
-                                .First(d => d.ItemDeckID == itemDeckDesignModel.ItemDeckID)
-                                .DesignID = itemDeckDesignModel.DesignID;
-                        }
+                        matchingEntity.Level = characterClassModel.Level;
                     }
-
-                    // Add/Update back decks
-                    // If any descriptor is new, add it to the list
-                    if (characterModel.DeckBackgroundDesign != null)
-                    {
-                        if (characterEntity.DeckBackgroundDesign == null)
-                        {
-                            CharacterDeckDesignEntity characterDeckDesignEntity = _mapper.Map<CharacterDeckDesignEntity>(characterModel.DeckBackgroundDesign);
-                            characterEntity.DeckBackgroundDesign = characterDeckDesignEntity;
-                        }
-                        else
-                        {
-                            CharacterDeckDesignEntity characterDeckDesignEntity = dbContext.CharacterDeckDesigns
-                                .Single(sc => sc.ID == characterModel.DeckBackgroundDesign.ID);
-
-                            characterEntity.DeckBackgroundDesign = null;
-                            characterEntity.DeckBackgroundDesign = characterDeckDesignEntity;
-                        }
-                    }
-
-                    // Remove spell decks
-                    foreach (SpellDeckDesignLinkerEntity spellDeckDesignEntity in characterEntity.SpellDeckDescriptors)
-                    {
-                        // If any descriptor is missing, remove it from the list
-                        if (!characterModel.SpellDeckDescriptors.Any(id => id.SpellDeckID == spellDeckDesignEntity.SpellDeckID))
-                        {
-                            SpellDeckDesignLinkerEntity toRemove = dbContext.SpellDeckDesignLinkers.Single(
-                                sc => (
-                                sc.SpellDeckID == spellDeckDesignEntity.SpellDeckID
-                                && sc.Character.ID == characterModel.ID
-                                ));
-                            dbContext.SpellDeckDesignLinkers.Remove(toRemove);
-                        }
-                    }
-
-                    // Remove item decks
-                    foreach (ItemDeckDesignLinkerEntity itemDeckDesignEntity in characterEntity.ItemDeckDescriptors)
-                    {
-                        // If any descriptor is missing, remove it from the list
-                        if (!characterModel.ItemDeckDescriptors.Any(id => id.ItemDeckID == itemDeckDesignEntity.ItemDeckID))
-                        {
-                            ItemDeckDesignLinkerEntity toRemove = dbContext.ItemDeckDesignLinkers.Single(
-                                sc => (
-                                sc.ItemDeckID == itemDeckDesignEntity.ItemDeckID
-                                && sc.Character.ID == characterModel.ID
-                                ));
-                            dbContext.ItemDeckDesignLinkers.Remove(toRemove);
-                        }
-                    }
-
-                    // Update and return
-                    await dbContext.SaveChangesAsync();
-
-                    return _mapper.Map<CharacterModel>(characterEntity);
                 }
-                catch (Exception)
+
+                // Remove Spell Decks
+                CharacterClassEntity removedClassEntity = characterEntity.Classes
+                    .FirstOrDefault(p => characterModel.Classes.All(p2 => p2.ClassID != p.ClassID));
+                if (removedClassEntity != null)
                 {
-                    return null;
+                    characterEntity.Classes.Remove(removedClassEntity);
+                    dbContext.CharacterClasses.Remove(removedClassEntity);
                 }
+
+                // Add Spell Decks
+                foreach (SpellDeckDesignLinkerModel spellDeckDesignLinkerModel in characterModel.SpellDeckDescriptors)
+                {
+                    SpellDeckDesignLinkerEntity matchingEntity = characterEntity.SpellDeckDescriptors
+                        .FirstOrDefault(c => c.Character.ID == characterModel.ID && c.SpellDeckID == spellDeckDesignLinkerModel.SpellDeckID);
+                    //If any class is new, add it to the list
+                    if (matchingEntity == null)
+                    {
+                        SpellDeckDesignLinkerEntity characterClassEntity = _mapper.Map<SpellDeckDesignLinkerEntity>(spellDeckDesignLinkerModel);
+                        characterEntity.SpellDeckDescriptors.Add(characterClassEntity);
+                    }
+                    // If any class exists, update it
+                    else
+                    {
+                        matchingEntity.DesignID = spellDeckDesignLinkerModel.DesignID;
+                    }
+                }
+
+                // Remove Spell Decks
+                SpellDeckDesignLinkerEntity removedSpellDeckEntity = characterEntity.SpellDeckDescriptors
+                    .FirstOrDefault(p => characterModel.SpellDeckDescriptors.All(p2 => p2.SpellDeckID != p.SpellDeckID));
+                if (removedSpellDeckEntity != null)
+                {
+                    characterEntity.SpellDeckDescriptors.Remove(removedSpellDeckEntity);
+                    dbContext.SpellDeckDesignLinkers.Remove(removedSpellDeckEntity);
+                }
+
+                // Add Item Decks
+                foreach (ItemDeckDesignLinkerModel itemDeckDesignLinkerModel in characterModel.ItemDeckDescriptors)
+                {
+                    ItemDeckDesignLinkerEntity matchingEntity = characterEntity.ItemDeckDescriptors
+                        .FirstOrDefault(c => c.Character.ID == characterModel.ID && c.ItemDeckID == itemDeckDesignLinkerModel.ItemDeckID);
+                    //If any class is new, add it to the list
+                    if (matchingEntity == null)
+                    {
+                        ItemDeckDesignLinkerEntity characterClassEntity = _mapper.Map<ItemDeckDesignLinkerEntity>(itemDeckDesignLinkerModel);
+                        characterEntity.ItemDeckDescriptors.Add(characterClassEntity);
+                    }
+                    // If any class exists, update it
+                    else
+                    {
+                        matchingEntity.DesignID = itemDeckDesignLinkerModel.DesignID;
+                    }
+                }
+
+                // Remove Item Decks
+                ItemDeckDesignLinkerEntity removedItemDeckEntity = characterEntity.ItemDeckDescriptors
+                    .FirstOrDefault(p => characterModel.ItemDeckDescriptors.All(p2 => p2.ItemDeckID != p.ItemDeckID));
+                if (removedItemDeckEntity != null)
+                {
+                    characterEntity.ItemDeckDescriptors.Remove(removedItemDeckEntity);
+                    dbContext.ItemDeckDesignLinkers.Remove(removedItemDeckEntity);
+                }
+
+                CharacterEntity createdItemCardEntity = dbContext.Characters.Update(characterEntity).Entity;
+
+                await dbContext.SaveChangesAsync();
+
+                return _mapper.Map<CharacterModel>(createdItemCardEntity);
             }
         }
 
@@ -176,6 +170,9 @@ namespace CardDesigner.DataAccess.Services
                     .Include(c => c.SpellDeckDescriptors)
                     .Include(c => c.ItemDeckDescriptors)
                     .Include(c => c.DeckBackgroundDesign)
+                    .Include(c => c.Classes)
+                    .Include(c => c.CasterStats)
+                    .Include(c => c.Attributes)
                     .ToListAsync();
 
                 return characterEntities.Select(c => _mapper.Map<CharacterModel>(c));

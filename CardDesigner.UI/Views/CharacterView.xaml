@@ -13,248 +13,410 @@
         </Grid.RowDefinitions>
 
         <!--  header area  -->
-        <Border BorderThickness="0,0,0,1">
-            <StackPanel>
-                <Label
-                    Content="{Binding Name}"
-                    ContentStringFormat="{}{0}s"
-                    FontSize="32" />
-                <Label Content="{Binding Description}" />
-            </StackPanel>
+        <Border BorderThickness="0,0,0,3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Name}"
+                        ContentStringFormat="{}{0}s"
+                        FontSize="32" />
+                    <Label
+                        Margin="0,10"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Description}" />
+                </StackPanel>
+                <!--  Character creation  -->
+                <controls:AddEditItem
+                    Title="Selected character: "
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
+                    AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    DeleteCommand="{Binding DeleteCharacterCommand}"
+                    ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
+                    Orientation="Horizontal"
+                    SaveCommand="{Binding CreateCharacterCommand}"
+                    SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
+                    UpdateCommand="{Binding UpdateCharacterCommand}"
+                    ViewOnly="False" />
+            </Grid>
         </Border>
 
         <!--  body area  -->
         <Border Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel>
+                <!--  Abilities  -->
+                <Border>
+                    <controls:AttributesControl Attributes="{Binding DataContext.SelectedCharacter.Attributes, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Border>
 
-                    <controls:AddEditItem
-                        Title="Characters"
-                        AddedItemName="{Binding AddedCharacterName, Mode=TwoWay}"
-                        DeleteCommand="{Binding DeleteCharacterCommand}"
-                        ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateCharacterCommand}"
-                        SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
-                        ViewOnly="False" />
+                <!--  Character  -->
+                <Border
+                    Grid.Column="2"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Race: " />
+                            <ComboBox
+                                Width="150"
+                                DockPanel.Dock="Right"
+                                ItemsSource="{Binding Source={StaticResource RaceEnum}}"
+                                SelectedItem="{Binding DataContext.SelectedCharacter.Race, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Alignment: " />
+                            <ComboBox
+                                Width="150"
+                                DockPanel.Dock="Right"
+                                ItemsSource="{Binding Source={StaticResource AlignmentEnum}}"
+                                SelectedItem="{Binding DataContext.SelectedCharacter.Alignment, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
 
-                    <!--  Manage spell decks on character  -->
-                    <Border BorderThickness="1">
-                        <Border.Style>
-                            <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
-                                <Setter Property="Visibility" Value="Visible" />
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedCharacter}"
-                                        Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <StackPanel>
-                            <Label Content="Spell decks" />
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <DataGrid
-                                    Grid.Column="0"
-                                    AutoGenerateColumns="False"
-                                    ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn
-                                            Width="*"
-                                            Header="Available decks">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
+                        <!--  Character visuals  -->
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Height: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.Height, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Weight: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.Weight, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Hitpoints: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.Hitpoints, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+
+                        <!--  Character classes  -->
+                        <Border Width="295">
+                            <StackPanel Margin="3">
+                                <Label Content="Character Classes: " />
+                                <ListBox
+                                    Width="285"
+                                    Margin="0"
+                                    Padding="0"
+                                    Background="{StaticResource ListAreaBGND}"
+                                    ItemsSource="{Binding DataContext.SelectedCharacter.Classes, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel
+                                                Width="280"
+                                                Margin="0"
+                                                HorizontalAlignment="Left">
+                                                <DockPanel LastChildFill="False">
+                                                    <Label Content="Class: " />
+                                                    <Label Content="{Binding Class.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                     <Button
-                                                        Command="{Binding DataContext.AddSpellDeckToCharacterCommand, ElementName=characterControl}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Name}"
-                                                        Style="{StaticResource CardAssignUnassignButton}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                                <DataGrid
-                                    Grid.Column="2"
-                                    AutoGenerateColumns="False"
-                                    ItemsSource="{Binding SelectedCharacter.SpellDecks, Mode=TwoWay}">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn
-                                            Width="*"
-                                            Header="Decks on character">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                        Command="{Binding DataContext.RemoveSpellDeckFromCharacterCommand, ElementName=characterControl}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Name}"
-                                                        Style="{StaticResource CardAssignUnassignButton}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-
-                    <!--  Manage spell decks on character  -->
-                    <Border BorderThickness="1">
-                        <Border.Style>
-                            <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
-                                <Setter Property="Visibility" Value="Visible" />
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedCharacter}"
-                                        Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <StackPanel>
-                            <Label Content="Item decks" />
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <DataGrid
-                                    Grid.Column="0"
-                                    AutoGenerateColumns="False"
-                                    ItemsSource="{Binding AllItemDecks, Mode=TwoWay}">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn
-                                            Width="*"
-                                            Header="Available decks">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                        Command="{Binding DataContext.AddItemDeckToCharacterCommand, ElementName=characterControl}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Name}"
-                                                        Style="{StaticResource CardAssignUnassignButton}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                                <DataGrid
-                                    Grid.Column="2"
-                                    AutoGenerateColumns="False"
-                                    ItemsSource="{Binding SelectedCharacter.ItemDecks, Mode=TwoWay}">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn
-                                            Width="*"
-                                            Header="Decks on character">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                        Command="{Binding DataContext.RemoveItemDeckFromCharacterCommand, ElementName=characterControl}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Name}"
-                                                        Style="{StaticResource CardAssignUnassignButton}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-
-                    <controls:AddEditItem
-                        Title="CardDesigns"
-                        AddedItemName="{Binding AddedCardDesignName, Mode=TwoWay}"
-                        DeleteCommand="{Binding DeleteCardDesignCommand}"
-                        ItemsSource="{Binding AllCardDesigns, Mode=TwoWay}"
-                        SaveCommand="{Binding CreateCardDesignCommand}"
-                        SelectedItem="{Binding SelectedCardDesign, Mode=TwoWay}"
-                        ViewOnly="False" />
-
-                    <Button
-                        Command="{Binding UpdateCardDesignCommand}"
-                        Content="TEST" />
-                </StackPanel>
-
-                <!--  Card overview  -->
-                <TabControl
-                    Grid.Column="1"
-                    Visibility="Collapsed">
-                    <TabItem Header="Deck Background">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel
-                                VerticalAlignment="Top"
-                                Orientation="Vertical">
-                                <controls:ColorPickerControl
-                                    Title="Line Color"
-                                    Width="200"
-                                    CurrentColor="{Binding SelectedCardDesign.BackLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <controls:ColorPickerControl
-                                    Title="Background Color"
-                                    Width="200"
-                                    CurrentColor="{Binding SelectedCardDesign.BackBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Slider
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Center"
-                                    HorizontalContentAlignment="Stretch"
-                                    Maximum="20"
-                                    Minimum="0"
-                                    Value="{Binding SelectedCardDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <controls:FilePicker Text="{Binding SelectedCardDesign.BackgroundIconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <ComboBox
-                                    Grid.Column="1"
-                                    SelectedItem="{Binding SelectedCardDesign.BackgroundIconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                    <sys:String>None</sys:String>
-                                    <sys:String>Fill</sys:String>
-                                    <sys:String>Uniform</sys:String>
-                                    <sys:String>Uniform To Fill</sys:String>
-                                </ComboBox>
+                                                        Padding="7,0,7,3"
+                                                        Command="{Binding DataContext.RemoveClassFromCharacterCommand, ElementName=characterControl}"
+                                                        CommandParameter="{Binding Class}"
+                                                        Content="X"
+                                                        DockPanel.Dock="Right"
+                                                        FontSize="16"
+                                                        FontWeight="Bold" />
+                                                </DockPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="Specialization: " />
+                                                    <Label Content="{Binding ClassSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                </StackPanel>
+                                                <DockPanel>
+                                                    <Label Content="Level: " />
+                                                    <Slider
+                                                        HorizontalAlignment="Stretch"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalContentAlignment="Stretch"
+                                                        Background="Transparent"
+                                                        Maximum="20"
+                                                        Minimum="0"
+                                                        Value="{Binding Level}" />
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListBoxItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                        <Border>
+                                                            <ContentPresenter />
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.Style>
+                                        <Style BasedOn="{StaticResource {x:Type ListBox}}" TargetType="{x:Type ListBox}">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Setter Property="MinHeight" Value="0" />
+                                            <Style.Triggers>
+                                                <Trigger Property="HasItems" Value="False">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListBox.Style>
+                                </ListBox>
                             </StackPanel>
-                            <controls:CardBackgroundControl
-                                Grid.Column="1"
-                                CardDesign="{Binding SelectedCardDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
-                    </TabItem>
-                    <TabItem Header="Spell Card Foreground">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <controls:SpellCardControl
-                                Grid.Column="1"
-                                SpellCard="{Binding TestSpellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
-                    </TabItem>
-                    <TabItem Header="Item Card Foregound">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <controls:ItemCardControl
-                                Grid.Column="1"
-                                ItemCard="{Binding TestItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
-                    </TabItem>
-                </TabControl>
+                        </Border>
+                        <!--  Add class  -->
+                        <Border Style="{StaticResource VisibleBorder}">
+                            <StackPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label Content="Add Class: " />
+                                    <Button
+                                        Padding="5,0,5,3"
+                                        Command="{Binding DataContext.AddClassToCharacterCommand, ElementName=characterControl}"
+                                        CommandParameter="{Binding DataContext.SelectedClass, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Content="+"
+                                        DockPanel.Dock="Right"
+                                        FontSize="20"
+                                        FontWeight="Bold" />
+                                </DockPanel>
+                                <ComboBox
+                                    DisplayMemberPath="Name"
+                                    ItemsSource="{Binding DataContext.AllClasses, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedIndex="0"
+                                    SelectedItem="{Binding DataContext.SelectedClass, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <ComboBox
+                                    ItemsSource="{Binding DataContext.SelectedClass.Specializations, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedIndex="0"
+                                    SelectedItem="{Binding DataContext.SelectedSpecialization, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </Border>
 
+                        <!--  Add class to character  -->
+                    </StackPanel>
+                </Border>
+
+                <!--  Stats template  -->
+                <Border Grid.Column="3">
+                    <StackPanel>
+                        <!--  Baic stats  -->
+                        <Border Style="{StaticResource VisibleBorder}">
+                            <StackPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label Content="Proficiency: " />
+                                    <TextBox
+                                        Width="40"
+                                        MinWidth="40"
+                                        DockPanel.Dock="Right"
+                                        Text="{Binding DataContext.SelectedCharacter.Proficiency, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DockPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label Content="Passive Insight: " />
+                                    <TextBox
+                                        Width="40"
+                                        MinWidth="40"
+                                        DockPanel.Dock="Right"
+                                        Text="{Binding DataContext.SelectedCharacter.PassiveInsight, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DockPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label Content="Passive Perception: " />
+                                    <TextBox
+                                        Width="40"
+                                        MinWidth="40"
+                                        DockPanel.Dock="Right"
+                                        Text="{Binding DataContext.SelectedCharacter.PassivePerception, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DockPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label Content="Armour class: " />
+                                    <TextBox
+                                        Width="40"
+                                        MinWidth="40"
+                                        DockPanel.Dock="Right"
+                                        Text="{Binding DataContext.SelectedCharacter.ArmourClass, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DockPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label Content="Initiative: " />
+                                    <TextBox
+                                        Width="40"
+                                        MinWidth="40"
+                                        DockPanel.Dock="Right"
+                                        Text="{Binding DataContext.SelectedCharacter.Initiative, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DockPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label Content="Speed: " />
+                                    <TextBox
+                                        Width="40"
+                                        MinWidth="40"
+                                        DockPanel.Dock="Right"
+                                        Text="{Binding DataContext.SelectedCharacter.Speed, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DockPanel>
+                            </StackPanel>
+                        </Border>
+                        <!--  Proficiencies  -->
+                        <Border Style="{StaticResource VisibleBorder}">
+                            <StackPanel Margin="5">
+                                <Label Content="Proficiencies" />
+                                <CheckBox Content="Light armour" />
+                                <CheckBox Content="Medium armour" />
+                                <CheckBox Content="Heavy armour" />
+                                <CheckBox Content="Simple weapons" />
+                                <CheckBox Content="Martial weapons" />
+                                <CheckBox Content="Shields" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <Border
+                    Grid.Column="4"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label Content="Caster stats" />
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Spell attack bonus: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.CasterStats.SpellAttackBonus, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Spell save DC: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.CasterStats.SpellSaveDC, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Known spells: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.CasterStats.KnowSpells, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Prepared spells: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.CasterStats.PreparedSpells, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Cantrips: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.CantripsKnown, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <Label Content="Spell slots" />
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Level 1: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel1, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Level 2: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel2, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Level 3: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel3, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Level 4: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel4, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Level 5: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel5, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Level 6: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel6, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Level 7: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel7, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Level 8: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel8, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center">
+                            <Label Content="Level 9: " />
+                            <Slider
+                                Margin="10,10,20,10"
+                                Padding="5"
+                                Maximum="4"
+                                Minimum="0"
+                                Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel9, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
             </Grid>
         </Border>
     </Grid>
