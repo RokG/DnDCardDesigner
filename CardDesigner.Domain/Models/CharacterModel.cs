@@ -11,11 +11,12 @@ namespace CardDesigner.Domain.Models
 
         public string Name { get; set; }
         public string Title { get; set; }
-        public List<SpellDeckDesignLinkerModel> SpellDeckDescriptors { get; set; }
-        public List<ItemDeckDesignLinkerModel> ItemDeckDescriptors { get; set; }
-        public CharacterDeckDesignModel DeckBackgroundDesign { get; set; }
-        public List<CharacterClassModel> Classes { get; set; }
-        public CharacterAttributesModel Attributes { get; set; }
+        public List<SpellDeckDesignLinkerModel> SpellDeckDescriptors { get; set; } = new();
+        public List<ItemDeckDesignLinkerModel> ItemDeckDescriptors { get; set; } = new();
+        public CharacterDeckDesignModel DeckBackgroundDesign { get; set; } = new();
+        public List<CharacterClassModel> Classes { get; set; } = new();
+        public CharacterAttributesModel Attributes { get; set; } = new();
+        public CasterStatsModel CasterStats { get; set; } = new();
 
         public Race Race { get; set; }
         public Alignment Alignment { get; set; }
@@ -25,13 +26,14 @@ namespace CardDesigner.Domain.Models
 
         public string Height { get; set; }
         public string Weight { get; set; }
-        public string Eyes { get; set; }
-        public string Skin { get; set; }
-        public string Hair { get; set; }
+        public string Hitpoints { get; set; }
 
         public int Proficiency { get; set; }
         public int PassivePerception { get; set; }
         public int PassiveInsight { get; set; }
+        public int ArmourClass { get; set; }
+        public int Initiative { get; set; }
+        public int Speed { get; set; }
 
         public bool IsLightArmourProficiency { get; set; }
         public bool IsMediumArmourProficient { get; set; }
@@ -40,18 +42,5 @@ namespace CardDesigner.Domain.Models
         public bool IsSimpleWeaponProficient { get; set; }
         public bool IsMartialWeaponProficient { get; set; }
 
-        public int Strength { get; set; }
-        public int Dexterity { get; set; }
-        public int Constitution { get; set; }
-        public int Inteligence { get; set; }
-        public int Wisdom { get; set; }
-        public int Charisma { get; set; }
-
-        public int Health { get; set; }
-        public int Initiative { get; set; }
-        public int Speed { get; set; }
-        public int ArmourClass { get; set; }
-        public int SpellAttackBonus { get; set; }
-        public int SpellSaveDC { get; set; }
     }
 }

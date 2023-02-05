@@ -153,11 +153,8 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateCharacterCard()
         {
-            //AddClassToCharacter();
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
             await _cardDesignerStore.UpdateCharacterCard(SelectedCharacterCard);
         }
-
 
         #endregion
 

@@ -38,6 +38,7 @@ namespace CardDesigner.UI.ViewModels
         private string selectedSpecialization;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AddClassToCharacterCommand))]
         private ClassModel selectedClass;
 
         [ObservableProperty]
@@ -93,6 +94,7 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllCharacters = new(_cardDesignerStore.Characters);
+            AllClasses = new(_cardDesignerStore.Classes);
         }
 
         private void OnCharacterChanged(CharacterModel character, DataChangeType change)
@@ -141,13 +143,13 @@ namespace CardDesigner.UI.ViewModels
             {
                 SelectedCharacter.Classes.Add(characterClassModel);
             }
-            await _cardDesignerStore.UpdateCharacterClasses(SelectedCharacter);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
             OnPropertyChanged(nameof(SelectedCharacter.Classes));
         }
 
         private bool CanAddClassToCharacter()
         {
-            return SelectedCharacter == null ? false : SelectedCharacter.Classes.Count < 3;
+            return (SelectedClass != null) && (SelectedCharacter == null ? false : SelectedCharacter.Classes.Count < 3);
         }
 
         [RelayCommand(CanExecute = nameof(CanRemoveClassFromCharacter))]
@@ -161,7 +163,7 @@ namespace CardDesigner.UI.ViewModels
                     if (existingClass != null)
                     {
                         SelectedCharacter.Classes.Remove(existingClass);
-                        await _cardDesignerStore.UpdateCharacterClasses(SelectedCharacter);
+                        await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
                     }
                 }
             }
@@ -175,7 +177,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
         private async void CreateCharacter()
         {
-            await _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = AddedCharacterName, Attributes = new(), Classes = new() });
+            await _cardDesignerStore.CreateCharacter(new CharacterModel() { Name = AddedCharacterName });
         }
 
         private bool CanCreateCharacter()
@@ -192,6 +194,11 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.DeleteCharacter(SelectedCharacter);
         }
 
+        [RelayCommand]
+        private async void UpdateCharacter()
+        {
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
 
         #endregion
     }

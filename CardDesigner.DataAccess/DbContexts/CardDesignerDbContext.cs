@@ -36,6 +36,7 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<CharacterDeckEntity> CharacterDecks { get; set; }
         public DbSet<CharacterClassEntity> CharacterClasses { get; set; }
         public DbSet<CharacterAttributesEntity> CharacterAttributes { get; set; }
+        public DbSet<CasterStatsEntity> CasterStats { get; set; }
 
         //https://stackoverflow.com/questions/19342908/how-to-create-a-many-to-many-mapping-in-entity-framework
 
@@ -54,6 +55,12 @@ namespace CardDesigner.DataAccess.DbContexts
             modelBuilder.Entity<CharacterAttributesEntity>()
                    .HasOne(c => c.Character)
                    .WithOne(e => e.Attributes)
+                   .HasForeignKey<CharacterEntity>(b => b.ID);
+
+            // Caster Stats
+            modelBuilder.Entity<CasterStatsEntity>()
+                   .HasOne(c => c.Character)
+                   .WithOne(e => e.CasterStats)
                    .HasForeignKey<CharacterEntity>(b => b.ID);
 
             // Character Spell Deck - Deck design

@@ -351,96 +351,6 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
-        private async void AddSpellDeckToCharacter(SpellDeckModel spellDeck)
-        {
-            if (SelectedCharacter.SpellDeckDescriptors.Any())
-            {
-                // If character has any descriptors
-                if (SelectedCharacter.SpellDeckDescriptors.Any(d => d.SpellDeckID == spellDeck.ID))
-                {
-                    SelectedCharacter.SpellDeckDescriptors
-                        .First(d => d.SpellDeckID == spellDeck.ID)
-                        .DesignID = SelectedSpellDeckDesign == null ? 0 : SelectedSpellDeckDesign.ID;
-                }
-                else
-                {
-                    SelectedCharacter.SpellDeckDescriptors.Add(new()
-                    {
-                        SpellDeckID = spellDeck.ID,
-                        DesignID = SelectedSpellDeckDesign == null ? 0 : SelectedSpellDeckDesign.ID
-                    });
-                }
-            }
-            else
-            {
-                // Otherwise make a new list
-                SelectedCharacter.SpellDeckDescriptors = new()
-                {
-                    new()
-                    {
-                        SpellDeckID = spellDeck.ID,
-                        DesignID = SelectedSpellDeckDesign == null ? 0 : SelectedSpellDeckDesign.ID
-                    }
-                };
-            }
-
-            await _cardDesignerStore.UpdateCharacterDecks(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void AddItemDeckToCharacter(ItemDeckModel itemDeck)
-        {
-            if (SelectedCharacter.ItemDeckDescriptors.Any())
-            {
-                // If character has any descriptors
-                if (SelectedCharacter.ItemDeckDescriptors.Any(d => d.ItemDeckID == itemDeck.ID))
-                {
-                    SelectedCharacter.ItemDeckDescriptors
-                        .First(d => d.ItemDeckID == itemDeck.ID)
-                        .DesignID = SelectedItemDeckDesign == null ? 0 : SelectedItemDeckDesign.ID;
-                }
-                else
-                {
-                    SelectedCharacter.ItemDeckDescriptors.Add(new()
-                    {
-                        ItemDeckID = itemDeck.ID,
-                        DesignID = SelectedItemDeckDesign == null ? 0 : SelectedItemDeckDesign.ID
-                    });
-                }
-            }
-            else
-            {
-                // Otherwise make a new list
-                SelectedCharacter.ItemDeckDescriptors = new()
-                {
-                    new()
-                    {
-                        ItemDeckID = itemDeck.ID,
-                        DesignID = SelectedItemDeckDesign == null ? 0 : SelectedItemDeckDesign.ID
-                    }
-                };
-            }
-
-            await _cardDesignerStore.UpdateCharacterDecks(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void RemoveSpellDeckFromCharacter(SpellDeckModel spellDeck)
-        {
-            SpellDeckDesignLinkerModel toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(sd => sd.SpellDeckID == spellDeck.ID);
-            SelectedCharacter.SpellDeckDescriptors.Remove(toRemove);
-            await _cardDesignerStore.UpdateCharacterDecks(SelectedCharacter);
-        }
-
-        [RelayCommand]
-        private async void RemoveItemDeckFromCharacter(ItemDeckModel itemDeck)
-        {
-            ItemDeckDesignLinkerModel toRemove = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(sd => sd.ItemDeckID == itemDeck.ID);
-            SelectedCharacter.ItemDeckDescriptors.Remove(toRemove);
-            await _cardDesignerStore.UpdateCharacterDecks(SelectedCharacter);
-        }
-
-        [RelayCommand]
         private async void UpdateSpellDeckDesign()
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedSpellDeckDesign);
@@ -450,6 +360,7 @@ namespace CardDesigner.UI.ViewModels
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedItemDeckDesign);
         }
+
         [RelayCommand]
         private async void UpdateCharactereckDesign()
         {

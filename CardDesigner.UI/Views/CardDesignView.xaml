@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <!--  header area  -->
-        <Border BorderThickness="0,0,0,1">
+        <Border BorderThickness="0,0,0,3">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -58,137 +58,6 @@
                         SelectedItem="{Binding SelectedCharacterBackgroundDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ViewOnly="True" />
 
-                    <!--  Manage spell decks on character  -->
-                    <Border BorderThickness="1">
-                        <Border.Style>
-                            <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
-                                <Setter Property="Visibility" Value="Visible" />
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedCharacter}"
-                                        Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <StackPanel>
-                            <Label Content="Spell decks" />
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <DataGrid
-                                    Grid.Column="0"
-                                    AutoGenerateColumns="False"
-                                    ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn
-                                            Width="*"
-                                            Header="Available decks">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                        Command="{Binding DataContext.AddSpellDeckToCharacterCommand, ElementName=characterControl}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Name}"
-                                                        Style="{StaticResource CardAssignUnassignButton}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                                <DataGrid
-                                    Grid.Column="2"
-                                    AutoGenerateColumns="False"
-                                    ItemsSource="{Binding CharacterSpellDecks, Mode=TwoWay}">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn
-                                            Width="*"
-                                            Header="Decks on character">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                        Command="{Binding DataContext.RemoveSpellDeckFromCharacterCommand, ElementName=characterControl}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Name}"
-                                                        Style="{StaticResource CardAssignUnassignButton}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-
-                    <!--  Manage spell decks on character  -->
-                    <Border BorderThickness="1">
-                        <Border.Style>
-                            <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
-                                <Setter Property="Visibility" Value="Visible" />
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedCharacter}"
-                                        Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <StackPanel>
-                            <Label Content="Item decks" />
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <DataGrid
-                                    Grid.Column="0"
-                                    AutoGenerateColumns="False"
-                                    ItemsSource="{Binding AllItemDecks, Mode=TwoWay}">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn
-                                            Width="*"
-                                            Header="Available decks">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                        Command="{Binding DataContext.AddItemDeckToCharacterCommand, ElementName=characterControl}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Name}"
-                                                        Style="{StaticResource CardAssignUnassignButton}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                                <DataGrid
-                                    Grid.Column="2"
-                                    AutoGenerateColumns="False"
-                                    ItemsSource="{Binding CharacterItemDecks, Mode=TwoWay}">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn
-                                            Width="*"
-                                            Header="Decks on character">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                        Command="{Binding DataContext.RemoveItemDeckFromCharacterCommand, ElementName=characterControl}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Name}"
-                                                        Style="{StaticResource CardAssignUnassignButton}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
                 </StackPanel>
 
                 <!--  Card overview  -->

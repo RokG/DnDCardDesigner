@@ -73,6 +73,18 @@ namespace CardDesigner.UI.ViewModels
         [ObservableProperty]
         private ObservableCollection<CharacterDeckModel> allCharacterDecks;
 
+        [ObservableProperty]
+        private CharacterModel selectedCharacter;
+
+        [ObservableProperty]
+        private ObservableCollection<CharacterModel> allCharacters;
+
+        [ObservableProperty]
+        private ObservableCollection<SpellDeckModel> characterSpellDecks;
+
+        [ObservableProperty]
+        private ObservableCollection<ItemDeckModel> characterItemDecks;
+
         #endregion
 
         #region Constructor
@@ -89,10 +101,59 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
             _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
             _cardDesignerStore.CharacterDeckChanged += OnCharacterDeckChanged;
+            _cardDesignerStore.CharacterChanged += OnCharacterChanged;
 
             LoadData();
 
             SetSelectionFromNavigation();
+        }
+
+        private void OnCharacterChanged(CharacterModel characterModel, DataChangeType change)
+        {
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllCharacters.Add(characterModel);
+                    SelectedCharacter = characterModel;
+                    break;
+                case DataChangeType.Updated:
+                    SelectedCharacter = characterModel;
+                    GetCharacterSpellDecks();
+                    GetCharacterItemDecks();
+                    break;
+                case DataChangeType.Deleted:
+                    AllCharacters.Remove(SelectedCharacter);
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void GetCharacterSpellDecks()
+        {
+            CharacterSpellDecks = new();
+            if (SelectedCharacter?.SpellDeckDescriptors != null)
+            {
+                foreach (SpellDeckDesignLinkerModel deckDescriptor in SelectedCharacter.SpellDeckDescriptors)
+                {
+                    CharacterSpellDecks.Add(AllSpellDecks.First(i => i.ID == deckDescriptor.SpellDeckID));
+                }
+            }
+            SelectedSpellDeck = CharacterSpellDecks.FirstOrDefault();
+        }
+
+        private void GetCharacterItemDecks()
+        {
+            CharacterItemDecks = new();
+            if (SelectedCharacter?.ItemDeckDescriptors != null)
+            {
+                foreach (ItemDeckDesignLinkerModel deckDescriptor in SelectedCharacter.ItemDeckDescriptors)
+                {
+                    CharacterItemDecks.Add(AllItemDecks.First(i => i.ID == deckDescriptor.ItemDeckID));
+                }
+            }
+            SelectedItemDeck = CharacterItemDecks.FirstOrDefault();
         }
 
         private void SetSelectionFromNavigation()
@@ -139,6 +200,8 @@ namespace CardDesigner.UI.ViewModels
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
             AllCharacterDecks = new(_cardDesignerStore.CharacterDecks);
+            AllCharacters = new(_cardDesignerStore.Characters);
+            SelectedCharacter = AllCharacters.FirstOrDefault();
         }
 
         private void OnSpellDeckChanged(SpellDeckModel spellDeck, DataChangeType change)
@@ -317,6 +380,54 @@ namespace CardDesigner.UI.ViewModels
         private async void DeleteCharacterDeck()
         {
             await _cardDesignerStore.DeleteCharacterDeck(SelectedCharacterDeck);
+        }
+
+        [RelayCommand]
+        private async void AddSpellDeckToCharacter(SpellDeckModel spellDeck)
+        {
+            if (!SelectedCharacter.SpellDeckDescriptors.Any(d => d.SpellDeckID == spellDeck.ID))
+            {
+                SelectedCharacter.SpellDeckDescriptors.Add(new()
+                {
+                    SpellDeckID = spellDeck.ID,
+                });
+                await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            }
+        }
+
+        [RelayCommand]
+        private async void AddItemDeckToCharacter(ItemDeckModel itemDeck)
+        {
+            if (!SelectedCharacter.ItemDeckDescriptors.Any(d => d.ItemDeckID == itemDeck.ID))
+            {
+                SelectedCharacter.ItemDeckDescriptors.Add(new()
+                {
+                    ItemDeckID = itemDeck.ID,
+                });
+                await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            }
+        }
+
+        [RelayCommand]
+        private async void RemoveSpellDeckFromCharacter(SpellDeckModel spellDeck)
+        {
+            SpellDeckDesignLinkerModel toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(sd => sd.SpellDeckID == spellDeck.ID);
+            SelectedCharacter.SpellDeckDescriptors.Remove(toRemove);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand]
+        private async void RemoveItemDeckFromCharacter(ItemDeckModel itemDeck)
+        {
+            ItemDeckDesignLinkerModel toRemove = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(sd => sd.ItemDeckID == itemDeck.ID);
+            SelectedCharacter.ItemDeckDescriptors.Remove(toRemove);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        partial void OnSelectedCharacterChanged(CharacterModel selectedCharacter)
+        {
+            GetCharacterSpellDecks();
+            GetCharacterItemDecks();
         }
 
         #endregion

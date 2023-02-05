@@ -198,26 +198,9 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateCharacter(CharacterModel character)
         {
+
+
             if (await _characterService.UpdateCharacter(character) is CharacterModel updatedCharacter)
-            {
-                await UpdateCharactersFromDb();
-                AssignClassesToCharacter(updatedCharacter);
-                CharacterChanged?.Invoke(updatedCharacter, DataChangeType.Updated);
-            }
-        }
-
-        public async Task UpdateCharacterDecks(CharacterModel character)
-        {
-            if (await _characterService.UpdateCharacterDecks(character) is CharacterModel updatedCharacter)
-            {
-                await UpdateCharactersFromDb();
-                CharacterChanged?.Invoke(updatedCharacter, DataChangeType.Updated);
-            }
-        }
-
-        public async Task UpdateCharacterClasses(CharacterModel character)
-        {
-            if (await _characterService.UpdateCharacterClasses(character) is CharacterModel updatedCharacter)
             {
                 await UpdateCharactersFromDb();
                 AssignClassesToCharacter(updatedCharacter);
@@ -500,11 +483,11 @@ namespace CardDesigner.Domain.Stores
             _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Configs\Armour\LegArmours.json"));
             _armours.AddRange(_jsonFileItemService.LoadArmours(@".\Resources\Configs\Armour\Shields.json"));
 
-            _weapons.Clear();                                                
+            _weapons.Clear();
             _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Configs\Weapons\MeleeWeapons.json"));
             _weapons.AddRange(_jsonFileItemService.LoadWeapons(@".\Resources\Configs\Weapons\RangedWeapons.json"));
-                                                                             
-            _classes.Clear();                                                
+
+            _classes.Clear();
             _classes.AddRange(_jsonFileItemService.LoadClasses(@".\Resources\Configs\Classes\Classes.json"));
         }
 
