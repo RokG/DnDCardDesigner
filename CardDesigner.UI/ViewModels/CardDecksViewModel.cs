@@ -424,7 +424,7 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
-        partial void OnSelectedCharacterChanged(CharacterModel selectedCharacter)
+        partial void OnSelectedCharacterChanged(CharacterModel characterModel)
         {
             GetCharacterSpellDecks();
             GetCharacterItemDecks();

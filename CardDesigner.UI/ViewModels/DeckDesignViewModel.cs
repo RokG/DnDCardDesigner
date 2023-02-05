@@ -337,17 +337,19 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void DeleteSpellDeckDesign()
         {
-            //await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
+            await _cardDesignerStore.DeleteCardDesign(SelectedSpellDeckDesign);
         }
+
         [RelayCommand]
         private async void DeleteItemDeckDesign()
         {
-            //await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
+            await _cardDesignerStore.DeleteCardDesign(SelectedItemDeckDesign);
         }
+
         [RelayCommand]
         private async void DeleteCharacterDeckDesign()
         {
-            //await _cardDesignerStore.DeleteCardDesign(SelectedCardDesign);
+            await _cardDesignerStore.DeleteCardDesign(SelectedBackgroundDesign);
         }
 
         [RelayCommand]
@@ -367,7 +369,7 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.UpdateCardDesign(SelectedBackgroundDesign);
         }
 
-        partial void OnSelectedCharacterChanged(CharacterModel selectedCharacter)
+        partial void OnSelectedCharacterChanged(CharacterModel characterModel)
         {
             GetCharacterSpellDecks();
             GetCharacterItemDecks();
