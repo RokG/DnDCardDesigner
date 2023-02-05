@@ -114,13 +114,7 @@
 
             <!--  Card Settings  -->
             <StackPanel Orientation="Vertical">
-
-                <!--  Characters  -->
-                <controls:AddEditItem
-                    Title="Characters"
-                    ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
-                    SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
-                    ViewOnly="True" />
+                <!--  Card name  -->
                 <Border Style="{StaticResource VisibleBorder}">
                     <StackPanel>
                         <Label
@@ -132,6 +126,12 @@
                             Text="{Binding SelectedCharacterCard.Name}" />
                     </StackPanel>
                 </Border>
+                <!--  Characters  -->
+                <controls:AddEditItem
+                    Title="Characters"
+                    ItemsSource="{Binding AllCharacters, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
+                    ViewOnly="True" />
                 <!--  Card Type  -->
                 <Border Style="{StaticResource VisibleBorder}">
                     <StackPanel>
