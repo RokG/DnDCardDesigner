@@ -52,11 +52,10 @@
                 <Button x:Name="EditButton"
                     Height="40"
                     Padding="5"
-                    Click="OpenEditMode"
-                    Content="Edit"
+                    Command="{Binding UpdateCommand, ElementName=AddEditItemControl}"
+                    Content="Update"
                     DockPanel.Dock="Right"
-                    IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}"
-                    Visibility="Collapsed" />
+                    IsEnabled="{Binding Path=IsEditEnabled, ElementName=AddEditItemControl}" />
                 <Button x:Name="DeleteButton"
                     Height="40"
                     Padding="5"

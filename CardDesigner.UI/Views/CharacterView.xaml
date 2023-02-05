@@ -45,6 +45,7 @@
                     Orientation="Horizontal"
                     SaveCommand="{Binding CreateCharacterCommand}"
                     SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
+                    UpdateCommand="{Binding UpdateCharacterCommand}"
                     ViewOnly="False" />
             </Grid>
         </Border>
@@ -416,14 +417,7 @@
                         </DockPanel>
                     </StackPanel>
                 </Border>
-
-                <Button
-                    Grid.Column="5"
-                    Command="{Binding UpdateCharacterCommand}"
-                    Content="UPDATE" />
-
             </Grid>
         </Border>
-
     </Grid>
 </UserControl>

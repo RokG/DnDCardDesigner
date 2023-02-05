@@ -194,6 +194,7 @@
                         VerticalAlignment="Bottom"
                         Content="{Binding Description}" />
                 </StackPanel>
+
                 <!--  Character creation  -->
                 <controls:AddEditItem
                     Title="Selected item card: "
@@ -207,6 +208,7 @@
                     Orientation="Horizontal"
                     SaveCommand="{Binding CreateItemCardCommand}"
                     SelectedItem="{Binding SelectedItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    UpdateCommand="{Binding UpdateItemCardCommand}"
                     ViewOnly="False" />
             </Grid>
         </Border>
@@ -310,12 +312,6 @@
                             IsChecked="{Binding SelectedItemCard.RequiresAttunement}" />
                     </StackPanel>
                 </Border>
-
-                <!--  Manually update button  -->
-                <Button
-                    Grid.Row="4"
-                    Command="{Binding UpdateItemCardCommand}"
-                    Content="Update" />
 
             </StackPanel>
 

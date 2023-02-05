@@ -56,7 +56,7 @@
                             Height="40"
                             Padding="5"
                             HorizontalAlignment="Left"
-                            Command="{Binding UpdateBackgroundDeckDesignCommand}"
+                            Command="{Binding AssignBackgroundDeckDesignCommand}"
                             Content="Assign to Character" />
                         <Label
                             Background="Transparent"
@@ -68,14 +68,15 @@
                             Margin="0"
                             Padding="0"
                             VerticalAlignment="Center"
-                            AddedItemName="{Binding AddedCharacterDeckDesignName, Mode=TwoWay}"
+                            AddedItemName="{Binding AddedBackgroundDeckDesignName, Mode=TwoWay}"
                             BorderThickness="0"
-                            DeleteCommand="{Binding DeleteCharacterDeckDesignCommand}"
-                            ItemsSource="{Binding AllCharacterDeckDesigns, Mode=TwoWay}"
+                            DeleteCommand="{Binding DeleteBackgroundDeckDesignCommand}"
+                            ItemsSource="{Binding AllBackgroundDeckDesigns, Mode=TwoWay}"
                             Orientation="Horizontal"
-                            SaveCommand="{Binding CreateCharacterDeckDesignCommand}"
+                            SaveCommand="{Binding CreateBackgroundDeckDesignCommand}"
                             SelectedItem="{Binding SelectedBackgroundDesign, Mode=TwoWay}"
                             SelectionChanged="SelectedCardDesign_SelectionChanged"
+                            UpdateCommand="{Binding UpdateBackgroundDeckDesignCommand}"
                             ViewOnly="False" />
                     </DockPanel>
                     <Grid>
@@ -143,7 +144,7 @@
                             Height="40"
                             Padding="5"
                             HorizontalAlignment="Left"
-                            Command="{Binding UpdateSpellDeckDesignCommand}"
+                            Command="{Binding AssignSpellDeckDesignCommand}"
                             Content="Assign to Spell Deck" />
                         <Label
                             Background="Transparent"
@@ -182,6 +183,7 @@
                             SaveCommand="{Binding CreateSpellDeckDesignCommand}"
                             SelectedItem="{Binding SelectedSpellDeckDesign, Mode=TwoWay}"
                             SelectionChanged="SelectedCardDesign_SelectionChanged"
+                            UpdateCommand="{Binding UpdateSpellDeckDesignCommand}"
                             ViewOnly="False" />
                     </DockPanel>
                     <Grid>
@@ -242,7 +244,7 @@
                             Height="40"
                             Padding="5"
                             HorizontalAlignment="Left"
-                            Command="{Binding UpdateItemDeckDesignCommand}"
+                            Command="{Binding AssignItemDeckDesignCommand}"
                             Content="Assign to Item Deck" />
                         <Label
                             Background="Transparent"
@@ -281,6 +283,7 @@
                             SaveCommand="{Binding CreateItemDeckDesignCommand}"
                             SelectedItem="{Binding SelectedItemDeckDesign, Mode=TwoWay}"
                             SelectionChanged="SelectedCardDesign_SelectionChanged"
+                            UpdateCommand="{Binding UpdateItemDeckDesignCommand}"
                             ViewOnly="False" />
                     </DockPanel>
                     <Grid>

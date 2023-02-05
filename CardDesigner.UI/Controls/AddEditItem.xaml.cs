@@ -101,6 +101,15 @@ namespace CardDesigner.UI.Controls
         public static readonly DependencyProperty SaveCommandProperty =
             DependencyProperty.Register(nameof(SaveCommand), typeof(ICommand), typeof(AddEditItem), new PropertyMetadata(null));
 
+        public ICommand UpdateCommand
+        {
+            get => (ICommand)GetValue(UpdateCommandProperty);
+            set => SetValue(UpdateCommandProperty, value);
+        }
+
+        public static readonly DependencyProperty UpdateCommandProperty =
+            DependencyProperty.Register(nameof(UpdateCommand), typeof(ICommand), typeof(AddEditItem), new PropertyMetadata(null));
+
         public ICommand DeleteCommand
         {
             get => (ICommand)GetValue(DeleteCommandProperty);

@@ -45,6 +45,7 @@
                     Orientation="Horizontal"
                     SaveCommand="{Binding CreateSpellCardCommand}"
                     SelectedItem="{Binding SelectedSpellCard, Mode=TwoWay}"
+                    UpdateCommand="{Binding UpdateSpellCardCommand}"
                     ViewOnly="False" />
             </Grid>
         </Border>
@@ -173,11 +174,6 @@
 
                     </StackPanel>
                 </Border>
-
-                <!--  Manually update button  -->
-                <Button
-                    Command="{Binding UpdateSpellCardCommand}"
-                    Content="Update" />
             </StackPanel>
 
             <!--  Card view  -->
