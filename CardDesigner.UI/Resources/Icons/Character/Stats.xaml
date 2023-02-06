@@ -1,0 +1,64 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Viewbox x:Key="ArmourClass">
+        <Canvas
+            Width="100"
+            Height="100">
+            <Path
+                Data="M 11.25,25.500258 C 30.32586,19.546726 26.779838,7.2039178 50,7.1074008 73.220162,7.2039178 69.67414,19.546726 88.75,25.500258 86.749261,65.054977 68.647698,82.543626 50,92.821686 31.352302,82.543626 13.250739,65.054977 11.25,25.500258 Z"
+                Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="HealthPoints">
+        <Canvas
+            Width="100"
+            Height="100">
+            <Path
+                Data="M 87.120434,40.72009 C 89.761414,12.658583 65.413777,-3.7153933 50,18.010443 34.586223,-3.7153933 10.238586,12.658583 12.879566,40.72009 14.790694,61.026615 31.604252,82.076003 50,91.939013 68.395748,82.076003 85.209306,61.026615 87.120434,40.72009 Z"
+                Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="Speed">
+        <Canvas
+            Width="100"
+            Height="100">
+            <Path
+                Data="M 70,88.392857 61.071428,85.178571 67.678571,64.821429 50,50 41.607143,66.785714 20.535714,68.571429 23.214285,79.821428"
+                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
+                StrokeThickness="5" />
+            <Path
+                Data="M 50,50 56.071428,28.035715 65.701595,44.5562 84.464285,40.178572"
+                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
+                StrokeThickness="5" />
+            <Path
+                Data="m 56.071428,28.035715 -21.520485,5.997462 0.270485,19.716824"
+                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
+                StrokeThickness="5" />
+            <Path
+                Data="m 67.428786,19.229431 a 9.1964283,9.2857141 0 0 1 -9.196428,9.285714 9.1964283,9.2857141 0 0 1 -9.196428,-9.285714 9.1964283,9.2857141 0 0 1 9.196428,-9.2857137 9.1964283,9.2857141 0 0 1 9.196428,9.2857137 z"
+                Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="Initiative">
+        <Canvas
+            Width="100"
+            Height="100">
+            <Path
+                Data="m 16.964286,55.714287 c 2.868929,0 5.178572,2.309643 5.178572,5.178571 l 0,20.714286 c 0,2.868928 -2.309643,5.178571 -5.178572,5.178571 -2.868928,0 -5.178571,-2.309643 -5.178571,-5.178571 l 0,-20.714286 c 0,-2.868928 2.309643,-5.178571 5.178571,-5.178571 z"
+                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
+                StrokeThickness="5" />
+            <Path
+                Data="m 39.404764,43.214287 10e-7,0 c 2.868928,0 5.178571,2.309643 5.178571,5.178571 l 0,33.214284 c 0,2.868928 -2.309643,5.178571 -5.178571,5.178571 l -10e-7,0 c -2.868929,0 -5.178572,-2.309643 -5.178572,-5.178571 l 0,-33.214284 c 0,-2.868928 2.309643,-5.178571 5.178572,-5.178571 z"
+                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
+                StrokeThickness="5" />
+            <Path
+                Data="m 61.845239,27.321428 10e-7,0 c 2.868929,0 5.178571,2.309643 5.178571,5.178572 l 0,49.107144 c 0,2.868928 -2.309642,5.178571 -5.178571,5.178571 l -10e-7,0 c -2.868928,0 -5.178571,-2.309643 -5.178571,-5.178571 l 0,-49.107144 c 0,-2.868929 2.309643,-5.178572 5.178571,-5.178572 z"
+                Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
+            <Path
+                Data="m 84.285709,12.142859 c 2.868928,0 5.17857,2.309643 5.17857,5.178572 l 0,64.285718 c 0,2.868928 -2.309642,5.178571 -5.17857,5.178571 -2.868927,0 -5.178569,-2.309643 -5.178569,-5.178571 l 0,-64.285718 c 0,-2.868929 2.309642,-5.178572 5.178569,-5.178572 z"
+                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
+                StrokeThickness="5" />
+        </Canvas>
+    </Viewbox>
+</ResourceDictionary>

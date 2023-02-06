@@ -9,7 +9,6 @@
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
-
         <!--  Avatar template  -->
         <ControlTemplate x:Key="AvatarTemplate">
             <Grid Background="Transparent">

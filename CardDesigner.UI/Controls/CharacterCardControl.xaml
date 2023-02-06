@@ -14,7 +14,7 @@
                     Background="Transparent"
                     FontSize="{Binding CharacterCard.TitleFontSize, ElementName=characterCard, Mode=TwoWay}"
                     Foreground="{Binding CardDesign.HeaderTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    InputText="{Binding Character.Title, ElementName=characterCard, Mode=TwoWay}"
+                    InputText="{Binding Character.Name, ElementName=characterCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
                 <ItemsControl
                     Canvas.Top="25"
@@ -94,6 +94,35 @@
                 Abilities="{Binding Character.Abilities, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
                 SwitchAbilityValueBonus="True" />
         </ControlTemplate>
+        <!--  Abilities footer  -->
+        <ControlTemplate x:Key="AbilitiesFooterTemplate">
+            <StackPanel Orientation="Horizontal">
+                <controls:IconWithPropertyControl
+                    Height="30"
+                    Icon="{StaticResource HealthPoints}"
+                    IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextColor="{Binding CardDesign.FooterTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Value="{Binding Character.Hitpoints, ElementName=characterCard}" />
+                <controls:IconWithPropertyControl
+                    Height="30"
+                    Icon="{StaticResource ArmourClass}"
+                    IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextColor="{Binding CardDesign.FooterTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Value="{Binding Character.ArmourClass, ElementName=characterCard}" />
+                <controls:IconWithPropertyControl
+                    Height="30"
+                    Icon="{StaticResource Initiative}"
+                    IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextColor="{Binding CardDesign.FooterTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Value="{Binding Character.Initiative, ElementName=characterCard}" />
+                <controls:IconWithPropertyControl
+                    Height="30"
+                    Icon="{StaticResource Speed}"
+                    IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextColor="{Binding CardDesign.FooterTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Value="{Binding Character.Speed, ElementName=characterCard}" />
+            </StackPanel>
+        </ControlTemplate>
         <!--  Avatar content  -->
         <ControlTemplate x:Key="AvatarContentTemplate">
             <!--  Item icon  -->
@@ -126,6 +155,7 @@
                 BorderBrush="{StaticResource CardLineColor}"
                 BorderThickness="2"
                 CornerRadius="4" />
+
             <!--  Card Footer  -->
             <Border
                 Width="250"
@@ -137,6 +167,7 @@
                 BorderBrush="{StaticResource CardLineColor}"
                 BorderThickness="2"
                 CornerRadius="4" />
+
             <!--  Card contents  -->
             <Canvas>
                 <!--  Body lines  -->
@@ -203,6 +234,26 @@
                         </Style>
                     </ContentControl.Style>
                 </ContentControl>
+
+                <!--  Footer styles  -->
+                <ContentControl
+                    Canvas.Left="2"
+                    Canvas.Top="315"
+                    Width="248"
+                    Height="33">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
+                                    Value="{x:Static enums:CharacterCardType.Abilities}">
+                                    <Setter Property="Template" Value="{StaticResource AbilitiesFooterTemplate}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+
 
             </Canvas>
             <!--  Card border  -->

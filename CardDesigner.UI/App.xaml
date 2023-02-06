@@ -10,46 +10,8 @@
                 <!--  Colors  -->
                 <ResourceDictionary Source="Styles/Colors.xaml" />
 
-                <!--  Thingamajigs  -->
-                <ResourceDictionary Source="Resources/EnumDataProviders.xaml" />
-
                 <!--  Icons  -->
-                <ResourceDictionary Source="Resources/Icons/EditButton.xaml" />
-                <ResourceDictionary Source="Resources/Icons/WindowButtons.xaml" />
-
-                <ResourceDictionary Source="Resources/Icons/Items/EquipmentSlots.xaml" />
-                <ResourceDictionary Source="Resources/Dice/DiceTypes.xaml" />
-
-                <ResourceDictionary Source="Resources/Icons/Properties/ItemRequiresAttunement.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/ItemIsMagical.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/ItemIsUnidentified.xaml" />
-
-                <ResourceDictionary Source="Resources/Icons/Items/DamageTypes.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Items/ItemWeights.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Items/WeaponTypes.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Items/EquipmentSlots.xaml" />
-
-                <ResourceDictionary Source="Resources/Icons/MagicSchools/AbjurationIcon.xaml" />
-                <ResourceDictionary Source="Resources/Icons/MagicSchools/ConjurationIcon.xaml" />
-                <ResourceDictionary Source="Resources/Icons/MagicSchools/DivinationIcon.xaml" />
-                <ResourceDictionary Source="Resources/Icons/MagicSchools/EnchantmentIcon.xaml" />
-                <ResourceDictionary Source="Resources/Icons/MagicSchools/EvocationIcon.xaml" />
-                <ResourceDictionary Source="Resources/Icons/MagicSchools/IllusionIcon.xaml" />
-                <ResourceDictionary Source="Resources/Icons/MagicSchools/NecromancyIcon.xaml" />
-                <ResourceDictionary Source="Resources/Icons/MagicSchools/TransmutationIcon.xaml" />
-
-                <ResourceDictionary Source="Resources/Icons/Properties/ComponentVerbal.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/ComponentMaterial.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/ComponentSomatic.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/SpellCastingTime.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/SpellDuration.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/SpellRange.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/SpellTarget.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/SpellRitual.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/SpellConcentration.xaml" />
-                <ResourceDictionary Source="Resources/Icons/Properties/SpellAOE.xaml" />
-
-                <ResourceDictionary Source="Resources/Icons/Classes/CharacterClasses.xaml" />
+                <ResourceDictionary Source="Resources/IconResources.xaml" />
 
                 <!--  Styles  -->
                 <ResourceDictionary Source="Styles/StaticItemStyles.xaml" />
