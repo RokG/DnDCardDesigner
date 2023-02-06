@@ -36,7 +36,7 @@
 
     </UserControl.Resources>
     <StackPanel
-        Margin="4"
+        Margin="4,2,4,2"
         Orientation="Horizontal">
         <StackPanel Margin="0,0,4,0">
             <Label
@@ -44,7 +44,7 @@
                 Padding="0"
                 HorizontalContentAlignment="Center"
                 Content="{Binding AttributeName, ElementName=attributeView}"
-                FontSize="10"
+                FontSize="12"
                 FontWeight="Black" />
             <Border
                 Width="30"
@@ -55,9 +55,22 @@
                 <Label
                     Padding="0"
                     HorizontalContentAlignment="Center"
-                    Content="{Binding Attribute.LevelBonus, ElementName=attributeView}"
-                    ContentStringFormat="{}{0:+#;-#;' 0'} "
-                    FontSize="16" />
+                    FontSize="14">
+                    <Label.Style>
+                        <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+                            <Setter Property="Content" Value="{Binding Attribute.LevelBonus, ElementName=attributeView}" />
+                            <Setter Property="ContentStringFormat" Value="{}{0:+#;-#;' 0'} " />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SwitchAbilityValueBonus, ElementName=attributeView}"
+                                    Value="True">
+                                    <Setter Property="Content" Value="{Binding Attribute.Level, ElementName=attributeView}" />
+                                    <Setter Property="ContentStringFormat" Value="{} {0} " />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
             </Border>
             <Border
                 Width="24"
@@ -69,11 +82,25 @@
                 <Label
                     Padding="0"
                     HorizontalContentAlignment="Center"
-                    Content="{Binding Attribute.Level, ElementName=attributeView}"
-                    FontSize="12" />
+                    FontSize="12">
+                    <Label.Style>
+                        <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+                            <Setter Property="Content" Value="{Binding Attribute.Level, ElementName=attributeView}" />
+                            <Setter Property="ContentStringFormat" Value="{}{0} " />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SwitchAbilityValueBonus, ElementName=attributeView}"
+                                    Value="True">
+                                    <Setter Property="Content" Value="{Binding Attribute.LevelBonus, ElementName=attributeView}" />
+                                    <Setter Property="ContentStringFormat" Value="{}{0:+#;-#;' 0'} " />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
             </Border>
         </StackPanel>
-        <StackPanel>
+        <StackPanel Margin="0,2,0,0">
             <StackPanel Orientation="Horizontal">
                 <Label
                     Padding="0"
@@ -89,8 +116,10 @@
             </StackPanel>
             <ListBox
                 MinHeight="60"
-                Margin="0"
+                Margin="0,2,0,0"
                 Padding="0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
                 ItemsSource="{Binding Attribute.Skills, ElementName=attributeView}"
                 Style="{StaticResource AttributeListboxStyle}">
                 <ListBox.ItemTemplate>
@@ -112,6 +141,8 @@
                 </ListBox.ItemTemplate>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
                         <Setter Property="BorderThickness" Value="0" />
                         <Setter Property="Padding" Value="0" />
                         <Setter Property="Margin" Value="0" />

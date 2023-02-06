@@ -90,7 +90,9 @@
         </ControlTemplate>
         <!--  Abilities content  -->
         <ControlTemplate x:Key="AbilitiesContentTemplate">
-            <Label Content="AAAA" />
+            <controls:AttributesDisplayControl
+                Attributes="{Binding Character.Attributes, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
+                SwitchAbilityValueBonus="True" />
         </ControlTemplate>
         <!--  Avatar content  -->
         <ControlTemplate x:Key="AvatarContentTemplate">
@@ -153,31 +155,7 @@
                     Canvas.Top="37"
                     Width="250"
                     Height="276"
-                    Background="Transparent">
-                    <WrapPanel
-                        Width="244"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                        <controls:AttributeDisplayControl
-                            Attribute="{Binding Character.Attributes.Strength, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
-                            CharacterProficiency="{Binding Character.Proficiency, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}" />
-                        <controls:AttributeDisplayControl
-                            Attribute="{Binding Character.Attributes.Dexterity, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
-                            CharacterProficiency="{Binding Character.Proficiency, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}" />
-                        <controls:AttributeDisplayControl
-                            Attribute="{Binding Character.Attributes.Constitution, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
-                            CharacterProficiency="{Binding Character.Proficiency, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}" />
-                        <controls:AttributeDisplayControl
-                            Attribute="{Binding Character.Attributes.Inteligence, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
-                            CharacterProficiency="{Binding Character.Proficiency, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}" />
-                        <controls:AttributeDisplayControl
-                            Attribute="{Binding Character.Attributes.Wisdom, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
-                            CharacterProficiency="{Binding Character.Proficiency, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}" />
-                        <controls:AttributeDisplayControl
-                            Attribute="{Binding Character.Attributes.Charisma, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
-                            CharacterProficiency="{Binding Character.Proficiency, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}" />
-                    </WrapPanel>
-                </Grid>
+                    Background="Transparent" />
 
                 <!--  Header  -->
                 <ContentControl

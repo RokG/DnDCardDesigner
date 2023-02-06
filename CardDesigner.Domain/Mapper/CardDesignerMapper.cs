@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Models;
+using System.Collections.Generic;
 
 namespace CardDesigner.Domain.Mapper
 {

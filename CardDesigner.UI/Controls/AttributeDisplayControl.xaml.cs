@@ -32,52 +32,16 @@ namespace CardDesigner.UI.Controls
         }
 
         public static readonly DependencyProperty AttributeProperty =
-            DependencyProperty.Register(nameof(Attribute), typeof(AttributeModel), typeof(AttributeDisplayControl), new PropertyMetadata(new AttributeModel(), SetBonuses));
+            DependencyProperty.Register(nameof(Attribute), typeof(AttributeModel), typeof(AttributeDisplayControl), new PropertyMetadata(new AttributeModel()));
 
-        public int CharacterProficiency
+        public bool SwitchAbilityValueBonus
         {
-            get => (int)GetValue(CharacterProficiencyProperty);
-            set => SetValue(CharacterProficiencyProperty, value);
+            get { return (bool)GetValue(SwitchAbilityValueBonusProperty); }
+            set { SetValue(SwitchAbilityValueBonusProperty, value); }
         }
 
-        public static readonly DependencyProperty CharacterProficiencyProperty =
-            DependencyProperty.Register(nameof(CharacterProficiency), typeof(int), typeof(AttributeDisplayControl), new PropertyMetadata(0, SetBonuses));
+        public static readonly DependencyProperty SwitchAbilityValueBonusProperty =
+            DependencyProperty.Register(nameof(SwitchAbilityValueBonus), typeof(bool), typeof(AttributeDisplayControl), new PropertyMetadata(false));
 
-        private static void SetBonuses(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is AttributeDisplayControl adc)
-            {
-                AttributeModel attribute = adc.Attribute;
-                int attributeBonus = (attribute.Level - 10) / 2;
-
-                adc.AttributeName = attribute.Type.ToString().Substring(0, 3).ToUpper();
-
-                attribute.SavingThrowsBonus = attribute.HasSavingThrows ? adc.CharacterProficiency + attributeBonus : attributeBonus;
-
-                if (attribute.Skills != null)
-                {
-                    if (attribute.Skills.Any())
-                    {
-                        foreach (SkillModel skill in attribute.Skills)
-                        {
-                            if (skill.IsProficient)
-                            {
-                                skill.Bonus = adc.CharacterProficiency + attributeBonus;
-                            }
-                            else if (skill.IsExpert)
-                            {
-                                skill.Bonus = 2 * adc.CharacterProficiency + attributeBonus;
-                            }
-                            else if (skill.IsBasic)
-                            {
-                                skill.Bonus = attributeBonus;
-                            }
-                        }
-                    }
-                }
-
-                adc.Attribute= attribute;
-            }
-        }
     }
 }
