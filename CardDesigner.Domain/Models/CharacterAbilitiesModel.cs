@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace CardDesigner.Domain.Models
 {
-    public class CharacterAttributesModel
+    public class CharacterAbilitiesModel
     {
         public int ID { get; set; }
         public CharacterModel Character { get; set; }
 
-        #region Attributes
+        #region Abilities
 
         public int Proficiency { get; set; }
 
@@ -89,14 +89,14 @@ namespace CardDesigner.Domain.Models
 
         #endregion
 
-        public AttributeModel Strength { get => GetAttribute(Attribute.Strength); set => SetAttribute(value); }
-        public AttributeModel Dexterity { get => GetAttribute(Attribute.Dexterity); set => SetAttribute(value); }
-        public AttributeModel Constitution { get => GetAttribute(Attribute.Constitution); set => SetAttribute(value); }
-        public AttributeModel Inteligence { get => GetAttribute(Attribute.Inteligence); set => SetAttribute(value); }
-        public AttributeModel Wisdom { get => GetAttribute(Attribute.Wisdom); set => SetAttribute(value); }
-        public AttributeModel Charisma { get => GetAttribute(Attribute.Charisma); set => SetAttribute(value); }
+        public AbilityModel Strength { get => GetAbility(Ability.Strength); set => SetAbility(value); }
+        public AbilityModel Dexterity { get => GetAbility(Ability.Dexterity); set => SetAbility(value); }
+        public AbilityModel Constitution { get => GetAbility(Ability.Constitution); set => SetAbility(value); }
+        public AbilityModel Inteligence { get => GetAbility(Ability.Inteligence); set => SetAbility(value); }
+        public AbilityModel Wisdom { get => GetAbility(Ability.Wisdom); set => SetAbility(value); }
+        public AbilityModel Charisma { get => GetAbility(Ability.Charisma); set => SetAbility(value); }
 
-        private void SetBonuses(AttributeModel attributeModel)
+        private void SetBonuses(AbilityModel attributeModel)
         {
             attributeModel.LevelBonus = (attributeModel.Level - 10) / 2;
             attributeModel.SavingThrowsBonus = attributeModel.HasSavingThrows ? attributeModel.LevelBonus + Proficiency : attributeModel.LevelBonus;
@@ -126,16 +126,16 @@ namespace CardDesigner.Domain.Models
         /// </summary>
         /// <param name="attribute"></param>
         /// <returns></returns>
-        public AttributeModel GetAttribute(Attribute attribute)
+        public AbilityModel GetAbility(Ability attribute)
         {
-            AttributeModel attributeModel = new()
+            AbilityModel attributeModel = new()
             {
                 Skills = new(),
                 Type = attribute
             };
             switch (attribute)
             {
-                case Attribute.Strength:
+                case Ability.Strength:
                     attributeModel.HasSavingThrows = StrengthSavingThrows;
                     attributeModel.Level = StrengthLevel;
                     attributeModel.Skills = new()
@@ -149,7 +149,7 @@ namespace CardDesigner.Domain.Models
                         }
                     };
                     break;
-                case Attribute.Dexterity:
+                case Ability.Dexterity:
                     attributeModel.HasSavingThrows = DexteritySavingThrows;
                     attributeModel.Level = DexterityLevel;
                     attributeModel.Skills = new()
@@ -177,11 +177,11 @@ namespace CardDesigner.Domain.Models
                         }
                     };
                     break;
-                case Attribute.Constitution:
+                case Ability.Constitution:
                     attributeModel.HasSavingThrows = ConstitutionSavingThrows;
                     attributeModel.Level = ConstitutionLevel;
                     break;
-                case Attribute.Inteligence:
+                case Ability.Inteligence:
                     attributeModel.HasSavingThrows = InteligenceSavingThrows;
                     attributeModel.Level = InteligenceLevel;
                     attributeModel.Skills = new()
@@ -223,7 +223,7 @@ namespace CardDesigner.Domain.Models
                         }
                     };
                     break;
-                case Attribute.Wisdom:
+                case Ability.Wisdom:
                     attributeModel.HasSavingThrows = WisdomSavingThrows;
                     attributeModel.Level = WisdomLevel;
                     attributeModel.Skills = new()
@@ -265,7 +265,7 @@ namespace CardDesigner.Domain.Models
                         }
                     };
                     break;
-                case Attribute.Charisma:
+                case Ability.Charisma:
                     attributeModel.HasSavingThrows = CharismaSavingThrows;
                     attributeModel.Level = CharismaLevel;
                     attributeModel.Skills = new()
@@ -313,31 +313,31 @@ namespace CardDesigner.Domain.Models
         /// Setter method for attributes
         /// </summary>
         /// <param name="attributeModel"></param>
-        public void SetAttribute(AttributeModel attributeModel)
+        public void SetAbility(AbilityModel attributeModel)
         {
             switch (attributeModel.Type)
             {
-                case Attribute.Strength:
+                case Ability.Strength:
                     StrengthLevel = attributeModel.Level;
                     StrengthSavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Dexterity:
+                case Ability.Dexterity:
                     DexterityLevel = attributeModel.Level;
                     DexteritySavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Constitution:
+                case Ability.Constitution:
                     ConstitutionLevel = attributeModel.Level;
                     ConstitutionSavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Inteligence:
+                case Ability.Inteligence:
                     InteligenceLevel = attributeModel.Level;
                     InteligenceSavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Wisdom:
+                case Ability.Wisdom:
                     WisdomLevel = attributeModel.Level;
                     WisdomSavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Charisma:
+                case Ability.Charisma:
                     CharismaLevel = attributeModel.Level;
                     CharismaSavingThrows = attributeModel.HasSavingThrows;
                     break;

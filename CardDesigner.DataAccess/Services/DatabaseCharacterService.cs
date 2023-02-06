@@ -59,7 +59,7 @@ namespace CardDesigner.DataAccess.Services
                         .Single(c => c.ID == characterModel.ID);
 
                     // Update attributes and caster stats
-                    characterEntity.Attributes = _mapper.Map<CharacterAttributesEntity>(characterModel.Attributes);
+                    characterEntity.Abilities = _mapper.Map<CharacterAbilitiesEntity>(characterModel.Abilities);
                     characterEntity.CasterStats = _mapper.Map<CasterStatsEntity>(characterModel.CasterStats);
 
                     // Add classes
@@ -184,7 +184,7 @@ namespace CardDesigner.DataAccess.Services
                     .Include(c => c.DeckBackgroundDesign)
                     .Include(c => c.Classes)
                     .Include(c => c.CasterStats)
-                    .Include(c => c.Attributes)
+                    .Include(c => c.Abilities)
                     .ToListAsync();
 
                 return characterEntities.Select(c => _mapper.Map<CharacterModel>(c));

@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 
 namespace CardDesigner.Domain.HelperModels
 {
-    public partial class AttributeModel : ObservableObject
+    public partial class AbilityModel : ObservableObject
     {
         [ObservableProperty]
-        private Attribute type;
+        private Ability type;
 
         [ObservableProperty]
         private int level;

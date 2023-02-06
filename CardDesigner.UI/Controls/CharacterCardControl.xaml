@@ -90,8 +90,8 @@
         </ControlTemplate>
         <!--  Abilities content  -->
         <ControlTemplate x:Key="AbilitiesContentTemplate">
-            <controls:AttributesDisplayControl
-                Attributes="{Binding Character.Attributes, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
+            <controls:AbilitiesDisplayControl
+                Abilities="{Binding Character.Abilities, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
                 SwitchAbilityValueBonus="True" />
         </ControlTemplate>
         <!--  Avatar content  -->

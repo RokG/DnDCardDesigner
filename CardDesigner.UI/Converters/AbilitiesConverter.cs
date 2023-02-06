@@ -6,17 +6,17 @@ using System.Windows.Markup;
 
 namespace CardDesigner.UI.Converters
 {
-    public class AttributesConverter : MarkupExtension, IValueConverter
+    public class AbilitiesConverter : MarkupExtension, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is CharacterAttributesModel attributesModel && parameter is CardDesigner.Domain.Enums.Attribute attribute)
+            if (value is CharacterAbilitiesModel attributesModel && parameter is CardDesigner.Domain.Enums.Ability attribute)
             {
-                return attributesModel.GetAttribute(attribute);
+                return attributesModel.GetAbility(attribute);
             }
             else
             {
-                return new CharacterAttributesModel();
+                return new CharacterAbilitiesModel();
             }
         }
 

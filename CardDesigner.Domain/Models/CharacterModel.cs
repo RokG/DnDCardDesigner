@@ -15,7 +15,7 @@ namespace CardDesigner.Domain.Models
         public List<ItemDeckDesignLinkerModel> ItemDeckDescriptors { get; set; } = new();
         public CharacterDeckDesignModel DeckBackgroundDesign { get; set; } = new();
         public List<CharacterClassModel> Classes { get; set; } = new();
-        public CharacterAttributesModel Attributes { get; set; } = new();
+        public CharacterAbilitiesModel Abilities { get; set; } = new();
         public CasterStatsModel CasterStats { get; set; } = new();
 
         public Race Race { get; set; }

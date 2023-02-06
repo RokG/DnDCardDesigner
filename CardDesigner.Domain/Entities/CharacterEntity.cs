@@ -16,7 +16,7 @@ namespace CardDesigner.Domain.Entities
         public List<ItemDeckDesignLinkerEntity> ItemDeckDescriptors { get; set; }
         public CharacterDeckDesignEntity DeckBackgroundDesign { get; set; }
         public List<CharacterClassEntity> Classes { get; set; }
-        public CharacterAttributesEntity Attributes { get; set; }
+        public CharacterAbilitiesEntity Abilities { get; set; }
         public CasterStatsEntity CasterStats { get; set; }
 
         public Race Race { get; set; }

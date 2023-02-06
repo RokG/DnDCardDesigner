@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CardDesigner.UI.Controls.AttributeControl" x:Name="attributeControl"
+﻿<UserControl x:Class="CardDesigner.UI.Controls.AbilityControl" x:Name="attributeControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls"
@@ -41,26 +41,26 @@
                 <StackPanel>
                     <Label
                         Padding="5,0"
-                        Content="{Binding Attribute.Type, ElementName=attributeControl, FallbackValue='Attribute'}" />
+                        Content="{Binding Ability.Type, ElementName=attributeControl, FallbackValue='Ability'}" />
                     <Slider
                         Grid.Column="1"
                         Padding="0"
                         Maximum="20"
                         Minimum="0"
                         ValueChanged="Slider_ValueChanged"
-                        Value="{Binding Attribute.Level, ElementName=attributeControl, FallbackValue=10}" />
+                        Value="{Binding Ability.Level, ElementName=attributeControl, FallbackValue=10}" />
                 </StackPanel>
                 <!--  Saving throws  -->
                 <CheckBox
                     Checked="RadioButton_Checked"
                     Content="Saving throws"
-                    IsChecked="{Binding Attribute.HasSavingThrows, ElementName=attributeControl, FallbackValue=True}"
+                    IsChecked="{Binding Ability.HasSavingThrows, ElementName=attributeControl, FallbackValue=True}"
                     Unchecked="RadioButton_Checked" />
                 <ListBox
                     MinHeight="0"
                     Margin="3"
                     ItemContainerStyle="{StaticResource ItemListboxItem}"
-                    ItemsSource="{Binding Attribute.Skills, ElementName=attributeControl, FallbackValue=True}">
+                    ItemsSource="{Binding Ability.Skills, ElementName=attributeControl, FallbackValue=True}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel

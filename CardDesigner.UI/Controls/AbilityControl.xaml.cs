@@ -5,18 +5,18 @@ using System.Windows.Controls;
 namespace CardDesigner.UI.Controls
 {
     /// <summary>
-    /// Interaction logic for AttributeControl.xaml
+    /// Interaction logic for AbilityControl.xaml
     /// </summary>
-    public partial class AttributeControl : UserControl
+    public partial class AbilityControl : UserControl
     {
-        public AttributeControl()
+        public AbilityControl()
         {
             InitializeComponent();
         }
 
         public static readonly RoutedEvent CheckChangedEvent =
          EventManager.RegisterRoutedEvent(nameof(CheckChangedEvent), RoutingStrategy.Bubble,
-         typeof(RoutedEventHandler), typeof(AttributeControl));
+         typeof(RoutedEventHandler), typeof(AbilityControl));
 
         public event RoutedEventHandler CheckChanged
         {
@@ -26,7 +26,7 @@ namespace CardDesigner.UI.Controls
 
         public static readonly RoutedEvent SliderChangedEvent =
          EventManager.RegisterRoutedEvent(nameof(SliderChangedEvent), RoutingStrategy.Bubble,
-         typeof(RoutedEventHandler), typeof(AttributeControl));
+         typeof(RoutedEventHandler), typeof(AbilityControl));
 
         public event RoutedEventHandler SliderChanged
         {
@@ -34,14 +34,14 @@ namespace CardDesigner.UI.Controls
             remove => RemoveHandler(SliderChangedEvent, value);
         }
 
-        public AttributeModel Attribute
+        public AbilityModel Ability
         {
-            get => (AttributeModel)GetValue(AttributeProperty);
-            set => SetValue(AttributeProperty, value);
+            get => (AbilityModel)GetValue(AbilityProperty);
+            set => SetValue(AbilityProperty, value);
         }
 
-        public static readonly DependencyProperty AttributeProperty =
-            DependencyProperty.Register(nameof(Attribute), typeof(AttributeModel), typeof(AttributeControl), new PropertyMetadata(new AttributeModel()));
+        public static readonly DependencyProperty AbilityProperty =
+            DependencyProperty.Register(nameof(Ability), typeof(AbilityModel), typeof(AbilityControl), new PropertyMetadata(new AbilityModel()));
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {

@@ -2,13 +2,13 @@
 
 namespace CardDesigner.Domain.Entities
 {
-    public class CharacterAttributesEntity
+    public class CharacterAbilitiesEntity
     {
         [Key]
         public int ID { get; set; }
         public CharacterEntity Character { get; set; }
         
-        #region Attributes
+        #region Abilities
 
         public int Proficiency { get; set; }
         

@@ -35,7 +35,7 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<CharacterCardEntity> CharacterCards { get; set; }
         public DbSet<CharacterDeckEntity> CharacterDecks { get; set; }
         public DbSet<CharacterClassEntity> CharacterClasses { get; set; }
-        public DbSet<CharacterAttributesEntity> CharacterAttributes { get; set; }
+        public DbSet<CharacterAbilitiesEntity> CharacterAbilities { get; set; }
         public DbSet<CasterStatsEntity> CasterStats { get; set; }
 
         //https://stackoverflow.com/questions/19342908/how-to-create-a-many-to-many-mapping-in-entity-framework
@@ -62,9 +62,9 @@ namespace CardDesigner.DataAccess.DbContexts
                    .WithMany(e => e.Classes);
 
             // Character Skills
-            modelBuilder.Entity<CharacterAttributesEntity>()
+            modelBuilder.Entity<CharacterAbilitiesEntity>()
                    .HasOne(c => c.Character)
-                   .WithOne(e => e.Attributes)
+                   .WithOne(e => e.Abilities)
                    .HasForeignKey<CharacterEntity>(b => b.ID);
 
             // Caster Stats
