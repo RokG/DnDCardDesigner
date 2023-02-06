@@ -360,3 +360,4 @@ MigrationBackup/
 *.lnk
 /Design/ExternalSources
 /Output.zip
+*.zip
