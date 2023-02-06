@@ -54,7 +54,7 @@
                 <CheckBox
                     Checked="RadioButton_Checked"
                     Content="Saving throws"
-                    IsChecked="{Binding Attribute.SavingThrows, ElementName=attributeControl, FallbackValue=True}"
+                    IsChecked="{Binding Attribute.HasSavingThrows, ElementName=attributeControl, FallbackValue=True}"
                     Unchecked="RadioButton_Checked" />
                 <ListBox
                     MinHeight="0"

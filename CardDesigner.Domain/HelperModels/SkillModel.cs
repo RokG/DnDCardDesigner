@@ -1,5 +1,4 @@
 ﻿using CardDesigner.Domain.Enums;
-using System;
 
 namespace CardDesigner.Domain.HelperModels
 {
@@ -9,5 +8,6 @@ namespace CardDesigner.Domain.HelperModels
         public bool IsExpert { get; set; }
         public bool IsProficient { get; set; }
         public bool IsBasic { get; set; }
+        public int Bonus { get; set; }
     }
 }

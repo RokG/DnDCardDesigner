@@ -106,7 +106,7 @@ namespace CardDesigner.Domain.Models
             switch (attribute)
             {
                 case Attribute.Strength:
-                    attributeModel.SavingThrows = StrengthSavingThrows;
+                    attributeModel.HasSavingThrows = StrengthSavingThrows;
                     attributeModel.Level = StrengthLevel;
                     attributeModel.Skills = new()
                     {
@@ -120,7 +120,7 @@ namespace CardDesigner.Domain.Models
                     };
                     break;
                 case Attribute.Dexterity:
-                    attributeModel.SavingThrows = DexteritySavingThrows;
+                    attributeModel.HasSavingThrows = DexteritySavingThrows;
                     attributeModel.Level = DexterityLevel;
                     attributeModel.Skills = new()
                     {
@@ -148,11 +148,11 @@ namespace CardDesigner.Domain.Models
                     };
                     break;
                 case Attribute.Constitution:
-                    attributeModel.SavingThrows = ConstitutionSavingThrows;
+                    attributeModel.HasSavingThrows = ConstitutionSavingThrows;
                     attributeModel.Level = ConstitutionLevel;
                     break;
                 case Attribute.Inteligence:
-                    attributeModel.SavingThrows = InteligenceSavingThrows;
+                    attributeModel.HasSavingThrows = InteligenceSavingThrows;
                     attributeModel.Level = InteligenceLevel;
                     attributeModel.Skills = new()
                     {
@@ -194,7 +194,7 @@ namespace CardDesigner.Domain.Models
                     };
                     break;
                 case Attribute.Wisdom:
-                    attributeModel.SavingThrows = WisdomSavingThrows;
+                    attributeModel.HasSavingThrows = WisdomSavingThrows;
                     attributeModel.Level = WisdomLevel;
                     attributeModel.Skills = new()
                     {
@@ -236,7 +236,7 @@ namespace CardDesigner.Domain.Models
                     };
                     break;
                 case Attribute.Charisma:
-                    attributeModel.SavingThrows = CharismaSavingThrows;
+                    attributeModel.HasSavingThrows = CharismaSavingThrows;
                     attributeModel.Level = CharismaLevel;
                     attributeModel.Skills = new()
                     {
@@ -286,27 +286,27 @@ namespace CardDesigner.Domain.Models
             {
                 case Attribute.Strength:
                     StrengthLevel = attributeModel.Level;
-                    StrengthSavingThrows = attributeModel.SavingThrows;
+                    StrengthSavingThrows = attributeModel.HasSavingThrows;
                     break;
                 case Attribute.Dexterity:
                     DexterityLevel= attributeModel.Level;
-                    DexteritySavingThrows= attributeModel.SavingThrows;
+                    DexteritySavingThrows= attributeModel.HasSavingThrows;
                     break;
                 case Attribute.Constitution:
                     ConstitutionLevel= attributeModel.Level;
-                    ConstitutionSavingThrows= attributeModel.SavingThrows;
+                    ConstitutionSavingThrows= attributeModel.HasSavingThrows;
                     break;
                 case Attribute.Inteligence:
                     InteligenceLevel= attributeModel.Level;
-                    InteligenceSavingThrows= attributeModel.SavingThrows;
+                    InteligenceSavingThrows= attributeModel.HasSavingThrows;
                     break;
                 case Attribute.Wisdom:
                     WisdomLevel= attributeModel.Level;
-                    WisdomSavingThrows= attributeModel.SavingThrows;
+                    WisdomSavingThrows= attributeModel.HasSavingThrows;
                     break;
                 case Attribute.Charisma:
                     CharismaLevel = attributeModel.Level;
-                    CharismaSavingThrows= attributeModel.SavingThrows;
+                    CharismaSavingThrows= attributeModel.HasSavingThrows;
                     break;
                 default:
                     break;
