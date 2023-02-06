@@ -73,6 +73,13 @@
                     Style="{StaticResource VisibleBorder}">
                     <StackPanel>
                         <DockPanel LastChildFill="False">
+                            <Label Content="Name: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.Title, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel LastChildFill="False">
                             <Label Content="Race: " />
                             <ComboBox
                                 Width="150"
@@ -103,6 +110,13 @@
                                 Margin="3"
                                 DockPanel.Dock="Right"
                                 Text="{Binding DataContext.SelectedCharacter.Weight, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Age: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.Age, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DockPanel>
                         <DockPanel LastChildFill="False">
                             <Label Content="Hitpoints: " />

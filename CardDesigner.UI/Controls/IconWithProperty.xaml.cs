@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CardDesigner.UI.Controls
 {
@@ -27,8 +15,8 @@ namespace CardDesigner.UI.Controls
 
         public string TextColor
         {
-            get { return (string)GetValue(TextColorProperty); }
-            set { SetValue(TextColorProperty, value); }
+            get => (string)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
         }
 
         public static readonly DependencyProperty TextColorProperty =
@@ -36,8 +24,8 @@ namespace CardDesigner.UI.Controls
 
         public string IconColorFooter
         {
-            get { return (string)GetValue(IconColorProperty); }
-            set { SetValue(IconColorProperty, value); }
+            get => (string)GetValue(IconColorProperty);
+            set => SetValue(IconColorProperty, value);
         }
 
         public static readonly DependencyProperty IconColorProperty =
@@ -45,8 +33,8 @@ namespace CardDesigner.UI.Controls
 
         public object Icon
         {
-            get { return (object)GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get => GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
         }
 
         public static readonly DependencyProperty IconProperty =
@@ -54,8 +42,8 @@ namespace CardDesigner.UI.Controls
 
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (double)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         public static readonly DependencyProperty ValueProperty =
@@ -63,8 +51,8 @@ namespace CardDesigner.UI.Controls
 
         public string Unit
         {
-            get { return (string)GetValue(UnitProperty); }
-            set { SetValue(UnitProperty, value); }
+            get => (string)GetValue(UnitProperty);
+            set => SetValue(UnitProperty, value);
         }
 
         public static readonly DependencyProperty UnitProperty =

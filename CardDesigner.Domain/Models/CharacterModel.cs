@@ -26,6 +26,7 @@ namespace CardDesigner.Domain.Models
 
         public string Height { get; set; }
         public string Weight { get; set; }
+        public string Age { get; set; }
         public int Hitpoints { get; set; }
 
         public int Proficiency { get; set; }
