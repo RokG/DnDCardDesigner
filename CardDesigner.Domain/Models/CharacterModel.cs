@@ -45,7 +45,5 @@ namespace CardDesigner.Domain.Models
         public bool IsMartialWeaponProficient { get; set; }
         public string OtherProficiencies { get; set; }
 
-        //public List<string> ListedOtherProficiencies => OtherProficiencies.Split(',').ToList();
-
     }
 }

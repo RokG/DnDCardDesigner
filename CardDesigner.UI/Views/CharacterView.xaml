@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="CardDesigner.UI.Views.CharacterView" x:Name="characterControl"
+﻿<UserControl x:Name="characterControl"
+    x:Class="CardDesigner.UI.Views.CharacterView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
@@ -191,7 +192,8 @@
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                     <ListBox.Style>
-                                        <Style BasedOn="{StaticResource {x:Type ListBox}}" TargetType="{x:Type ListBox}">
+                                        <Style TargetType="{x:Type ListBox}"
+                                            BasedOn="{StaticResource {x:Type ListBox}}">
                                             <Setter Property="Visibility" Value="Visible" />
                                             <Setter Property="MinHeight" Value="0" />
                                             <Style.Triggers>
@@ -316,7 +318,7 @@
                                 <TextBox
                                     Height="100"
                                     MaxLines="10"
-                                    Text="" />
+                                    Text="{Binding DataContext.SelectedCharacter.OtherProficiencies, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </Border>
                     </StackPanel>
