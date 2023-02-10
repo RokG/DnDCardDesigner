@@ -6,6 +6,11 @@
     xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls">
     <UserControl.Resources>
+        <Style x:Key="listLabelStyle" BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="ContentStringFormat" Value="{} -{0}" />
+        </Style>
         <!--  Character header  -->
         <ControlTemplate x:Key="CharacterHeaderTemplate">
             <Canvas Width="246">
@@ -88,12 +93,74 @@
                 </Border>
             </Canvas>
         </ControlTemplate>
+
         <!--  Abilities content  -->
         <ControlTemplate x:Key="AbilitiesContentTemplate">
             <controls:AbilitiesDisplayControl
                 Abilities="{Binding Character.Abilities, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
                 SwitchAbilityValueBonus="True" />
         </ControlTemplate>
+        <!--  Avatar content  -->
+        <ControlTemplate x:Key="AvatarContentTemplate">
+            <!--  Item icon  -->
+            <controls:ImageControl
+                ImageSource="{Binding Character.AvatarImagePath, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ImageStretch="{Binding Character.AvatarImageStretch, ElementName=characterCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
+        </ControlTemplate>
+        <!--  Stats content  -->
+        <ControlTemplate x:Key="StatsContentTemplate">
+            <StackPanel>
+                <controls:DataLabel
+                    Value1="{Binding Character.Proficiency, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ValueName="Proficiency" />
+                <controls:DataLabel
+                    Value1="{Binding Character.PassivePerception, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ValueName="Passive Perception" />
+                <controls:DataLabel
+                    Value1="{Binding Character.PassiveInsight, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ValueName="Passive Insight" />
+                <Label
+                    Margin="0"
+                    Padding="0"
+                    Content="Proficiencies:" />
+                <Label
+                    Content="Light armour"
+                    Style="{StaticResource listLabelStyle}"
+                    Visibility="{Binding Character.IsLightArmourProficiency, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter}}" />
+                <Label
+                    Content="Medium armour"
+                    Style="{StaticResource listLabelStyle}"
+                    Visibility="{Binding Character.IsMediumArmourProficient, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter}}" />
+                <Label
+                    Content="Heavy armour"
+                    Style="{StaticResource listLabelStyle}"
+                    Visibility="{Binding Character.IsHeavyArmourProficient, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter}}" />
+                <Label
+                    Content="Shields"
+                    Style="{StaticResource listLabelStyle}"
+                    Visibility="{Binding Character.IsShieldProficient, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter}}" />
+                <Label
+                    Content="Simple weapons"
+                    Style="{StaticResource listLabelStyle}"
+                    Visibility="{Binding Character.IsSimpleWeaponProficient, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter}}" />
+                <Label
+                    Content="Martial weapons"
+                    Style="{StaticResource listLabelStyle}"
+                    Visibility="{Binding Character.IsMartialWeaponProficient, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter}}" />
+            </StackPanel>
+        </ControlTemplate>
+        <!--  Feat content  -->
+        <ControlTemplate x:Key="FeatContentTemplate">
+            <controls:TextBoxWithPlaceholderControl
+                Width="246"
+                MaxHeight="300"
+                Background="Transparent"
+                FontSize="{Binding CharacterCard.DescriptionFontSize, ElementName=characterCard, Mode=TwoWay}"
+                Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                InputText="{Binding CharacterCard.Description, ElementName=characterCard, Mode=TwoWay}"
+                IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
+        </ControlTemplate>
+
         <!--  Abilities footer  -->
         <ControlTemplate x:Key="AbilitiesFooterTemplate">
             <StackPanel Orientation="Horizontal">
@@ -122,13 +189,6 @@
                     TextColor="{Binding CardDesign.FooterTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Value="{Binding Character.Speed, ElementName=characterCard}" />
             </StackPanel>
-        </ControlTemplate>
-        <!--  Avatar content  -->
-        <ControlTemplate x:Key="AvatarContentTemplate">
-            <!--  Item icon  -->
-            <controls:ImageControl
-                ImageSource="{Binding Character.AvatarImagePath, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                ImageStretch="{Binding Character.AvatarImageStretch, ElementName=characterCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
         </ControlTemplate>
         <!--  Avatar footer  -->
         <ControlTemplate x:Key="AvatarFooterTemplate">
@@ -171,17 +231,6 @@
             </StackPanel>
         </ControlTemplate>
 
-        <!--  Description textbox  -->
-        <ControlTemplate x:Key="DescriptionContentTemplate">
-            <controls:TextBoxWithPlaceholderControl
-                Width="246"
-                MaxHeight="300"
-                Background="Transparent"
-                FontSize="{Binding CharacterCard.DescriptionFontSize, ElementName=characterCard, Mode=TwoWay}"
-                Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                InputText="{Binding CharacterCard.Description, ElementName=characterCard, Mode=TwoWay}"
-                IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
-        </ControlTemplate>
     </UserControl.Resources>
     <Viewbox>
         <Grid>
@@ -268,8 +317,13 @@
                                 </DataTrigger>
                                 <DataTrigger
                                     Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
+                                    Value="{x:Static enums:CharacterCardType.Stats}">
+                                    <Setter Property="Template" Value="{StaticResource StatsContentTemplate}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
                                     Value="{x:Static enums:CharacterCardType.Feats}">
-                                    <Setter Property="Template" Value="{StaticResource DescriptionContentTemplate}" />
+                                    <Setter Property="Template" Value="{StaticResource FeatContentTemplate}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

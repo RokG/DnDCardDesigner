@@ -1,6 +1,7 @@
 ﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CardDesigner.Domain.Models
 {
@@ -42,6 +43,9 @@ namespace CardDesigner.Domain.Models
         public bool IsShieldProficient { get; set; }
         public bool IsSimpleWeaponProficient { get; set; }
         public bool IsMartialWeaponProficient { get; set; }
+        public string OtherProficiencies { get; set; }
+
+        //public List<string> ListedOtherProficiencies => OtherProficiencies.Split(',').ToList();
 
     }
 }

@@ -294,12 +294,29 @@
                         <Border Style="{StaticResource VisibleBorder}">
                             <StackPanel Margin="5">
                                 <Label Content="Proficiencies" />
-                                <CheckBox Content="Light armour" />
-                                <CheckBox Content="Medium armour" />
-                                <CheckBox Content="Heavy armour" />
-                                <CheckBox Content="Simple weapons" />
-                                <CheckBox Content="Martial weapons" />
-                                <CheckBox Content="Shields" />
+                                <CheckBox
+                                    Content="Light armour"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsLightArmourProficiency, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Medium armour"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsMediumArmourProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Heavy armour"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsHeavyArmourProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Simple weapons"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsSimpleWeaponProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Martial weapons"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsMartialWeaponProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Shields"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsShieldProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Label Content="Other proficiencies:" />
+                                <TextBox
+                                    Height="100"
+                                    MaxLines="10"
+                                    Text="" />
                             </StackPanel>
                         </Border>
                     </StackPanel>

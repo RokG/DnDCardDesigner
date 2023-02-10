@@ -14,17 +14,17 @@ namespace CardDesigner.Domain.Models
         public int Proficiency { get; set; }
 
         public bool StrengthSavingThrows { get; set; }
-        public int StrengthLevel { get; set; }
+        public int StrengthLevel { get; set; } = 8;
         public bool DexteritySavingThrows { get; set; }
-        public int DexterityLevel { get; set; }
+        public int DexterityLevel { get; set; } = 8;
         public bool ConstitutionSavingThrows { get; set; }
-        public int ConstitutionLevel { get; set; }
+        public int ConstitutionLevel { get; set; } = 8;
         public bool InteligenceSavingThrows { get; set; }
-        public int InteligenceLevel { get; set; }
+        public int InteligenceLevel { get; set; } = 8;
         public bool WisdomSavingThrows { get; set; }
-        public int WisdomLevel { get; set; }
+        public int WisdomLevel { get; set; } = 8;
         public bool CharismaSavingThrows { get; set; }
-        public int CharismaLevel { get; set; }
+        public int CharismaLevel { get; set; } = 8;
 
         #endregion
 

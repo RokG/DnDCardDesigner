@@ -43,5 +43,6 @@ namespace CardDesigner.Domain.Entities
         public bool IsShieldProficient { get; set; }
         public bool IsSimpleWeaponProficient { get; set; }
         public bool IsMartialWeaponProficient { get; set; }
+        public string OtherProficiencies { get; set; }
     }
 }
