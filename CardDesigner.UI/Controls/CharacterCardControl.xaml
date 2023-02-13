@@ -344,7 +344,6 @@
                         IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextColor="{Binding CardDesign.FooterTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Unit="{Binding Character.CasterStats.KnownSpells, ElementName=characterCard}" />
-
                 </Grid>
             </StackPanel>
         </ControlTemplate>

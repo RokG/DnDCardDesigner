@@ -39,4 +39,16 @@
             </ListView.ItemsPanel>
         </ListView>
     </Grid>
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Setter Property="Visibility" Value="Visible" />
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding RepeatAmount, ElementName=repeatingControl}"
+                    Value="0">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
 </UserControl>
