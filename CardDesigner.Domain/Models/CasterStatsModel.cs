@@ -7,7 +7,7 @@
 
         public int SpellAttackBonus { get; set; }
         public int SpellSaveDC { get; set; }
-        public int KnowSpells { get; set; }
+        public int KnownSpells { get; set; }
         public int PreparedSpells { get; set; }
         public int CantripsKnown { get; set; }
         public int SpellSlotsLevel1 { get; set; }
