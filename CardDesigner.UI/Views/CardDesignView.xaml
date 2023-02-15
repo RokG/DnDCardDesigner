@@ -56,7 +56,7 @@
                             Height="40"
                             Padding="5"
                             HorizontalAlignment="Left"
-                            Command="{Binding AssignBackgroundDeckDesignCommand}"
+                            Command="{Binding AssignDeckBackgroundDesignCommand}"
                             Content="Assign to Character" />
                         <Label
                             Background="Transparent"
@@ -68,15 +68,15 @@
                             Margin="0"
                             Padding="0"
                             VerticalAlignment="Center"
-                            AddedItemName="{Binding AddedBackgroundDeckDesignName, Mode=TwoWay}"
+                            AddedItemName="{Binding AddedDeckBackgroundDesignName, Mode=TwoWay}"
                             BorderThickness="0"
-                            DeleteCommand="{Binding DeleteBackgroundDeckDesignCommand}"
-                            ItemsSource="{Binding AllBackgroundDeckDesigns, Mode=TwoWay}"
+                            DeleteCommand="{Binding DeleteDeckBackgroundDesignCommand}"
+                            ItemsSource="{Binding AllDeckBackgroundDesigns, Mode=TwoWay}"
                             Orientation="Horizontal"
-                            SaveCommand="{Binding CreateBackgroundDeckDesignCommand}"
+                            SaveCommand="{Binding CreateDeckBackgroundDesignCommand}"
                             SelectedItem="{Binding SelectedBackgroundDesign, Mode=TwoWay}"
                             SelectionChanged="SelectedCardDesign_SelectionChanged"
-                            UpdateCommand="{Binding UpdateBackgroundDeckDesignCommand}"
+                            UpdateCommand="{Binding UpdateDeckBackgroundDesignCommand}"
                             ViewOnly="False" />
                     </DockPanel>
                     <Grid>

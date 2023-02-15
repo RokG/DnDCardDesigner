@@ -25,28 +25,10 @@ namespace CardDesigner.UI.ViewModels
         #region Character
 
         [ObservableProperty]
-        private SpellCardModel testCharacterCard;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(CreateBackgroundDeckDesignCommand))]
-        private string addedBackgroundDeckDesignName;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(AssignBackgroundDeckDesignCommand))]
-        private CharacterDeckDesignModel selectedBackgroundDesign;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(AssignBackgroundDeckDesignCommand))]
-        private CharacterDeckDesignModel selectedCharacterBackgroundDesign;
-
-        [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(AssignItemDeckDesignCommand))]
         [NotifyCanExecuteChangedFor(nameof(AssignSpellDeckDesignCommand))]
-        [NotifyCanExecuteChangedFor(nameof(AssignBackgroundDeckDesignCommand))]
+        [NotifyCanExecuteChangedFor(nameof(AssignDeckBackgroundDesignCommand))]
         private CharacterModel selectedCharacter;
-
-        [ObservableProperty]
-        private ObservableCollection<CharacterDeckDesignModel> allBackgroundDeckDesigns;
 
         [ObservableProperty]
         private ObservableCollection<CharacterModel> allCharacters;
@@ -56,6 +38,25 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<ItemDeckModel> characterItemDecks;
+
+        #endregion
+
+        #region DeckBackground
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateDeckBackgroundDesignCommand))]
+        private string addedDeckBackgroundDesignName;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AssignDeckBackgroundDesignCommand))]
+        private CharacterDeckDesignModel selectedBackgroundDesign;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AssignDeckBackgroundDesignCommand))]
+        private CharacterDeckDesignModel selectedCharacterBackgroundDesign;
+
+        [ObservableProperty]
+        private ObservableCollection<CharacterDeckDesignModel> allDeckBackgroundDesigns;
 
         #endregion
 
@@ -139,7 +140,7 @@ namespace CardDesigner.UI.ViewModels
 
             SelectedSpellDeckDesign = AllSpellDeckDesigns.FirstOrDefault();
             SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault();
-            selectedCharacterBackgroundDesign = AllBackgroundDeckDesigns.FirstOrDefault();
+            selectedCharacterBackgroundDesign = AllDeckBackgroundDesigns.FirstOrDefault();
             SelectedCharacter = AllCharacters.FirstOrDefault();
             SelectedItemDeck = AllItemDecks.FirstOrDefault();
 
@@ -191,7 +192,7 @@ namespace CardDesigner.UI.ViewModels
             switch (change)
             {
                 case DataChangeType.Created:
-                    AllBackgroundDeckDesigns.Add(characterDeckDesign);
+                    AllDeckBackgroundDesigns.Add(characterDeckDesign);
                     SelectedBackgroundDesign = characterDeckDesign;
                     break;
                 case DataChangeType.Removed:
@@ -199,8 +200,8 @@ namespace CardDesigner.UI.ViewModels
                 case DataChangeType.Updated:
                     break;
                 case DataChangeType.Deleted:
-                    AllBackgroundDeckDesigns.Remove(characterDeckDesign);
-                    SelectedBackgroundDesign = AllBackgroundDeckDesigns.FirstOrDefault();
+                    AllDeckBackgroundDesigns.Remove(characterDeckDesign);
+                    SelectedBackgroundDesign = AllDeckBackgroundDesigns.FirstOrDefault();
                     break;
                 default:
                     break;
@@ -298,7 +299,7 @@ namespace CardDesigner.UI.ViewModels
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
             AllSpellDeckDesigns = new(_cardDesignerStore.SpellDeckDesigns);
             AllItemDeckDesigns = new(_cardDesignerStore.ItemDeckDesigns);
-            AllBackgroundDeckDesigns = new(_cardDesignerStore.CharacterDeckDesigns);
+            AllDeckBackgroundDesigns = new(_cardDesignerStore.CharacterDeckDesigns);
         }
 
         #endregion
@@ -333,15 +334,15 @@ namespace CardDesigner.UI.ViewModels
         }
 
 
-        [RelayCommand(CanExecute = nameof(CanCreateBackgroundDeckDesign))]
-        private async void CreateBackgroundDeckDesign()
+        [RelayCommand(CanExecute = nameof(CanCreateDeckBackgroundDesign))]
+        private async void CreateDeckBackgroundDesign()
         {
-            await _cardDesignerStore.CreateCardDesign(new CharacterDeckDesignModel() { Name = AddedBackgroundDeckDesignName });
+            await _cardDesignerStore.CreateCardDesign(new CharacterDeckDesignModel() { Name = AddedDeckBackgroundDesignName });
         }
 
-        private bool CanCreateBackgroundDeckDesign()
+        private bool CanCreateDeckBackgroundDesign()
         {
-            bool noName = (AddedBackgroundDeckDesignName == string.Empty || AddedBackgroundDeckDesignName == null);
+            bool noName = (AddedDeckBackgroundDesignName == string.Empty || AddedDeckBackgroundDesignName == null);
 
             return !noName;
         }
@@ -359,7 +360,7 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
-        private async void UpdateBackgroundDeckDesign()
+        private async void UpdateDeckBackgroundDesign()
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedBackgroundDesign);
         }
@@ -377,7 +378,7 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
-        private async void DeleteBackgroundDeckDesign()
+        private async void DeleteDeckBackgroundDesign()
         {
             await _cardDesignerStore.DeleteCardDesign(SelectedBackgroundDesign);
         }
@@ -413,8 +414,8 @@ namespace CardDesigner.UI.ViewModels
             return SelectedCharacter != null && SelectedItemDeckDesign != null && SelectedItemDeck != null;
         }
 
-        [RelayCommand(CanExecute = nameof(CanAssignBackgroundDeckDesign))]
-        private async void AssignBackgroundDeckDesign()
+        [RelayCommand(CanExecute = nameof(CanAssignDeckBackgroundDesign))]
+        private async void AssignDeckBackgroundDesign()
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedBackgroundDesign);
             if (SelectedBackgroundDesign != null)
@@ -423,7 +424,7 @@ namespace CardDesigner.UI.ViewModels
             }
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
-        private bool CanAssignBackgroundDeckDesign()
+        private bool CanAssignDeckBackgroundDesign()
         {
             return SelectedCharacter != null && SelectedBackgroundDesign != null;
         }
@@ -438,8 +439,8 @@ namespace CardDesigner.UI.ViewModels
         private void GetCharacterBackgroundDeck()
         {
             SelectedCharacterBackgroundDesign = SelectedCharacter?.DeckBackgroundDesign != null
-                ? AllBackgroundDeckDesigns.FirstOrDefault(dd => dd.ID == SelectedCharacter.DeckBackgroundDesign.ID)
-                : AllBackgroundDeckDesigns.FirstOrDefault();
+                ? AllDeckBackgroundDesigns.FirstOrDefault(dd => dd.ID == SelectedCharacter.DeckBackgroundDesign.ID)
+                : AllDeckBackgroundDesigns.FirstOrDefault();
             SelectedBackgroundDesign = SelectedCharacterBackgroundDesign;
         }
 
