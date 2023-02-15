@@ -34,7 +34,7 @@ namespace CardDesigner.UI.ViewModels
         private CharacterCardModel selectedCharacterCard;
 
         [ObservableProperty]
-        private CharacterDeckDesignModel selectedCharacterDeckDesign = new();
+        private DeckBackgroundDesignModel selectedCharacterDeckDesign = new();
 
         [ObservableProperty]
         private ObservableCollection<CharacterCardModel> allCharacterCards;

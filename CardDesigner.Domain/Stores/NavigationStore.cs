@@ -13,7 +13,7 @@ namespace CardDesigner.Domain.Stores
         public ItemDeckModel SelectedItemDeck;
         public SpellDeckModel SelectedSpellDeck;
         public CharacterModel SelectedCharacter;
-        public CharacterDeckDesignModel SelectedBackgroundDesign;
+        public DeckBackgroundDesignModel SelectedBackgroundDesign;
         public ItemDeckDesignModel SelectedItemDeckDesign;
         public SpellDeckDesignModel SelectedSpellDeckDesign;
 

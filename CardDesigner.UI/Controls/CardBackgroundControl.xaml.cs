@@ -14,14 +14,14 @@ namespace CardDesigner.UI.Controls
             InitializeComponent();
         }
 
-        public CharacterDeckDesignModel CardDesign
+        public DeckBackgroundDesignModel CardDesign
         {
-            get => (CharacterDeckDesignModel)GetValue(CardDesignProperty);
+            get => (DeckBackgroundDesignModel)GetValue(CardDesignProperty);
             set => SetValue(CardDesignProperty, value);
         }
 
         public static readonly DependencyProperty CardDesignProperty =
-            DependencyProperty.Register(nameof(CardDesign), typeof(CharacterDeckDesignModel), typeof(CardBackgroundControl), new PropertyMetadata(new CharacterDeckDesignModel()));
+            DependencyProperty.Register(nameof(CardDesign), typeof(DeckBackgroundDesignModel), typeof(CardBackgroundControl), new PropertyMetadata(new DeckBackgroundDesignModel()));
 
     }
 }

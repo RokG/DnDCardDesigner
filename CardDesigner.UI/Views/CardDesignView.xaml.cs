@@ -56,7 +56,7 @@ namespace CardDesigner.UI.Views
                             SetStartingColors(FrontItemFooterIconColor, itemDeckDesign.FooterIconColor);
                             SetStartingColors(FrontItemHeaderColor, itemDeckDesign.HeaderColor);
                             break;
-                        case CharacterDeckDesignModel characterDeckDesign:
+                        case DeckBackgroundDesignModel characterDeckDesign:
                             // Backgrounds
                             SetStartingColors(BackLineColor, characterDeckDesign.LineColor);
                             SetStartingColors(BackBackgroundColor, characterDeckDesign.BackgroundColor);

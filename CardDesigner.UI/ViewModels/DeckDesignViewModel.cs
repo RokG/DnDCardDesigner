@@ -49,14 +49,14 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(AssignDeckBackgroundDesignCommand))]
-        private CharacterDeckDesignModel selectedBackgroundDesign;
+        private DeckBackgroundDesignModel selectedBackgroundDesign;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(AssignDeckBackgroundDesignCommand))]
-        private CharacterDeckDesignModel selectedCharacterBackgroundDesign;
+        private DeckBackgroundDesignModel selectedCharacterBackgroundDesign;
 
         [ObservableProperty]
-        private ObservableCollection<CharacterDeckDesignModel> allDeckBackgroundDesigns;
+        private ObservableCollection<DeckBackgroundDesignModel> allDeckBackgroundDesigns;
 
         #endregion
 
@@ -187,7 +187,7 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
-        private void OnCharacterDeckDesignChanged(CharacterDeckDesignModel characterDeckDesign, DataChangeType change)
+        private void OnCharacterDeckDesignChanged(DeckBackgroundDesignModel characterDeckDesign, DataChangeType change)
         {
             switch (change)
             {
@@ -337,7 +337,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateDeckBackgroundDesign))]
         private async void CreateDeckBackgroundDesign()
         {
-            await _cardDesignerStore.CreateCardDesign(new CharacterDeckDesignModel() { Name = AddedDeckBackgroundDesignName });
+            await _cardDesignerStore.CreateCardDesign(new DeckBackgroundDesignModel() { Name = AddedDeckBackgroundDesignName });
         }
 
         private bool CanCreateDeckBackgroundDesign()
