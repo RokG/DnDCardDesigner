@@ -47,15 +47,20 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Character Classes
+            // Character Spell deck descriptors
             modelBuilder.Entity<SpellDeckDesignLinkerEntity>()
                    .HasOne(c => c.Character)
                    .WithMany(e => e.SpellDeckDescriptors);
 
-            // Character Classes
+            // Character Item deck descriptors
             modelBuilder.Entity<ItemDeckDesignLinkerEntity>()
                    .HasOne(c => c.Character)
                    .WithMany(e => e.ItemDeckDescriptors);
+
+            // Character Character deck descriptors
+            modelBuilder.Entity<CharacterDeckDesignLinkerEntity>()
+                   .HasOne(c => c.Character)
+                   .WithMany(e => e.CharacterDeckDescriptors);
 
             // Character Classes
             modelBuilder.Entity<CharacterClassEntity>()
@@ -79,11 +84,6 @@ namespace CardDesigner.DataAccess.DbContexts
                    .HasOne(c => c.DeckBackgroundDesign)
                    .WithMany(e => e.Characters);
 
-            // Deck Background Design - Character
-            modelBuilder.Entity<CharacterEntity>()
-                   .HasOne(c => c.CharacterDeckDesign)
-                   .WithMany(e => e.Characters);
-
             // Character, Spell Deck, Deck Design
             modelBuilder.Entity<CharacterEntity>()
                    .HasMany(c => c.SpellDeckDescriptors)
@@ -92,6 +92,11 @@ namespace CardDesigner.DataAccess.DbContexts
             // Character, Item Deck, Deck Design
             modelBuilder.Entity<CharacterEntity>()
                    .HasMany(c => c.ItemDeckDescriptors)
+                   .WithOne(e => e.Character);
+
+            // Character, Character Deck, Deck Design
+            modelBuilder.Entity<CharacterEntity>()
+                   .HasMany(c => c.CharacterDeckDescriptors)
                    .WithOne(e => e.Character);
 
             // Spell Deck - Spell Card

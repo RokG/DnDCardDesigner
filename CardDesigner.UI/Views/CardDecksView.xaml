@@ -223,6 +223,30 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!--  Manage character decks on character  -->
+            <Border BorderThickness="1">
+                <Border.Style>
+                    <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SelectedCharacter}"
+                                Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel>
+                    <Label Content="Character decks" />
+                    <controls:ItemTransferControl
+                        AddCommand="{Binding DataContext.AddCharacterDeckToCharacterCommand, ElementName=deckControl}"
+                        ItemsDestination="{Binding CharacterCharacterDecks, Mode=TwoWay}"
+                        ItemsSource="{Binding AllCharacterDecks, Mode=TwoWay}"
+                        RemoveCommand="{Binding DataContext.RemoveCharacterDeckFromCharacterCommand, ElementName=deckControl}" />
+                </StackPanel>
+            </Border>
+
             <!--  Manage spell decks on character  -->
             <Border
                 Grid.Column="1"
