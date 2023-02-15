@@ -12,6 +12,7 @@ namespace CardDesigner.Domain.Services
         Task<bool> DeleteCardDesign(ICardDesign cardDesignModel);
         public Task<IEnumerable<SpellDeckDesignModel>> GetAllSpellDeckDesigns();
         public Task<IEnumerable<ItemDeckDesignModel>> GetAllItemDeckDesigns();
-        public Task<IEnumerable<DeckBackgroundDesignModel>> GetAllCharacterCardDesigns();
+        public Task<IEnumerable<CharacterDeckDesignModel>> GetAllCharacterDeckDesigns();
+        public Task<IEnumerable<DeckBackgroundDesignModel>> GetAllBackgroundDeckDesigns();
     }
 }

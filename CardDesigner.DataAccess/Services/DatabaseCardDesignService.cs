@@ -142,7 +142,7 @@ namespace CardDesigner.DataAccess.Services
             }
         }
 
-        public async Task<IEnumerable<DeckBackgroundDesignModel>> GetAllCharacterCardDesigns()
+        public async Task<IEnumerable<DeckBackgroundDesignModel>> GetAllBackgroundDeckDesigns()
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
             {
@@ -152,6 +152,19 @@ namespace CardDesigner.DataAccess.Services
                     .ToListAsync();
 
                 return cardDesignEntities.Select(c => _mapper.Map<DeckBackgroundDesignModel>(c));
+            }
+        }
+
+        public async Task<IEnumerable<CharacterDeckDesignModel>> GetAllCharacterDeckDesigns()
+        {
+            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                IEnumerable<CharacterDeckDesignEntity> cardDesignEntities = await
+                    context.CharacterDeckDesigns
+                    .Include(c => c.Characters)
+                    .ToListAsync();
+
+                return cardDesignEntities.Select(c => _mapper.Map<CharacterDeckDesignModel>(c));
             }
         }
     }
