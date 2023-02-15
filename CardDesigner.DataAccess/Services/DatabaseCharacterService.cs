@@ -39,12 +39,14 @@ namespace CardDesigner.DataAccess.Services
         {
             using CardDesignerDbContext dbContext = _dbContextFactory.CreateDbContext();
             {
-                    CharacterEntity itemCardEntity = _mapper.Map<CharacterEntity>(characterModel);
-                    CharacterEntity createdItemCardEntity = dbContext.Characters.Update(itemCardEntity).Entity;
+                CharacterEntity itemCardEntity = _mapper.Map<CharacterEntity>(characterModel);
+                CharacterEntity createdItemCardEntity = dbContext.Characters.Update(itemCardEntity).Entity;
 
-                    await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
 
-                    return _mapper.Map<CharacterModel>(createdItemCardEntity);
+                return _mapper.Map<CharacterModel>(createdItemCardEntity);
+
+                // A lot of code here was delted on 15.2. at 23.52
             }
         }
 
