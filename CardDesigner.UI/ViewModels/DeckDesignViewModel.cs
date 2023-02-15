@@ -60,6 +60,25 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
 
+        #region CharacterDecks
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateDeckBackgroundDesignCommand))]
+        private string addedCharacterDeckDesignName;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AssignDeckBackgroundDesignCommand))]
+        private CharacterDeckDesignModel selectedCharacterDeckDesign;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AssignDeckBackgroundDesignCommand))]
+        private CharacterDeckDesignModel selectedCharacterCharacterDeckDesign;
+
+        [ObservableProperty]
+        private ObservableCollection<CharacterDeckDesignModel> allCharacterDeckDesigns;
+
+        #endregion
+
         #region ItemDecks
 
         [ObservableProperty]
@@ -334,6 +353,19 @@ namespace CardDesigner.UI.ViewModels
         }
 
 
+        [RelayCommand(CanExecute = nameof(CanCreateCharacterDeckDesign))]
+        private async void CreateCharacterDeckDesign()
+        {
+            await _cardDesignerStore.CreateCardDesign(new CharacterDeckDesignModel() { Name = AddedCharacterDeckDesignName });
+        }
+
+        private bool CanCreateCharacterDeckDesign()
+        {
+            bool noName = (AddedCharacterDeckDesignName == string.Empty || AddedCharacterDeckDesignName == null);
+
+            return !noName;
+        }
+
         [RelayCommand(CanExecute = nameof(CanCreateDeckBackgroundDesign))]
         private async void CreateDeckBackgroundDesign()
         {
@@ -412,6 +444,21 @@ namespace CardDesigner.UI.ViewModels
         private bool CanAssignItemDeckDesign()
         {
             return SelectedCharacter != null && SelectedItemDeckDesign != null && SelectedItemDeck != null;
+        }
+
+        [RelayCommand(CanExecute = nameof(CanAssignCharacterDeckDesign))]
+        private async void AssignCharacterDeckDesign()
+        {
+            await _cardDesignerStore.UpdateCardDesign(SelectedCharacterDeckDesign);
+            if (SelectedCharacterDeckDesign != null)
+            {
+                SelectedCharacter.CharacterDeckDesign = SelectedCharacterDeckDesign;
+            }
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+        private bool CanAssignCharacterDeckDesign()
+        {
+            return SelectedCharacter != null && SelectedCharacterDeckDesign != null;
         }
 
         [RelayCommand(CanExecute = nameof(CanAssignDeckBackgroundDesign))]
