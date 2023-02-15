@@ -73,17 +73,17 @@ namespace CardDesigner.DataAccess.DbContexts
                    .WithOne(e => e.CasterStats)
                    .HasForeignKey<CharacterEntity>(b => b.ID);
 
-            // Character Spell Deck - Deck design
+            // Deck Background Design - Character
             modelBuilder.Entity<CharacterEntity>()
                    .HasOne(c => c.DeckBackgroundDesign)
                    .WithMany(e => e.Characters);
 
-            // Character Spell Deck - Deck design
+            // Character, Spell Deck, Deck Design
             modelBuilder.Entity<CharacterEntity>()
                    .HasMany(c => c.SpellDeckDescriptors)
                    .WithOne(e => e.Character);
 
-            // Character Item Deck - Deck design
+            // Character, Item Deck, Deck Design
             modelBuilder.Entity<CharacterEntity>()
                    .HasMany(c => c.ItemDeckDescriptors)
                    .WithOne(e => e.Character);
