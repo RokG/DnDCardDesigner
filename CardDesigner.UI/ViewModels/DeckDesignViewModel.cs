@@ -165,6 +165,7 @@ namespace CardDesigner.UI.ViewModels
 
             GetCharacterSpellDecks();
             GetCharacterItemDecks();
+            GetCharacterCharacterDeckDesign();
             GetCharacterBackgroundDeck();
             UpdateSpellDeckDesign();
             UpdateItemDeckDesign();
@@ -318,6 +319,7 @@ namespace CardDesigner.UI.ViewModels
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
             AllSpellDeckDesigns = new(_cardDesignerStore.SpellDeckDesigns);
             AllItemDeckDesigns = new(_cardDesignerStore.ItemDeckDesigns);
+            AllCharacterDeckDesigns = new(_cardDesignerStore.CharacterDeckDesigns);
             AllDeckBackgroundDesigns = new(_cardDesignerStore.DeckBackgroundDesigns);
         }
 
@@ -480,6 +482,7 @@ namespace CardDesigner.UI.ViewModels
         {
             GetCharacterSpellDecks();
             GetCharacterItemDecks();
+            GetCharacterCharacterDeckDesign();
             GetCharacterBackgroundDeck();
         }
 
@@ -489,6 +492,14 @@ namespace CardDesigner.UI.ViewModels
                 ? AllDeckBackgroundDesigns.FirstOrDefault(dd => dd.ID == SelectedCharacter.DeckBackgroundDesign.ID)
                 : AllDeckBackgroundDesigns.FirstOrDefault();
             SelectedDeckBackgroundDesign = SelectedCharacterDeckBackgroundDesign;
+        }
+
+        private void GetCharacterCharacterDeckDesign()
+        {
+            SelectedCharacterCharacterDeckDesign = SelectedCharacter?.CharacterDeckDesign != null
+                ? AllCharacterDeckDesigns.FirstOrDefault(dd => dd.ID == SelectedCharacter.CharacterDeckDesign.ID)
+                : AllCharacterDeckDesigns.FirstOrDefault();
+            SelectedCharacterDeckDesign = SelectedCharacterCharacterDeckDesign;
         }
 
         #endregion
