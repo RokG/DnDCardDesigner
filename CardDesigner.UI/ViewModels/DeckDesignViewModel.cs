@@ -299,7 +299,7 @@ namespace CardDesigner.UI.ViewModels
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
             AllSpellDeckDesigns = new(_cardDesignerStore.SpellDeckDesigns);
             AllItemDeckDesigns = new(_cardDesignerStore.ItemDeckDesigns);
-            AllDeckBackgroundDesigns = new(_cardDesignerStore.CharacterDeckDesigns);
+            AllDeckBackgroundDesigns = new(_cardDesignerStore.DeckBackgroundDesigns);
         }
 
         #endregion
