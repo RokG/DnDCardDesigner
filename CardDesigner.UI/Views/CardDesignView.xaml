@@ -74,7 +74,7 @@
                             ItemsSource="{Binding AllDeckBackgroundDesigns, Mode=TwoWay}"
                             Orientation="Horizontal"
                             SaveCommand="{Binding CreateDeckBackgroundDesignCommand}"
-                            SelectedItem="{Binding SelectedBackgroundDesign, Mode=TwoWay}"
+                            SelectedItem="{Binding SelectedDeckBackgroundDesign, Mode=TwoWay}"
                             SelectionChanged="SelectedCardDesign_SelectionChanged"
                             UpdateCommand="{Binding UpdateDeckBackgroundDesignCommand}"
                             ViewOnly="False" />
@@ -91,10 +91,10 @@
                                 Orientation="Horizontal">
                                 <controls:ColorPickerControl x:Name="BackLineColor"
                                     Title="Line Color"
-                                    CurrentColor="{Binding SelectedBackgroundDesign.LineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedDeckBackgroundDesign.LineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="BackBackgroundColor"
                                     Title="Background Color"
-                                    CurrentColor="{Binding SelectedBackgroundDesign.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedDeckBackgroundDesign.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </WrapPanel>
                             <Border Style="{StaticResource VisibleBorder}">
                                 <StackPanel>
@@ -109,15 +109,15 @@
                                             DockPanel.Dock="Right"
                                             Maximum="20"
                                             Minimum="0"
-                                            Value="{Binding SelectedBackgroundDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            Value="{Binding SelectedDeckBackgroundDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </DockPanel>
                                     <DockPanel>
                                         <Label Content="Icon filepath:" />
-                                        <controls:FilePicker Text="{Binding SelectedBackgroundDesign.IconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <controls:FilePicker Text="{Binding SelectedDeckBackgroundDesign.IconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </DockPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <Label Content="Icon stretch:" />
-                                        <ComboBox SelectedItem="{Binding SelectedBackgroundDesign.IconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <ComboBox SelectedItem="{Binding SelectedDeckBackgroundDesign.IconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                             <sys:String>None</sys:String>
                                             <sys:String>Fill</sys:String>
                                             <sys:String>Uniform</sys:String>
@@ -130,7 +130,7 @@
                         <controls:CardBackgroundControl
                             Grid.Column="1"
                             Height="860"
-                            CardDesign="{Binding SelectedBackgroundDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            CardDesign="{Binding SelectedDeckBackgroundDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                 </StackPanel>
             </TabItem>
