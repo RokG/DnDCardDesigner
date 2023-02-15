@@ -2,7 +2,7 @@
 
 namespace CardDesigner.Domain.Models
 {
-    public class CharacterDeckDesignModel : ICardDesign
+    public class CharacterDeckDesignModel : ICardDesign, ISelectableItem
     {
         public int ID { get; set; }
         public string Name { get; set; }

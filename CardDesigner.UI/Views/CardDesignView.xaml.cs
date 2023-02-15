@@ -44,6 +44,18 @@ namespace CardDesigner.UI.Views
                             SetStartingColors(FrontSpellFooterIconColor, spellDeckDesign.FooterIconColor);
                             SetStartingColors(FrontSpellHeaderColor, spellDeckDesign.HeaderColor);
                             break;
+                        case CharacterDeckDesignModel characterDeckDesign:
+                            // Foregrounds
+                            SetStartingColors(FrontCharacterLineColor, characterDeckDesign.LineColor);
+                            SetStartingColors(FrontCharacterBackgroundColor, characterDeckDesign.BackgroundColor);
+                            SetStartingColors(FrontCharacterFooterColor, characterDeckDesign.FooterColor);
+                            SetStartingColors(FrontCharacterHeaderTextColor, characterDeckDesign.HeaderTextColor);
+                            SetStartingColors(FrontCharacterFooterTextColor, characterDeckDesign.FooterTextColor);
+                            SetStartingColors(FrontCharacterDescriptionTextColor, characterDeckDesign.DescriptionTextColor);
+                            SetStartingColors(FrontCharacterHeaderIconColor, characterDeckDesign.HeaderIconColor);
+                            SetStartingColors(FrontCharacterFooterIconColor, characterDeckDesign.FooterIconColor);
+                            SetStartingColors(FrontCharacterHeaderColor, characterDeckDesign.HeaderColor);
+                            break;
                         case ItemDeckDesignModel itemDeckDesign:
                             // Foregrounds
                             SetStartingColors(FrontItemLineColor, itemDeckDesign.LineColor);

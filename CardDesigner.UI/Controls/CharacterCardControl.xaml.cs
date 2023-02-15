@@ -16,14 +16,14 @@ namespace CardDesigner.UI.Controls
 
         #region Properties
 
-        public DeckBackgroundDesignModel CardDesign
+        public CharacterDeckDesignModel CardDesign
         {
-            get => (DeckBackgroundDesignModel)GetValue(CardDesignProperty);
+            get => (CharacterDeckDesignModel)GetValue(CardDesignProperty);
             set => SetValue(CardDesignProperty, value);
         }
 
         public static readonly DependencyProperty CardDesignProperty =
-            DependencyProperty.Register(nameof(CardDesign), typeof(DeckBackgroundDesignModel), typeof(CharacterCardControl), new PropertyMetadata(new DeckBackgroundDesignModel()));
+            DependencyProperty.Register(nameof(CardDesign), typeof(CharacterDeckDesignModel), typeof(CharacterCardControl), new PropertyMetadata(new CharacterDeckDesignModel()));
 
         public bool IsEditable
         {
