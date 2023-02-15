@@ -132,7 +132,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore.CharacterChanged += OnCharacterChanged;
             _cardDesignerStore.SpellDeckDesignChanged += OnSpellDeckDesignChanged;
             _cardDesignerStore.ItemDeckDesignChanged += OnItemDeckDesignChanged;
-            _cardDesignerStore.CharacterDeckDesignChanged += OnCharacterDeckDesignChanged;
+            _cardDesignerStore.DeckBackgroundDesignChanged += OnCharacterDeckDesignChanged;
 
             _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
 

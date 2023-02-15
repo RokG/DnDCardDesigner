@@ -14,6 +14,7 @@ namespace CardDesigner.Domain.Models
         public string Title { get; set; }
         public List<SpellDeckDesignLinkerModel> SpellDeckDescriptors { get; set; } = new();
         public List<ItemDeckDesignLinkerModel> ItemDeckDescriptors { get; set; } = new();
+        public CharacterDeckDesignModel CharacterDeckDesign { get; set; } = new();
         public DeckBackgroundDesignModel DeckBackgroundDesign { get; set; } = new();
         public List<CharacterClassModel> Classes { get; set; } = new();
         public CharacterAbilitiesModel Abilities { get; set; } = new();

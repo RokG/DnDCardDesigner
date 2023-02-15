@@ -25,6 +25,7 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<CharacterEntity> Characters { get; set; }
         public DbSet<SpellDeckDesignEntity> SpellDeckDesigns { get; set; }
         public DbSet<ItemDeckDesignEntity> ItemDeckDesigns { get; set; }
+        public DbSet<CharacterDeckDesignEntity> CharacterDeckDesigns { get; set; }
         public DbSet<SpellDeckDesignLinkerEntity> SpellDeckDesignLinkers { get; set; }
         public DbSet<ItemDeckDesignLinkerEntity> ItemDeckDesignLinkers { get; set; }
         public DbSet<DeckBackgroundDesignEntity> DeckBackgroundDesigns { get; set; }
@@ -76,6 +77,11 @@ namespace CardDesigner.DataAccess.DbContexts
             // Deck Background Design - Character
             modelBuilder.Entity<CharacterEntity>()
                    .HasOne(c => c.DeckBackgroundDesign)
+                   .WithMany(e => e.Characters);
+
+            // Deck Background Design - Character
+            modelBuilder.Entity<CharacterEntity>()
+                   .HasOne(c => c.CharacterDeckDesign)
                    .WithMany(e => e.Characters);
 
             // Character, Spell Deck, Deck Design
