@@ -3,7 +3,6 @@ using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CardDesigner.DataAccess.DbContexts
 {
@@ -178,10 +177,107 @@ namespace CardDesigner.DataAccess.DbContexts
             IList<ItemCardEntity> itemCards = new List<ItemCardEntity>
             {
                 new ItemCardEntity() {ID = 1, Name="SampleItemCard_1", IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage1.jpeg", Level = 1, Description="This strange armour is very hairy. Identify it to find out its properties", DescriptionFontSize=14, IsMagical = true, IsUnidentified = true, ItemID="chest1", Title="Hairy chest", RequiresAttunement=true, Type=ItemType.Armour, TitleFontSize=16},
-                new ItemCardEntity() {ID = 2, Name="SampleItemCard_2",  IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage2.jpg",Level = 2, Description="A very common sword mostly used by nobility", DescriptionFontSize=14, IsMagical = false, IsUnidentified = false, ItemID="melee1", Title="Common Longsword", RequiresAttunement=false, Type=ItemType.Weapon, TitleFontSize=16},
-                new ItemCardEntity() {ID = 3, Name="SampleItemCard_3",  IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Big Bertha", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 2, Name="SampleItemCard_2", IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage2.jpg",Level = 2, Description="A very common sword mostly used by nobility", DescriptionFontSize=14, IsMagical = false, IsUnidentified = false, ItemID="melee1", Title="Common Longsword", RequiresAttunement=false, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 3, Name="SampleItemCard_3", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Big Bertha", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
             };
             modelBuilder.Entity<ItemCardEntity>().HasData(itemCards);
+
+            CharacterEntity character = new() { ID = 1, Name = "SampleCharacter_1", Weight = "100 kg", Age = "25 y", Alignment = Alignment.ChaoticNeutral, ArmourClass = 12, Height = "6 ft", Hitpoints = 40, Initiative = -1, IsHeavyArmourProficient = false, IsLightArmourProficiency = true, IsMartialWeaponProficient = true, IsMediumArmourProficient = false, IsShieldProficient = false, IsSimpleWeaponProficient = false, Proficiency = 2, OtherProficiencies = "Healing kit, Blacksmith tools", PassiveInsight = 14, PassivePerception = 12, Race = Race.HalfOrc, Speed = 25, Title = "Waltung Kremis" };
+            modelBuilder.Entity<CharacterEntity>().HasData(character);
+
+
+            modelBuilder.Entity<CharacterClassEntity>().HasData(new
+            {
+                ID = 1,
+                ClassID = "class1",
+                Level = 3,
+                ClassSpecialization = "A",
+                CharacterID = 1,
+            });
+
+            modelBuilder.Entity<CasterStatsEntity>().HasData(new
+            {
+                ID = 1,
+                CantripsKnown = 3,
+                KnownSpells = 6,
+                PreparedSpells = 4,
+                SpellSaveDC = 13,
+                SpellAttackBonus = 3,
+                SpellSlotsLevel1 = 4,
+                SpellSlotsLevel2 = 2,
+                SpellSlotsLevel3 = 0,
+                SpellSlotsLevel4 = 0,
+                SpellSlotsLevel5 = 0,
+                SpellSlotsLevel6 = 0,
+                SpellSlotsLevel7 = 0,
+                SpellSlotsLevel8 = 0,
+                SpellSlotsLevel9 = 0,
+                CharacterID = 1,
+            });
+
+            modelBuilder.Entity<CharacterAbilitiesEntity>().HasData(new
+            {
+                ID = 1,
+
+                Proficiency = 3,
+
+                StrengthSavingThrows = false,
+                StrengthLevel = 8,
+                DexteritySavingThrows = true,
+                DexterityLevel = 10,
+                ConstitutionSavingThrows = false,
+                ConstitutionLevel = 14,
+                InteligenceSavingThrows = false,
+                InteligenceLevel = 18,
+                WisdomSavingThrows = true,
+                WisdomLevel = 14,
+                CharismaSavingThrows = false,
+                CharismaLevel = 6,
+
+                AthleticsProficiency = false,
+                AthleticsExperties = false,
+
+                AcrobaticsProficiency = false,
+                AcrobaticsExperties = true,
+                SleightOfHandProficiency = false,
+                SleightOfHandExperties = false,
+                StealthProficiency = true,
+                StealthExperties = false,
+
+                ArcanaProficiency = false,
+                ArcanaExperties = false,
+                HistoryProficiency = false,
+                HistoryExperties = false,
+                InvestigationProficiency = false,
+                InvestigationExperties = false,
+                NatureProficiency = false,
+                NatureExperties = false,
+                ReligionProficiency = false,
+                ReligionExperties = false,
+
+                AnimalHandlingProficiency = false,
+                AnimalHandlingExperties = true,
+                InsightProficiency = false,
+                InsightExperties = false,
+                MedicineProficiency = false,
+                MedicineExperties = false,
+                PerceptionProficiency = false,
+                PerceptionExperties = false,
+                SurvivalProficiency = false,
+                SurvivalExperties = false,
+
+                DeceptionProficiency = false,
+                DeceptionExperties = false,
+                IntimidationProficiency = true,
+                IntimidationExperties = false,
+                PerformanceProficiency = false,
+                PerformanceExperties = false,
+                PersuasionProficiency = false,
+                PersuasionExperties = false,
+
+                CharacterID = 1,
+            });
+
         }
     }
 }
