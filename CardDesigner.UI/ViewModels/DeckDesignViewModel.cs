@@ -181,6 +181,10 @@ namespace CardDesigner.UI.ViewModels
             UpdateSpellDeckDesign();
             UpdateItemDeckDesign();
 
+            TestCharacterCard = SelectedCharacterDeck.CharacterCards.FirstOrDefault();
+            TestItemCard = SelectedItemDeck.ItemCards.FirstOrDefault();
+            TestSpellCard = SelectedSpellDeck.SpellCards.FirstOrDefault();
+
             // Without this, the selected character in list on UI does not update?
             SelectedCharacter = AllCharacters.FirstOrDefault();
         }

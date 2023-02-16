@@ -15,7 +15,7 @@
             <DataGrid.Columns>
                 <DataGridTemplateColumn
                     Width="*"
-                    Header="All available cards">
+                    Header="All">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
@@ -38,7 +38,7 @@
             <DataGrid.Columns>
                 <DataGridTemplateColumn
                     Width="*"
-                    Header="Cards in deck">
+                    Header="Selected">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
