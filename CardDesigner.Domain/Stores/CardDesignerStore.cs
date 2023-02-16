@@ -29,6 +29,7 @@ namespace CardDesigner.Domain.Stores
         private readonly List<SpellDeckDesignModel> _spellDeckDesigns;
         private readonly List<ItemDeckDesignModel> _itemDeckDesigns;
         private readonly List<CharacterDeckDesignModel> _characterDeckDesigns;
+        private readonly List<DeckBackgroundDesignModel> _deckBackgroundDesigns;
         private readonly List<WeaponModel> _weapons;
         private readonly List<ArmourModel> _armours;
         private readonly List<ClassModel> _classes;
@@ -43,6 +44,7 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<SpellDeckDesignModel> SpellDeckDesigns => _spellDeckDesigns;
         public IEnumerable<ItemDeckDesignModel> ItemDeckDesigns => _itemDeckDesigns;
         public IEnumerable<CharacterDeckDesignModel> CharacterDeckDesigns => _characterDeckDesigns;
+        public IEnumerable<DeckBackgroundDesignModel> DeckBackgroundDesigns => _deckBackgroundDesigns;
         public IEnumerable<WeaponModel> Weapons => _weapons;
         public IEnumerable<ArmourModel> Armours => _armours;
         public IEnumerable<ClassModel> Classes => _classes;
@@ -51,6 +53,7 @@ namespace CardDesigner.Domain.Stores
         public event Action<SpellDeckDesignModel, DataChangeType> SpellDeckDesignChanged;
         public event Action<ItemDeckDesignModel, DataChangeType> ItemDeckDesignChanged;
         public event Action<CharacterDeckDesignModel, DataChangeType> CharacterDeckDesignChanged;
+        public event Action<DeckBackgroundDesignModel, DataChangeType> DeckBackgroundDesignChanged;
         public event Action<SpellCardModel, DataChangeType> SpellCardChanged;
         public event Action<ItemCardModel, DataChangeType> ItemCardChanged;
         public event Action<CharacterCardModel, DataChangeType> CharacterCardChanged;
@@ -79,6 +82,7 @@ namespace CardDesigner.Domain.Stores
             _spellDeckDesigns = new();
             _itemDeckDesigns = new();
             _characterDeckDesigns = new();
+            _deckBackgroundDesigns = new();
             _spellCards = new();
             _itemCards = new();
             _characterCards = new();
@@ -140,9 +144,13 @@ namespace CardDesigner.Domain.Stores
                         _itemDeckDesigns.Add(ItemDeckDesignModel);
                         ItemDeckDesignChanged?.Invoke(ItemDeckDesignModel, DataChangeType.Created);
                         break;
-                    case CharacterDeckDesignModel characterDeckDesignModel:
-                        _characterDeckDesigns.Add(characterDeckDesignModel);
-                        CharacterDeckDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Created);
+                    case CharacterDeckDesignModel CharacterDeckDesignModel:
+                        _characterDeckDesigns.Add(CharacterDeckDesignModel);
+                        CharacterDeckDesignChanged?.Invoke(CharacterDeckDesignModel, DataChangeType.Created);
+                        break;
+                    case DeckBackgroundDesignModel characterDeckDesignModel:
+                        _deckBackgroundDesigns.Add(characterDeckDesignModel);
+                        DeckBackgroundDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Created);
                         break;
                     default:
                         break;
@@ -223,6 +231,9 @@ namespace CardDesigner.Domain.Stores
                         break;
                     case CharacterDeckDesignModel characterDeckDesignModel:
                         CharacterDeckDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Updated);
+                        break;
+                    case DeckBackgroundDesignModel characterDeckDesignModel:
+                        DeckBackgroundDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Updated);
                         break;
                     default:
                         break;
@@ -312,6 +323,10 @@ namespace CardDesigner.Domain.Stores
                     case CharacterDeckDesignModel characterDeckDesignModel:
                         _characterDeckDesigns.Remove(characterDeckDesignModel);
                         CharacterDeckDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Deleted);
+                        break;
+                    case DeckBackgroundDesignModel characterDeckDesignModel:
+                        _deckBackgroundDesigns.Remove(characterDeckDesignModel);
+                        DeckBackgroundDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Deleted);
                         break;
                     default:
                         break;
@@ -437,7 +452,9 @@ namespace CardDesigner.Domain.Stores
             _itemDeckDesigns.Clear();
             _itemDeckDesigns.AddRange(await _cardDesignService.GetAllItemDeckDesigns());
             _characterDeckDesigns.Clear();
-            _characterDeckDesigns.AddRange(await _cardDesignService.GetAllCharacterCardDesigns());
+            _characterDeckDesigns.AddRange(await _cardDesignService.GetAllCharacterDeckDesigns());
+            _deckBackgroundDesigns.Clear();
+            _deckBackgroundDesigns.AddRange(await _cardDesignService.GetAllBackgroundDeckDesigns());
             AssignItemsToCards(ItemCards);
             AssignItemsToItemDecks(ItemDecks);
         }

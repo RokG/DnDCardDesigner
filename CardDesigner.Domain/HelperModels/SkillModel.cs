@@ -1,13 +1,23 @@
 ﻿using CardDesigner.Domain.Enums;
-using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CardDesigner.Domain.HelperModels
 {
-    public class SkillModel
+    public partial class SkillModel : ObservableObject
     {
-        public Skill Type { get; set; }
-        public bool IsExpert { get; set; }
-        public bool IsProficient { get; set; }
-        public bool IsBasic { get; set; }
+        [ObservableProperty]
+        private Skill type;
+
+        [ObservableProperty]
+        private bool isExpert;
+
+        [ObservableProperty]
+        private bool isProficient;
+
+        [ObservableProperty]
+        private bool isBasic;
+
+        [ObservableProperty]
+        private int bonus;
     }
 }

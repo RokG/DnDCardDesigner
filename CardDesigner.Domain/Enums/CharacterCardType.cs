@@ -5,6 +5,7 @@
         Avatar,
         Abilities,
         Stats,
+        Caster,
         Feats
     }
 }

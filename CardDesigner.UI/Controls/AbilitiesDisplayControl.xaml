@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="CardDesigner.UI.Controls.AbilitiesDisplayControl" x:Name="attributesDisplay"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CardDesigner.UI.Controls">
+    <WrapPanel
+        Width="244"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <local:AbilityDisplayControl
+            Ability="{Binding Abilities.Strength, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
+            AbilityName="STR"
+            SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
+        <local:AbilityDisplayControl
+            Ability="{Binding Abilities.Dexterity, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
+            AbilityName="DEX"
+            SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
+        <local:AbilityDisplayControl
+            Ability="{Binding Abilities.Constitution, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
+            AbilityName="CON"
+            SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
+        <local:AbilityDisplayControl
+            Ability="{Binding Abilities.Inteligence, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
+            AbilityName="INT"
+            SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
+        <local:AbilityDisplayControl
+            Ability="{Binding Abilities.Wisdom, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
+            AbilityName="WIS"
+            SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
+        <local:AbilityDisplayControl
+            Ability="{Binding Abilities.Charisma, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
+            AbilityName="CHA"
+            SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
+    </WrapPanel>
+</UserControl>

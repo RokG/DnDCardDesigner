@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CardDesigner.DataAccess.DbContexts
 {
@@ -25,9 +28,10 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<CharacterEntity> Characters { get; set; }
         public DbSet<SpellDeckDesignEntity> SpellDeckDesigns { get; set; }
         public DbSet<ItemDeckDesignEntity> ItemDeckDesigns { get; set; }
+        public DbSet<CharacterDeckDesignEntity> CharacterDeckDesigns { get; set; }
         public DbSet<SpellDeckDesignLinkerEntity> SpellDeckDesignLinkers { get; set; }
         public DbSet<ItemDeckDesignLinkerEntity> ItemDeckDesignLinkers { get; set; }
-        public DbSet<CharacterDeckDesignEntity> CharacterDeckDesigns { get; set; }
+        public DbSet<DeckBackgroundDesignEntity> DeckBackgroundDesigns { get; set; }
         public DbSet<SpellDeckEntity> SpellDecks { get; set; }
         public DbSet<ItemDeckEntity> ItemDecks { get; set; }
         public DbSet<SpellCardEntity> SpellCards { get; set; }
@@ -35,7 +39,7 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<CharacterCardEntity> CharacterCards { get; set; }
         public DbSet<CharacterDeckEntity> CharacterDecks { get; set; }
         public DbSet<CharacterClassEntity> CharacterClasses { get; set; }
-        public DbSet<CharacterAttributesEntity> CharacterAttributes { get; set; }
+        public DbSet<CharacterAbilitiesEntity> CharacterAbilities { get; set; }
         public DbSet<CasterStatsEntity> CasterStats { get; set; }
 
         //https://stackoverflow.com/questions/19342908/how-to-create-a-many-to-many-mapping-in-entity-framework
@@ -46,15 +50,20 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Character Classes
+            // Character Spell deck descriptors
             modelBuilder.Entity<SpellDeckDesignLinkerEntity>()
                    .HasOne(c => c.Character)
                    .WithMany(e => e.SpellDeckDescriptors);
 
-            // Character Classes
+            // Character Item deck descriptors
             modelBuilder.Entity<ItemDeckDesignLinkerEntity>()
                    .HasOne(c => c.Character)
                    .WithMany(e => e.ItemDeckDescriptors);
+
+            // Character Character deck descriptors
+            modelBuilder.Entity<CharacterDeckDesignLinkerEntity>()
+                   .HasOne(c => c.Character)
+                   .WithMany(e => e.CharacterDeckDescriptors);
 
             // Character Classes
             modelBuilder.Entity<CharacterClassEntity>()
@@ -62,9 +71,9 @@ namespace CardDesigner.DataAccess.DbContexts
                    .WithMany(e => e.Classes);
 
             // Character Skills
-            modelBuilder.Entity<CharacterAttributesEntity>()
+            modelBuilder.Entity<CharacterAbilitiesEntity>()
                    .HasOne(c => c.Character)
-                   .WithOne(e => e.Attributes)
+                   .WithOne(e => e.Abilities)
                    .HasForeignKey<CharacterEntity>(b => b.ID);
 
             // Caster Stats
@@ -73,19 +82,24 @@ namespace CardDesigner.DataAccess.DbContexts
                    .WithOne(e => e.CasterStats)
                    .HasForeignKey<CharacterEntity>(b => b.ID);
 
-            // Character Spell Deck - Deck design
+            // Deck Background Design - Character
             modelBuilder.Entity<CharacterEntity>()
                    .HasOne(c => c.DeckBackgroundDesign)
                    .WithMany(e => e.Characters);
 
-            // Character Spell Deck - Deck design
+            // Character, Spell Deck, Deck Design
             modelBuilder.Entity<CharacterEntity>()
                    .HasMany(c => c.SpellDeckDescriptors)
                    .WithOne(e => e.Character);
 
-            // Character Item Deck - Deck design
+            // Character, Item Deck, Deck Design
             modelBuilder.Entity<CharacterEntity>()
                    .HasMany(c => c.ItemDeckDescriptors)
+                   .WithOne(e => e.Character);
+
+            // Character, Character Deck, Deck Design
+            modelBuilder.Entity<CharacterEntity>()
+                   .HasMany(c => c.CharacterDeckDescriptors)
                    .WithOne(e => e.Character);
 
             // Spell Deck - Spell Card
@@ -147,6 +161,19 @@ namespace CardDesigner.DataAccess.DbContexts
                    {
                        j.HasKey(t => new { t.CharacterDeckID, t.CharacterCardID });
                    });
+
+            Seed(modelBuilder);
+        }
+
+        private void Seed(ModelBuilder modelBuilder)
+        {
+            IList<SpellCardEntity> spellCards = new List<SpellCardEntity>
+            {
+                new SpellCardEntity() {ID = 1, Name="SampleSpellCard_1", Level = 0, IsRitual=true, IsConcentration = false, AreaOfEffect=AreaOfEffect.Sphere, AreaOfEffectValue=10, CastingTimeType=CastingTimeType.Action, CastingTimeValue=1, DamageType=MagicDamageType.Radiant, Description="Casts something", DescriptionFontSize=14, DiceType=DiceType.d8, DiceValue = 4, DurationType = DurationType.Instantaneous, DurationValue=0, HasMaterialComponent=true, HasSomaticComponent=true, HasVerbalComponent =true, RangeType=RangeType.Distance, RangeValue=60, School=MagicSchool.Evocation, Target="Humanoid Within range", TargetType=TargetType.Target, Title="Spell Of Knowledge", TitleFontSize=16},
+                new SpellCardEntity() {ID = 2, Name="SampleSpellCard_2", Level = 3, IsRitual=false, IsConcentration = true, AreaOfEffect=AreaOfEffect.Line, AreaOfEffectValue=30, CastingTimeType=CastingTimeType.BonusAction, CastingTimeValue=1, DamageType=MagicDamageType.Fire, Description="Enchant yourself", DescriptionFontSize=18, DiceType=DiceType.d4, DiceValue = 1, DurationType = DurationType.Minute, DurationValue=10, HasMaterialComponent=false, HasSomaticComponent=true, HasVerbalComponent =false, RangeType=RangeType.Self, RangeValue=0, School=MagicSchool.Divination, Target="Self", TargetType=TargetType.Self, Title="Aura of vitality", TitleFontSize=18},
+                new SpellCardEntity() {ID = 3, Name="SampleSpellCard_3", Level = 7, IsRitual=true, IsConcentration = false, AreaOfEffect=AreaOfEffect.Sphere, AreaOfEffectValue=10, CastingTimeType=CastingTimeType.Minute, CastingTimeValue=10, DamageType=MagicDamageType.None, Description="Make a table within range fight for you", DescriptionFontSize=14, DiceType=DiceType.d20, DiceValue = 3, DurationType = DurationType.Instantaneous, DurationValue=0, HasMaterialComponent=false, HasSomaticComponent=true, HasVerbalComponent =true, RangeType=RangeType.Touch, RangeValue=0, School=MagicSchool.Necromancy, Target="Object you can touch", TargetType=TargetType.Touch, Title="Raise Tables", TitleFontSize=14},
+            };
+            modelBuilder.Entity<SpellCardEntity>().HasData(spellCards);
         }
     }
 }

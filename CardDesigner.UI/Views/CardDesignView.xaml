@@ -56,7 +56,7 @@
                             Height="40"
                             Padding="5"
                             HorizontalAlignment="Left"
-                            Command="{Binding AssignBackgroundDeckDesignCommand}"
+                            Command="{Binding AssignDeckBackgroundDesignCommand}"
                             Content="Assign to Character" />
                         <Label
                             Background="Transparent"
@@ -68,15 +68,15 @@
                             Margin="0"
                             Padding="0"
                             VerticalAlignment="Center"
-                            AddedItemName="{Binding AddedBackgroundDeckDesignName, Mode=TwoWay}"
+                            AddedItemName="{Binding AddedDeckBackgroundDesignName, Mode=TwoWay}"
                             BorderThickness="0"
-                            DeleteCommand="{Binding DeleteBackgroundDeckDesignCommand}"
-                            ItemsSource="{Binding AllBackgroundDeckDesigns, Mode=TwoWay}"
+                            DeleteCommand="{Binding DeleteDeckBackgroundDesignCommand}"
+                            ItemsSource="{Binding AllDeckBackgroundDesigns, Mode=TwoWay}"
                             Orientation="Horizontal"
-                            SaveCommand="{Binding CreateBackgroundDeckDesignCommand}"
-                            SelectedItem="{Binding SelectedBackgroundDesign, Mode=TwoWay}"
+                            SaveCommand="{Binding CreateDeckBackgroundDesignCommand}"
+                            SelectedItem="{Binding SelectedDeckBackgroundDesign, Mode=TwoWay}"
                             SelectionChanged="SelectedCardDesign_SelectionChanged"
-                            UpdateCommand="{Binding UpdateBackgroundDeckDesignCommand}"
+                            UpdateCommand="{Binding UpdateDeckBackgroundDesignCommand}"
                             ViewOnly="False" />
                     </DockPanel>
                     <Grid>
@@ -91,10 +91,10 @@
                                 Orientation="Horizontal">
                                 <controls:ColorPickerControl x:Name="BackLineColor"
                                     Title="Line Color"
-                                    CurrentColor="{Binding SelectedBackgroundDesign.LineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedDeckBackgroundDesign.LineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <controls:ColorPickerControl x:Name="BackBackgroundColor"
                                     Title="Background Color"
-                                    CurrentColor="{Binding SelectedBackgroundDesign.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    CurrentColor="{Binding SelectedDeckBackgroundDesign.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </WrapPanel>
                             <Border Style="{StaticResource VisibleBorder}">
                                 <StackPanel>
@@ -109,15 +109,15 @@
                                             DockPanel.Dock="Right"
                                             Maximum="20"
                                             Minimum="0"
-                                            Value="{Binding SelectedBackgroundDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            Value="{Binding SelectedDeckBackgroundDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </DockPanel>
                                     <DockPanel>
                                         <Label Content="Icon filepath:" />
-                                        <controls:FilePicker Text="{Binding SelectedBackgroundDesign.IconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <controls:FilePicker Text="{Binding SelectedDeckBackgroundDesign.IconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </DockPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <Label Content="Icon stretch:" />
-                                        <ComboBox SelectedItem="{Binding SelectedBackgroundDesign.IconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <ComboBox SelectedItem="{Binding SelectedDeckBackgroundDesign.IconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                             <sys:String>None</sys:String>
                                             <sys:String>Fill</sys:String>
                                             <sys:String>Uniform</sys:String>
@@ -130,7 +130,138 @@
                         <controls:CardBackgroundControl
                             Grid.Column="1"
                             Height="860"
-                            CardDesign="{Binding SelectedBackgroundDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            CardDesign="{Binding SelectedDeckBackgroundDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            <TabItem
+                FontSize="16"
+                Header="Character Card Foreground">
+                <StackPanel>
+                    <!--  Selectors  -->
+                    <DockPanel>
+                        <Button
+                            Height="40"
+                            Padding="5"
+                            HorizontalAlignment="Left"
+                            Command="{Binding AssignCharacterDeckDesignCommand}"
+                            Content="Assign to Character" />
+                        <Label
+                            Background="Transparent"
+                            Content="Deck:" />
+                        <controls:AddEditItem
+                            Margin="0"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            BorderThickness="0"
+                            ItemsSource="{Binding CharacterCharacterDecks, Mode=TwoWay}"
+                            SelectedItem="{Binding SelectedCharacterDeck, Mode=TwoWay}"
+                            ViewOnly="True" />
+                        <Label
+                            Background="Transparent"
+                            Content="Card:" />
+                        <controls:AddEditItem
+                            Margin="0"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            BorderThickness="0"
+                            ItemsSource="{Binding SelectedCharacterDeck.CharacterCards, Mode=TwoWay}"
+                            SelectedItem="{Binding TestCharacterCard, Mode=TwoWay}"
+                            ViewOnly="True" />
+                        <Label
+                            Background="Transparent"
+                            Content="Design:" />
+                        <controls:AddEditItem
+                            Margin="0"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            AddedItemName="{Binding AddedCharacterDeckDesignName, Mode=TwoWay}"
+                            BorderThickness="0"
+                            DeleteCommand="{Binding DeleteCharacterDeckDesignCommand}"
+                            ItemsSource="{Binding AllCharacterDeckDesigns, Mode=TwoWay}"
+                            Orientation="Horizontal"
+                            SaveCommand="{Binding CreateCharacterDeckDesignCommand}"
+                            SelectedItem="{Binding SelectedCharacterDeckDesign, Mode=TwoWay}"
+                            SelectionChanged="SelectedCardDesign_SelectionChanged"
+                            UpdateCommand="{Binding UpdateCharacterDeckDesignCommand}"
+                            ViewOnly="False" />
+                    </DockPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical">
+                            <WrapPanel
+                                VerticalAlignment="Top"
+                                ItemWidth="200"
+                                Orientation="Horizontal">
+                                <controls:ColorPickerControl x:Name="FrontCharacterHeaderColor"
+                                    Title="Header Background"
+                                    CurrentColor="{Binding SelectedCharacterDeckDesign.HeaderColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:ColorPickerControl x:Name="FrontCharacterHeaderTextColor"
+                                    Title="Header Text"
+                                    CurrentColor="{Binding SelectedCharacterDeckDesign.HeaderTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:ColorPickerControl x:Name="FrontCharacterHeaderIconColor"
+                                    Title="Header Level"
+                                    CurrentColor="{Binding SelectedCharacterDeckDesign.HeaderIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <controls:ColorPickerControl x:Name="FrontCharacterBackgroundColor"
+                                    Title="Background Color"
+                                    CurrentColor="{Binding SelectedCharacterDeckDesign.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:ColorPickerControl x:Name="FrontCharacterDescriptionTextColor"
+                                    Title="Description Color"
+                                    CurrentColor="{Binding SelectedCharacterDeckDesign.DescriptionTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:ColorPickerControl x:Name="FrontCharacterLineColor"
+                                    Title="Border Color"
+                                    CurrentColor="{Binding SelectedCharacterDeckDesign.LineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <controls:ColorPickerControl x:Name="FrontCharacterFooterColor"
+                                    Title="Footer Background"
+                                    CurrentColor="{Binding SelectedCharacterDeckDesign.FooterColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:ColorPickerControl x:Name="FrontCharacterFooterTextColor"
+                                    Title="Footer Text Color"
+                                    CurrentColor="{Binding SelectedCharacterDeckDesign.FooterTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <controls:ColorPickerControl x:Name="FrontCharacterFooterIconColor"
+                                    Title="Footer Icon Color"
+                                    CurrentColor="{Binding SelectedCharacterDeckDesign.FooterIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </WrapPanel>
+                            <Border Style="{StaticResource VisibleBorder}">
+                                <StackPanel>
+                                    <DockPanel>
+                                        <Label
+                                            Content="Border width:"
+                                            DockPanel.Dock="Left" />
+                                        <Slider
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center"
+                                            HorizontalContentAlignment="Stretch"
+                                            DockPanel.Dock="Right"
+                                            Maximum="20"
+                                            Minimum="0"
+                                            Value="{Binding SelectedCharacterDeckDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DockPanel>
+                                    <DockPanel>
+                                        <Label Content="Icon filepath:" />
+                                        <controls:FilePicker Text="{Binding SelectedCharacterDeckDesign.IconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DockPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Icon stretch:" />
+                                        <ComboBox SelectedItem="{Binding SelectedCharacterDeckDesign.IconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                            <sys:String>None</sys:String>
+                                            <sys:String>Fill</sys:String>
+                                            <sys:String>Uniform</sys:String>
+                                            <sys:String>Uniform To Fill</sys:String>
+                                        </ComboBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <controls:CharacterCardControl
+                            Grid.Column="1"
+                            Height="860"
+                            CardDesign="{Binding SelectedCharacterDeckDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            CharacterCard="{Binding TestCharacterCard, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                 </StackPanel>
             </TabItem>

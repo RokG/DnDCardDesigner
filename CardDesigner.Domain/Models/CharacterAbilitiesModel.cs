@@ -1,27 +1,30 @@
 ﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.HelperModels;
+using System.Linq;
 
 namespace CardDesigner.Domain.Models
 {
-    public class CharacterAttributesModel
+    public class CharacterAbilitiesModel
     {
         public int ID { get; set; }
         public CharacterModel Character { get; set; }
 
-        #region Attributes
+        #region Abilities
+
+        public int Proficiency { get; set; }
 
         public bool StrengthSavingThrows { get; set; }
-        public int StrengthLevel { get; set; }
+        public int StrengthLevel { get; set; } = 8;
         public bool DexteritySavingThrows { get; set; }
-        public int DexterityLevel { get; set; }
+        public int DexterityLevel { get; set; } = 8;
         public bool ConstitutionSavingThrows { get; set; }
-        public int ConstitutionLevel { get; set; }
+        public int ConstitutionLevel { get; set; } = 8;
         public bool InteligenceSavingThrows { get; set; }
-        public int InteligenceLevel { get; set; }
+        public int InteligenceLevel { get; set; } = 8;
         public bool WisdomSavingThrows { get; set; }
-        public int WisdomLevel { get; set; }
+        public int WisdomLevel { get; set; } = 8;
         public bool CharismaSavingThrows { get; set; }
-        public int CharismaLevel { get; set; }
+        public int CharismaLevel { get; set; } = 8;
 
         #endregion
 
@@ -86,27 +89,54 @@ namespace CardDesigner.Domain.Models
 
         #endregion
 
-        public AttributeModel Strength { get { return GetAttribute(Attribute.Strength); } set { SetAttribute(value); } }    
-        public AttributeModel Dexterity { get { return GetAttribute(Attribute.Dexterity); } set { SetAttribute(value); } }    
-        public AttributeModel Constitution { get { return GetAttribute(Attribute.Constitution); } set { SetAttribute(value); } }    
-        public AttributeModel Inteligence { get { return GetAttribute(Attribute.Inteligence); } set { SetAttribute(value); } }    
-        public AttributeModel Wisdom { get { return GetAttribute(Attribute.Wisdom); } set { SetAttribute(value); } }    
-        public AttributeModel Charisma { get { return GetAttribute(Attribute.Charisma); } set { SetAttribute(value); } }    
+        public AbilityModel Strength { get => GetAbility(Ability.Strength); set => SetAbility(value); }
+        public AbilityModel Dexterity { get => GetAbility(Ability.Dexterity); set => SetAbility(value); }
+        public AbilityModel Constitution { get => GetAbility(Ability.Constitution); set => SetAbility(value); }
+        public AbilityModel Inteligence { get => GetAbility(Ability.Inteligence); set => SetAbility(value); }
+        public AbilityModel Wisdom { get => GetAbility(Ability.Wisdom); set => SetAbility(value); }
+        public AbilityModel Charisma { get => GetAbility(Ability.Charisma); set => SetAbility(value); }
+
+        private void SetBonuses(AbilityModel attributeModel)
+        {
+            attributeModel.LevelBonus = (attributeModel.Level - 10) / 2;
+            attributeModel.SavingThrowsBonus = attributeModel.HasSavingThrows ? attributeModel.LevelBonus + Proficiency : attributeModel.LevelBonus;
+
+            if (attributeModel.Skills.Any())
+            {
+                foreach (SkillModel skillModel in attributeModel.Skills)
+                {
+                    if (skillModel.IsProficient)
+                    {
+                        skillModel.Bonus = Proficiency + attributeModel.LevelBonus;
+                    }
+                    else if (skillModel.IsExpert)
+                    {
+                        skillModel.Bonus = 2 * Proficiency + attributeModel.LevelBonus;
+                    }
+                    else if (skillModel.IsBasic)
+                    {
+                        skillModel.Bonus = attributeModel.LevelBonus;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Getter method to get all values for selected skill
         /// </summary>
         /// <param name="attribute"></param>
         /// <returns></returns>
-        public AttributeModel GetAttribute(Attribute attribute)
+        public AbilityModel GetAbility(Ability attribute)
         {
-            AttributeModel attributeModel = new();
-            attributeModel.Skills = new();
-            attributeModel.Type = attribute;
+            AbilityModel attributeModel = new()
+            {
+                Skills = new(),
+                Type = attribute
+            };
             switch (attribute)
             {
-                case Attribute.Strength:
-                    attributeModel.SavingThrows = StrengthSavingThrows;
+                case Ability.Strength:
+                    attributeModel.HasSavingThrows = StrengthSavingThrows;
                     attributeModel.Level = StrengthLevel;
                     attributeModel.Skills = new()
                     {
@@ -119,8 +149,8 @@ namespace CardDesigner.Domain.Models
                         }
                     };
                     break;
-                case Attribute.Dexterity:
-                    attributeModel.SavingThrows = DexteritySavingThrows;
+                case Ability.Dexterity:
+                    attributeModel.HasSavingThrows = DexteritySavingThrows;
                     attributeModel.Level = DexterityLevel;
                     attributeModel.Skills = new()
                     {
@@ -147,12 +177,12 @@ namespace CardDesigner.Domain.Models
                         }
                     };
                     break;
-                case Attribute.Constitution:
-                    attributeModel.SavingThrows = ConstitutionSavingThrows;
+                case Ability.Constitution:
+                    attributeModel.HasSavingThrows = ConstitutionSavingThrows;
                     attributeModel.Level = ConstitutionLevel;
                     break;
-                case Attribute.Inteligence:
-                    attributeModel.SavingThrows = InteligenceSavingThrows;
+                case Ability.Inteligence:
+                    attributeModel.HasSavingThrows = InteligenceSavingThrows;
                     attributeModel.Level = InteligenceLevel;
                     attributeModel.Skills = new()
                     {
@@ -193,8 +223,8 @@ namespace CardDesigner.Domain.Models
                         }
                     };
                     break;
-                case Attribute.Wisdom:
-                    attributeModel.SavingThrows = WisdomSavingThrows;
+                case Ability.Wisdom:
+                    attributeModel.HasSavingThrows = WisdomSavingThrows;
                     attributeModel.Level = WisdomLevel;
                     attributeModel.Skills = new()
                     {
@@ -235,8 +265,8 @@ namespace CardDesigner.Domain.Models
                         }
                     };
                     break;
-                case Attribute.Charisma:
-                    attributeModel.SavingThrows = CharismaSavingThrows;
+                case Ability.Charisma:
+                    attributeModel.HasSavingThrows = CharismaSavingThrows;
                     attributeModel.Level = CharismaLevel;
                     attributeModel.Skills = new()
                     {
@@ -273,6 +303,9 @@ namespace CardDesigner.Domain.Models
                 default:
                     break;
             }
+
+            SetBonuses(attributeModel);
+
             return attributeModel;
         }
 
@@ -280,33 +313,33 @@ namespace CardDesigner.Domain.Models
         /// Setter method for attributes
         /// </summary>
         /// <param name="attributeModel"></param>
-        public void SetAttribute(AttributeModel attributeModel)
+        public void SetAbility(AbilityModel attributeModel)
         {
             switch (attributeModel.Type)
             {
-                case Attribute.Strength:
+                case Ability.Strength:
                     StrengthLevel = attributeModel.Level;
-                    StrengthSavingThrows = attributeModel.SavingThrows;
+                    StrengthSavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Dexterity:
-                    DexterityLevel= attributeModel.Level;
-                    DexteritySavingThrows= attributeModel.SavingThrows;
+                case Ability.Dexterity:
+                    DexterityLevel = attributeModel.Level;
+                    DexteritySavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Constitution:
-                    ConstitutionLevel= attributeModel.Level;
-                    ConstitutionSavingThrows= attributeModel.SavingThrows;
+                case Ability.Constitution:
+                    ConstitutionLevel = attributeModel.Level;
+                    ConstitutionSavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Inteligence:
-                    InteligenceLevel= attributeModel.Level;
-                    InteligenceSavingThrows= attributeModel.SavingThrows;
+                case Ability.Inteligence:
+                    InteligenceLevel = attributeModel.Level;
+                    InteligenceSavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Wisdom:
-                    WisdomLevel= attributeModel.Level;
-                    WisdomSavingThrows= attributeModel.SavingThrows;
+                case Ability.Wisdom:
+                    WisdomLevel = attributeModel.Level;
+                    WisdomSavingThrows = attributeModel.HasSavingThrows;
                     break;
-                case Attribute.Charisma:
+                case Ability.Charisma:
                     CharismaLevel = attributeModel.Level;
-                    CharismaSavingThrows= attributeModel.SavingThrows;
+                    CharismaSavingThrows = attributeModel.HasSavingThrows;
                     break;
                 default:
                     break;
@@ -328,75 +361,75 @@ namespace CardDesigner.Domain.Models
             {
                 case Skill.Athletics:
                     AthleticsExperties = skillModel.IsExpert;
-                    AthleticsProficiency= skillModel.IsProficient;
+                    AthleticsProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Acrobatics:
-                    AcrobaticsExperties= skillModel.IsExpert;
-                    AcrobaticsProficiency= skillModel.IsProficient;
+                    AcrobaticsExperties = skillModel.IsExpert;
+                    AcrobaticsProficiency = skillModel.IsProficient;
                     break;
                 case Skill.SleightOfHand:
-                    SleightOfHandExperties= skillModel.IsExpert;
-                    SleightOfHandProficiency= skillModel.IsProficient;
+                    SleightOfHandExperties = skillModel.IsExpert;
+                    SleightOfHandProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Stealth:
-                    StealthExperties= skillModel.IsExpert;
-                    StealthProficiency= skillModel.IsProficient;
+                    StealthExperties = skillModel.IsExpert;
+                    StealthProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Arcana:
-                    ArcanaExperties= skillModel.IsExpert;
-                    ArcanaProficiency= skillModel.IsProficient;
+                    ArcanaExperties = skillModel.IsExpert;
+                    ArcanaProficiency = skillModel.IsProficient;
                     break;
                 case Skill.History:
-                    HistoryExperties= skillModel.IsExpert;
-                    HistoryProficiency= skillModel.IsProficient;
+                    HistoryExperties = skillModel.IsExpert;
+                    HistoryProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Investigation:
-                    InsightExperties= skillModel.IsExpert;
-                    InvestigationProficiency= skillModel.IsProficient;
+                    InsightExperties = skillModel.IsExpert;
+                    InvestigationProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Nature:
-                    NatureExperties= skillModel.IsExpert;
-                    NatureProficiency= skillModel.IsProficient;
+                    NatureExperties = skillModel.IsExpert;
+                    NatureProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Religion:
-                    ReligionExperties= skillModel.IsExpert;
-                    ReligionProficiency= skillModel.IsProficient;
+                    ReligionExperties = skillModel.IsExpert;
+                    ReligionProficiency = skillModel.IsProficient;
                     break;
                 case Skill.AnimalHandling:
-                    AnimalHandlingExperties= skillModel.IsExpert;
-                    AnimalHandlingProficiency= skillModel.IsProficient;
+                    AnimalHandlingExperties = skillModel.IsExpert;
+                    AnimalHandlingProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Insight:
-                    InsightExperties= skillModel.IsExpert;
-                    InsightProficiency= skillModel.IsProficient;
+                    InsightExperties = skillModel.IsExpert;
+                    InsightProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Medicine:
-                    MedicineExperties= skillModel.IsExpert;
-                    MedicineProficiency= skillModel.IsProficient;
+                    MedicineExperties = skillModel.IsExpert;
+                    MedicineProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Perception:
-                    PerceptionExperties= skillModel.IsExpert;
-                    PerceptionProficiency= skillModel.IsProficient;
+                    PerceptionExperties = skillModel.IsExpert;
+                    PerceptionProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Survival:
-                    SurvivalExperties= skillModel.IsExpert;
-                    SurvivalProficiency= skillModel.IsProficient;
+                    SurvivalExperties = skillModel.IsExpert;
+                    SurvivalProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Deception:
-                    DeceptionExperties= skillModel.IsExpert;
-                    DeceptionProficiency= skillModel.IsProficient;
+                    DeceptionExperties = skillModel.IsExpert;
+                    DeceptionProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Intimidation:
-                    IntimidationExperties= skillModel.IsExpert;
-                    IntimidationProficiency= skillModel.IsProficient;
+                    IntimidationExperties = skillModel.IsExpert;
+                    IntimidationProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Performance:
-                    PerformanceExperties= skillModel.IsExpert;
-                    PerformanceProficiency= skillModel.IsProficient;
+                    PerformanceExperties = skillModel.IsExpert;
+                    PerformanceProficiency = skillModel.IsProficient;
                     break;
                 case Skill.Persuasion:
-                    PersuasionExperties= skillModel.IsExpert;
-                    PersuasionProficiency= skillModel.IsProficient;
+                    PersuasionExperties = skillModel.IsExpert;
+                    PersuasionProficiency = skillModel.IsProficient;
                     break;
             }
         }

@@ -64,7 +64,7 @@
 
                 <!--  Abilities  -->
                 <Border>
-                    <controls:AttributesControl Attributes="{Binding DataContext.SelectedCharacter.Attributes, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <controls:AbilitiesControl Abilities="{Binding DataContext.SelectedCharacter.Abilities, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Border>
 
                 <!--  Character  -->
@@ -72,6 +72,13 @@
                     Grid.Column="2"
                     Style="{StaticResource VisibleBorder}">
                     <StackPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Name: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.Title, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
                         <DockPanel LastChildFill="False">
                             <Label Content="Race: " />
                             <ComboBox
@@ -103,6 +110,13 @@
                                 Margin="3"
                                 DockPanel.Dock="Right"
                                 Text="{Binding DataContext.SelectedCharacter.Weight, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Age: " />
+                            <TextBox
+                                Margin="3"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.Age, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DockPanel>
                         <DockPanel LastChildFill="False">
                             <Label Content="Hitpoints: " />
@@ -232,7 +246,7 @@
                                         Width="40"
                                         MinWidth="40"
                                         DockPanel.Dock="Right"
-                                        Text="{Binding DataContext.SelectedCharacter.Proficiency, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        Text="{Binding DataContext.SelectedCharacter.Abilities.Proficiency, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </DockPanel>
                                 <DockPanel LastChildFill="False">
                                     <Label Content="Passive Insight: " />
@@ -280,12 +294,29 @@
                         <Border Style="{StaticResource VisibleBorder}">
                             <StackPanel Margin="5">
                                 <Label Content="Proficiencies" />
-                                <CheckBox Content="Light armour" />
-                                <CheckBox Content="Medium armour" />
-                                <CheckBox Content="Heavy armour" />
-                                <CheckBox Content="Simple weapons" />
-                                <CheckBox Content="Martial weapons" />
-                                <CheckBox Content="Shields" />
+                                <CheckBox
+                                    Content="Light armour"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsLightArmourProficiency, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Medium armour"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsMediumArmourProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Heavy armour"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsHeavyArmourProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Simple weapons"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsSimpleWeaponProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Martial weapons"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsMartialWeaponProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox
+                                    Content="Shields"
+                                    IsChecked="{Binding DataContext.SelectedCharacter.IsShieldProficient, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Label Content="Other proficiencies:" />
+                                <TextBox
+                                    Height="100"
+                                    MaxLines="10"
+                                    Text="{Binding DataContext.SelectedCharacter.OtherProficiencies, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </Border>
                     </StackPanel>
@@ -315,7 +346,7 @@
                             <TextBox
                                 Margin="3"
                                 DockPanel.Dock="Right"
-                                Text="{Binding DataContext.SelectedCharacter.CasterStats.KnowSpells, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding DataContext.SelectedCharacter.CasterStats.KnownSpells, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DockPanel>
                         <DockPanel LastChildFill="False">
                             <Label Content="Prepared spells: " />

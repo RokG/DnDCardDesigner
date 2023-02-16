@@ -1,6 +1,6 @@
 ﻿namespace CardDesigner.Domain.Enums
 {
-    public enum Attribute
+    public enum Ability
     {
         Strength,
         Dexterity,

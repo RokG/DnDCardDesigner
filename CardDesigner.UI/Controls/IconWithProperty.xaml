@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls">
     <Viewbox>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel
+            MinWidth="200"
+            Orientation="Horizontal">
             <Viewbox
                 Width="100"
                 Height="100"
@@ -13,17 +15,15 @@
                     Content="{Binding Icon, ElementName=IconWithProperty}"
                     Foreground="{Binding IconColorFooter, ElementName=IconWithProperty}" />
             </Viewbox>
-            <StackPanel
-                Width="100"
-                VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center">
                 <Label
-                    Width="100"
                     Height="50"
+                    MinWidth="80"
                     Padding="0"
                     HorizontalContentAlignment="Center"
                     Background="Transparent"
                     Content="{Binding Value, ElementName=IconWithProperty}"
-                    FontSize="42"
+                    FontSize="{Binding FontSize, ElementName=IconWithProperty}"
                     Foreground="{Binding TextColor, ElementName=IconWithProperty}">
                     <Label.Style>
                         <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
@@ -42,15 +42,15 @@
                     </Label.Style>
                 </Label>
                 <Label
-                    Width="100"
                     Height="50"
+                    MinWidth="100"
                     Margin="0"
                     Padding="0"
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     Background="Transparent"
                     Content="{Binding Unit, ElementName=IconWithProperty}"
-                    FontSize="42"
+                    FontSize="{Binding FontSize, ElementName=IconWithProperty}"
                     Foreground="{Binding TextColor, ElementName=IconWithProperty}">
                     <Label.Style>
                         <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
@@ -69,4 +69,13 @@
             </StackPanel>
         </StackPanel>
     </Viewbox>
+    <UserControl.Style>
+        <Style BasedOn="{StaticResource {x:Type UserControl}}" TargetType="{x:Type UserControl}">
+            <Setter Property="FontSize" Value="42" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+    </UserControl.Style>
 </UserControl>

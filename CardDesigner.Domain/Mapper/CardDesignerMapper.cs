@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Models;
+using System.Collections.Generic;
 
 namespace CardDesigner.Domain.Mapper
 {
@@ -16,12 +17,14 @@ namespace CardDesigner.Domain.Mapper
             {
                 cfg.CreateMap<SpellDeckDesignModel, SpellDeckDesignEntity>();
                 cfg.CreateMap<ItemDeckDesignModel, ItemDeckDesignEntity>();
+                cfg.CreateMap<DeckBackgroundDesignModel, DeckBackgroundDesignEntity>();
                 cfg.CreateMap<CharacterDeckDesignModel, CharacterDeckDesignEntity>();
                 cfg.CreateMap<SpellDeckDesignLinkerModel, SpellDeckDesignLinkerEntity>();
                 cfg.CreateMap<ItemDeckDesignLinkerModel, ItemDeckDesignLinkerEntity>();
+                cfg.CreateMap<CharacterDeckDesignLinkerModel, CharacterDeckDesignLinkerEntity>();
                 cfg.CreateMap<CharacterModel, CharacterEntity>();
                 cfg.CreateMap<CharacterClassModel, CharacterClassEntity>();
-                cfg.CreateMap<CharacterAttributesModel, CharacterAttributesEntity>();
+                cfg.CreateMap<CharacterAbilitiesModel, CharacterAbilitiesEntity>();
                 cfg.CreateMap<CasterStatsModel, CasterStatsEntity>();
                 cfg.CreateMap<SpellCardModel, SpellCardEntity>();
                 cfg.CreateMap<ItemCardModel, ItemCardEntity>();
@@ -32,12 +35,14 @@ namespace CardDesigner.Domain.Mapper
 
                 cfg.CreateMap<SpellDeckDesignEntity, SpellDeckDesignModel>();
                 cfg.CreateMap<ItemDeckDesignEntity, ItemDeckDesignModel>();
+                cfg.CreateMap<DeckBackgroundDesignEntity, DeckBackgroundDesignModel>();
                 cfg.CreateMap<CharacterDeckDesignEntity, CharacterDeckDesignModel>();
                 cfg.CreateMap<SpellDeckDesignLinkerEntity, SpellDeckDesignLinkerModel>();
                 cfg.CreateMap<ItemDeckDesignLinkerEntity, ItemDeckDesignLinkerModel>();
+                cfg.CreateMap<CharacterDeckDesignLinkerEntity, CharacterDeckDesignLinkerModel>();
                 cfg.CreateMap<CharacterEntity, CharacterModel>();
                 cfg.CreateMap<CharacterClassEntity, CharacterClassModel>();
-                cfg.CreateMap<CharacterAttributesEntity, CharacterAttributesModel>();
+                cfg.CreateMap<CharacterAbilitiesEntity, CharacterAbilitiesModel>();
                 cfg.CreateMap<CasterStatsEntity, CasterStatsModel>();
                 cfg.CreateMap<SpellCardEntity, SpellCardModel>();
                 cfg.CreateMap<ItemCardEntity, ItemCardModel>();

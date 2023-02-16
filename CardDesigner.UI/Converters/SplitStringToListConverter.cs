@@ -1,23 +1,20 @@
-﻿using CardDesigner.Domain.Models;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace CardDesigner.UI.Converters
 {
-    public class AttributesConverter : MarkupExtension, IValueConverter
+    public class SplitStringToListConverter : MarkupExtension, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is CharacterAttributesModel attributesModel && parameter is CardDesigner.Domain.Enums.Attribute attribute)
+            if (value is string listOfItems)
             {
-                return attributesModel.GetAttribute(attribute);
+                return listOfItems.Split(",");
             }
-            else
-            {
-                return new CharacterAttributesModel();
-            }
+
+            return Binding.DoNothing;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

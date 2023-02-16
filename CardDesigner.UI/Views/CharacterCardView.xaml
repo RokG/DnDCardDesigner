@@ -9,7 +9,6 @@
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
-
         <!--  Avatar template  -->
         <ControlTemplate x:Key="AvatarTemplate">
             <Grid Background="Transparent">
@@ -36,7 +35,9 @@
         <!--  Abilities template  -->
         <ControlTemplate x:Key="AbilitiesTemplate">
             <!--  To switch where the modifier and skill elvel is displayed  -->
-            <CheckBox Content="Switch + and A" />
+            <CheckBox
+                Content="Switch + and A"
+                Visibility="Collapsed" />
         </ControlTemplate>
         <!--  Feat template  -->
         <ControlTemplate x:Key="FeatsTemplate">
@@ -189,7 +190,7 @@
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 CardDesign="{Binding SelectedCharacterDeckDesign}"
-                Character="{Binding SelectedCharacter, Mode=TwoWay}"
+                Character="{Binding SelectedCharacter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 CharacterCard="{Binding SelectedCharacterCard, Mode=TwoWay}"
                 IsEditable="True" />
         </Grid>

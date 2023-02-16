@@ -1,0 +1,48 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <!--  Thingamajigs  -->
+        <ResourceDictionary Source="EnumDataProviders.xaml" />
+
+        <!--  Icons  -->
+        <ResourceDictionary Source="Icons/EditButton.xaml" />
+        <ResourceDictionary Source="Icons/WindowButtons.xaml" />
+
+        <ResourceDictionary Source="Icons/Items/EquipmentSlots.xaml" />
+        <ResourceDictionary Source="Dice/DiceTypes.xaml" />
+
+        <ResourceDictionary Source="Icons/Properties/ItemRequiresAttunement.xaml" />
+        <ResourceDictionary Source="Icons/Properties/ItemIsMagical.xaml" />
+        <ResourceDictionary Source="Icons/Properties/ItemIsUnidentified.xaml" />
+
+        <ResourceDictionary Source="Icons/Items/DamageTypes.xaml" />
+        <ResourceDictionary Source="Icons/Items/ItemWeights.xaml" />
+        <ResourceDictionary Source="Icons/Items/WeaponTypes.xaml" />
+        <ResourceDictionary Source="Icons/Items/EquipmentSlots.xaml" />
+
+        <ResourceDictionary Source="Icons/MagicSchools/AbjurationIcon.xaml" />
+        <ResourceDictionary Source="Icons/MagicSchools/ConjurationIcon.xaml" />
+        <ResourceDictionary Source="Icons/MagicSchools/DivinationIcon.xaml" />
+        <ResourceDictionary Source="Icons/MagicSchools/EnchantmentIcon.xaml" />
+        <ResourceDictionary Source="Icons/MagicSchools/EvocationIcon.xaml" />
+        <ResourceDictionary Source="Icons/MagicSchools/IllusionIcon.xaml" />
+        <ResourceDictionary Source="Icons/MagicSchools/NecromancyIcon.xaml" />
+        <ResourceDictionary Source="Icons/MagicSchools/TransmutationIcon.xaml" />
+
+        <ResourceDictionary Source="Icons/Properties/ComponentVerbal.xaml" />
+        <ResourceDictionary Source="Icons/Properties/ComponentMaterial.xaml" />
+        <ResourceDictionary Source="Icons/Properties/ComponentSomatic.xaml" />
+        <ResourceDictionary Source="Icons/Properties/SpellCastingTime.xaml" />
+        <ResourceDictionary Source="Icons/Properties/SpellDuration.xaml" />
+        <ResourceDictionary Source="Icons/Properties/SpellRange.xaml" />
+        <ResourceDictionary Source="Icons/Properties/SpellTarget.xaml" />
+        <ResourceDictionary Source="Icons/Properties/SpellRitual.xaml" />
+        <ResourceDictionary Source="Icons/Properties/SpellConcentration.xaml" />
+        <ResourceDictionary Source="Icons/Properties/SpellAOE.xaml" />
+
+        <ResourceDictionary Source="Icons/Classes/CharacterClasses.xaml" />
+        <ResourceDictionary Source="Icons/Character/Stats.xaml" />
+
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

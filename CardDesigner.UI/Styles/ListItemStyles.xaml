@@ -230,7 +230,64 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
 
+    <Style x:Key="staticListboxItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Foreground" Value="{StaticResource ListItemNormalFGND}" />
+        <Setter Property="Background" Value="{StaticResource ListItemNormalBGND}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ListItemNormalBRDR}" />
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Label x:Name="Border"
+                        Padding="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        FontSize="12"
+                        FontWeight="Normal"
+                        SnapsToDevicePixels="true">
+                        <ContentPresenter />
+                    </Label>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AbilityListboxStyle" TargetType="{x:Type ListBox}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource staticListboxItemStyle}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <StackPanel
+                        Margin="0"
+                        Background="Transparent"
+                        IsItemsHost="True"
+                        Orientation="Vertical" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SpellSlotsListboxStyle" TargetType="{x:Type ListBox}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource staticListboxItemStyle}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <StackPanel
+                        Margin="0"
+                        Background="Transparent"
+                        IsItemsHost="True"
+                        Orientation="Horizontal" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!--  Tab style  -->

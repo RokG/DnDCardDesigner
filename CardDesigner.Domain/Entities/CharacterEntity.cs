@@ -14,9 +14,10 @@ namespace CardDesigner.Domain.Entities
         public string Title { get; set; }
         public List<SpellDeckDesignLinkerEntity> SpellDeckDescriptors { get; set; }
         public List<ItemDeckDesignLinkerEntity> ItemDeckDescriptors { get; set; }
-        public CharacterDeckDesignEntity DeckBackgroundDesign { get; set; }
+        public List<CharacterDeckDesignLinkerEntity> CharacterDeckDescriptors { get; set; }
+        public DeckBackgroundDesignEntity DeckBackgroundDesign { get; set; }
         public List<CharacterClassEntity> Classes { get; set; }
-        public CharacterAttributesEntity Attributes { get; set; }
+        public CharacterAbilitiesEntity Abilities { get; set; }
         public CasterStatsEntity CasterStats { get; set; }
 
         public Race Race { get; set; }
@@ -27,7 +28,8 @@ namespace CardDesigner.Domain.Entities
 
         public string Height { get; set; }
         public string Weight { get; set; }
-        public string Hitpoints { get; set; }
+        public string Age { get; set; }
+        public int Hitpoints { get; set; }
 
         public int Proficiency { get; set; }
         public int PassivePerception { get; set; }
@@ -42,5 +44,6 @@ namespace CardDesigner.Domain.Entities
         public bool IsShieldProficient { get; set; }
         public bool IsSimpleWeaponProficient { get; set; }
         public bool IsMartialWeaponProficient { get; set; }
+        public string OtherProficiencies { get; set; }
     }
 }

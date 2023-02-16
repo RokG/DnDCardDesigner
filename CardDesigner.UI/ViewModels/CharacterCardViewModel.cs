@@ -85,7 +85,7 @@ namespace CardDesigner.UI.ViewModels
                     case ViewModelType.CharacterCreator:
                         return;
                     case ViewModelType.DeckDesigner:
-                        //SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
+                        SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
                         return;
                     default:
                         break;

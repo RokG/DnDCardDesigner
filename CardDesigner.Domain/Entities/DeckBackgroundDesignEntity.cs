@@ -1,11 +1,14 @@
-﻿using CardDesigner.Domain.Interfaces;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace CardDesigner.Domain.Models
+namespace CardDesigner.Domain.Entities
 {
-    public class CharacterDeckDesignModel : ICardDesign, ISelectableItem
+    public class DeckBackgroundDesignEntity
     {
+        [Key]
         public int ID { get; set; }
         public string Name { get; set; }
+        public ICollection<CharacterEntity> Characters { get; set; }
         public string HeaderColor { get; set; } = "#d5b895";
         public string HeaderTextColor { get; set; } = "#222222";
         public string HeaderIconColor { get; set; } = "#222222";
