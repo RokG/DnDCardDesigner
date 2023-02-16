@@ -166,6 +166,8 @@ namespace CardDesigner.DataAccess.DbContexts
 
         private void Seed(ModelBuilder modelBuilder)
         {
+            //https://wildermuth.com/2018/08/12/Seeding-Related-Entities-in-EF-Core-2-1-s-HasData()/
+
             SeedSpellEntities(modelBuilder);
 
             SeedItemEntities(modelBuilder);
@@ -179,7 +181,21 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         private static void SeedCharacterEntities(ModelBuilder modelBuilder)
         {
-            CharacterEntity character = new() { ID = 1, Name = "SampleCharacter_1", Weight = "100 kg", Age = "25 y", Alignment = Alignment.ChaoticNeutral, ArmourClass = 12, Height = "6 ft", Hitpoints = 40, Initiative = -1, IsHeavyArmourProficient = false, IsLightArmourProficiency = true, IsMartialWeaponProficient = true, IsMediumArmourProficient = false, IsShieldProficient = false, IsSimpleWeaponProficient = false, Proficiency = 2, OtherProficiencies = "Healing kit, Blacksmith tools", PassiveInsight = 14, PassivePerception = 12, Race = Race.HalfOrc, Speed = 25, Title = "Waltung Kremis" };
+            IList<CharacterCardEntity> spellCards = new List<CharacterCardEntity>
+            {
+                new CharacterCardEntity() {ID = 1, Name="SampleCharacterCard_1",  Type=CharacterCardType.Avatar, TitleFontSize=16, DescriptionFontSize=14 },
+                new CharacterCardEntity() {ID = 2, Name="SampleCharacterCard_1", Type=CharacterCardType.Abilities, TitleFontSize=16, DescriptionFontSize=14 },
+                new CharacterCardEntity() {ID = 3, Name="SampleCharacterCard_1", Type=CharacterCardType.Feats, TitleFontSize=16, DescriptionFontSize=14, Level=2, Title="Blood Tithe", Description = "Starting at level 2, you can cut your wrist to heal 2 x d4 + 2 HP. You can use this twice per short rest." },
+            };
+            modelBuilder.Entity<CharacterCardEntity>().HasData(spellCards);
+
+            CharacterDeckDesignEntity characterDeckDesign = new CharacterDeckDesignEntity() { ID = 1, Name = "SampleCharacterDeckDesign_1" };
+            modelBuilder.Entity<CharacterDeckDesignEntity>().HasData(characterDeckDesign);
+
+            CharacterDeckEntity characterDeck = new CharacterDeckEntity() { ID = 1, Name = "SampleCharacterDeck_1" };
+            modelBuilder.Entity<CharacterDeckEntity>().HasData(characterDeck);
+
+            CharacterEntity character = new() { ID = 1, AvatarImageStretch = "Uniform", AvatarImagePath = "/Resources/Images/sampleimageavatar.png",  Name = "SampleCharacter_1", Weight = "100 kg", Age = "25 y", Alignment = Alignment.ChaoticNeutral, ArmourClass = 12, Height = "6 ft", Hitpoints = 40, Initiative = -1, IsHeavyArmourProficient = false, IsLightArmourProficiency = true, IsMartialWeaponProficient = true, IsMediumArmourProficient = false, IsShieldProficient = false, IsSimpleWeaponProficient = false, Proficiency = 2, OtherProficiencies = "Healing kit, Blacksmith tools", PassiveInsight = 14, PassivePerception = 12, Race = Race.HalfOrc, Speed = 25, Title = "Waltung Kremis" };
             modelBuilder.Entity<CharacterEntity>().HasData(character);
 
             modelBuilder.Entity<CharacterClassEntity>().HasData(new
@@ -288,6 +304,12 @@ namespace CardDesigner.DataAccess.DbContexts
                 new ItemCardEntity() {ID = 3, Name="SampleItemCard_3", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Big Bertha", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
             };
             modelBuilder.Entity<ItemCardEntity>().HasData(itemCards);
+
+            ItemDeckDesignEntity itemDeckDesign = new ItemDeckDesignEntity() { ID=1, Name = "SampleItemDeckDesign_1"};
+            modelBuilder.Entity<ItemDeckDesignEntity>().HasData(itemDeckDesign);
+
+            ItemDeckEntity itemDeck = new ItemDeckEntity() { ID = 1, Name = "SampleItemDeck_1" };
+            modelBuilder.Entity<ItemDeckEntity>().HasData(itemDeck);
         }
 
         /// <summary>
@@ -303,6 +325,12 @@ namespace CardDesigner.DataAccess.DbContexts
                 new SpellCardEntity() {ID = 3, Name="SampleSpellCard_3", Level = 7, IsRitual=true, IsConcentration = false, AreaOfEffect=AreaOfEffect.Sphere, AreaOfEffectValue=10, CastingTimeType=CastingTimeType.Minute, CastingTimeValue=10, DamageType=MagicDamageType.None, Description="Make a table within range fight for you", DescriptionFontSize=14, DiceType=DiceType.d20, DiceValue = 3, DurationType = DurationType.Instantaneous, DurationValue=0, HasMaterialComponent=false, HasSomaticComponent=true, HasVerbalComponent =true, RangeType=RangeType.Touch, RangeValue=0, School=MagicSchool.Necromancy, Target="Object you can touch", TargetType=TargetType.Touch, Title="Raise Tables", TitleFontSize=14},
             };
             modelBuilder.Entity<SpellCardEntity>().HasData(spellCards);
+
+            SpellDeckDesignEntity spellDeckDesign = new SpellDeckDesignEntity() { ID = 1, Name = "SampleSpellDeckDesign_1" };
+            modelBuilder.Entity<SpellDeckDesignEntity>().HasData(spellDeckDesign);
+
+            SpellDeckEntity spellDeck = new SpellDeckEntity() { ID = 1, Name = "SampleSpellDeck_1" };
+            modelBuilder.Entity<SpellDeckEntity>().HasData(spellDeck);
         }
     }
 }
