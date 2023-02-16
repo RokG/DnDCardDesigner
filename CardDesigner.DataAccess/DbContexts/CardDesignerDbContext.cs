@@ -166,25 +166,21 @@ namespace CardDesigner.DataAccess.DbContexts
 
         private void Seed(ModelBuilder modelBuilder)
         {
-            IList<SpellCardEntity> spellCards = new List<SpellCardEntity>
-            {
-                new SpellCardEntity() {ID = 1, Name="SampleSpellCard_1", Level = 0, IsRitual=true, IsConcentration = false, AreaOfEffect=AreaOfEffect.Sphere, AreaOfEffectValue=10, CastingTimeType=CastingTimeType.Action, CastingTimeValue=1, DamageType=MagicDamageType.Radiant, Description="Casts something", DescriptionFontSize=14, DiceType=DiceType.d8, DiceValue = 4, DurationType = DurationType.Instantaneous, DurationValue=0, HasMaterialComponent=true, HasSomaticComponent=true, HasVerbalComponent =true, RangeType=RangeType.Distance, RangeValue=60, School=MagicSchool.Evocation, Target="Humanoid Within range", TargetType=TargetType.Target, Title="Spell Of Knowledge", TitleFontSize=16},
-                new SpellCardEntity() {ID = 2, Name="SampleSpellCard_2", Level = 3, IsRitual=false, IsConcentration = true, AreaOfEffect=AreaOfEffect.Line, AreaOfEffectValue=30, CastingTimeType=CastingTimeType.BonusAction, CastingTimeValue=1, DamageType=MagicDamageType.Fire, Description="Enchant yourself", DescriptionFontSize=18, DiceType=DiceType.d4, DiceValue = 1, DurationType = DurationType.Minute, DurationValue=10, HasMaterialComponent=false, HasSomaticComponent=true, HasVerbalComponent =false, RangeType=RangeType.Self, RangeValue=0, School=MagicSchool.Divination, Target="Self", TargetType=TargetType.Self, Title="Aura of vitality", TitleFontSize=18},
-                new SpellCardEntity() {ID = 3, Name="SampleSpellCard_3", Level = 7, IsRitual=true, IsConcentration = false, AreaOfEffect=AreaOfEffect.Sphere, AreaOfEffectValue=10, CastingTimeType=CastingTimeType.Minute, CastingTimeValue=10, DamageType=MagicDamageType.None, Description="Make a table within range fight for you", DescriptionFontSize=14, DiceType=DiceType.d20, DiceValue = 3, DurationType = DurationType.Instantaneous, DurationValue=0, HasMaterialComponent=false, HasSomaticComponent=true, HasVerbalComponent =true, RangeType=RangeType.Touch, RangeValue=0, School=MagicSchool.Necromancy, Target="Object you can touch", TargetType=TargetType.Touch, Title="Raise Tables", TitleFontSize=14},
-            };
-            modelBuilder.Entity<SpellCardEntity>().HasData(spellCards);
+            SeedSpellEntities(modelBuilder);
 
-            IList<ItemCardEntity> itemCards = new List<ItemCardEntity>
-            {
-                new ItemCardEntity() {ID = 1, Name="SampleItemCard_1", IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage1.jpeg", Level = 1, Description="This strange armour is very hairy. Identify it to find out its properties", DescriptionFontSize=14, IsMagical = true, IsUnidentified = true, ItemID="chest1", Title="Hairy chest", RequiresAttunement=true, Type=ItemType.Armour, TitleFontSize=16},
-                new ItemCardEntity() {ID = 2, Name="SampleItemCard_2", IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage2.jpg",Level = 2, Description="A very common sword mostly used by nobility", DescriptionFontSize=14, IsMagical = false, IsUnidentified = false, ItemID="melee1", Title="Common Longsword", RequiresAttunement=false, Type=ItemType.Weapon, TitleFontSize=16},
-                new ItemCardEntity() {ID = 3, Name="SampleItemCard_3", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Big Bertha", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
-            };
-            modelBuilder.Entity<ItemCardEntity>().HasData(itemCards);
+            SeedItemEntities(modelBuilder);
 
+            SeedCharacterEntities(modelBuilder);
+        }
+
+        /// <summary>
+        /// Seed character related entities
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        private static void SeedCharacterEntities(ModelBuilder modelBuilder)
+        {
             CharacterEntity character = new() { ID = 1, Name = "SampleCharacter_1", Weight = "100 kg", Age = "25 y", Alignment = Alignment.ChaoticNeutral, ArmourClass = 12, Height = "6 ft", Hitpoints = 40, Initiative = -1, IsHeavyArmourProficient = false, IsLightArmourProficiency = true, IsMartialWeaponProficient = true, IsMediumArmourProficient = false, IsShieldProficient = false, IsSimpleWeaponProficient = false, Proficiency = 2, OtherProficiencies = "Healing kit, Blacksmith tools", PassiveInsight = 14, PassivePerception = 12, Race = Race.HalfOrc, Speed = 25, Title = "Waltung Kremis" };
             modelBuilder.Entity<CharacterEntity>().HasData(character);
-
 
             modelBuilder.Entity<CharacterClassEntity>().HasData(new
             {
@@ -277,7 +273,36 @@ namespace CardDesigner.DataAccess.DbContexts
 
                 CharacterID = 1,
             });
+        }
 
+        /// <summary>
+        /// Seed Item Card, Deck, Design entiteies
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        private static void SeedItemEntities(ModelBuilder modelBuilder)
+        {
+            IList<ItemCardEntity> itemCards = new List<ItemCardEntity>
+            {
+                new ItemCardEntity() {ID = 1, Name="SampleItemCard_1", IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage1.jpeg", Level = 1, Description="This strange armour is very hairy. Identify it to find out its properties", DescriptionFontSize=14, IsMagical = true, IsUnidentified = true, ItemID="chest1", Title="Hairy chest", RequiresAttunement=true, Type=ItemType.Armour, TitleFontSize=16},
+                new ItemCardEntity() {ID = 2, Name="SampleItemCard_2", IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage2.jpg",Level = 2, Description="A very common sword mostly used by nobility", DescriptionFontSize=14, IsMagical = false, IsUnidentified = false, ItemID="melee1", Title="Common Longsword", RequiresAttunement=false, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 3, Name="SampleItemCard_3", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Big Bertha", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+            };
+            modelBuilder.Entity<ItemCardEntity>().HasData(itemCards);
+        }
+
+        /// <summary>
+        /// Seed Spell Card, Deck, Design entiteies
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        private static void SeedSpellEntities(ModelBuilder modelBuilder)
+        {
+            IList<SpellCardEntity> spellCards = new List<SpellCardEntity>
+            {
+                new SpellCardEntity() {ID = 1, Name="SampleSpellCard_1", Level = 0, IsRitual=true, IsConcentration = false, AreaOfEffect=AreaOfEffect.Sphere, AreaOfEffectValue=10, CastingTimeType=CastingTimeType.Action, CastingTimeValue=1, DamageType=MagicDamageType.Radiant, Description="Casts something", DescriptionFontSize=14, DiceType=DiceType.d8, DiceValue = 4, DurationType = DurationType.Instantaneous, DurationValue=0, HasMaterialComponent=true, HasSomaticComponent=true, HasVerbalComponent =true, RangeType=RangeType.Distance, RangeValue=60, School=MagicSchool.Evocation, Target="Humanoid Within range", TargetType=TargetType.Target, Title="Spell Of Knowledge", TitleFontSize=16},
+                new SpellCardEntity() {ID = 2, Name="SampleSpellCard_2", Level = 3, IsRitual=false, IsConcentration = true, AreaOfEffect=AreaOfEffect.Line, AreaOfEffectValue=30, CastingTimeType=CastingTimeType.BonusAction, CastingTimeValue=1, DamageType=MagicDamageType.Fire, Description="Enchant yourself", DescriptionFontSize=18, DiceType=DiceType.d4, DiceValue = 1, DurationType = DurationType.Minute, DurationValue=10, HasMaterialComponent=false, HasSomaticComponent=true, HasVerbalComponent =false, RangeType=RangeType.Self, RangeValue=0, School=MagicSchool.Divination, Target="Self", TargetType=TargetType.Self, Title="Aura of vitality", TitleFontSize=18},
+                new SpellCardEntity() {ID = 3, Name="SampleSpellCard_3", Level = 7, IsRitual=true, IsConcentration = false, AreaOfEffect=AreaOfEffect.Sphere, AreaOfEffectValue=10, CastingTimeType=CastingTimeType.Minute, CastingTimeValue=10, DamageType=MagicDamageType.None, Description="Make a table within range fight for you", DescriptionFontSize=14, DiceType=DiceType.d20, DiceValue = 3, DurationType = DurationType.Instantaneous, DurationValue=0, HasMaterialComponent=false, HasSomaticComponent=true, HasVerbalComponent =true, RangeType=RangeType.Touch, RangeValue=0, School=MagicSchool.Necromancy, Target="Object you can touch", TargetType=TargetType.Touch, Title="Raise Tables", TitleFontSize=14},
+            };
+            modelBuilder.Entity<SpellCardEntity>().HasData(spellCards);
         }
     }
 }
