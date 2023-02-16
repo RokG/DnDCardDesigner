@@ -28,6 +28,9 @@
     <None Remove="Resources\Configs\Armour\Shields.json" />
     <None Remove="Resources\Configs\Weapons\MeleeWeapons.json" />
     <None Remove="Resources\Configs\Weapons\RangedWeapons.json" />
+    <None Remove="Resources\Images\sampleimage1.jpeg" />
+    <None Remove="Resources\Images\sampleimage2.jpg" />
+    <None Remove="Resources\Images\sampleimage3.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +55,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\dnd-icon-13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\sampleimage1.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\sampleimage2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\sampleimage3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Untitled-2.ico" />

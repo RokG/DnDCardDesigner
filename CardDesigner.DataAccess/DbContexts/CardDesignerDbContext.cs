@@ -174,6 +174,14 @@ namespace CardDesigner.DataAccess.DbContexts
                 new SpellCardEntity() {ID = 3, Name="SampleSpellCard_3", Level = 7, IsRitual=true, IsConcentration = false, AreaOfEffect=AreaOfEffect.Sphere, AreaOfEffectValue=10, CastingTimeType=CastingTimeType.Minute, CastingTimeValue=10, DamageType=MagicDamageType.None, Description="Make a table within range fight for you", DescriptionFontSize=14, DiceType=DiceType.d20, DiceValue = 3, DurationType = DurationType.Instantaneous, DurationValue=0, HasMaterialComponent=false, HasSomaticComponent=true, HasVerbalComponent =true, RangeType=RangeType.Touch, RangeValue=0, School=MagicSchool.Necromancy, Target="Object you can touch", TargetType=TargetType.Touch, Title="Raise Tables", TitleFontSize=14},
             };
             modelBuilder.Entity<SpellCardEntity>().HasData(spellCards);
+
+            IList<ItemCardEntity> itemCards = new List<ItemCardEntity>
+            {
+                new ItemCardEntity() {ID = 1, Name="SampleItemCard_1", IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage1.jpeg", Level = 1, Description="This strange armour is very hairy. Identify it to find out its properties", DescriptionFontSize=14, IsMagical = true, IsUnidentified = true, ItemID="chest1", Title="Hairy chest", RequiresAttunement=true, Type=ItemType.Armour, TitleFontSize=16},
+                new ItemCardEntity() {ID = 2, Name="SampleItemCard_2",  IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage2.jpg",Level = 2, Description="A very common sword mostly used by nobility", DescriptionFontSize=14, IsMagical = false, IsUnidentified = false, ItemID="melee1", Title="Common Longsword", RequiresAttunement=false, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 3, Name="SampleItemCard_3",  IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Big Bertha", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+            };
+            modelBuilder.Entity<ItemCardEntity>().HasData(itemCards);
         }
     }
 }
