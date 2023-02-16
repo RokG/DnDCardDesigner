@@ -67,7 +67,7 @@
                     ViewOnly="False" />
 
                 <!--  Manage cards in decks  -->
-                <Border BorderThickness="1">
+                <Border>
                     <Border.Style>
                         <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -80,53 +80,11 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <DataGrid
-                            Grid.Column="0"
-                            AutoGenerateColumns="False"
-                            ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn
-                                    Width="*"
-                                    Header="All available cards">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Command="{Binding DataContext.AddCharacterCardToDeckCommand, ElementName=deckControl}"
-                                                CommandParameter="{Binding}"
-                                                Content="{Binding Name}"
-                                                Style="{StaticResource CardAssignUnassignButton}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <DataGrid
-                            Grid.Column="2"
-                            AutoGenerateColumns="False"
-                            ItemsSource="{Binding SelectedCharacterDeck.CharacterCards, Mode=TwoWay}">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn
-                                    Width="*"
-                                    Header="Cards in deck">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Command="{Binding DataContext.RemoveCharacterCardFromDeckCommand, ElementName=deckControl}"
-                                                CommandParameter="{Binding}"
-                                                Content="{Binding Name}"
-                                                Style="{StaticResource CardAssignUnassignButton}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
+                    <controls:ItemTransferControl
+                        AddCommand="{Binding DataContext.AddCharacterCardToDeckCommand, ElementName=deckControl}"
+                        ItemsDestination="{Binding SelectedCharacterDeck.CharacterCards, Mode=TwoWay}"
+                        ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}"
+                        RemoveCommand="{Binding DataContext.RemoveCharacterCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
             </StackPanel>
 
