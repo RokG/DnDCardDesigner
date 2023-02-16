@@ -30,6 +30,7 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<CharacterDeckDesignEntity> CharacterDeckDesigns { get; set; }
         public DbSet<SpellDeckDesignLinkerEntity> SpellDeckDesignLinkers { get; set; }
         public DbSet<ItemDeckDesignLinkerEntity> ItemDeckDesignLinkers { get; set; }
+        public DbSet<CharacterDeckDesignLinkerEntity> CharacterDeckDesignLinkers { get; set; }
         public DbSet<DeckBackgroundDesignEntity> DeckBackgroundDesigns { get; set; }
         public DbSet<SpellDeckEntity> SpellDecks { get; set; }
         public DbSet<ItemDeckEntity> ItemDecks { get; set; }
