@@ -184,8 +184,8 @@ namespace CardDesigner.DataAccess.DbContexts
         {
             IList<CharacterCardEntity> spellCards = new List<CharacterCardEntity>
             {
-                new CharacterCardEntity() {ID = 1, Name="SampleCharacterCard_1",  Type=CharacterCardType.Avatar, TitleFontSize=16, DescriptionFontSize=14 },
-                new CharacterCardEntity() {ID = 2, Name="SampleCharacterCard_2", Type=CharacterCardType.Abilities, TitleFontSize=16, DescriptionFontSize=14 },
+                new CharacterCardEntity() {ID = 1, Name="SampleCharacterCard_1", Title = "Waltung Kremis - Avatar", Type=CharacterCardType.Avatar, TitleFontSize=16, DescriptionFontSize=14 },
+                new CharacterCardEntity() {ID = 2, Name="SampleCharacterCard_2", Title = "Waltung Kremis - Abilities",Type=CharacterCardType.Abilities, TitleFontSize=16, DescriptionFontSize=14 },
                 new CharacterCardEntity() {ID = 3, Name="SampleCharacterCard_3", Type=CharacterCardType.Feats, TitleFontSize=16, DescriptionFontSize=14, Level=2, Title="Blood Tithe", Description = "Starting at level 2, you can cut your wrist to heal 2 x d4 + 2 HP. You can use this twice per short rest." },
             };
             modelBuilder.Entity<CharacterCardEntity>().HasData(spellCards);

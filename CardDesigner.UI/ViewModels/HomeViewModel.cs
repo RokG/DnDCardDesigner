@@ -1,8 +1,10 @@
 ﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace CardDesigner.UI.ViewModels
@@ -19,6 +21,9 @@ namespace CardDesigner.UI.ViewModels
         #region Properties
 
         [ObservableProperty]
+        private ObservableCollection<TreeItemModel> treeCharacters;
+
+        [ObservableProperty]
         private ObservableCollection<SpellCardModel> allSpellCards;
 
         [ObservableProperty]
@@ -29,6 +34,12 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<ItemDeckModel> allItemDecks;
+
+        [ObservableProperty]
+        private ObservableCollection<CharacterDeckModel> allCharacterDecks;
+
+        [ObservableProperty]
+        private ObservableCollection<CharacterCardModel> allCharacterCards;
 
         [ObservableProperty]
         private ObservableCollection<CharacterModel> allCharacters;
@@ -47,9 +58,12 @@ namespace CardDesigner.UI.ViewModels
 
             // TODO: is this OK? how is it different from old method (before MVVM toolkit)
             LoadData();
+            GenerateCharacterTree();
+
         }
 
         #endregion
+
         #region Private methods
 
         private async void LoadData()
@@ -61,6 +75,83 @@ namespace CardDesigner.UI.ViewModels
             AllSpellDecks = _cardDesignerStore.SpellDecks == null ? new() : new(_cardDesignerStore.SpellDecks);
             AllItemCards = _cardDesignerStore.ItemCards == null ? new() : new(_cardDesignerStore.ItemCards);
             AllItemDecks = _cardDesignerStore.ItemDecks == null ? new() : new(_cardDesignerStore.ItemDecks);
+            AllCharacterCards = _cardDesignerStore.CharacterCards == null ? new() : new(_cardDesignerStore.CharacterCards);
+            AllCharacterDecks = _cardDesignerStore.CharacterDecks == null ? new() : new(_cardDesignerStore.CharacterDecks);
+        }
+
+        /// <summary>
+        /// Create tree view listings
+        /// </summary>
+        private void GenerateCharacterTree()
+        {
+            TreeCharacters = new();
+            foreach (CharacterModel character in AllCharacters)
+            {
+                TreeItemModel addedCharacter = new()
+                {
+                    Name = character.Name,
+                    Title = character.Title,
+                };
+
+                // Create Item deck tree structure
+                foreach (ItemDeckDesignLinkerModel itemDeckDescriptor in character.ItemDeckDescriptors)
+                {
+                    TreeItemModel addedItemDeck = new();
+                    ItemDeckModel itemDeck = AllItemDecks.FirstOrDefault(id => id.ID == itemDeckDescriptor.ItemDeckID);
+                    addedItemDeck.Name = itemDeck?.Name;
+
+                    foreach (ItemCardModel itemCard in itemDeck.ItemCards)
+                    {
+                        TreeItemModel addedItemCard = new()
+                        {
+                            Name = itemCard?.Name,
+                            Title = itemCard?.Title
+                        };
+                        addedItemDeck.Items.Add(addedItemCard);
+                    }
+                    addedCharacter.Items.Add(addedItemDeck);
+                }
+
+                // Create Spell deck tree structure
+                foreach (SpellDeckDesignLinkerModel spellDeckDescriptor in character.SpellDeckDescriptors)
+                {
+                    TreeItemModel addedSpellDeck = new();
+                    SpellDeckModel spellDeck = AllSpellDecks.FirstOrDefault(id => id.ID == spellDeckDescriptor.SpellDeckID);
+                    addedSpellDeck.Name = spellDeck?.Name;
+
+                    foreach (SpellCardModel spellCard in spellDeck.SpellCards)
+                    {
+                        TreeItemModel addedSpellCard = new()
+                        {
+                            Name = spellCard?.Name,
+                            Title = spellCard?.Title
+                        };
+                        addedSpellDeck.Items.Add(addedSpellCard);
+                    }
+                    addedCharacter.Items.Add(addedSpellDeck);
+                }
+
+                // Create Character deck tree structure
+                foreach (CharacterDeckDesignLinkerModel characterDeckDescriptor in character.CharacterDeckDescriptors)
+                {
+                    TreeItemModel addedCharacterDeck = new();
+                    CharacterDeckModel characterDeck = AllCharacterDecks.FirstOrDefault(id => id.ID == characterDeckDescriptor.CharacterDeckID);
+                    addedCharacterDeck.Name = characterDeck?.Name;
+
+                    foreach (CharacterCardModel characterCard in characterDeck.CharacterCards)
+                    {
+                        TreeItemModel addedCharacterCard = new()
+                        {
+                            Name = characterCard?.Name,
+                            Title = characterCard?.Title
+                        };
+                        addedCharacterDeck.Items.Add(addedCharacterCard);
+                    }
+                    addedCharacter.Items.Add(addedCharacterDeck);
+                }
+
+                TreeCharacters.Add(addedCharacter);
+            }
         }
 
         #endregion

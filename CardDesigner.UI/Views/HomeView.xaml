@@ -6,6 +6,28 @@
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
+    <UserControl.Resources>
+        <!--  https://www.codemag.com/Article/1401031/Using-the-WPF-TreeView-with-Multiple-Levels  -->
+        <DataTemplate x:Key="card">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Title}" />
+                <TextBlock Text="{Binding Name, StringFormat='{} - ({0})'}" />
+            </StackPanel>
+        </DataTemplate>
+        <HierarchicalDataTemplate x:Key="deck"
+            ItemTemplate="{StaticResource card}"
+            ItemsSource="{Binding Items}">
+            <TextBlock Text="{Binding Name}" />
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="character"
+            ItemTemplate="{StaticResource deck}"
+            ItemsSource="{Binding Items}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Title}" />
+                <TextBlock Text="{Binding Name, StringFormat='{} - ({0})'}" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+    </UserControl.Resources>
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -35,7 +57,10 @@
 
         <!--  Content Area  -->
         <Grid Grid.Row="1">
-            <Label Content="Overview of character decks, cards and designs" />
+            <TreeView
+                Height="400"
+                ItemTemplate="{StaticResource character}"
+                ItemsSource="{Binding TreeCharacters}" />
         </Grid>
     </Grid>
 </UserControl>
