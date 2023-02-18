@@ -151,11 +151,7 @@ namespace CardDesigner.UI.Controls
             }
         }
 
-        private static BitmapSource CreateBitmapSourceFromVisual(
-        double width,
-        double height,
-        Visual visualToRender,
-        bool undoTransformation)
+        private static BitmapSource CreateBitmapSourceFromVisual(double width, double height, Visual visualToRender, bool undoTransformation)
         {
             if (visualToRender == null)
             {

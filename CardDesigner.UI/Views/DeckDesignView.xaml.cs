@@ -5,7 +5,6 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace CardDesigner.UI.Views
 {
@@ -33,45 +32,16 @@ namespace CardDesigner.UI.Views
                     switch (cardDesign)
                     {
                         case SpellDeckDesignModel spellDeckDesign:
-                            // Foregrounds
-                            SetStartingColors(FrontSpellLineColor, spellDeckDesign.LineColor);
-                            SetStartingColors(FrontSpellBackgroundColor, spellDeckDesign.BackgroundColor);
-                            SetStartingColors(FrontSpellFooterColor, spellDeckDesign.FooterColor);
-                            SetStartingColors(FrontSpellHeaderTextColor, spellDeckDesign.HeaderTextColor);
-                            SetStartingColors(FrontSpellFooterTextColor, spellDeckDesign.FooterTextColor);
-                            SetStartingColors(FrontSpellDescriptionTextColor, spellDeckDesign.DescriptionTextColor);
-                            SetStartingColors(FrontSpellHeaderIconColor, spellDeckDesign.HeaderIconColor);
-                            SetStartingColors(FrontSpellFooterIconColor, spellDeckDesign.FooterIconColor);
-                            SetStartingColors(FrontSpellHeaderColor, spellDeckDesign.HeaderColor);
+                            SetSpellCardColors(spellDeckDesign);
                             break;
                         case CharacterDeckDesignModel characterDeckDesign:
-                            // Foregrounds
-                            SetStartingColors(FrontCharacterLineColor, characterDeckDesign.LineColor);
-                            SetStartingColors(FrontCharacterBackgroundColor, characterDeckDesign.BackgroundColor);
-                            SetStartingColors(FrontCharacterFooterColor, characterDeckDesign.FooterColor);
-                            SetStartingColors(FrontCharacterHeaderTextColor, characterDeckDesign.HeaderTextColor);
-                            SetStartingColors(FrontCharacterFooterTextColor, characterDeckDesign.FooterTextColor);
-                            SetStartingColors(FrontCharacterDescriptionTextColor, characterDeckDesign.DescriptionTextColor);
-                            SetStartingColors(FrontCharacterHeaderIconColor, characterDeckDesign.HeaderIconColor);
-                            SetStartingColors(FrontCharacterFooterIconColor, characterDeckDesign.FooterIconColor);
-                            SetStartingColors(FrontCharacterHeaderColor, characterDeckDesign.HeaderColor);
+                            SetCharacterCardColors(characterDeckDesign);
                             break;
                         case ItemDeckDesignModel itemDeckDesign:
-                            // Foregrounds
-                            SetStartingColors(FrontItemLineColor, itemDeckDesign.LineColor);
-                            SetStartingColors(FrontItemBackgroundColor, itemDeckDesign.BackgroundColor);
-                            SetStartingColors(FrontItemFooterColor, itemDeckDesign.FooterColor);
-                            SetStartingColors(FrontItemHeaderTextColor, itemDeckDesign.HeaderTextColor);
-                            SetStartingColors(FrontItemFooterTextColor, itemDeckDesign.FooterTextColor);
-                            SetStartingColors(FrontItemDescriptionTextColor, itemDeckDesign.DescriptionTextColor);
-                            SetStartingColors(FrontItemHeaderIconColor, itemDeckDesign.HeaderIconColor);
-                            SetStartingColors(FrontItemFooterIconColor, itemDeckDesign.FooterIconColor);
-                            SetStartingColors(FrontItemHeaderColor, itemDeckDesign.HeaderColor);
+                            SetItemCardColors(itemDeckDesign);
                             break;
                         case DeckBackgroundDesignModel characterDeckDesign:
-                            // Backgrounds
-                            SetStartingColors(BackLineColor, characterDeckDesign.LineColor);
-                            SetStartingColors(BackBackgroundColor, characterDeckDesign.BackgroundColor);
+                            SetBackgroundColors(characterDeckDesign);
                             break;
                         default:
                             break;
@@ -80,14 +50,60 @@ namespace CardDesigner.UI.Views
             }
         }
 
+        private void SetBackgroundColors(DeckBackgroundDesignModel characterDeckDesign)
+        {
+            SetStartingColors(BackLineColor, characterDeckDesign.LineColor);
+            SetStartingColors(BackBackgroundColor, characterDeckDesign.BackgroundColor);
+        }
+
+        private void SetItemCardColors(ItemDeckDesignModel itemDeckDesign)
+        {
+            SetStartingColors(FrontItemLineColor, itemDeckDesign.LineColor);
+            SetStartingColors(FrontItemBackgroundColor, itemDeckDesign.BackgroundColor);
+            SetStartingColors(FrontItemFooterColor, itemDeckDesign.FooterColor);
+            SetStartingColors(FrontItemHeaderTextColor, itemDeckDesign.HeaderTextColor);
+            SetStartingColors(FrontItemFooterTextColor, itemDeckDesign.FooterTextColor);
+            SetStartingColors(FrontItemDescriptionTextColor, itemDeckDesign.DescriptionTextColor);
+            SetStartingColors(FrontItemHeaderIconColor, itemDeckDesign.HeaderIconColor);
+            SetStartingColors(FrontItemFooterIconColor, itemDeckDesign.FooterIconColor);
+            SetStartingColors(FrontItemHeaderColor, itemDeckDesign.HeaderColor);
+        }
+
+        private void SetSpellCardColors(SpellDeckDesignModel spellDeckDesign)
+        {
+            SetStartingColors(FrontSpellLineColor, spellDeckDesign.LineColor);
+            SetStartingColors(FrontSpellBackgroundColor, spellDeckDesign.BackgroundColor);
+            SetStartingColors(FrontSpellFooterColor, spellDeckDesign.FooterColor);
+            SetStartingColors(FrontSpellHeaderTextColor, spellDeckDesign.HeaderTextColor);
+            SetStartingColors(FrontSpellFooterTextColor, spellDeckDesign.FooterTextColor);
+            SetStartingColors(FrontSpellDescriptionTextColor, spellDeckDesign.DescriptionTextColor);
+            SetStartingColors(FrontSpellHeaderIconColor, spellDeckDesign.HeaderIconColor);
+            SetStartingColors(FrontSpellFooterIconColor, spellDeckDesign.FooterIconColor);
+            SetStartingColors(FrontSpellHeaderColor, spellDeckDesign.HeaderColor);
+        }
+
+        private void SetCharacterCardColors(CharacterDeckDesignModel characterDeckDesign)
+        {
+            SetStartingColors(FrontCharacterLineColor, characterDeckDesign.LineColor);
+            SetStartingColors(FrontCharacterBackgroundColor, characterDeckDesign.BackgroundColor);
+            SetStartingColors(FrontCharacterFooterColor, characterDeckDesign.FooterColor);
+            SetStartingColors(FrontCharacterHeaderTextColor, characterDeckDesign.HeaderTextColor);
+            SetStartingColors(FrontCharacterFooterTextColor, characterDeckDesign.FooterTextColor);
+            SetStartingColors(FrontCharacterDescriptionTextColor, characterDeckDesign.DescriptionTextColor);
+            SetStartingColors(FrontCharacterHeaderIconColor, characterDeckDesign.HeaderIconColor);
+            SetStartingColors(FrontCharacterFooterIconColor, characterDeckDesign.FooterIconColor);
+            SetStartingColors(FrontCharacterHeaderColor, characterDeckDesign.HeaderColor);
+        }
+
         private void SetStartingColors(ColorPickerControl colorPickerControl, string hexValue)
         {
             ColorHSV color = GetHSV(hexValue);
-            ColorHSV color2 = GetHSL(hexValue);
 
             colorPickerControl.Hue = color.Hue;
             colorPickerControl.Saturation = color.Saturation;
             colorPickerControl.Value = color.Value;
+
+            colorPickerControl.CurrentHueValue = ColorFromHSV(color.Hue, 1, 1);
         }
 
         private ColorHSV GetHSV(string colorHexRGB)
@@ -109,20 +125,42 @@ namespace CardDesigner.UI.Views
             return colorHSV;
         }
 
-        private ColorHSV GetHSL(string colorHexRGB)
+        public static string ColorFromHSV(double hue, double saturation, double value)
         {
-            //https://www.codeproject.com/Questions/996265/RGB-to-HSV-conversion
-            int argb = int.Parse(colorHexRGB.Replace("#", ""), NumberStyles.HexNumber);
-            System.Drawing.Color colorRGB = System.Drawing.Color.FromArgb(argb);
+            hue = hue * 360 / 100;
+            int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
+            double f = hue / 60 - Math.Floor(hue / 60);
 
-            ColorHSV colorHSV = new()
+            value = value * 255;
+            string v = Convert.ToInt32(value).ToString("X2");
+            string p = Convert.ToInt32(value * (1 - saturation)).ToString("X2");
+            string q = Convert.ToInt32(value * (1 - f * saturation)).ToString("X2");
+            string t = Convert.ToInt32(value * (1 - (1 - f) * saturation)).ToString("X2");
+
+            if (hi == 0)
             {
-                Hue = colorRGB.GetHue() * 100 / 360,
-                Saturation = colorRGB.GetSaturation() * 100,
-                Value = colorRGB.GetBrightness() * 100,
-            };
-
-            return colorHSV;
+                return $"#FF" + v + t + p;
+            }
+            else if (hi == 1)
+            {
+                return $"#FF" + q + v + p;
+            }
+            else if (hi == 2)
+            {
+                return $"#FF" + p + v + t;
+            }
+            else if (hi == 3)
+            {
+                return $"#FF" + p + q + v;
+            }
+            else if (hi == 4)
+            {
+                return $"#FF" + t + p + v;
+            }
+            else
+            {
+                return $"#FF" + v + p + q;
+            }
         }
     }
 }

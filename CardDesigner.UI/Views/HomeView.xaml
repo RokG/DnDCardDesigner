@@ -35,7 +35,7 @@
 
         <!--  Content Area  -->
         <Grid Grid.Row="1">
-            <Label Content="Empty" />
+            <Label Content="Overview of character decks, cards and designs" />
         </Grid>
     </Grid>
 </UserControl>
