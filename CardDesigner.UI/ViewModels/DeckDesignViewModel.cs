@@ -203,10 +203,11 @@ namespace CardDesigner.UI.ViewModels
                     case ViewModelType.Unknown:
                         return;
                     case ViewModelType.Home:
+                        SelectedCharacter = _navigationStore.SelectedCharacter;
                         switch (_navigationStore.SelectedCardType)
                         {
                             case CardType.Spell:
-                                TestSpellCard = SelectedSpellDeck.SpellCards.FirstOrDefault(c=>c.ID == _navigationStore.SelectedSpellCard.ID);
+                                TestSpellCard = _navigationStore.SelectedSpellCard;
                                 SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
                                 SelectedTabItem = 2;
                                 break;

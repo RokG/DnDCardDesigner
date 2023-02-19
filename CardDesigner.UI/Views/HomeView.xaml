@@ -190,6 +190,7 @@
                                                 <controls:CharacterCardControl
                                                     Grid.Column="1"
                                                     CardDesign="{Binding SelectedCardDesign}"
+                                                    Character="{Binding SelectedCharacter}"
                                                     CharacterCard="{Binding SelectedCard}" />
                                             </ControlTemplate>
                                         </Setter.Value>
