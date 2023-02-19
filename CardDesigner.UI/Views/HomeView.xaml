@@ -9,24 +9,26 @@
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
 
-        <!--  Avatar template  -->
-        <ControlTemplate x:Key="characterCard">
-
-            <controls:CharacterCardControl
-                Grid.Column="1"
-                CardDesign="{Binding SelectedCardDesign}"
-                CharacterCard="{Binding SelectedCard}" />
-        </ControlTemplate>
+        <Style x:Key="ExpanderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image Source="/Images/SHCalendarLeftArrow.tiff" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <!--  https://www.codemag.com/Article/1401031/Using-the-WPF-TreeView-with-Multiple-Levels  -->
         <DataTemplate x:Key="card">
             <TextBlock>
                 <Run
-                    FontSize="14"
+                    FontSize="16"
                     FontWeight="Bold"
                     Text="{Binding Title}" />
                 <Run
-                    FontSize="12"
+                    FontSize="14"
                     FontWeight="Normal"
                     Text="{Binding Name, StringFormat='{}({0})'}" />
             </TextBlock>
@@ -36,11 +38,11 @@
             ItemsSource="{Binding Items}">
             <TextBlock>
                 <Run
-                    FontSize="14"
+                    FontSize="16"
                     FontWeight="Bold"
                     Text="{Binding Title}" />
                 <Run
-                    FontSize="12"
+                    FontSize="14"
                     FontWeight="Normal"
                     Text="{Binding Name, StringFormat='{}({0})'}" />
             </TextBlock>
@@ -50,11 +52,11 @@
             ItemsSource="{Binding Items}">
             <TextBlock>
                 <Run
-                    FontSize="14"
+                    FontSize="16"
                     FontWeight="Bold"
                     Text="{Binding Title}" />
                 <Run
-                    FontSize="12"
+                    FontSize="14"
                     FontWeight="Normal"
                     Text="{Binding Name, StringFormat='{}({0})'}" />
             </TextBlock>
@@ -116,7 +118,12 @@
                             <Trigger Property="IsSelected" Value="True">
                                 <!--  THe only thing thats not working  is background?  -->
                                 <!--<Setter Property="Background" Value="Green" />-->
-                                <Setter Property="FontStyle" Value="Italic" />
+                                <Setter Property="IsExpanded" Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <!--  THe only thing thats not working  is background?  -->
+                                <!--<Setter Property="Background" Value="Green" />-->
+                                <Setter Property="IsExpanded" Value="False" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>
