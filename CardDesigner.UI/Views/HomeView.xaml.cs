@@ -1,7 +1,9 @@
 ﻿using CardDesigner.Domain.HelperModels;
+using CardDesigner.Domain.Models;
 using CardDesigner.UI.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace CardDesigner.UI.Views
 {
@@ -21,9 +23,20 @@ namespace CardDesigner.UI.Views
             {
                 if (treeView.DataContext is HomeViewModel hvm)
                 {
-                    hvm.SetSelectedItem(((TreeItemModel)treeView.SelectedItem).Item);
+                    hvm.SetSelectedItem((TreeItemModel)treeView.SelectedItem);
                 }
             }
+        }
+
+        public ItemsControl GetSelectedTreeViewItemParent(TreeViewItem item)
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(item);
+            while (!(parent is TreeViewItem || parent is TreeView))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return parent as ItemsControl;
         }
     }
 }

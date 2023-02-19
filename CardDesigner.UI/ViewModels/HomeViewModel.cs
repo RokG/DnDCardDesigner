@@ -4,6 +4,8 @@ using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -17,12 +19,23 @@ namespace CardDesigner.UI.ViewModels
         private readonly CardDesignerStore _cardDesignerStore;
         private readonly NavigationStore _navigationStore;
 
+
+        private List<ItemDeckDesignModel> AllItemDeckDesigns;
+        private List<SpellDeckDesignModel> AllSpellDeckDesigns;
+        private List<CharacterDeckDesignModel> AllCharacterDeckDesigns;
+
         #endregion
 
         #region Properties
 
         [ObservableProperty]
         private ObservableCollection<TreeItemModel> treeCharacters;
+
+        [ObservableProperty]
+        private ICardDesign selectedCardDesign;
+
+        [ObservableProperty]
+        private ICard selectedCard;
 
         [ObservableProperty]
         private ObservableCollection<SpellCardModel> allSpellCards;
@@ -67,21 +80,30 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public void SetSelectedItem(object selectableItem)
+        public void SetSelectedItem(TreeItemModel selectableItem)
         {
-            if (selectableItem is CharacterCardModel characterCardModel)
+            // Clear selection to trigger UI clear
+            //SelectedCardDesign = null;
+            //SelectedCard = null;
+
+            if (selectableItem.Item is CharacterCardModel characterCardModel
+                && selectableItem.Property is CharacterDeckDesignModel characterCardDesign)
             {
-
+                SelectedCardDesign = characterCardDesign;
+                SelectedCard = characterCardModel;
             }
-            if (selectableItem is SpellCardModel spellCardModel)
+            if (selectableItem.Item is SpellCardModel spellCardModel
+                && selectableItem.Property is SpellDeckDesignModel spellCardDesign)
             {
-
+                SelectedCardDesign = spellCardDesign;
+                SelectedCard = spellCardModel;
             }
-            if (selectableItem is ItemCardModel itemCardModel)
+            if (selectableItem.Item is ItemCardModel itemCardModel
+                && selectableItem.Property is ItemDeckDesignModel itemCardDesign)
             {
-
+                SelectedCardDesign = itemCardDesign;
+                SelectedCard = itemCardModel;
             }
-
         }
 
         #endregion
@@ -99,6 +121,10 @@ namespace CardDesigner.UI.ViewModels
             AllItemDecks = _cardDesignerStore.ItemDecks == null ? new() : new(_cardDesignerStore.ItemDecks);
             AllCharacterCards = _cardDesignerStore.CharacterCards == null ? new() : new(_cardDesignerStore.CharacterCards);
             AllCharacterDecks = _cardDesignerStore.CharacterDecks == null ? new() : new(_cardDesignerStore.CharacterDecks);
+
+            AllItemDeckDesigns = _cardDesignerStore.ItemDeckDesigns.ToList();
+            AllSpellDeckDesigns = _cardDesignerStore.SpellDeckDesigns.ToList();
+            AllCharacterDeckDesigns = _cardDesignerStore.CharacterDeckDesigns.ToList();
         }
 
         /// <summary>
@@ -113,7 +139,7 @@ namespace CardDesigner.UI.ViewModels
                 {
                     Name = character.Name,
                     Title = character.Title,
-                    Item= character,
+                    Item = character,
                 };
 
                 // Create Item deck tree structure
@@ -125,13 +151,17 @@ namespace CardDesigner.UI.ViewModels
                     addedItemDeck.Title = itemDeck?.Title;
                     addedItemDeck.Item = itemDeck;
 
+                    int deckDesingID = character.ItemDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == character.ID && idd.ItemDeckID == itemDeck.ID)?.ID ?? 0;
+                    ItemDeckDesignModel deckDesignModel = AllItemDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID);
+
                     foreach (ItemCardModel itemCard in itemDeck.ItemCards)
                     {
                         TreeItemModel addedItemCard = new()
                         {
                             Name = itemCard?.Name,
                             Title = itemCard?.Title,
-                            Item = itemCard
+                            Item = itemCard,
+                            Property = deckDesignModel
                         };
                         addedItemDeck.Items.Add(addedItemCard);
                     }
@@ -146,12 +176,17 @@ namespace CardDesigner.UI.ViewModels
                     addedSpellDeck.Name = spellDeck?.Name;
                     addedSpellDeck.Title = spellDeck?.Title;
 
+                    int deckDesingID = character.SpellDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == character.ID && idd.SpellDeckID == spellDeck.ID)?.ID ?? 0;
+                    SpellDeckDesignModel deckDesignModel = AllSpellDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID);
+
                     foreach (SpellCardModel spellCard in spellDeck.SpellCards)
                     {
                         TreeItemModel addedSpellCard = new()
                         {
                             Name = spellCard?.Name,
-                            Title = spellCard?.Title
+                            Title = spellCard?.Title,
+                            Item = spellCard,
+                            Property = deckDesignModel
                         };
                         addedSpellDeck.Items.Add(addedSpellCard);
                     }
@@ -166,12 +201,17 @@ namespace CardDesigner.UI.ViewModels
                     addedCharacterDeck.Name = characterDeck?.Name;
                     addedCharacterDeck.Title = characterDeck?.Title;
 
+                    int deckDesingID = character.CharacterDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == character.ID && idd.CharacterDeckID == characterDeck.ID)?.ID ?? 0;
+                    CharacterDeckDesignModel deckDesignModel = AllCharacterDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID);
+
                     foreach (CharacterCardModel characterCard in characterDeck.CharacterCards)
                     {
                         TreeItemModel addedCharacterCard = new()
                         {
                             Name = characterCard?.Name,
-                            Title = characterCard?.Title
+                            Title = characterCard?.Title,
+                            Item = characterCard,
+                            Property = deckDesignModel
                         };
                         addedCharacterDeck.Items.Add(addedCharacterCard);
                     }
