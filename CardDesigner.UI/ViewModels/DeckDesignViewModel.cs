@@ -189,7 +189,7 @@ namespace CardDesigner.UI.ViewModels
             SelectedCharacter = AllCharacters.FirstOrDefault();
         }
 
-        private void OnNavigatingAway()
+        private void OnNavigatingAway(ViewModelType type)
         {
             _navigationStore.SelectedItemDeck = SelectedItemDeck;
             _navigationStore.SelectedSpellDeck = SelectedSpellDeck;

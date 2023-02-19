@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Interfaces;
+﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
 using System;
 
@@ -6,12 +7,14 @@ namespace CardDesigner.Domain.Stores
 {
     public class NavigationStore
     {
-        public event Action CurrentViewModelChanged;
+        public event Action<ViewModelType> CurrentViewModelChanged;
 
         public ItemCardModel SelectedItemCard;
         public SpellCardModel SelectedSpellCard;
+        public CharacterCardModel SelectedCharacterCard;
         public ItemDeckModel SelectedItemDeck;
         public SpellDeckModel SelectedSpellDeck;
+        public CharacterDeckModel SelectedCharacterDeck;
         public CharacterModel SelectedCharacter;
         public DeckBackgroundDesignModel SelectedDeckBackgroundDesign;
         public CharacterDeckDesignModel SelectedCharacterDeckDesign;
@@ -26,13 +29,24 @@ namespace CardDesigner.Domain.Stores
             set
             {
                 _currentViewModel = value;
-                OnCurrentViewModelChanged();
+                if (value != null && _currentViewModel != null)
+                {
+                    if (_currentViewModel.Type != value.Type)
+                    { 
+                        OnCurrentViewModelChanged(value.Type);
+                    }
+                }
             }
         }
 
-        private void OnCurrentViewModelChanged()
+        private void OnCurrentViewModelChanged(ViewModelType viewModelType)
         {
-            CurrentViewModelChanged?.Invoke();
+            CurrentViewModelChanged?.Invoke(viewModelType);
+        }
+
+        public void NavigateTo(ViewModelType type)
+        {
+            CurrentViewModelChanged?.Invoke(type);
         }
     }
 }

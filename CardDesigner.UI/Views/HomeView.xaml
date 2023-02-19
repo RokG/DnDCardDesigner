@@ -93,7 +93,7 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TreeView
                 Grid.Column="0"
@@ -126,63 +126,76 @@
                 </TreeView.ItemContainerStyle>
             </TreeView>
 
-            <ContentControl Grid.Column="1">
-                <ContentControl.Style>
-                    <Style TargetType="{x:Type ContentControl}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Label Content="Select any card.." />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <DataTrigger
-                                Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
-                                Value="{x:Type models:SpellCardModel}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <controls:SpellCardControl
-                                                Grid.Column="1"
-                                                CardDesign="{Binding SelectedCardDesign}"
-                                                SpellCard="{Binding SelectedCard}" />
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                            <DataTrigger
-                                Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
-                                Value="{x:Type models:ItemCardModel}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <controls:ItemCardControl
-                                                Grid.Column="1"
-                                                CardDesign="{Binding SelectedCardDesign}"
-                                                ItemCard="{Binding SelectedCard}" />
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                            <DataTrigger
-                                Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
-                                Value="{x:Type models:CharacterCardModel}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <controls:CharacterCardControl
-                                                Grid.Column="1"
-                                                CardDesign="{Binding SelectedCardDesign}"
-                                                CharacterCard="{Binding SelectedCard}" />
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ContentControl.Style>
-            </ContentControl>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Command="{Binding NavigateToCardDesignCommand}"
+                        Content="Edit Card" />
+                    <Button Content="Edit Design" />
+                    <Button Content="Edit Deck" />
+                </StackPanel>
+                <ContentControl Grid.Row="1">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Label Content="Select any card.." />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
+                                    Value="{x:Type models:SpellCardModel}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <controls:SpellCardControl
+                                                    Grid.Column="1"
+                                                    CardDesign="{Binding SelectedCardDesign}"
+                                                    SpellCard="{Binding SelectedCard}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
+                                    Value="{x:Type models:ItemCardModel}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <controls:ItemCardControl
+                                                    Grid.Column="1"
+                                                    CardDesign="{Binding SelectedCardDesign}"
+                                                    ItemCard="{Binding SelectedCard}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
+                                    Value="{x:Type models:CharacterCardModel}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <controls:CharacterCardControl
+                                                    Grid.Column="1"
+                                                    CardDesign="{Binding SelectedCardDesign}"
+                                                    CharacterCard="{Binding SelectedCard}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+            </Grid>
 
         </Grid>
     </Grid>

@@ -4,6 +4,7 @@ using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -229,6 +230,32 @@ namespace CardDesigner.UI.ViewModels
         public static HomeViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
             return new(cardDesignerStore, navigationStore);
+        }
+
+
+        [RelayCommand]
+        private void NavigateToCardDesign()
+        {
+            switch (SelectedCard)
+            {
+                case ItemCardModel itemCard:
+                    _navigationStore.SelectedItemCard = itemCard;
+                    _navigationStore.SelectedItemDeckDesign = (ItemDeckDesignModel)SelectedCardDesign;
+                    _navigationStore.NavigateTo(ViewModelType.ItemCardCreator);
+                    break;
+                case SpellCardModel spellCard:
+                    _navigationStore.SelectedSpellCard = spellCard;
+                    _navigationStore.SelectedSpellDeckDesign = (SpellDeckDesignModel)SelectedCardDesign;
+                    _navigationStore.NavigateTo(ViewModelType.SpellCardCreator);
+                    break;
+                case CharacterCardModel characterCard:
+                    _navigationStore.SelectedCharacterCard = characterCard;
+                    _navigationStore.SelectedCharacterDeckDesign = (CharacterDeckDesignModel)SelectedCardDesign;
+                    _navigationStore.NavigateTo(ViewModelType.CharacterCardCreator);
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion

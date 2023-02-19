@@ -1,6 +1,8 @@
 ﻿<Window x:Class="CardDesigner.UI.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:local="clr-namespace:CardDesigner.UI"
     xmlns:views="clr-namespace:CardDesigner.UI.Views"
     xmlns:vms="clr-namespace:CardDesigner.UI.ViewModels"
@@ -52,46 +54,52 @@
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="HomeViewModel"
+                    CommandParameter="{x:Static enums:ViewModelType.Home}"
                     Content="HOME"
                     DockPanel.Dock="Top"
-                    IsChecked="True" />
+                    IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.Home}}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="CharacterViewModel"
+                    CommandParameter="{x:Static enums:ViewModelType.CharacterCreator}"
                     Content="Character creator"
-                    DockPanel.Dock="Top" />
+                    DockPanel.Dock="Top"
+                    IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.CharacterCreator}}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="CharacterCardViewModel"
+                    CommandParameter="{x:Static enums:ViewModelType.CharacterCardCreator}"
                     Content="Character Card creator"
-                    DockPanel.Dock="Top" />
+                    DockPanel.Dock="Top"
+                    IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.CharacterCardCreator}}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="SpellCardViewModel"
+                    CommandParameter="{x:Static enums:ViewModelType.SpellCardCreator}"
                     Content="Spell Card creator"
-                    DockPanel.Dock="Top" />
+                    DockPanel.Dock="Top"
+                    IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.SpellCardCreator}}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="ItemCardViewModel"
+                    CommandParameter="{x:Static enums:ViewModelType.ItemCardCreator}"
                     Content="Item Card creator"
-                    DockPanel.Dock="Top" />
+                    DockPanel.Dock="Top"
+                    IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.ItemCardCreator}}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="CardDecksViewModel"
+                    CommandParameter="{x:Static enums:ViewModelType.DeckCreator}"
                     Content="Deck creator"
-                    DockPanel.Dock="Top" />
+                    DockPanel.Dock="Top"
+                    IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.DeckCreator}}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
-                    CommandParameter="DeckDesignViewModel"
+                    CommandParameter="{x:Static enums:ViewModelType.DeckDesigner}"
                     Content="Design card"
-                    DockPanel.Dock="Top" />
+                    DockPanel.Dock="Top"
+                    IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.DeckDesigner}}" />
                 <Grid
                     Background="Transparent"
                     DockPanel.Dock="Bottom">
