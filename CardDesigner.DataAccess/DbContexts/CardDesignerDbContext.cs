@@ -196,7 +196,7 @@ namespace CardDesigner.DataAccess.DbContexts
             DeckBackgroundDesignEntity deckBackgroundDesign = new() { ID = 1, Name = "SampleBackgroundDesign_1" };
             modelBuilder.Entity<DeckBackgroundDesignEntity>().HasData(deckBackgroundDesign);
 
-            CharacterDeckEntity characterDeck = new CharacterDeckEntity() { ID = 1, Name = "SampleCharacterDeck_1" };
+            CharacterDeckEntity characterDeck = new CharacterDeckEntity() { ID = 1, Name = "SampleCharacterDeck_1", Title="Sample Character Deck" };
             modelBuilder.Entity<CharacterDeckEntity>().HasData(characterDeck);
 
             modelBuilder.Entity<CharacterDeckDesignLinkerEntity>().HasData(new
@@ -329,7 +329,7 @@ namespace CardDesigner.DataAccess.DbContexts
             ItemDeckDesignEntity itemDeckDesign = new ItemDeckDesignEntity() { ID=1, Name = "SampleItemDeckDesign_1"};
             modelBuilder.Entity<ItemDeckDesignEntity>().HasData(itemDeckDesign);
 
-            ItemDeckEntity itemDeck = new ItemDeckEntity() { ID = 1, Name = "SampleItemDeck_1" };
+            ItemDeckEntity itemDeck = new ItemDeckEntity() { ID = 1, Name = "SampleItemDeck_1", Title = "Sample Item Deck" };
             modelBuilder.Entity<ItemDeckEntity>().HasData(itemDeck);
 
             modelBuilder.Entity<ItemDeckDesignLinkerEntity>().HasData(new
@@ -367,7 +367,7 @@ namespace CardDesigner.DataAccess.DbContexts
             SpellDeckDesignEntity spellDeckDesign = new SpellDeckDesignEntity() { ID = 1, Name = "SampleSpellDeckDesign_1" };
             modelBuilder.Entity<SpellDeckDesignEntity>().HasData(spellDeckDesign);
 
-            SpellDeckEntity spellDeck = new SpellDeckEntity() { ID = 1, Name = "SampleSpellDeck_1" };
+            SpellDeckEntity spellDeck = new SpellDeckEntity() { ID = 1, Name = "SampleSpellDeck_1", Title = "Sample Spell Deck" };
             modelBuilder.Entity<SpellDeckEntity>().HasData(spellDeck);
 
             modelBuilder.Entity<SpellDeckDesignLinkerEntity>().HasData(new

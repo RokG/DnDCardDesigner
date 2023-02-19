@@ -9,23 +9,44 @@
     <UserControl.Resources>
         <!--  https://www.codemag.com/Article/1401031/Using-the-WPF-TreeView-with-Multiple-Levels  -->
         <DataTemplate x:Key="card">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Title}" />
-                <TextBlock Text="{Binding Name, StringFormat='{} - ({0})'}" />
-            </StackPanel>
+            <TextBlock>
+                <Run
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="12"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
         </DataTemplate>
         <HierarchicalDataTemplate x:Key="deck"
             ItemTemplate="{StaticResource card}"
             ItemsSource="{Binding Items}">
-            <TextBlock Text="{Binding Name}" />
+            <TextBlock>
+                <Run
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="12"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
         </HierarchicalDataTemplate>
         <HierarchicalDataTemplate x:Key="character"
             ItemTemplate="{StaticResource deck}"
             ItemsSource="{Binding Items}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Title}" />
-                <TextBlock Text="{Binding Name, StringFormat='{} - ({0})'}" />
-            </StackPanel>
+            <TextBlock>
+                <Run
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="12"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
         </HierarchicalDataTemplate>
     </UserControl.Resources>
     <Grid Margin="4">
@@ -60,7 +81,32 @@
             <TreeView
                 Height="400"
                 ItemTemplate="{StaticResource character}"
-                ItemsSource="{Binding TreeCharacters}" />
+                ItemsSource="{Binding TreeCharacters}"
+                SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView.Resources>
+                    <!--  Because background style is not working?  -->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#44000000" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#44000000" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+                </TreeView.Resources>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter Property="Background" Value="#11000000" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <!--  THe only thing thats not working  is background?  -->
+                                <!--<Setter Property="Background" Value="Green" />-->
+                                <Setter Property="FontStyle" Value="Italic" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
         </Grid>
     </Grid>
 </UserControl>

@@ -56,16 +56,29 @@
                 Grid.Column="0"
                 Orientation="Vertical">
 
-                <!--  Manage decks  -->
-                <controls:AddEditItem
-                    Title="Character Deck"
-                    AddedItemName="{Binding AddedCharacterDeckName, Mode=TwoWay}"
-                    DeleteCommand="{Binding DeleteCharacterDeckCommand}"
-                    ItemsSource="{Binding AllCharacterDecks, Mode=TwoWay}"
-                    SaveCommand="{Binding CreateCharacterDeckCommand}"
-                    SelectedItem="{Binding SelectedCharacterDeck, Mode=TwoWay}"
-                    ViewOnly="False" />
-
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <!--  Manage decks  -->
+                        <controls:AddEditItem
+                            Title="Character Deck"
+                            Margin="0"
+                            Padding="0"
+                            AddedItemName="{Binding AddedCharacterDeckName, Mode=TwoWay}"
+                            BorderThickness="0"
+                            DeleteCommand="{Binding DeleteCharacterDeckCommand}"
+                            ItemsSource="{Binding AllCharacterDecks, Mode=TwoWay}"
+                            SaveCommand="{Binding CreateCharacterDeckCommand}"
+                            SelectedItem="{Binding SelectedCharacterDeck, Mode=TwoWay}"
+                            ViewOnly="False" />
+                        <Label
+                            Margin="5,0"
+                            Padding="0"
+                            Content="Deck name:" />
+                        <TextBox
+                            Margin="5,0"
+                            Text="{Binding SelectedCharacterDeck.Title}" />
+                    </StackPanel>
+                </Border>
                 <!--  Manage cards in decks  -->
                 <Border>
                     <Border.Style>
@@ -91,14 +104,30 @@
             <!--  Spell decks  -->
             <StackPanel Grid.Column="1">
                 <!--  Manage decks  -->
-                <controls:AddEditItem
-                    Title="Spell Deck"
-                    AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
-                    DeleteCommand="{Binding DeleteSpellDeckCommand}"
-                    ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
-                    SaveCommand="{Binding CreateSpellDeckCommand}"
-                    SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
-                    ViewOnly="False" />
+
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <!--  Manage decks  -->
+                        <controls:AddEditItem
+                            Title="Spell Deck"
+                            Margin="0"
+                            Padding="0"
+                            AddedItemName="{Binding AddedSpellDeckName, Mode=TwoWay}"
+                            BorderThickness="0"
+                            DeleteCommand="{Binding DeleteSpellDeckCommand}"
+                            ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
+                            SaveCommand="{Binding CreateSpellDeckCommand}"
+                            SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
+                            ViewOnly="False" />
+                        <Label
+                            Margin="5,0"
+                            Padding="0"
+                            Content="Deck name:" />
+                        <TextBox
+                            Margin="5,0"
+                            Text="{Binding SelectedItemDeck.Title}" />
+                    </StackPanel>
+                </Border>
                 <!--  Manage spell cards in decks  -->
                 <Border>
                     <Border.Style>
@@ -124,14 +153,29 @@
             <!--  Item decks  -->
             <StackPanel Grid.Column="2">
                 <!--  Manage decks  -->
-                <controls:AddEditItem
-                    Title="Item Deck"
-                    AddedItemName="{Binding AddedItemDeckName, Mode=TwoWay}"
-                    DeleteCommand="{Binding DeleteItemDeckCommand}"
-                    ItemsSource="{Binding AllItemDecks, Mode=TwoWay}"
-                    SaveCommand="{Binding CreateItemDeckCommand}"
-                    SelectedItem="{Binding SelectedItemDeck, Mode=TwoWay}"
-                    ViewOnly="False" />
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <!--  Manage decks  -->
+                        <controls:AddEditItem
+                            Title="Item Deck"
+                            Margin="0"
+                            Padding="0"
+                            AddedItemName="{Binding AddedItemDeckName, Mode=TwoWay}"
+                            BorderThickness="0"
+                            DeleteCommand="{Binding DeleteItemDeckCommand}"
+                            ItemsSource="{Binding AllItemDecks, Mode=TwoWay}"
+                            SaveCommand="{Binding CreateItemDeckCommand}"
+                            SelectedItem="{Binding SelectedItemDeck, Mode=TwoWay}"
+                            ViewOnly="False" />
+                        <Label
+                            Margin="5,0"
+                            Padding="0"
+                            Content="Deck name:" />
+                        <TextBox
+                            Margin="5,0"
+                            Text="{Binding SelectedSpellDeck.Title}" />
+                    </StackPanel>
+                </Border>
                 <!--  Manage item cards in deck  -->
                 <Border>
                     <Border.Style>

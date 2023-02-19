@@ -1,5 +1,6 @@
 ﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.HelperModels;
+using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -64,6 +65,27 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
 
+        #region Public methods
+
+        public void SetSelectedItem(object selectableItem)
+        {
+            if (selectableItem is CharacterCardModel characterCardModel)
+            {
+
+            }
+            if (selectableItem is SpellCardModel spellCardModel)
+            {
+
+            }
+            if (selectableItem is ItemCardModel itemCardModel)
+            {
+
+            }
+
+        }
+
+        #endregion
+
         #region Private methods
 
         private async void LoadData()
@@ -91,6 +113,7 @@ namespace CardDesigner.UI.ViewModels
                 {
                     Name = character.Name,
                     Title = character.Title,
+                    Item= character,
                 };
 
                 // Create Item deck tree structure
@@ -99,13 +122,16 @@ namespace CardDesigner.UI.ViewModels
                     TreeItemModel addedItemDeck = new();
                     ItemDeckModel itemDeck = AllItemDecks.FirstOrDefault(id => id.ID == itemDeckDescriptor.ItemDeckID);
                     addedItemDeck.Name = itemDeck?.Name;
+                    addedItemDeck.Title = itemDeck?.Title;
+                    addedItemDeck.Item = itemDeck;
 
                     foreach (ItemCardModel itemCard in itemDeck.ItemCards)
                     {
                         TreeItemModel addedItemCard = new()
                         {
                             Name = itemCard?.Name,
-                            Title = itemCard?.Title
+                            Title = itemCard?.Title,
+                            Item = itemCard
                         };
                         addedItemDeck.Items.Add(addedItemCard);
                     }
@@ -118,6 +144,7 @@ namespace CardDesigner.UI.ViewModels
                     TreeItemModel addedSpellDeck = new();
                     SpellDeckModel spellDeck = AllSpellDecks.FirstOrDefault(id => id.ID == spellDeckDescriptor.SpellDeckID);
                     addedSpellDeck.Name = spellDeck?.Name;
+                    addedSpellDeck.Title = spellDeck?.Title;
 
                     foreach (SpellCardModel spellCard in spellDeck.SpellCards)
                     {
@@ -137,6 +164,7 @@ namespace CardDesigner.UI.ViewModels
                     TreeItemModel addedCharacterDeck = new();
                     CharacterDeckModel characterDeck = AllCharacterDecks.FirstOrDefault(id => id.ID == characterDeckDescriptor.CharacterDeckID);
                     addedCharacterDeck.Name = characterDeck?.Name;
+                    addedCharacterDeck.Title = characterDeck?.Title;
 
                     foreach (CharacterCardModel characterCard in characterDeck.CharacterCards)
                     {
