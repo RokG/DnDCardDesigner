@@ -24,7 +24,7 @@ namespace CardDesigner.UI.ViewModels
         private List<ItemDeckDesignModel> AllItemDeckDesigns;
         private List<SpellDeckDesignModel> AllSpellDeckDesigns;
         private List<CharacterDeckDesignModel> AllCharacterDeckDesigns;
-
+        private CardType selectedCardType;
         #endregion
 
         #region Properties
@@ -92,18 +92,22 @@ namespace CardDesigner.UI.ViewModels
             if (selectableItem.Item is CharacterCardModel characterCardModel)
             {
                 SelectedCard = characterCardModel;
-                SetSelectedItemParents(selectableItem, CardType.Character);
+                selectedCardType = CardType.Character;
             }
+
             if (selectableItem.Item is SpellCardModel spellCardModel)
             {
                 SelectedCard = spellCardModel;
-                SetSelectedItemParents(selectableItem, CardType.Spell);
+                selectedCardType = CardType.Spell;
             }
+
             if (selectableItem.Item is ItemCardModel itemCardModel)
             {
                 SelectedCard = itemCardModel;
-                SetSelectedItemParents(selectableItem, CardType.Item);
+                selectedCardType = CardType.Item;
             }
+
+            SetSelectedItemParents(selectableItem, selectedCardType);
         }
 
         #endregion
@@ -131,37 +135,40 @@ namespace CardDesigner.UI.ViewModels
         {
             SelectedCharacter = AllCharacters.FirstOrDefault(c => c.ID == treeItemModel.GrandParentID);
             int deckDesignID = 0;
-            switch (itemType)
+            if (treeItemModel.Item != null)
             {
-                case CardType.Spell:
-                    SelectedDeck = AllItemDecks.FirstOrDefault(d => d.ID == treeItemModel.ParentID);
-                    deckDesignID = SelectedCharacter.SpellDeckDescriptors
-                        .FirstOrDefault(dd =>
-                        dd.SpellDeckID == treeItemModel.ParentID
-                        && dd.Character.ID == SelectedCharacter.ID)
-                        .DesignID;
-                    SelectedCardDesign = AllSpellDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID);
-                    break;
-                case CardType.Item:
-                    SelectedDeck = AllItemDecks.FirstOrDefault(d => d.ID == treeItemModel.ParentID);
-                    deckDesignID = SelectedCharacter.ItemDeckDescriptors
-                        .FirstOrDefault(dd =>
-                        dd.ItemDeckID == treeItemModel.ParentID
-                        && dd.Character.ID == SelectedCharacter.ID)
-                        .DesignID;
-                    SelectedCardDesign = AllItemDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID);
-                    break;
-                case CardType.Character:
-                    SelectedDeck = AllItemDecks.FirstOrDefault(d => d.ID == treeItemModel.ParentID);
-                    deckDesignID = SelectedCharacter.CharacterDeckDescriptors
-                        .FirstOrDefault(dd=>
-                        dd.CharacterDeckID == treeItemModel.ParentID 
-                        && dd.Character.ID == SelectedCharacter.ID)
-                        .DesignID;
-                    SelectedCardDesign = AllCharacterDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID);
-                    break;
-                default:
-                    break;
+                switch (itemType)
+                {
+                    case CardType.Spell:
+                        SelectedDeck = AllSpellDecks.FirstOrDefault(d => d.ID == treeItemModel.ParentID);
+                        deckDesignID = SelectedCharacter.SpellDeckDescriptors
+                            .FirstOrDefault(dd =>
+                            dd.SpellDeckID == treeItemModel.ParentID
+                            && dd.Character.ID == SelectedCharacter.ID)
+                            .DesignID;
+                        SelectedCardDesign = AllSpellDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID);
+                        break;
+                    case CardType.Item:
+                        SelectedDeck = AllItemDecks.FirstOrDefault(d => d.ID == treeItemModel.ParentID);
+                        deckDesignID = SelectedCharacter.ItemDeckDescriptors
+                            .FirstOrDefault(dd =>
+                            dd.ItemDeckID == treeItemModel.ParentID
+                            && dd.Character.ID == SelectedCharacter.ID)
+                            .DesignID;
+                        SelectedCardDesign = AllItemDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID);
+                        break;
+                    case CardType.Character:
+                        SelectedDeck = AllCharacterDecks.FirstOrDefault(d => d.ID == treeItemModel.ParentID);
+                        deckDesignID = SelectedCharacter.CharacterDeckDescriptors
+                            .FirstOrDefault(dd =>
+                            dd.CharacterDeckID == treeItemModel.ParentID
+                            && dd.Character.ID == SelectedCharacter.ID)
+                            .DesignID;
+                        SelectedCardDesign = AllCharacterDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -311,12 +318,50 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private void NavigateToDeckCreator()
         {
+            switch (selectedCardType)
+            {
+                case CardType.Spell:
+                    _navigationStore.SelectedSpellDeck = (SpellDeckModel)SelectedDeck;
+                    break;
+                case CardType.Item:
+                    _navigationStore.SelectedItemDeck = (ItemDeckModel)SelectedDeck;
+                    break;
+                case CardType.Character:
+                    _navigationStore.SelectedCharacterDeck = (CharacterDeckModel)SelectedDeck;
+                    break;
+                default:
+                    break;
+            }
+            _navigationStore.SelectedCharacter = SelectedCharacter;
+            _navigationStore.SelectedCardType = selectedCardType;
             _navigationStore.NavigateTo(ViewModelType.DeckCreator);
         }
 
         [RelayCommand]
         private void NavigateToDeckDesign()
         {
+            switch (selectedCardType)
+            {
+                case CardType.Spell:
+                    _navigationStore.SelectedSpellDeck = (SpellDeckModel)SelectedDeck;
+                    _navigationStore.SelectedSpellCard = (SpellCardModel)SelectedCard;
+                    _navigationStore.SelectedSpellDeckDesign = (SpellDeckDesignModel)SelectedCardDesign;
+                    break;
+                case CardType.Item:
+                    _navigationStore.SelectedItemDeck = (ItemDeckModel)SelectedDeck;
+                    _navigationStore.SelectedItemCard = (ItemCardModel)SelectedCard;
+                    _navigationStore.SelectedItemDeckDesign = (ItemDeckDesignModel)SelectedCardDesign;
+                    break;
+                case CardType.Character:
+                    _navigationStore.SelectedCharacterDeck = (CharacterDeckModel)SelectedDeck;
+                    _navigationStore.SelectedCharacterCard = (CharacterCardModel)SelectedCard;
+                    _navigationStore.SelectedCharacterDeckDesign = (CharacterDeckDesignModel)SelectedCardDesign;
+                    break;
+                default:
+                    break;
+            }
+            _navigationStore.SelectedCharacter = SelectedCharacter;
+            _navigationStore.SelectedCardType = selectedCardType;
             _navigationStore.NavigateTo(ViewModelType.DeckDesigner);
         }
 

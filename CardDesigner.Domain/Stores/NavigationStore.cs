@@ -9,6 +9,7 @@ namespace CardDesigner.Domain.Stores
     {
         public event Action<ViewModelType> CurrentViewModelChanged;
 
+        public CardType SelectedCardType;
         public ItemCardModel SelectedItemCard;
         public SpellCardModel SelectedSpellCard;
         public CharacterCardModel SelectedCharacterCard;

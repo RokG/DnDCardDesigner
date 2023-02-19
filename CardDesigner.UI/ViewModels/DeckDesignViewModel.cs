@@ -22,6 +22,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Properties
 
+        [ObservableProperty]
+        private int selectedTabItem = 0;
+
         #region Character
 
         [ObservableProperty]
@@ -187,6 +190,54 @@ namespace CardDesigner.UI.ViewModels
 
             // Without this, the selected character in list on UI does not update?
             SelectedCharacter = AllCharacters.FirstOrDefault();
+
+            SetSelectionFromNavigation();
+        }
+
+        private void SetSelectionFromNavigation()
+        {
+            if (_navigationStore != null)
+            {
+                switch (_navigationStore.CurrentViewModel.Type)
+                {
+                    case ViewModelType.Unknown:
+                        return;
+                    case ViewModelType.Home:
+                        switch (_navigationStore.SelectedCardType)
+                        {
+                            case CardType.Spell:
+                                TestSpellCard = SelectedSpellDeck.SpellCards.FirstOrDefault(c=>c.ID == _navigationStore.SelectedSpellCard.ID);
+                                SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
+                                SelectedTabItem = 2;
+                                break;
+                            case CardType.Item:
+                                TestItemCard = _navigationStore.SelectedItemCard;
+                                SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                                SelectedTabItem = 3;
+                                break;
+                            case CardType.Character:
+                                TestCharacterCard = _navigationStore.SelectedCharacterCard;
+                                SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
+                                SelectedTabItem = 1;
+                                break;
+                            default:
+                                break;
+                        }
+                        return;
+                    case ViewModelType.SpellCardCreator:
+                        return;
+                    case ViewModelType.ItemCardCreator:
+                        return;
+                    case ViewModelType.DeckCreator:
+                        return;
+                    case ViewModelType.CharacterCreator:
+                        return;
+                    case ViewModelType.DeckDesigner:
+                        return;
+                    default:
+                        break;
+                }
+            }
         }
 
         private void OnNavigatingAway(ViewModelType type)

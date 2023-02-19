@@ -45,7 +45,9 @@
         </Border>
 
         <!--  Card overview  -->
-        <TabControl Grid.Row="1">
+        <TabControl
+            Grid.Row="1"
+            SelectedIndex="{Binding SelectedTabItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TabItem
                 FontSize="16"
                 Header="Deck Background">
