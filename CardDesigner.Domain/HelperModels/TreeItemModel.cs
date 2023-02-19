@@ -6,6 +6,9 @@ namespace CardDesigner.Domain.HelperModels
     {
         public string Name { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
+        public int ID { get; set; } = 0;
+        public int ParentID { get; set; } = 0;
+        public int GrandParentID { get; set; } = 0;
         public object Item { get; set; }
         public object Property { get; set; } 
         public ObservableCollection<TreeItemModel> Items { get; set; } = new ObservableCollection<TreeItemModel>();

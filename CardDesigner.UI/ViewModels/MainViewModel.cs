@@ -48,8 +48,6 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private void ChangeViewModel(ViewModelType viewModelType)
         {
-            StoreCurrentViewModelSelections();
-            // TODO: check how to do this better?
             switch (viewModelType)
             {
                 case ViewModelType.Home:
@@ -77,21 +75,6 @@ namespace CardDesigner.UI.ViewModels
                     break;
             }
             _navigationStore.CurrentViewModel = CurrentViewModel;
-        }
-
-        private void StoreCurrentViewModelSelections()
-        {
-            //switch (CurrentViewModel)
-            //{
-            //    case DeckDesignViewModel cardDesign:
-            //        _navigationStore.SelectedSpellDeckDesign = cardDesign.
-            //        break;
-            //    default:
-            //        break;
-            //}
-
-            //_navigationStore.CurrentViewModel = CurrentViewModel;
-
         }
 
         #endregion

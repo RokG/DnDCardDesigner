@@ -133,10 +133,14 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
                     <Button
-                        Command="{Binding NavigateToCardDesignCommand}"
+                        Command="{Binding NavigateToCardCreatorCommand}"
                         Content="Edit Card" />
-                    <Button Content="Edit Design" />
-                    <Button Content="Edit Deck" />
+                    <Button
+                        Command="{Binding NavigateToDeckDesignCommand}"
+                        Content="Edit Design" />
+                    <Button
+                        Command="{Binding NavigateToDeckCreatorCommand}"
+                        Content="Edit Deck" />
                 </StackPanel>
                 <ContentControl Grid.Row="1">
                     <ContentControl.Style>

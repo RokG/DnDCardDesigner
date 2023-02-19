@@ -53,6 +53,37 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore.SpellCardChanged += OnSpellCardChanged;
 
             LoadData();
+
+            SetSelectionFromNavigation();
+        }
+
+        private void SetSelectionFromNavigation()
+        {
+            if (_navigationStore != null)
+            {
+                switch (_navigationStore.CurrentViewModel.Type)
+                {
+                    case ViewModelType.Unknown:
+                        return;
+                    case ViewModelType.Home:
+                        SelectedSpellCard = _navigationStore.SelectedSpellCard;
+                        SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
+                        return;
+                    case ViewModelType.SpellCardCreator:
+                        return;
+                    case ViewModelType.ItemCardCreator:
+                        return;
+                    case ViewModelType.DeckCreator:
+                        return;
+                    case ViewModelType.CharacterCreator:
+                        return;
+                    case ViewModelType.DeckDesigner:
+                        SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
+                        return;
+                    default:
+                        break;
+                }
+            }
         }
 
         #endregion

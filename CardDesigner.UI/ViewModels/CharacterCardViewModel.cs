@@ -65,6 +65,8 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore.CharacterCardChanged += OnCharacterCardChanged;
 
             LoadData();
+
+            SetSelectionFromNavigation();
         }
         private void SetSelectionFromNavigation()
         {
@@ -75,10 +77,12 @@ namespace CardDesigner.UI.ViewModels
                     case ViewModelType.Unknown:
                         return;
                     case ViewModelType.Home:
-                        return;
-                    case ViewModelType.SpellCardCreator:
+                        SelectedCharacterCard = _navigationStore.SelectedCharacterCard;
+                        SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
                         return;
                     case ViewModelType.CharacterCardCreator:
+                        return;
+                    case ViewModelType.ItemCardCreator:
                         return;
                     case ViewModelType.DeckCreator:
                         return;

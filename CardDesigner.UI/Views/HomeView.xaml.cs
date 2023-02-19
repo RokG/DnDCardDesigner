@@ -27,16 +27,5 @@ namespace CardDesigner.UI.Views
                 }
             }
         }
-
-        public ItemsControl GetSelectedTreeViewItemParent(TreeViewItem item)
-        {
-            DependencyObject parent = VisualTreeHelper.GetParent(item);
-            while (!(parent is TreeViewItem || parent is TreeView))
-            {
-                parent = VisualTreeHelper.GetParent(parent);
-            }
-
-            return parent as ItemsControl;
-        }
     }
 }
