@@ -101,7 +101,7 @@
                 ItemsSource="{Binding TreeCharacters}"
                 SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.Resources>
-                    <!--  Because background style is not working?  -->
+                    <!--  Because setting background in style is not working? Only background..  -->
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#44000000" />
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#44000000" />
@@ -116,13 +116,9 @@
                                 <Setter Property="Background" Value="#11000000" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <!--  THe only thing thats not working  is background?  -->
-                                <!--<Setter Property="Background" Value="Green" />-->
                                 <Setter Property="IsExpanded" Value="True" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">
-                                <!--  THe only thing thats not working  is background?  -->
-                                <!--<Setter Property="Background" Value="Green" />-->
                                 <Setter Property="IsExpanded" Value="False" />
                             </Trigger>
                         </Style.Triggers>
