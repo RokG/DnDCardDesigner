@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Viewbox x:Key="d4">
+    <Viewbox x:Key="d4"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512"
@@ -11,7 +12,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="d6">
+    <Viewbox x:Key="d6"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512"
@@ -21,7 +23,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="d8">
+    <Viewbox x:Key="d8"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512"
@@ -31,7 +34,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="d10">
+    <Viewbox x:Key="d10"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512"
@@ -41,7 +45,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="d12">
+    <Viewbox x:Key="d12"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512"
@@ -51,7 +56,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="d20">
+    <Viewbox x:Key="d20"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512"

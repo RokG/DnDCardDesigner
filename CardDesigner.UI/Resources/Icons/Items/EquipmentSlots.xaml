@@ -1,7 +1,8 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Viewbox x:Key="Head">
+    <Viewbox x:Key="Head"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -10,7 +11,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Neck">
+    <Viewbox x:Key="Neck"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -20,7 +22,8 @@
         </Canvas>
     </Viewbox>
     <!--  NOT YET DONE!  -->
-    <Viewbox x:Key="Back">
+    <Viewbox x:Key="Back"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -29,7 +32,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Torso">
+    <Viewbox x:Key="Torso"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -38,7 +42,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Hands">
+    <Viewbox x:Key="Hands"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -47,7 +52,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Fingers">
+    <Viewbox x:Key="Fingers"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -56,7 +62,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Waist">
+    <Viewbox x:Key="Waist"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -65,7 +72,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Legs">
+    <Viewbox x:Key="Legs"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -74,7 +82,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Feet">
+    <Viewbox x:Key="Feet"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512"
@@ -84,7 +93,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="OneHanded">
+    <Viewbox x:Key="OneHanded"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -98,7 +108,8 @@
                 Y2="14.64466094067262377996" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="TwoHanded">
+    <Viewbox x:Key="TwoHanded"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -120,7 +131,8 @@
                 Y2="4.64466094067262377996" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Shield">
+    <Viewbox x:Key="Shield"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">

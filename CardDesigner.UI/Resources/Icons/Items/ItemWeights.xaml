@@ -1,7 +1,8 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Viewbox x:Key="Light">
+    <Viewbox x:Key="Light"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -15,7 +16,8 @@
                 Y2="14.64466094067262377996" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Medium">
+    <Viewbox x:Key="Medium"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -37,7 +39,8 @@
                 Y2="24.64466094067262377996" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Heavy">
+    <Viewbox x:Key="Heavy"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">

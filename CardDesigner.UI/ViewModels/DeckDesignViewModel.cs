@@ -259,16 +259,16 @@ namespace CardDesigner.UI.ViewModels
             switch (change)
             {
                 case DataChangeType.Created:
-                    AllItemDeckDesigns.Remove(itemDeckDesign);
-                    SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault();
+                    AllItemDeckDesigns.Add(itemDeckDesign);
+                    SelectedItemDeckDesign = itemDeckDesign;
                     break;
                 case DataChangeType.Removed:
                     break;
                 case DataChangeType.Updated:
                     break;
                 case DataChangeType.Deleted:
-                    AllItemDeckDesigns.Add(itemDeckDesign);
-                    SelectedItemDeckDesign = itemDeckDesign;
+                    AllItemDeckDesigns.Remove(itemDeckDesign);
+                    SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault();
                     break;
                 default:
                     break;

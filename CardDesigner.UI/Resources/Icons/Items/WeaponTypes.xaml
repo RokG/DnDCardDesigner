@@ -1,7 +1,8 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Viewbox x:Key="Melee">
+    <Viewbox x:Key="Melee"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512"
@@ -11,7 +12,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Ranged">
+    <Viewbox x:Key="Ranged"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512"

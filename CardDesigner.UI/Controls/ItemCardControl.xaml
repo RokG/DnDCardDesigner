@@ -257,14 +257,7 @@
                         </Style>
                     </ContentControl.Style>
                 </ContentControl>
-                <!--  Properties  -->
-                <DockPanel
-                    Canvas.Left="2"
-                    Canvas.Top="25"
-                    Width="248"
-                    LastChildFill="False" />
 
-                <!--  Title textbox  -->
                 <Border>
                     <controls:TextBoxWithPlaceholderControl
                         Canvas.Left="2"

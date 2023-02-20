@@ -435,7 +435,7 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<ItemCardModel> itemCards = await _cardService.GetAllCards<ItemCardModel>();
             _itemCards.Clear();
             _itemCards.AddRange(itemCards);
-            AssignItemsToCards(ItemCards);
+            AssignItemsToCards(_itemCards);
         }
 
         private async Task UpdateSpellDecksFromDb()
@@ -455,8 +455,6 @@ namespace CardDesigner.Domain.Stores
             _characterDeckDesigns.AddRange(await _cardDesignService.GetAllCharacterDeckDesigns());
             _deckBackgroundDesigns.Clear();
             _deckBackgroundDesigns.AddRange(await _cardDesignService.GetAllBackgroundDeckDesigns());
-            AssignItemsToCards(ItemCards);
-            AssignItemsToItemDecks(ItemDecks);
         }
 
         private async Task UpdateSpellCardsFromDb()
@@ -471,7 +469,7 @@ namespace CardDesigner.Domain.Stores
             IEnumerable<ItemDeckModel> itemDecks = await _deckService.GetAllDecks<ItemDeckModel>();
             _itemDecks.Clear();
             _itemDecks.AddRange(itemDecks);
-            AssignItemsToItemDecks(itemDecks);
+            AssignItemsToItemDecks(_itemDecks);
         }
 
         private async Task UpdateCharacterDecksFromDb()
