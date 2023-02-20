@@ -116,12 +116,6 @@
                             <Trigger Property="IsExpanded" Value="True">
                                 <Setter Property="Background" Value="#11000000" />
                             </Trigger>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="IsExpanded" Value="True" />
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="False">
-                                <Setter Property="IsExpanded" Value="False" />
-                            </Trigger>
                         </Style.Triggers>
                     </Style>
                 </TreeView.ItemContainerStyle>
