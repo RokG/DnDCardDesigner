@@ -155,6 +155,21 @@ namespace CardDesigner.UI.ViewModels
                     case ViewModelType.Unknown:
                         return;
                     case ViewModelType.Home:
+                        SelectedCharacter = _navigationStore.SelectedCharacter;
+                        switch (_navigationStore.SelectedCardType)
+                        {
+                            case CardType.Spell:
+                                SelectedSpellDeck= _navigationStore.SelectedSpellDeck;
+                                break;
+                            case CardType.Item:
+                                SelectedItemDeck = _navigationStore.SelectedItemDeck;
+                                break;
+                            case CardType.Character:
+                                SelectedCharacterDeck = _navigationStore.SelectedCharacterDeck;
+                                break;
+                            default:
+                                break;
+                        }
                         return;
                     case ViewModelType.SpellCardCreator:
                         return;

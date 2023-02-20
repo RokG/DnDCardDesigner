@@ -184,7 +184,10 @@ namespace CardDesigner.UI.ViewModels
                 {
                     Name = character.Name,
                     Title = character.Title,
-                    ID = character.ID
+                    ID = character.ID,
+                    IsExpanded = true,
+                    IsSelected = true
+                    
                 };
 
                 // Create Item deck tree structure
