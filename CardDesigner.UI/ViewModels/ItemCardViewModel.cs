@@ -88,10 +88,9 @@ namespace CardDesigner.UI.ViewModels
             allArmoursCollectionView = CollectionViewSource.GetDefaultView(AllArmours);
             allWeaponsCollectionView = CollectionViewSource.GetDefaultView(AllWeapons);
 
-            //SetSelectionFromNavigation();
-
-            //SelectedItemCard = AllItemCards.First();
+            SetSelectionFromNavigation();
         }
+
         private void SetSelectionFromNavigation()
         {
             if (_navigationStore != null)
@@ -101,6 +100,8 @@ namespace CardDesigner.UI.ViewModels
                     case ViewModelType.Unknown:
                         return;
                     case ViewModelType.Home:
+                        SelectedItemCard = _navigationStore.SelectedItemCard;
+                        SelectedItemDeckDesign= _navigationStore.SelectedItemDeckDesign;
                         return;
                     case ViewModelType.SpellCardCreator:
                         return;

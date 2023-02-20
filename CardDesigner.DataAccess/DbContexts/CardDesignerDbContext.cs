@@ -182,28 +182,45 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         private static void SeedCharacterEntities(ModelBuilder modelBuilder)
         {
-            IList<CharacterCardEntity> spellCards = new List<CharacterCardEntity>
+            IList<CharacterCardEntity> characterCards = new List<CharacterCardEntity>
             {
-                new CharacterCardEntity() {ID = 1, Name="SampleCharacterCard_1",  Type=CharacterCardType.Avatar, TitleFontSize=16, DescriptionFontSize=14 },
-                new CharacterCardEntity() {ID = 2, Name="SampleCharacterCard_2", Type=CharacterCardType.Abilities, TitleFontSize=16, DescriptionFontSize=14 },
+                new CharacterCardEntity() {ID = 1, Name="SampleCharacterCard_1", Title = "Waltung Kremis - Avatar", Type=CharacterCardType.Avatar, TitleFontSize=16, DescriptionFontSize=14 },
+                new CharacterCardEntity() {ID = 2, Name="SampleCharacterCard_2", Title = "Waltung Kremis - Abilities",Type=CharacterCardType.Abilities, TitleFontSize=16, DescriptionFontSize=14 },
                 new CharacterCardEntity() {ID = 3, Name="SampleCharacterCard_3", Type=CharacterCardType.Feats, TitleFontSize=16, DescriptionFontSize=14, Level=2, Title="Blood Tithe", Description = "Starting at level 2, you can cut your wrist to heal 2 x d4 + 2 HP. You can use this twice per short rest." },
             };
-            modelBuilder.Entity<CharacterCardEntity>().HasData(spellCards);
+            modelBuilder.Entity<CharacterCardEntity>().HasData(characterCards);
 
             CharacterDeckDesignEntity characterDeckDesign = new CharacterDeckDesignEntity() { ID = 1, Name = "SampleCharacterDeckDesign_1" };
-            modelBuilder.Entity<CharacterDeckDesignEntity>().HasData(characterDeckDesign);
+
+            IList<CharacterDeckDesignEntity> characterDeckDesigns = new List<CharacterDeckDesignEntity>
+            {
+                 new() { ID = 1, Name = "SampleBackgroundDesign_1" },
+                 new() { ID = 2, Name = "SampleBackgroundDesign_2" },
+            };
+            modelBuilder.Entity<CharacterDeckDesignEntity>().HasData(characterDeckDesigns);
 
             DeckBackgroundDesignEntity deckBackgroundDesign = new() { ID = 1, Name = "SampleBackgroundDesign_1" };
             modelBuilder.Entity<DeckBackgroundDesignEntity>().HasData(deckBackgroundDesign);
 
-            CharacterDeckEntity characterDeck = new CharacterDeckEntity() { ID = 1, Name = "SampleCharacterDeck_1" };
-            modelBuilder.Entity<CharacterDeckEntity>().HasData(characterDeck);
+            IList<CharacterDeckEntity> characterDecks = new List<CharacterDeckEntity>
+            {
+                 new CharacterDeckEntity() { ID = 1, Name = "SampleCharacterDeck_1", Title = "Sample Character Deck 1" },
+                 new CharacterDeckEntity() { ID = 2, Name = "SampleCharacterDeck_2", Title = "Sample Character Deck 2" },
+            };
+            modelBuilder.Entity<CharacterDeckEntity>().HasData(characterDecks);
 
             modelBuilder.Entity<CharacterDeckDesignLinkerEntity>().HasData(new
             {
                 ID = 1,
                 CharacterDeckID = 1,
                 DesignID = 1,
+                CharacterID = 1,
+            });
+            modelBuilder.Entity<CharacterDeckDesignLinkerEntity>().HasData(new
+            {
+                ID = 2,
+                CharacterDeckID = 2,
+                DesignID = 2,
                 CharacterID = 1,
             });
 
@@ -216,7 +233,16 @@ namespace CardDesigner.DataAccess.DbContexts
                 new { CharacterCardID = 3, CharacterDeckID = 1},
             }));
 
-            CharacterEntity character = new() { ID = 1, AvatarImageStretch = "Uniform", AvatarImagePath = "/Resources/Images/sampleimageavatar.png",  Name = "SampleCharacter_1", Weight = "100 kg", Age = "25 y", Alignment = Alignment.ChaoticNeutral, ArmourClass = 12, Height = "6 ft", Hitpoints = 40, Initiative = -1, IsHeavyArmourProficient = false, IsLightArmourProficiency = true, IsMartialWeaponProficient = true, IsMediumArmourProficient = false, IsShieldProficient = false, IsSimpleWeaponProficient = false, Proficiency = 2, OtherProficiencies = "Healing kit, Blacksmith tools", PassiveInsight = 14, PassivePerception = 12, Race = Race.HalfOrc, Speed = 25, Title = "Waltung Kremis" };
+            modelBuilder.Entity<CharacterDeckEntity>().HasMany(p => p.CharacterCards).WithMany(p => p.CharacterDecks)
+           .UsingEntity(j => j
+           .ToTable("CharacterDeckCharacterCard")
+           .HasData(new[]
+           {
+                new { CharacterCardID = 2, CharacterDeckID = 2},
+                new { CharacterCardID = 3, CharacterDeckID = 2},
+           }));
+
+            CharacterEntity character = new() { ID = 1, AvatarImageStretch = "Uniform", AvatarImagePath = "/Resources/Images/sampleimageavatar.png", Name = "SampleCharacter_1", Weight = "100 kg", Age = "25 y", Alignment = Alignment.ChaoticNeutral, ArmourClass = 12, Height = "6 ft", Hitpoints = 40, Initiative = -1, IsHeavyArmourProficient = false, IsLightArmourProficiency = true, IsMartialWeaponProficient = true, IsMediumArmourProficient = false, IsShieldProficient = false, IsSimpleWeaponProficient = false, Proficiency = 2, OtherProficiencies = "Healing kit, Blacksmith tools", PassiveInsight = 14, PassivePerception = 12, Race = Race.HalfOrc, Speed = 25, Title = "Waltung Kremis" };
             modelBuilder.Entity<CharacterEntity>().HasData(character);
 
             modelBuilder.Entity<CharacterClassEntity>().HasData(new
@@ -326,10 +352,10 @@ namespace CardDesigner.DataAccess.DbContexts
             };
             modelBuilder.Entity<ItemCardEntity>().HasData(itemCards);
 
-            ItemDeckDesignEntity itemDeckDesign = new ItemDeckDesignEntity() { ID=1, Name = "SampleItemDeckDesign_1"};
+            ItemDeckDesignEntity itemDeckDesign = new ItemDeckDesignEntity() { ID = 1, Name = "SampleItemDeckDesign_1" };
             modelBuilder.Entity<ItemDeckDesignEntity>().HasData(itemDeckDesign);
 
-            ItemDeckEntity itemDeck = new ItemDeckEntity() { ID = 1, Name = "SampleItemDeck_1" };
+            ItemDeckEntity itemDeck = new ItemDeckEntity() { ID = 1, Name = "SampleItemDeck_1", Title = "Sample Item Deck" };
             modelBuilder.Entity<ItemDeckEntity>().HasData(itemDeck);
 
             modelBuilder.Entity<ItemDeckDesignLinkerEntity>().HasData(new
@@ -367,7 +393,7 @@ namespace CardDesigner.DataAccess.DbContexts
             SpellDeckDesignEntity spellDeckDesign = new SpellDeckDesignEntity() { ID = 1, Name = "SampleSpellDeckDesign_1" };
             modelBuilder.Entity<SpellDeckDesignEntity>().HasData(spellDeckDesign);
 
-            SpellDeckEntity spellDeck = new SpellDeckEntity() { ID = 1, Name = "SampleSpellDeck_1" };
+            SpellDeckEntity spellDeck = new SpellDeckEntity() { ID = 1, Name = "SampleSpellDeck_1", Title = "Sample Spell Deck" };
             modelBuilder.Entity<SpellDeckEntity>().HasData(spellDeck);
 
             modelBuilder.Entity<SpellDeckDesignLinkerEntity>().HasData(new

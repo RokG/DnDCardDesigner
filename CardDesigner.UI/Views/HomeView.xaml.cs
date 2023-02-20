@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CardDesigner.Domain.HelperModels;
+using CardDesigner.Domain.Models;
+using CardDesigner.UI.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CardDesigner.UI.Views
 {
@@ -23,6 +15,17 @@ namespace CardDesigner.UI.Views
         public HomeView()
         {
             InitializeComponent();
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (sender is TreeView treeView)
+            {
+                if (treeView.DataContext is HomeViewModel hvm)
+                {
+                    hvm.SetSelectedItem((TreeItemModel)treeView.SelectedItem);
+                }
+            }
         }
     }
 }

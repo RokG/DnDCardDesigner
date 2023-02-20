@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Interfaces;
+﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -35,7 +36,9 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            ChangeViewModelCommand.Execute("HomeViewModel");
+            ChangeViewModelCommand.Execute(ViewModelType.Home);
+
+            _navigationStore.CurrentViewModelChanged += ChangeViewModel;
         }
 
         #endregion
@@ -43,51 +46,35 @@ namespace CardDesigner.UI.ViewModels
         #region Private methods
 
         [RelayCommand]
-        private void ChangeViewModel(string viewModelType)
+        private void ChangeViewModel(ViewModelType viewModelType)
         {
-            StoreCurrentViewModelSelections();
-            // TODO: check how to do this better?
             switch (viewModelType)
             {
-                case "HomeViewModel":
+                case ViewModelType.Home:
                     CurrentViewModel = new HomeViewModel(_cardDesignerStore, _navigationStore);
                     break;
-                case "SpellCardViewModel":
+                case ViewModelType.SpellCardCreator:
                     CurrentViewModel = new SpellCardViewModel(_cardDesignerStore, _navigationStore);
                     break;
-                case "CharacterCardViewModel":
+                case ViewModelType.CharacterCardCreator:
                     CurrentViewModel = new CharacterCardViewModel(_cardDesignerStore, _navigationStore);
                     break;
-                case "ItemCardViewModel":
+                case ViewModelType.ItemCardCreator:
                     CurrentViewModel = new ItemCardViewModel(_cardDesignerStore, _navigationStore);
                     break;
-                case "CardDecksViewModel":
+                case ViewModelType.DeckCreator:
                     CurrentViewModel = new CardDecksViewModel(_cardDesignerStore, _navigationStore);
                     break;
-                case "CharacterViewModel":
+                case ViewModelType.CharacterCreator:
                     CurrentViewModel = new CharacterViewModel(_cardDesignerStore, _navigationStore);
                     break;
-                case "DeckDesignViewModel":
+                case ViewModelType.DeckDesigner:
                     CurrentViewModel = new DeckDesignViewModel(_cardDesignerStore, _navigationStore);
                     break;
                 default:
                     break;
             }
-        }
-
-        private void StoreCurrentViewModelSelections()
-        {
-            //switch (CurrentViewModel)
-            //{
-            //    case DeckDesignViewModel cardDesign:
-            //        _navigationStore.SelectedSpellDeckDesign = cardDesign.
-            //        break;
-            //    default:
-            //        break;
-            //}
-
             _navigationStore.CurrentViewModel = CurrentViewModel;
-
         }
 
         #endregion

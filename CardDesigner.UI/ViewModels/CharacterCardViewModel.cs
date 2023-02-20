@@ -65,6 +65,8 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore.CharacterCardChanged += OnCharacterCardChanged;
 
             LoadData();
+
+            SetSelectionFromNavigation();
         }
         private void SetSelectionFromNavigation()
         {
@@ -75,10 +77,12 @@ namespace CardDesigner.UI.ViewModels
                     case ViewModelType.Unknown:
                         return;
                     case ViewModelType.Home:
-                        return;
-                    case ViewModelType.SpellCardCreator:
+                        SelectedCharacterCard = _navigationStore.SelectedCharacterCard;
+                        SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
                         return;
                     case ViewModelType.CharacterCardCreator:
+                        return;
+                    case ViewModelType.ItemCardCreator:
                         return;
                     case ViewModelType.DeckCreator:
                         return;
@@ -153,6 +157,24 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateCharacterCard()
         {
+            switch (SelectedCharacterCard.Type)
+            {
+                case CharacterCardType.Avatar:
+                    SelectedCharacterCard.Title = SelectedCharacter.Title + " - Avatar";
+                    break;
+                case CharacterCardType.Stats:
+                    SelectedCharacterCard.Title = SelectedCharacter.Title + " - Stats";
+                    break;
+                case CharacterCardType.Abilities:
+                    SelectedCharacterCard.Title = SelectedCharacter.Title + " - Abilities";
+                    break;
+                case CharacterCardType.Caster:
+                    SelectedCharacterCard.Title = SelectedCharacter.Title + " - Caster stats";
+                    break;
+                default:
+                    break;
+            }
+
             await _cardDesignerStore.UpdateCharacterCard(SelectedCharacterCard);
         }
 

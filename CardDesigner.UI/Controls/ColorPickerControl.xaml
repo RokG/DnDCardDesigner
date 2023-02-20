@@ -17,38 +17,6 @@
             </LinearGradientBrush.GradientStops>
         </LinearGradientBrush>
         <!--  Color picker  -->
-        <VisualBrush x:Key="LevelSaturationBrush"
-            TileMode="None">
-            <VisualBrush.Visual>
-                <Canvas
-                    Width="1"
-                    Height="1"
-                    Background="Black"
-                    SnapsToDevicePixels="True">
-                    <Rectangle
-                        Width="1"
-                        Height="1"
-                        SnapsToDevicePixels="True">
-                        <Rectangle.Fill>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <LinearGradientBrush.GradientStops>
-                                    <GradientStop Offset="0" Color="White" />
-                                    <GradientStop Offset="1" Color="{Binding CurrentHueValue, ElementName=colorPickerControl}" />
-                                </LinearGradientBrush.GradientStops>
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
-                        <Rectangle.OpacityMask>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <LinearGradientBrush.GradientStops>
-                                    <GradientStop Offset="0" Color="#FFFFFFFF" />
-                                    <GradientStop Offset="1" Color="#00FFFFFF" />
-                                </LinearGradientBrush.GradientStops>
-                            </LinearGradientBrush>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Canvas>
-            </VisualBrush.Visual>
-        </VisualBrush>
     </UserControl.Resources>
 
     <Border Style="{StaticResource VisibleBorder}">
@@ -70,9 +38,42 @@
                         <Rectangle x:Name="levelSaturationRectangle"
                             Width="100"
                             Height="100"
-                            Fill="{StaticResource LevelSaturationBrush}"
                             PreviewMouseLeftButtonDown="Rectangle_PreviewMouseLeftButtonDown"
-                            SnapsToDevicePixels="True" />
+                            SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <VisualBrush TileMode="None">
+                                    <VisualBrush.Visual>
+                                        <Canvas
+                                            Width="1"
+                                            Height="1"
+                                            Background="Black"
+                                            SnapsToDevicePixels="True">
+                                            <Rectangle
+                                                Width="1"
+                                                Height="1"
+                                                SnapsToDevicePixels="True">
+                                                <Rectangle.Fill>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                        <LinearGradientBrush.GradientStops>
+                                                            <GradientStop Offset="0" Color="White" />
+                                                            <GradientStop Offset="1" Color="{Binding CurrentHueValue, ElementName=colorPickerControl}" />
+                                                        </LinearGradientBrush.GradientStops>
+                                                    </LinearGradientBrush>
+                                                </Rectangle.Fill>
+                                                <Rectangle.OpacityMask>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                        <LinearGradientBrush.GradientStops>
+                                                            <GradientStop Offset="0" Color="#FFFFFFFF" />
+                                                            <GradientStop Offset="1" Color="#00FFFFFF" />
+                                                        </LinearGradientBrush.GradientStops>
+                                                    </LinearGradientBrush>
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Canvas>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
                         <Rectangle
                             Canvas.Left="{Binding Saturation, ElementName=colorPickerControl}"
                             Canvas.Top="{Binding Value, ElementName=colorPickerControl}"

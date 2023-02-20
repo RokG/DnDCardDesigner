@@ -7,6 +7,7 @@ namespace CardDesigner.Domain.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public string Title { get; set; }
         public List<CharacterCardModel> CharacterCards { get; set; }
         public List<CharacterModel> Characters { get; set; }
     }

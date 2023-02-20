@@ -12,5 +12,6 @@ namespace CardDesigner.Domain.Entities
 
         // Properties
         public string Name { get; set; }
+        public string Title { get; set; }
     }
 }

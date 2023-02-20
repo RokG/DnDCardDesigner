@@ -4,6 +4,14 @@
     xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+    <ObjectDataProvider x:Key="ViewModelTypes"
+        MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:ViewModelType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
     <ObjectDataProvider x:Key="MagicSchoolEnum"
         MethodName="GetValues"
         ObjectType="{x:Type sys:Enum}">

@@ -4,8 +4,64 @@
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
     xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    xmlns:models="clr-namespace:CardDesigner.Domain.Models;assembly=CardDesigner.Domain"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
+    <UserControl.Resources>
+
+        <Style x:Key="ExpanderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image Source="/Images/SHCalendarLeftArrow.tiff" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  https://www.codemag.com/Article/1401031/Using-the-WPF-TreeView-with-Multiple-Levels  -->
+        <DataTemplate x:Key="card">
+            <TextBlock>
+                <Run
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="14"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
+        </DataTemplate>
+        <HierarchicalDataTemplate x:Key="deck"
+            ItemTemplate="{StaticResource card}"
+            ItemsSource="{Binding Items}">
+            <TextBlock>
+                <Run
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="14"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="character"
+            ItemTemplate="{StaticResource deck}"
+            ItemsSource="{Binding Items}">
+            <TextBlock>
+                <Run
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="14"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
+        </HierarchicalDataTemplate>
+    </UserControl.Resources>
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -35,7 +91,112 @@
 
         <!--  Content Area  -->
         <Grid Grid.Row="1">
-            <Label Content="Empty" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TreeView
+                Grid.Column="0"
+                ItemTemplate="{StaticResource character}"
+                ItemsSource="{Binding TreeCharacters}"
+                SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView.Resources>
+                    <!--  Because setting background in style is not working? Only background..  -->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#44000000" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#44000000" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+                </TreeView.Resources>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter Property="Background" Value="#11000000" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Command="{Binding NavigateToCardCreatorCommand}"
+                        Content="Edit Card" />
+                    <Button
+                        Command="{Binding NavigateToDeckDesignCommand}"
+                        Content="Edit Design" />
+                    <Button
+                        Command="{Binding NavigateToDeckCreatorCommand}"
+                        Content="Edit Deck" />
+                </StackPanel>
+                <ContentControl Grid.Row="1">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Label Content="Select any card.." />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
+                                    Value="{x:Type models:SpellCardModel}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <controls:SpellCardControl
+                                                    Grid.Column="1"
+                                                    CardDesign="{Binding SelectedCardDesign}"
+                                                    SpellCard="{Binding SelectedCard}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
+                                    Value="{x:Type models:ItemCardModel}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <controls:ItemCardControl
+                                                    Grid.Column="1"
+                                                    CardDesign="{Binding SelectedCardDesign}"
+                                                    ItemCard="{Binding SelectedCard}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
+                                    Value="{x:Type models:CharacterCardModel}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <controls:CharacterCardControl
+                                                    Grid.Column="1"
+                                                    CardDesign="{Binding SelectedCardDesign}"
+                                                    Character="{Binding SelectedCharacter}"
+                                                    CharacterCard="{Binding SelectedCard}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+            </Grid>
+
         </Grid>
     </Grid>
 </UserControl>

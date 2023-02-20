@@ -3,6 +3,7 @@
     public enum CardType
     {
         Spell,
-        Item
+        Item,
+        Character
     }
 }

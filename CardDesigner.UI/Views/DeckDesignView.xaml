@@ -45,7 +45,9 @@
         </Border>
 
         <!--  Card overview  -->
-        <TabControl Grid.Row="1">
+        <TabControl
+            Grid.Row="1"
+            SelectedIndex="{Binding SelectedTabItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TabItem
                 FontSize="16"
                 Header="Deck Background">
@@ -261,6 +263,7 @@
                             Grid.Column="1"
                             Height="860"
                             CardDesign="{Binding SelectedCharacterDeckDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Character="{Binding SelectedCharacter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             CharacterCard="{Binding TestCharacterCard, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                 </StackPanel>
