@@ -1,6 +1,5 @@
 ﻿namespace CardDesigner.Domain.Enums
 {
-
     public static class EnumProperties
     {
         public static EnumPropertyObject GetEnumProperties(object enumObject)
@@ -71,11 +70,11 @@
             {
                 if (diceType == DiceType.d100 || diceType == DiceType.d20)
                 {
-                return new(string.Empty, 1, 10, false);
+                    return new(string.Empty, 1, 10, false);
                 }
                 else
-                { 
-                return new(string.Empty, 1, 10, true);
+                {
+                    return new(string.Empty, 1, 10, true);
                 }
             }
             else if (enumObject is TargetType targetType)

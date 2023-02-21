@@ -396,7 +396,7 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
 
         }
-        
+
         [RelayCommand(CanExecute = nameof(CanCreateCharacterDeckDesign))]
         private async void CreateCharacterDeckDesign()
         {
@@ -408,7 +408,7 @@ namespace CardDesigner.UI.ViewModels
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedCharacterDeckDesign);
         }
-        
+
         [RelayCommand]
         private async void DeleteCharacterDeckDesign()
         {
@@ -423,7 +423,7 @@ namespace CardDesigner.UI.ViewModels
         {
             return SelectedCharacter != null && SelectedItemDeckDesign != null && SelectedItemDeck != null;
         }
-        
+
         private bool CanCreateItemDeckDesign()
         {
             bool noName = (AddedItemDeckDesignName == string.Empty || AddedItemDeckDesignName == null);
@@ -532,7 +532,7 @@ namespace CardDesigner.UI.ViewModels
             }
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
-        
+
         [RelayCommand(CanExecute = nameof(CanCreateDeckBackgroundDesign))]
         private async void CreateDeckBackgroundDesign()
         {

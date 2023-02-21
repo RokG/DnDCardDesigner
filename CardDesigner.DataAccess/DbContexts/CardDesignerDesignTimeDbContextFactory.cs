@@ -8,7 +8,7 @@ namespace CardDesigner.DataAccess.DbContexts
     {
         public CardDesignerDbContext CreateDbContext(string[] args)
         {
-            var options = new DbContextOptionsBuilder()
+            DbContextOptions options = new DbContextOptionsBuilder()
                 .EnableSensitiveDataLogging()
                 .UseSqlite("Data Source=carddesign.db")
                 .Options;

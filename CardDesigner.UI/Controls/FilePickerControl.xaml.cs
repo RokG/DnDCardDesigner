@@ -16,7 +16,7 @@ namespace CardDesigner.UI.Controls
         }
 
         //https://stackoverflow.com/questions/1922204/open-directory-dialog
-        
+
         public string Description
         {
             get => (string)GetValue(DescriptionProperty);

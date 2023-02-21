@@ -7,11 +7,11 @@ namespace CardDesigner.Domain.Entities
         [Key]
         public int ID { get; set; }
         public CharacterEntity Character { get; set; }
-        
+
         #region Abilities
 
         public int Proficiency { get; set; }
-        
+
         public bool StrengthSavingThrows { get; set; }
         public int StrengthLevel { get; set; }
         public bool DexteritySavingThrows { get; set; }

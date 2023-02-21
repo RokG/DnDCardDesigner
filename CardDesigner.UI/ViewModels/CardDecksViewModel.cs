@@ -159,7 +159,7 @@ namespace CardDesigner.UI.ViewModels
                         switch (_navigationStore.SelectedCardType)
                         {
                             case CardType.Spell:
-                                SelectedSpellDeck= _navigationStore.SelectedSpellDeck;
+                                SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
                                 break;
                             case CardType.Item:
                                 SelectedItemDeck = _navigationStore.SelectedItemDeck;

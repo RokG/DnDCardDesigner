@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CardDesigner.UI.Controls
 {
@@ -27,16 +15,16 @@ namespace CardDesigner.UI.Controls
 
         public string ValueName
         {
-            get { return (string)GetValue(ValueNameProperty); }
-            set { SetValue(ValueNameProperty, value); }
+            get => (string)GetValue(ValueNameProperty);
+            set => SetValue(ValueNameProperty, value);
         }
         public static readonly DependencyProperty ValueNameProperty =
             DependencyProperty.Register(nameof(ValueName), typeof(string), typeof(DataLabel), new PropertyMetadata(string.Empty));
 
         public string Value1
         {
-            get { return (string)GetValue(Value1Property); }
-            set { SetValue(Value1Property, value); }
+            get => (string)GetValue(Value1Property);
+            set => SetValue(Value1Property, value);
         }
 
         public static readonly DependencyProperty Value1Property =
@@ -44,8 +32,8 @@ namespace CardDesigner.UI.Controls
 
         public string Value2
         {
-            get { return (string)GetValue(Value2Property); }
-            set { SetValue(Value3Property, value); }
+            get => (string)GetValue(Value2Property);
+            set => SetValue(Value3Property, value);
         }
 
         public static readonly DependencyProperty Value2Property =
@@ -53,8 +41,8 @@ namespace CardDesigner.UI.Controls
 
         public string Value3
         {
-            get { return (string)GetValue(Value3Property); }
-            set { SetValue(Value3Property, value); }
+            get => (string)GetValue(Value3Property);
+            set => SetValue(Value3Property, value);
         }
 
         public static readonly DependencyProperty Value3Property =

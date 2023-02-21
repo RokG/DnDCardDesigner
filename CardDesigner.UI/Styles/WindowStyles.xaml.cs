@@ -11,20 +11,20 @@ namespace CardDesigner.UI
 
         private void OnCloseClick(object sender, RoutedEventArgs eventArgs)
         {
-            var window = (Window)((FrameworkElement)sender).TemplatedParent;
+            Window window = (Window)((FrameworkElement)sender).TemplatedParent;
             window.Close();
         }
 
         private void OnMinimizeClick(object sender, RoutedEventArgs eventArgs)
         {
-            var window = (Window)((FrameworkElement)sender).TemplatedParent;
+            Window window = (Window)((FrameworkElement)sender).TemplatedParent;
             window.WindowState = WindowState.Minimized;
 
         }
 
         private void OnMaximizeRestoreClick(object sender, RoutedEventArgs eventArgs)
         {
-            var window = (Window)((FrameworkElement)sender).TemplatedParent;
+            Window window = (Window)((FrameworkElement)sender).TemplatedParent;
 
             if (window.WindowState == WindowState.Normal)
             {

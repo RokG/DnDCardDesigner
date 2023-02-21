@@ -101,7 +101,7 @@ namespace CardDesigner.UI.ViewModels
                         return;
                     case ViewModelType.Home:
                         SelectedItemCard = _navigationStore.SelectedItemCard;
-                        SelectedItemDeckDesign= _navigationStore.SelectedItemDeckDesign;
+                        SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
                         return;
                     case ViewModelType.SpellCardCreator:
                         return;

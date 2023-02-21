@@ -10,7 +10,7 @@ namespace CardDesigner.Domain.HelperModels
         public int ParentID { get; set; } = 0;
         public int GrandParentID { get; set; } = 0;
         public object Item { get; set; }
-        public object Property { get; set; } 
+        public object Property { get; set; }
         public ObservableCollection<TreeItemModel> Items { get; set; } = new ObservableCollection<TreeItemModel>();
         public bool IsSelected { get; set; } = false;
         public bool IsExpanded { get; set; } = false;

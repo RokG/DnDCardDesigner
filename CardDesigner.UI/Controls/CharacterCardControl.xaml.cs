@@ -45,8 +45,8 @@ namespace CardDesigner.UI.Controls
 
         public CharacterModel Character
         {
-            get { return (CharacterModel)GetValue(CharacterProperty); }
-            set { SetValue(CharacterProperty, value); }
+            get => (CharacterModel)GetValue(CharacterProperty);
+            set => SetValue(CharacterProperty, value);
         }
 
         public static readonly DependencyProperty CharacterProperty =

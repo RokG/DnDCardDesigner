@@ -1,9 +1,7 @@
 ﻿using CardDesigner.Domain.HelperModels;
-using CardDesigner.Domain.Models;
 using CardDesigner.UI.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace CardDesigner.UI.Views
 {

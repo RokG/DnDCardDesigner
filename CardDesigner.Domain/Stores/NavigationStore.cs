@@ -33,7 +33,7 @@ namespace CardDesigner.Domain.Stores
                 if (value != null && _currentViewModel != null)
                 {
                     if (_currentViewModel.Type != value.Type)
-                    { 
+                    {
                         OnCurrentViewModelChanged(value.Type);
                     }
                 }

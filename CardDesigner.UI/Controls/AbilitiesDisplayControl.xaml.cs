@@ -25,8 +25,8 @@ namespace CardDesigner.UI.Controls
 
         public bool SwitchAbilityValueBonus
         {
-            get { return (bool)GetValue(SwitchAbilityValueBonusProperty); }
-            set { SetValue(SwitchAbilityValueBonusProperty, value); }
+            get => (bool)GetValue(SwitchAbilityValueBonusProperty);
+            set => SetValue(SwitchAbilityValueBonusProperty, value);
         }
 
         public static readonly DependencyProperty SwitchAbilityValueBonusProperty =

@@ -2,7 +2,6 @@
 {
     public class EnumPropertyObject
     {
-
         public EnumPropertyObject(
             string unit,
             double minimum,

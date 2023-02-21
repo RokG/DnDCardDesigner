@@ -1,11 +1,7 @@
 ﻿using CardDesigner.Domain.Interfaces;
-using CardDesigner.Domain.Models;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -20,7 +16,7 @@ namespace CardDesigner.UI.Controls
         {
             InitializeComponent();
         }
-        
+
         #region Events
 
         public event RoutedEventHandler SelectionChanged;
@@ -31,8 +27,8 @@ namespace CardDesigner.UI.Controls
 
         public Orientation Orientation
         {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get => (Orientation)GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
         }
 
         public static readonly DependencyProperty OrientationProperty =
@@ -40,8 +36,8 @@ namespace CardDesigner.UI.Controls
 
         public bool ViewOnly
         {
-            get { return (bool)GetValue(ViewOnlyProperty); }
-            set { SetValue(ViewOnlyProperty, value); }
+            get => (bool)GetValue(ViewOnlyProperty);
+            set => SetValue(ViewOnlyProperty, value);
         }
 
         public static readonly DependencyProperty ViewOnlyProperty =
@@ -49,8 +45,8 @@ namespace CardDesigner.UI.Controls
 
         public bool IsEditEnabled
         {
-            get { return (bool)GetValue(IsEditEnabledProperty); }
-            set { SetValue(IsEditEnabledProperty, value); }
+            get => (bool)GetValue(IsEditEnabledProperty);
+            set => SetValue(IsEditEnabledProperty, value);
         }
 
         public static readonly DependencyProperty IsEditEnabledProperty =
@@ -161,7 +157,7 @@ namespace CardDesigner.UI.Controls
             {
                 SelectionChanged(this, new RoutedEventArgs());
             }
-        } 
+        }
 
         #endregion
     }
