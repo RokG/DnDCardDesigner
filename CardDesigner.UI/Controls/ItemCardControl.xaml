@@ -11,11 +11,11 @@
                 <Label
                     Background="Transparent"
                     Content="{Binding ItemCard.Item.ArmourType, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
-                    Foreground="{Binding CardDesign.HeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource IconLabel}" />
                 <Label
                     Background="Transparent"
                     Content="{Binding ItemCard.Item.EquipmentSlot, ElementName=itemCard, Converter={converters:StringToResourceKeyConverter}}"
+                    Foreground="{Binding CardDesign.HeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource IconLabel}" />
             </Grid>
         </ControlTemplate>
