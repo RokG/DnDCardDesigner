@@ -150,45 +150,39 @@ namespace CardDesigner.UI.ViewModels
         {
             if (_navigationStore != null)
             {
-                switch (_navigationStore.CurrentViewModel.Type)
+                if (_navigationStore.UseSelection)
                 {
-                    case ViewModelType.Unknown:
-                        return;
-                    case ViewModelType.Home:
-                        SelectedCharacter = _navigationStore.SelectedCharacter;
-                        switch (_navigationStore.SelectedCardType)
-                        {
-                            case CardType.Spell:
-                                SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
-                                break;
-                            case CardType.Item:
-                                SelectedItemDeck = _navigationStore.SelectedItemDeck;
-                                break;
-                            case CardType.Character:
-                                SelectedCharacterDeck = _navigationStore.SelectedCharacterDeck;
-                                break;
-                            default:
-                                break;
-                        }
-                        return;
-                    case ViewModelType.SpellCardCreator:
-                        return;
-                    case ViewModelType.ItemCardCreator:
-                        return;
-                    case ViewModelType.DeckCreator:
-                        return;
-                    case ViewModelType.CharacterCreator:
-                        return;
-                    case ViewModelType.DeckDesigner:
-                        SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
-                        SelectedItemDeck = _navigationStore.SelectedItemDeck;
-                        return;
-                    default:
-                        break;
+                    switch (_navigationStore.CurrentViewModel.Type)
+                    {
+                        case ViewModelType.Home:
+                            SelectedCharacter = _navigationStore.SelectedCharacter;
+                            switch (_navigationStore.SelectedCardType)
+                            {
+                                case CardType.Spell:
+                                    SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
+                                    break;
+                                case CardType.Item:
+                                    SelectedItemDeck = _navigationStore.SelectedItemDeck;
+                                    break;
+                                case CardType.Character:
+                                    SelectedCharacterDeck = _navigationStore.SelectedCharacterDeck;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
+                    SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
+                    SelectedItemDeck = AllItemDecks.FirstOrDefault();
+                    SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault();
                 }
             }
-            SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
-            SelectedItemDeck = AllItemDecks.FirstOrDefault();
         }
 
         public static CardDecksViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)

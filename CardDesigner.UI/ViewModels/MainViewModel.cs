@@ -75,6 +75,7 @@ namespace CardDesigner.UI.ViewModels
                     break;
             }
             _navigationStore.CurrentViewModel = CurrentViewModel;
+            _navigationStore.UseSelection = false;
         }
 
         #endregion

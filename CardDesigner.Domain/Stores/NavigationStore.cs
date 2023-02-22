@@ -9,6 +9,7 @@ namespace CardDesigner.Domain.Stores
     {
         public event Action<ViewModelType> CurrentViewModelChanged;
 
+        public bool UseSelection;
         public CardType SelectedCardType;
         public ItemCardModel SelectedItemCard;
         public SpellCardModel SelectedSpellCard;
@@ -27,26 +28,12 @@ namespace CardDesigner.Domain.Stores
         public IViewModelBase CurrentViewModel
         {
             get => _currentViewModel;
-            set
-            {
-                _currentViewModel = value;
-                if (value != null && _currentViewModel != null)
-                {
-                    if (_currentViewModel.Type != value.Type)
-                    {
-                        OnCurrentViewModelChanged(value.Type);
-                    }
-                }
-            }
-        }
-
-        private void OnCurrentViewModelChanged(ViewModelType viewModelType)
-        {
-            CurrentViewModelChanged?.Invoke(viewModelType);
+            set => _currentViewModel = value;
         }
 
         public void NavigateTo(ViewModelType type)
         {
+            UseSelection = true;
             CurrentViewModelChanged?.Invoke(type);
         }
     }

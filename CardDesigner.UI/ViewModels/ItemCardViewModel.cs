@@ -95,28 +95,23 @@ namespace CardDesigner.UI.ViewModels
         {
             if (_navigationStore != null)
             {
-                switch (_navigationStore.CurrentViewModel.Type)
-                {
-                    case ViewModelType.Unknown:
-                        return;
-                    case ViewModelType.Home:
-                        SelectedItemCard = _navigationStore.SelectedItemCard;
-                        SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
-                        return;
-                    case ViewModelType.SpellCardCreator:
-                        return;
-                    case ViewModelType.ItemCardCreator:
-                        return;
-                    case ViewModelType.DeckCreator:
-                        return;
-                    case ViewModelType.CharacterCreator:
-                        return;
-                    case ViewModelType.DeckDesigner:
-                        SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
-                        return;
-                    default:
-                        break;
-                }
+                    if (_navigationStore.UseSelection)
+                    {
+                        switch (_navigationStore.CurrentViewModel.Type)
+                        {
+                            case ViewModelType.Home:
+                                SelectedItemCard = _navigationStore.SelectedItemCard;
+                                SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                                return;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        SelectedItemCard = AllItemCards.FirstOrDefault();
+                        SelectedItemDeckDesign = new();
+                    }
             }
         }
 

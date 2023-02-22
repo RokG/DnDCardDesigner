@@ -198,45 +198,40 @@ namespace CardDesigner.UI.ViewModels
         {
             if (_navigationStore != null)
             {
-                switch (_navigationStore.CurrentViewModel.Type)
+                if (_navigationStore.UseSelection)
                 {
-                    case ViewModelType.Unknown:
-                        return;
-                    case ViewModelType.Home:
-                        SelectedCharacter = _navigationStore.SelectedCharacter;
-                        switch (_navigationStore.SelectedCardType)
-                        {
-                            case CardType.Spell:
-                                TestSpellCard = _navigationStore.SelectedSpellCard;
-                                SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
-                                SelectedTabItem = 2;
-                                break;
-                            case CardType.Item:
-                                TestItemCard = _navigationStore.SelectedItemCard;
-                                SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
-                                SelectedTabItem = 3;
-                                break;
-                            case CardType.Character:
-                                TestCharacterCard = _navigationStore.SelectedCharacterCard;
-                                SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
-                                SelectedTabItem = 1;
-                                break;
-                            default:
-                                break;
-                        }
-                        return;
-                    case ViewModelType.SpellCardCreator:
-                        return;
-                    case ViewModelType.ItemCardCreator:
-                        return;
-                    case ViewModelType.DeckCreator:
-                        return;
-                    case ViewModelType.CharacterCreator:
-                        return;
-                    case ViewModelType.DeckDesigner:
-                        return;
-                    default:
-                        break;
+                    switch (_navigationStore.CurrentViewModel.Type)
+                    {
+                        case ViewModelType.Home:
+                            SelectedCharacter = _navigationStore.SelectedCharacter;
+                            switch (_navigationStore.SelectedCardType)
+                            {
+                                case CardType.Spell:
+                                    TestSpellCard = _navigationStore.SelectedSpellCard;
+                                    SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
+                                    SelectedTabItem = 2;
+                                    break;
+                                case CardType.Item:
+                                    TestItemCard = _navigationStore.SelectedItemCard;
+                                    SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                                    SelectedTabItem = 3;
+                                    break;
+                                case CardType.Character:
+                                    TestCharacterCard = _navigationStore.SelectedCharacterCard;
+                                    SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
+                                    SelectedTabItem = 1;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
                 }
             }
         }
