@@ -1,7 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Viewbox x:Key="RequiresAttunement">
+    <Viewbox x:Shared="False" x:Key="RequiresAttunement">
         <Canvas
             Width="512"
             Height="512">

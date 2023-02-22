@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Canvas x:Key="SpellCastingTime"
         Width="100"
-        Height="100">
+        Height="100"
+        x:Shared="False">
         <Path
             Data="M 79.119105 53.015462 C 79.119106 37.209567 66.305896 24.396357 50.500001 24.396357 l 0 26.093722 0 2.525383 z"
             Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
