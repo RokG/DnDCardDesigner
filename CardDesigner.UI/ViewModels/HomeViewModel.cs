@@ -77,7 +77,6 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            // TODO: is this OK? how is it different from old method (before MVVM toolkit)
             LoadData();
             GenerateCharacterTree();
 

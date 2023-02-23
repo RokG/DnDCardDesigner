@@ -28,46 +28,4 @@ namespace CardDesigner.UI.Converters
             return this;
         }
     }
-
-    /// This converter is needed because these two things are not working:
-
-    /// This is throwing binding failures when switching type, although everything works
-    //<ContentControl>
-    //    <ContentControl.Style>
-    //        <Style TargetType = "{x:Type ContentControl}" >
-    //            < Style.Triggers >
-    //                < DataTrigger
-    //                    Binding="{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
-    //                    Value="{x:Static enums:ItemType.Armour}">
-    //                    <Setter Property = "Template" Value="{StaticResource ArmorTemplate}" />
-    //                </DataTrigger>
-    //                <DataTrigger
-    //                    Binding = "{Binding ItemCard.Type, ElementName=itemCard, Mode=OneWay}"
-    //                    Value="{x:Static enums:ItemType.Weapon}">
-    //                    <Setter Property = "Template" Value="{StaticResource WeaponTemplate}" />
-    //                </DataTrigger>
-    //            </Style.Triggers>
-    //        </Style>
-    //    </ContentControl.Style>
-    //</ContentControl>
-
-    /// This is not getting triggered, altho the binding seems to be Class and not INterface when checking with converter
-    // <ContentControl Margin = "5,0" >
-    //    < ContentControl.Style >
-    //        < Style TargetType="{x:Type ContentControl}">
-    //            <Style.Triggers>
-    //                <DataTrigger
-    //                    Binding = "{Binding SelectedItemCard.Item}"
-    //                    Value="{x:Type models:ArmourModel}">
-    //                    <Setter Property = "Template" Value="{StaticResource ArmorTemplate}" />
-    //                </DataTrigger>
-    //                <DataTrigger
-    //                    Binding = "{Binding SelectedItemCard.Item}"
-    //                    Value="{x:Type models:WeaponModel}">
-    //                    <Setter Property = "Template" Value="{StaticResource WeaponTemplate}" />
-    //                </DataTrigger>
-    //            </Style.Triggers>
-    //        </Style>
-    //    </ContentControl.Style>
-    //</ContentControl>
 }
