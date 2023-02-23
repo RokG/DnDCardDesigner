@@ -1,0 +1,23 @@
+  [
+    {
+      "ID": "bomb1",
+      "Name": "Glitter bomb",
+      "Uses": 1,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "bomb2",
+      "Name": "Pipe bomb",
+      "Uses": 1,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "bomb3",
+      "Name": "You da bomb",
+      "Uses": 4,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    }
+  ]

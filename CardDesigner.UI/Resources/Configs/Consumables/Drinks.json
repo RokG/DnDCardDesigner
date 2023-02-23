@@ -1,0 +1,23 @@
+  [
+    {
+      "ID": "drink1",
+      "Name": "Beer",
+      "Doses": 1,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "drink2",
+      "Name": "Wine",
+      "Doses": 1,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "drink3",
+      "Name": "Tea",
+      "Doses": 1,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    }
+  ]

@@ -1,0 +1,23 @@
+  [
+    {
+      "ID": "potion1",
+      "Name": "Health Potion",
+      "Doses": 1,
+      "UseTimeType": "BonusAction",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "potion2",
+      "Name": "Mana Potion",
+      "Doses": 1,
+      "UseTimeType": "BonusAction",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "potion3",
+      "Name": "Stamina Potion",
+      "Doses": 1,
+      "UseTimeType": "BonusAction",
+      "UseTimeValue": 1
+    }
+  ]

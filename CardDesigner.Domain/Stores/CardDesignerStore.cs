@@ -1,4 +1,5 @@
 ﻿using CardDesigner.Domain.Entities;
+using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
@@ -33,6 +34,9 @@ namespace CardDesigner.Domain.Stores
         private readonly List<WeaponModel> _weapons;
         private readonly List<ArmourModel> _armours;
         private readonly List<ClassModel> _classes;
+        private readonly List<UsableModel> _usables;
+        private readonly List<ClothingModel> _clothings;
+        private readonly List<ConsumableModel> _consumables;
 
         public IEnumerable<SpellCardModel> SpellCards => _spellCards;
         public IEnumerable<ItemCardModel> ItemCards => _itemCards;
@@ -48,6 +52,9 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<WeaponModel> Weapons => _weapons;
         public IEnumerable<ArmourModel> Armours => _armours;
         public IEnumerable<ClassModel> Classes => _classes;
+        public IEnumerable<UsableModel> Usables => _usables;
+        public IEnumerable<ClothingModel> Clothings => _clothings;
+        public IEnumerable<ConsumableModel> Consumables => _consumables;
 
         public event Action<CharacterModel, DataChangeType> CharacterChanged;
         public event Action<SpellDeckDesignModel, DataChangeType> SpellDeckDesignChanged;
@@ -92,6 +99,9 @@ namespace CardDesigner.Domain.Stores
             _armours = new();
             _weapons = new();
             _classes = new();
+            _usables = new();
+            _clothings = new();
+            _consumables = new();
             _jsonFileItemService = jsonFileItemService;
         }
 
@@ -502,6 +512,19 @@ namespace CardDesigner.Domain.Stores
 
             _classes.Clear();
             _classes.AddRange(_jsonFileItemService.LoadClasses(@".\Resources\Configs\Classes\Classes.json"));
+
+            _usables.Clear();
+            _usables.AddRange(_jsonFileItemService.LoadUsables(@".\Resources\Configs\Usables\Gems.json"));
+            _usables.AddRange(_jsonFileItemService.LoadUsables(@".\Resources\Configs\Usables\Scrolls.json"));
+            _usables.AddRange(_jsonFileItemService.LoadUsables(@".\Resources\Configs\Usables\Bombs.json"));
+
+            _clothings.Clear();
+            _clothings.AddRange(_jsonFileItemService.LoadClothings(@".\Resources\Configs\Clothing\Capes.json"));
+
+            _consumables.Clear();
+            _consumables.AddRange(_jsonFileItemService.LoadConsumables(@".\Resources\Configs\Consumables\Potions.json"));
+            _consumables.AddRange(_jsonFileItemService.LoadConsumables(@".\Resources\Configs\Consumables\Drinks.json"));
+            _consumables.AddRange(_jsonFileItemService.LoadConsumables(@".\Resources\Configs\Consumables\Food.json"));
         }
 
         private void AssignItemsToCards(IEnumerable<ItemCardModel> itemCardModels)
@@ -520,7 +543,7 @@ namespace CardDesigner.Domain.Stores
                         break;
                     case Enums.ItemType.Usable:
                         break;
-                    case Enums.ItemType.Cloathing:
+                    case Enums.ItemType.Clothing:
                         break;
                     default:
                         break;

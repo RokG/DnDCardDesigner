@@ -1,0 +1,23 @@
+  [
+    {
+      "ID": "food1",
+      "Name": "Chicken",
+      "Doses": 3,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "food2",
+      "Name": "Bread",
+      "Doses": 2,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "food3",
+      "Name": "Cake",
+      "Doses": 6,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    }
+  ]

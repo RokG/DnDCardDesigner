@@ -6,6 +6,6 @@
         Weapon,
         Consumable,
         Usable,
-        Cloathing
+        Clothing
     }
 }

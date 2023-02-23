@@ -1,13 +1,12 @@
 ﻿using CardDesigner.Domain.Enums;
 
-namespace CardDesigner.Domain.Models
+namespace CardDesigner.Domain.HelperModels
 {
-    public class ArmourModel : IItem
+    public class ClothingModel
     {
         public string ID { get; set; }
         public string Name { get; set; }
         public ArmourType ArmourType { get; set; }
         public EquipmentSlot EquipmentSlot { get; set; }
-        public int ArmourClass { get; set; }
     }
 }

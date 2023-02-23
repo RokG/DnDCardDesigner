@@ -1,0 +1,23 @@
+[
+	{
+		"ID": "gem1",
+		"Name": "Resurection gem",
+		"Uses": 1,
+		"UseTimeType": "Action",
+		"UseTimeValue": 1
+	},
+	{
+		"ID": "gem2",
+		"Name": "Teleport gem",
+		"Uses": 1,
+		"UseTimeType": "Action",
+		"UseTimeValue": 1
+	},
+	{
+		"ID": "gem3",
+		"Name": "Summoning gem",
+		"Uses": 1,
+		"UseTimeType": "Action",
+		"UseTimeValue": 1
+	}
+]

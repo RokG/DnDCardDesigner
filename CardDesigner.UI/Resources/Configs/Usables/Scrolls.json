@@ -1,0 +1,23 @@
+  [
+    {
+      "ID": "scroll1",
+      "Name": "Fireball scroll",
+      "Uses": 1,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "scroll2",
+      "Name": "Time warp scroll",
+      "Uses": 1,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    },
+    {
+      "ID": "scroll3",
+      "Name": "Teleportation scroll",
+      "Uses": 1,
+      "UseTimeType": "Action",
+      "UseTimeValue": 1
+    }
+  ]
