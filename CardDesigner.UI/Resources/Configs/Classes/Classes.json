@@ -3,18 +3,84 @@
     "ID": "class1",
     "Name": "Barbarian",
     "Specializations": ["A","B","C"],
-    "DiceType": "d8"
+    "DiceType": "d12"
   },
   {
     "ID": "class2",
-    "Name": "Cloister",
+    "Name": "Bard",
     "Specializations": [ "A1", "B1", "C1" ],
     "DiceType": "d8"
   },
   {
     "ID": "class3",
-    "Name": "Armaggedon",
+    "Name": "Cleric",
     "Specializations": [ "A2", "B3", "C4" ],
     "DiceType": "d8"
+  },
+  {
+    "ID": "class4",
+    "Name": "Druid",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d8"
+  },
+  {
+    "ID": "class5",
+    "Name": "Fighter",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d10"
+  },
+  {
+    "ID": "class6",
+    "Name": "Monk",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d8"
+  },
+  {
+    "ID": "class7",
+    "Name": "Paladin",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d10"
+  },
+  {
+    "ID": "class8",
+    "Name": "Ranger",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d10"
+  },
+  {
+    "ID": "class9",
+    "Name": "Rogue",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d8"
+  },
+  {
+    "ID": "class10",
+    "Name": "Sorcerer",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d6"
+  },
+  {
+    "ID": "class11",
+    "Name": "Warlock",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d8"
+  },
+  {
+    "ID": "class12",
+    "Name": "Wizard",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d6"
+  },
+  {
+    "ID": "class13",
+    "Name": "Artificer",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d8"
+  },
+  {
+    "ID": "class14",
+    "Name": "Bloodhunter",
+    "Specializations": [ "A2", "B3", "C4" ],
+    "DiceType": "d10"
   }
 ]
