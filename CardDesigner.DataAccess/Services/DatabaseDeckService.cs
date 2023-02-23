@@ -168,13 +168,6 @@ namespace CardDesigner.DataAccess.Services
                         if (dbContext.SpellDecks.Contains(spellDeckEntity))
                         {
                             dbContext.SpellDecks.Remove(spellDeckEntity);
-
-                            IEnumerable<SpellDeckDesignLinkerEntity> toRemove = dbContext.SpellDeckDesignLinkers.Where(dl => dl.SpellDeckID == spellDeckEntity.ID);
-                            if (toRemove.Any())
-                            {
-                                dbContext.SpellDeckDesignLinkers.RemoveRange(toRemove);
-                            }
-
                             await dbContext.SaveChangesAsync();
                             return true;
                         }
