@@ -119,7 +119,7 @@ namespace CardDesigner.UI.ViewModels
                             dd.SpellDeckID == treeItemModel.ParentID
                             && dd.Character.ID == SelectedCharacter.ID)
                             .DesignID;
-                        SelectedCardDesign = AllSpellDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID);
+                        SelectedCardDesign = AllSpellDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID) ?? new();
                         break;
                     case CardType.Item:
                         SelectedDeck = AllItemDecks.FirstOrDefault(d => d.ID == treeItemModel.ParentID);
@@ -128,7 +128,7 @@ namespace CardDesigner.UI.ViewModels
                             dd.ItemDeckID == treeItemModel.ParentID
                             && dd.Character.ID == SelectedCharacter.ID)
                             .DesignID;
-                        SelectedCardDesign = AllItemDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID);
+                        SelectedCardDesign = AllItemDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID) ?? new();
                         break;
                     case CardType.Character:
                         SelectedDeck = AllCharacterDecks.FirstOrDefault(d => d.ID == treeItemModel.ParentID);
@@ -137,7 +137,7 @@ namespace CardDesigner.UI.ViewModels
                             dd.CharacterDeckID == treeItemModel.ParentID
                             && dd.Character.ID == SelectedCharacter.ID)
                             .DesignID;
-                        SelectedCardDesign = AllCharacterDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID);
+                        SelectedCardDesign = AllCharacterDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesignID) ?? new();
                         break;
                     default:
                         break;
@@ -203,9 +203,6 @@ namespace CardDesigner.UI.ViewModels
                         ID = spellDeck.ID,
                         ParentID = character.ID
                     };
-
-                    int deckDesingID = character.SpellDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == character.ID && idd.SpellDeckID == spellDeck.ID)?.ID ?? 0;
-                    SpellDeckDesignModel deckDesignModel = AllSpellDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID);
 
                     foreach (SpellCardModel spellCard in spellDeck.SpellCards)
                     {

@@ -22,7 +22,9 @@
                     InputText="{Binding DataContext.ArmourSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
                 <DataGrid
+                    AreRowDetailsFrozen="False"
                     AutoGenerateColumns="False"
+                    HeadersVisibility="Column"
                     ItemsSource="{Binding DataContext.AllArmoursCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
                     <DataGrid.Columns>
@@ -58,7 +60,9 @@
                     InputText="{Binding DataContext.WeaponSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
                 <DataGrid
+                    AreRowDetailsFrozen="False"
                     AutoGenerateColumns="False"
+                    HeadersVisibility="Column"
                     ItemsSource="{Binding DataContext.AllWeaponsCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
                     <DataGrid.Columns>
@@ -109,7 +113,9 @@
                     InputText="{Binding DataContext.UsableSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
                 <DataGrid
+                    AreRowDetailsFrozen="False"
                     AutoGenerateColumns="False"
+                    HeadersVisibility="Column"
                     ItemsSource="{Binding DataContext.AllUsablesCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
                     <DataGrid.Columns>
@@ -151,7 +157,9 @@
                     InputText="{Binding DataContext.ConsumableSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
                 <DataGrid
+                    AreRowDetailsFrozen="False"
                     AutoGenerateColumns="False"
+                    HeadersVisibility="Column"
                     ItemsSource="{Binding DataContext.AllConsumablesCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
                     <DataGrid.Columns>
@@ -193,7 +201,9 @@
                     InputText="{Binding DataContext.ClothingSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
                 <DataGrid
+                    AreRowDetailsFrozen="False"
                     AutoGenerateColumns="False"
+                    HeadersVisibility="Column"
                     ItemsSource="{Binding DataContext.AllClothingCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
                     <DataGrid.Columns>

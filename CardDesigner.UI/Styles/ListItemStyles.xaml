@@ -377,17 +377,13 @@
     <!--  Datagrid style  -->
 
     <Style TargetType="{x:Type DataGrid}">
-        <Setter Property="AreRowDetailsFrozen" Value="True" />
-        <Setter Property="HeadersVisibility" Value="All" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <!--<Setter Property="AutoGenerateColumns" Value="False" />-->
         <Setter Property="BorderBrush" Value="{StaticResource TabItemSelectedFGND}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CanUserAddRows" Value="False" />
         <Setter Property="CanUserDeleteRows" Value="False" />
-        <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="ColumnHeaderStyle" Value="{StaticResource {x:Type DataGridColumnHeader}}" />
         <Setter Property="CellStyle" Value="{StaticResource {x:Type DataGridCell}}" />
@@ -426,4 +422,5 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
 </ResourceDictionary>
