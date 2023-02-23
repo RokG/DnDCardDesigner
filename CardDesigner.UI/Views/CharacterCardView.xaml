@@ -97,6 +97,7 @@
                     AddedItemName="{Binding CharacterCardName, Mode=TwoWay}"
                     BorderBrush="Transparent"
                     BorderThickness="0"
+                    DeleteCommand="{Binding DeleteCharacterCardCommand}"
                     ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}"
                     Orientation="Horizontal"
                     SaveCommand="{Binding CreateCharacterCardCommand}"

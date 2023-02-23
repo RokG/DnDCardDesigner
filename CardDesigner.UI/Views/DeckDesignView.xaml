@@ -54,15 +54,6 @@
                 <StackPanel>
                     <!--  Selectors  -->
                     <DockPanel>
-                        <Button
-                            Height="40"
-                            Padding="5"
-                            HorizontalAlignment="Left"
-                            Command="{Binding AssignDeckBackgroundDesignCommand}"
-                            Content="Assign to Character" />
-                        <Label
-                            Background="Transparent"
-                            Content="{Binding SelectedCharacter.Name}" />
                         <Label
                             Background="Transparent"
                             Content="Design:" />
@@ -142,12 +133,6 @@
                 <StackPanel>
                     <!--  Selectors  -->
                     <DockPanel>
-                        <Button
-                            Height="40"
-                            Padding="5"
-                            HorizontalAlignment="Left"
-                            Command="{Binding AssignCharacterDeckDesignCommand}"
-                            Content="Assign to Character" />
                         <Label
                             Background="Transparent"
                             Content="Deck:" />
@@ -274,12 +259,6 @@
                 <StackPanel>
                     <!--  Selectors  -->
                     <DockPanel>
-                        <Button
-                            Height="40"
-                            Padding="5"
-                            HorizontalAlignment="Left"
-                            Command="{Binding AssignSpellDeckDesignCommand}"
-                            Content="Assign to Spell Deck" />
                         <Label
                             Background="Transparent"
                             Content="Deck:" />
@@ -374,12 +353,6 @@
                 Header="Item Card Foregound">
                 <StackPanel>
                     <DockPanel>
-                        <Button
-                            Height="40"
-                            Padding="5"
-                            HorizontalAlignment="Left"
-                            Command="{Binding AssignItemDeckDesignCommand}"
-                            Content="Assign to Item Deck" />
                         <Label
                             Background="Transparent"
                             Content="Deck:" />

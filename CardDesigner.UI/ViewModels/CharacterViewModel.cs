@@ -142,7 +142,6 @@ namespace CardDesigner.UI.ViewModels
 
         #region Commands
 
-
         [RelayCommand(CanExecute = nameof(CanAddClassToCharacter))]
         private async void AddClassToCharacter(ClassModel classModel)
         {

@@ -41,6 +41,7 @@
                     AddedItemName="{Binding SpellCardName, Mode=TwoWay}"
                     BorderBrush="Transparent"
                     BorderThickness="0"
+                    DeleteCommand="{Binding DeleteSpellCardCommand}"
                     ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
                     Orientation="Horizontal"
                     SaveCommand="{Binding CreateSpellCardCommand}"

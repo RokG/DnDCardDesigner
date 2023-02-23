@@ -113,6 +113,10 @@ namespace CardDesigner.UI.ViewModels
                     AllCharacterCards.Add(characterCard);
                     SelectedCharacterCard = characterCard;
                     break;
+                case DataChangeType.Deleted:
+                    AllCharacterCards.Remove(characterCard);
+                    SelectedCharacterCard = AllCharacterCards.FirstOrDefault();
+                    break;
                 default:
                     break;
             }
@@ -191,6 +195,12 @@ namespace CardDesigner.UI.ViewModels
             }
 
             await _cardDesignerStore.UpdateCharacterCard(SelectedCharacterCard);
+        }
+
+        [RelayCommand]
+        private async void DeleteCharacterCard()
+        {
+            await _cardDesignerStore.DeleteCharacterCard(SelectedCharacterCard);
         }
 
         #endregion

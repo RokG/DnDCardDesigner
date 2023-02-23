@@ -389,7 +389,15 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void DeleteSpellDeck()
         {
+            var toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(dd => dd.SpellDeckID == SelectedSpellDeck.ID);
+            if (toRemove != null)
+            {
+                SelectedCharacter.SpellDeckDescriptors.Remove(toRemove);
+            }
+
             await _cardDesignerStore.DeleteSpellDeck(SelectedSpellDeck);
+
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         [RelayCommand]
@@ -448,8 +456,17 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void DeleteItemDeck()
         {
+            var toRemove = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(dd => dd.ItemDeckID == SelectedItemDeck.ID);
+            if (toRemove != null)
+            {
+                SelectedCharacter.ItemDeckDescriptors.Remove(toRemove);
+            }
+
             await _cardDesignerStore.DeleteItemDeck(SelectedItemDeck);
+
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
+
         [RelayCommand]
         private async void RemoveItemDeckFromCharacter(ItemDeckModel itemDeck)
         {
@@ -506,7 +523,15 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void DeleteCharacterDeck()
         {
+            var toRemove = SelectedCharacter.CharacterDeckDescriptors.FirstOrDefault(dd => dd.CharacterDeckID == SelectedCharacterDeck.ID);
+            if (toRemove != null)
+            {
+                SelectedCharacter.CharacterDeckDescriptors.Remove(toRemove);
+            }
+
             await _cardDesignerStore.DeleteCharacterDeck(SelectedCharacterDeck);
+
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         [RelayCommand]

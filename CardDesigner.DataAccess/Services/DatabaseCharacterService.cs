@@ -47,14 +47,14 @@ namespace CardDesigner.DataAccess.Services
                     .Include(c => c.Classes)
                     .Single(c => c.ID == characterModel.ID);
 
-                characterEntity.Title= characterModel.Title;
-                characterEntity.Weight= characterModel.Weight;
-                characterEntity.Height= characterModel.Height;
-                characterEntity.Age= characterModel.Age;
-                characterEntity.Hitpoints= characterModel.Hitpoints;
+                characterEntity.Title = characterModel.Title;
+                characterEntity.Weight = characterModel.Weight;
+                characterEntity.Height = characterModel.Height;
+                characterEntity.Age = characterModel.Age;
+                characterEntity.Hitpoints = characterModel.Hitpoints;
                 characterEntity.Race = characterModel.Race;
                 characterEntity.Alignment = characterModel.Alignment;
-                
+
 
                 // Update one-to-one bindings
                 characterEntity.Abilities = _mapper.Map<CharacterAbilitiesEntity>(characterModel.Abilities);
@@ -186,6 +186,21 @@ namespace CardDesigner.DataAccess.Services
                     CharacterEntity characterEntity = _mapper.Map<CharacterEntity>(character);
                     if (dbContext.Characters.Contains(characterEntity))
                     {
+                        if (dbContext.CasterStats.Contains(characterEntity.CasterStats))
+                        {
+                            dbContext.CasterStats.Remove(characterEntity.CasterStats);
+                        }
+
+                        if (dbContext.CharacterAbilities.Contains(characterEntity.Abilities))
+                        {
+                            dbContext.CharacterAbilities.Remove(characterEntity.Abilities);
+                        }
+
+                        if (dbContext.DeckBackgroundDesigns.Contains(characterEntity.DeckBackgroundDesign))
+                        {
+                            dbContext.DeckBackgroundDesigns.Remove(characterEntity.DeckBackgroundDesign);
+                        }
+
                         dbContext.Characters.Remove(characterEntity);
                         await dbContext.SaveChangesAsync();
                         return true;

@@ -204,6 +204,7 @@
                     AddedItemName="{Binding ItemCardName, Mode=TwoWay}"
                     BorderBrush="Transparent"
                     BorderThickness="0"
+                    DeleteCommand="{Binding DeleteItemCardCommand}"
                     ItemsSource="{Binding AllItemCards, Mode=TwoWay}"
                     Orientation="Horizontal"
                     SaveCommand="{Binding CreateItemCardCommand}"
