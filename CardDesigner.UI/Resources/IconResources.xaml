@@ -18,6 +18,7 @@
 
         <ResourceDictionary Source="Icons/Items/DamageTypes.xaml" />
         <ResourceDictionary Source="Icons/Items/ItemWeights.xaml" />
+        <ResourceDictionary Source="Icons/Items/ItemTypes.xaml" />
         <ResourceDictionary Source="Icons/Items/WeaponTypes.xaml" />
         <ResourceDictionary Source="Icons/Items/EquipmentSlots.xaml" />
 
