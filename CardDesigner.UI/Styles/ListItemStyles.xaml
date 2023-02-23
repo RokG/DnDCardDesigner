@@ -372,11 +372,13 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-
     </Style>
 
+    <!--  Datagrid style  -->
+
     <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="AreRowDetailsFrozen" Value="True" />
+        <Setter Property="HeadersVisibility" Value="All" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -414,7 +416,13 @@
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Foreground" Value="{StaticResource TabItemSelectedFGND}" />
+                <Setter Property="Background" Value="{StaticResource TabItemSelectedBGND}" />
                 <Setter Property="FontWeight" Value="DemiBold" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource TabItemSelectedFGND}" />
+                <Setter Property="Background" Value="{StaticResource TabItemSelectedBGND}" />
+                <Setter Property="Cursor" Value="Hand" />
             </Trigger>
         </Style.Triggers>
     </Style>
