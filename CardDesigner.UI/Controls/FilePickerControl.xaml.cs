@@ -48,20 +48,6 @@ namespace CardDesigner.UI.Controls
                     be.UpdateSource();
                 }
             }
-
-            //using (OpenFileDialog dlg = new OpenFileDialog())
-            //{
-            //    DialogResult result = dlg.ShowDialog();
-            //    if (result == System.Windows.Forms.DialogResult.OK)
-            //    {
-            //        Text = dlg.FileName;
-            //        BindingExpression be = GetBindingExpression(TextProperty);
-            //        if (be != null)
-            //        {
-            //            be.UpdateSource();
-            //        }
-            //    }
-            //}
         }
     }
 }

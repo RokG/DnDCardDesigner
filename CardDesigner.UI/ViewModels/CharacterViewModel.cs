@@ -48,12 +48,6 @@ namespace CardDesigner.UI.ViewModels
         private CharacterClassModel characterClasses;
         #endregion
 
-        #region Actions, Events, Commands
-
-        public ICommand DoNavigateCommand { get; }
-
-        #endregion Actions, Events, Commands
-
         #region Constructor
 
         public CharacterViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
@@ -76,9 +70,12 @@ namespace CardDesigner.UI.ViewModels
 
         #region Private methods
 
-        private void OnNavigatingAway(ViewModelType type)
+        private async void LoadData()
         {
-            SetUnsetDatabaseEvents(false);
+            await _cardDesignerStore.Load();
+
+            AllCharacters = new(_cardDesignerStore.Characters);
+            AllClasses = new(_cardDesignerStore.Classes);
         }
 
         private void SetUnsetDatabaseEvents(bool set)
@@ -108,13 +105,9 @@ namespace CardDesigner.UI.ViewModels
             return viewModel;
         }
 
-        private async void LoadData()
-        {
-            await _cardDesignerStore.Load();
+        #endregion
 
-            AllCharacters = new(_cardDesignerStore.Characters);
-            AllClasses = new(_cardDesignerStore.Classes);
-        }
+        #region Database update methods
 
         private void OnCharacterChanged(CharacterModel character, DataChangeType change)
         {
@@ -134,6 +127,15 @@ namespace CardDesigner.UI.ViewModels
                 default:
                     break;
             }
+        }
+
+        #endregion  
+
+        #region Navigation
+
+        private void OnNavigatingAway(ViewModelType type)
+        {
+            SetUnsetDatabaseEvents(false);
         }
 
         #endregion

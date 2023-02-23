@@ -127,7 +127,7 @@ namespace CardDesigner.Domain.Stores
         {
             CharacterModel createdCharacter = await _characterService.CreateCharacter(character);
             _characters.Add(createdCharacter);
-            CharacterChanged?.Invoke(character, DataChangeType.Created);
+            CharacterChanged?.Invoke(createdCharacter, DataChangeType.Created);
         }
 
         public async Task CreateCardDesign(ICardDesign cardDesignModel)
@@ -206,8 +206,6 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateCharacter(CharacterModel character)
         {
-
-
             if (await _characterService.UpdateCharacter(character) is CharacterModel updatedCharacter)
             {
                 await UpdateCharactersFromDb();
