@@ -354,7 +354,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateSpellDeck))]
         private async void CreateSpellDeck()
         {
-            await _cardDesignerStore.CreateSpellDeck(new SpellDeckModel() { Name = AddedSpellDeckName });
+            await _cardDesignerStore.CreateSpellDeck(new SpellDeckModel() { Name = AddedSpellDeckName, Title = AddedSpellDeckName });
         }
 
         private bool CanCreateSpellDeck()
@@ -413,7 +413,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateItemDeck))]
         private async void CreateItemDeck()
         {
-            await _cardDesignerStore.CreateItemDeck(new ItemDeckModel() { Name = AddedItemDeckName });
+            await _cardDesignerStore.CreateItemDeck(new ItemDeckModel() { Name = AddedItemDeckName, Title = AddedItemDeckName });
         }
 
         private bool CanCreateItemDeck()
@@ -471,7 +471,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateCharacterDeck))]
         private async void CreateCharacterDeck()
         {
-            await _cardDesignerStore.CreateCharacterDeck(new CharacterDeckModel() { Name = AddedCharacterDeckName });
+            await _cardDesignerStore.CreateCharacterDeck(new CharacterDeckModel() { Name = AddedCharacterDeckName, Title = AddedCharacterDeckName });
         }
 
         private bool CanCreateCharacterDeck()
