@@ -5,6 +5,7 @@ using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -50,7 +51,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.SpellCardChanged += OnSpellCardChanged;
+            SetUnsetDatabaseEvents(true);
 
             LoadData();
 
@@ -61,27 +62,22 @@ namespace CardDesigner.UI.ViewModels
         {
             if (_navigationStore != null)
             {
+                if(_navigationStore.UseSelection)
+                {
                 switch (_navigationStore.CurrentViewModel.Type)
                 {
-                    case ViewModelType.Unknown:
-                        return;
                     case ViewModelType.Home:
                         SelectedSpellCard = _navigationStore.SelectedSpellCard;
                         SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
                         return;
-                    case ViewModelType.SpellCardCreator:
-                        return;
-                    case ViewModelType.ItemCardCreator:
-                        return;
-                    case ViewModelType.DeckCreator:
-                        return;
-                    case ViewModelType.CharacterCreator:
-                        return;
-                    case ViewModelType.DeckDesigner:
-                        SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
-                        return;
                     default:
                         break;
+                }
+                }
+                else
+                {
+                    SelectedSpellCard = AllSpellCards.FirstOrDefault();
+                    SelectedSpellDeckDesign = new();
                 }
             }
         }
@@ -89,6 +85,25 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Private methods
+
+        private void OnNavigatingAway(ViewModelType type)
+        {
+            SetUnsetDatabaseEvents(false);
+        }
+
+        private void SetUnsetDatabaseEvents(bool set)
+        {
+            if (set)
+            {
+                _cardDesignerStore.SpellCardChanged += OnSpellCardChanged;
+                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            }
+            else
+            {
+                _cardDesignerStore.SpellCardChanged -= OnSpellCardChanged;
+                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            }
+        }
 
         private async void LoadData()
         {

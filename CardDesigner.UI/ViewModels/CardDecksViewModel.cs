@@ -113,10 +113,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
-            _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
-            _cardDesignerStore.CharacterDeckChanged += OnCharacterDeckChanged;
-            _cardDesignerStore.CharacterChanged += OnCharacterChanged;
+            SetUnsetDatabaseEvents(true);
 
             LoadData();
 
@@ -126,6 +123,31 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Private methods
+
+        private void OnNavigatingAway(ViewModelType type)
+        {
+            SetUnsetDatabaseEvents(false);
+        }
+
+        private void SetUnsetDatabaseEvents(bool set)
+        {
+            if (set)
+            {
+                _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
+                _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
+                _cardDesignerStore.CharacterDeckChanged += OnCharacterDeckChanged;
+                _cardDesignerStore.CharacterChanged += OnCharacterChanged;
+                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            }
+            else
+            {
+                _cardDesignerStore.SpellDeckChanged -= OnSpellDeckChanged;
+                _cardDesignerStore.ItemDeckChanged -= OnItemDeckChanged;
+                _cardDesignerStore.CharacterDeckChanged -= OnCharacterDeckChanged;
+                _cardDesignerStore.CharacterChanged -= OnCharacterChanged;
+                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            }
+        }
 
         private async void LoadData()
         {
@@ -150,45 +172,39 @@ namespace CardDesigner.UI.ViewModels
         {
             if (_navigationStore != null)
             {
-                switch (_navigationStore.CurrentViewModel.Type)
+                if (_navigationStore.UseSelection)
                 {
-                    case ViewModelType.Unknown:
-                        return;
-                    case ViewModelType.Home:
-                        SelectedCharacter = _navigationStore.SelectedCharacter;
-                        switch (_navigationStore.SelectedCardType)
-                        {
-                            case CardType.Spell:
-                                SelectedSpellDeck= _navigationStore.SelectedSpellDeck;
-                                break;
-                            case CardType.Item:
-                                SelectedItemDeck = _navigationStore.SelectedItemDeck;
-                                break;
-                            case CardType.Character:
-                                SelectedCharacterDeck = _navigationStore.SelectedCharacterDeck;
-                                break;
-                            default:
-                                break;
-                        }
-                        return;
-                    case ViewModelType.SpellCardCreator:
-                        return;
-                    case ViewModelType.ItemCardCreator:
-                        return;
-                    case ViewModelType.DeckCreator:
-                        return;
-                    case ViewModelType.CharacterCreator:
-                        return;
-                    case ViewModelType.DeckDesigner:
-                        SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
-                        SelectedItemDeck = _navigationStore.SelectedItemDeck;
-                        return;
-                    default:
-                        break;
+                    switch (_navigationStore.CurrentViewModel.Type)
+                    {
+                        case ViewModelType.Home:
+                            SelectedCharacter = _navigationStore.SelectedCharacter;
+                            switch (_navigationStore.SelectedCardType)
+                            {
+                                case CardType.Spell:
+                                    SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
+                                    break;
+                                case CardType.Item:
+                                    SelectedItemDeck = _navigationStore.SelectedItemDeck;
+                                    break;
+                                case CardType.Character:
+                                    SelectedCharacterDeck = _navigationStore.SelectedCharacterDeck;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
+                    SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
+                    SelectedItemDeck = AllItemDecks.FirstOrDefault();
+                    SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault();
                 }
             }
-            SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
-            SelectedItemDeck = AllItemDecks.FirstOrDefault();
         }
 
         public static CardDecksViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
@@ -338,7 +354,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateSpellDeck))]
         private async void CreateSpellDeck()
         {
-            await _cardDesignerStore.CreateSpellDeck(new SpellDeckModel() { Name = AddedSpellDeckName });
+            await _cardDesignerStore.CreateSpellDeck(new SpellDeckModel() { Name = AddedSpellDeckName, Title = AddedSpellDeckName });
         }
 
         private bool CanCreateSpellDeck()
@@ -397,7 +413,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateItemDeck))]
         private async void CreateItemDeck()
         {
-            await _cardDesignerStore.CreateItemDeck(new ItemDeckModel() { Name = AddedItemDeckName });
+            await _cardDesignerStore.CreateItemDeck(new ItemDeckModel() { Name = AddedItemDeckName, Title = AddedItemDeckName });
         }
 
         private bool CanCreateItemDeck()
@@ -455,7 +471,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateCharacterDeck))]
         private async void CreateCharacterDeck()
         {
-            await _cardDesignerStore.CreateCharacterDeck(new CharacterDeckModel() { Name = AddedCharacterDeckName });
+            await _cardDesignerStore.CreateCharacterDeck(new CharacterDeckModel() { Name = AddedCharacterDeckName, Title = AddedCharacterDeckName });
         }
 
         private bool CanCreateCharacterDeck()

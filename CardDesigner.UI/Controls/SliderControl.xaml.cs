@@ -1,18 +1,5 @@
-﻿using CardDesigner.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CardDesigner.UI.Controls
 {
@@ -28,8 +15,8 @@ namespace CardDesigner.UI.Controls
 
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (double)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         public static readonly DependencyProperty ValueProperty =
@@ -37,8 +24,8 @@ namespace CardDesigner.UI.Controls
 
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get => (string)GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
         }
 
         public static readonly DependencyProperty TitleProperty =
@@ -46,8 +33,8 @@ namespace CardDesigner.UI.Controls
 
         public object SelectedValueType
         {
-            get { return (object)GetValue(SelectedValueTypeProperty); }
-            set { SetValue(SelectedValueTypeProperty, value); }
+            get => GetValue(SelectedValueTypeProperty);
+            set => SetValue(SelectedValueTypeProperty, value);
         }
 
         public static readonly DependencyProperty SelectedValueTypeProperty =
@@ -55,16 +42,16 @@ namespace CardDesigner.UI.Controls
 
         public object ValueTypes
         {
-            get { return (object)GetValue(ValueTypesProperty); }
-            set { SetValue(ValueTypesProperty, value); }
+            get => GetValue(ValueTypesProperty);
+            set => SetValue(ValueTypesProperty, value);
         }
         public static readonly DependencyProperty ValueTypesProperty =
             DependencyProperty.Register(nameof(ValueTypes), typeof(object), typeof(SliderControl), new PropertyMetadata(null));
-        
+
         public object SelectedUnitType
         {
-            get { return (object)GetValue(SelectedUnitTypeProperty); }
-            set { SetValue(SelectedUnitTypeProperty, value); }
+            get => GetValue(SelectedUnitTypeProperty);
+            set => SetValue(SelectedUnitTypeProperty, value);
         }
 
         public static readonly DependencyProperty SelectedUnitTypeProperty =
@@ -73,8 +60,8 @@ namespace CardDesigner.UI.Controls
 
         public object UnitTypes
         {
-            get { return (object)GetValue(UnitTypesProperty); }
-            set { SetValue(UnitTypesProperty, value); }
+            get => GetValue(UnitTypesProperty);
+            set => SetValue(UnitTypesProperty, value);
         }
         public static readonly DependencyProperty UnitTypesProperty =
             DependencyProperty.Register(nameof(UnitTypes), typeof(object), typeof(SliderControl), new PropertyMetadata(null));

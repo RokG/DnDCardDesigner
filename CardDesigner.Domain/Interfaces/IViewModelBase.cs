@@ -1,5 +1,4 @@
 ﻿using CardDesigner.Domain.Enums;
-using System.ComponentModel;
 
 namespace CardDesigner.Domain.Interfaces
 {

@@ -1,6 +1,4 @@
-﻿using CardDesigner.Domain.Enums;
-
-namespace CardDesigner.Domain.Models
+﻿namespace CardDesigner.Domain.Models
 {
     public interface ICard
     {

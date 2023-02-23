@@ -81,7 +81,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.ItemCardChanged += OnItemCardChanged;
+            SetUnsetDatabaseEvents(true);
 
             LoadData();
 
@@ -91,32 +91,46 @@ namespace CardDesigner.UI.ViewModels
             SetSelectionFromNavigation();
         }
 
+        private void OnNavigatingAway(ViewModelType type)
+        {
+            SetUnsetDatabaseEvents(false);
+        }
+
+        private void SetUnsetDatabaseEvents(bool set)
+        {
+            if (set)
+            {
+                _cardDesignerStore.ItemCardChanged += OnItemCardChanged;
+                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            }
+            else
+            {
+                _cardDesignerStore.ItemCardChanged -= OnItemCardChanged;
+                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            }
+        }
+
         private void SetSelectionFromNavigation()
         {
             if (_navigationStore != null)
             {
-                switch (_navigationStore.CurrentViewModel.Type)
-                {
-                    case ViewModelType.Unknown:
-                        return;
-                    case ViewModelType.Home:
-                        SelectedItemCard = _navigationStore.SelectedItemCard;
-                        SelectedItemDeckDesign= _navigationStore.SelectedItemDeckDesign;
-                        return;
-                    case ViewModelType.SpellCardCreator:
-                        return;
-                    case ViewModelType.ItemCardCreator:
-                        return;
-                    case ViewModelType.DeckCreator:
-                        return;
-                    case ViewModelType.CharacterCreator:
-                        return;
-                    case ViewModelType.DeckDesigner:
-                        SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
-                        return;
-                    default:
-                        break;
-                }
+                    if (_navigationStore.UseSelection)
+                    {
+                        switch (_navigationStore.CurrentViewModel.Type)
+                        {
+                            case ViewModelType.Home:
+                                SelectedItemCard = _navigationStore.SelectedItemCard;
+                                SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                                return;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        SelectedItemCard = AllItemCards.FirstOrDefault();
+                        SelectedItemDeckDesign = new();
+                    }
             }
         }
 

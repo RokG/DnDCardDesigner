@@ -1,6 +1,4 @@
 ﻿using CardDesigner.Domain.HelperModels;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,8 +16,8 @@ namespace CardDesigner.UI.Controls
 
         public string AbilityName
         {
-            get { return (string)GetValue(AbilityNameProperty); }
-            set { SetValue(AbilityNameProperty, value); }
+            get => (string)GetValue(AbilityNameProperty);
+            set => SetValue(AbilityNameProperty, value);
         }
 
         public static readonly DependencyProperty AbilityNameProperty =
@@ -36,8 +34,8 @@ namespace CardDesigner.UI.Controls
 
         public bool SwitchAbilityValueBonus
         {
-            get { return (bool)GetValue(SwitchAbilityValueBonusProperty); }
-            set { SetValue(SwitchAbilityValueBonusProperty, value); }
+            get => (bool)GetValue(SwitchAbilityValueBonusProperty);
+            set => SetValue(SwitchAbilityValueBonusProperty, value);
         }
 
         public static readonly DependencyProperty SwitchAbilityValueBonusProperty =

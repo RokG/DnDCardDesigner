@@ -364,6 +364,7 @@ namespace CardDesigner.UI.ViewModels
             }
             _navigationStore.SelectedCharacter = SelectedCharacter;
             _navigationStore.SelectedCardType = selectedCardType;
+            //_navigationStore.CurrentViewModel = ViewModelType.DeckDesigner;
             _navigationStore.NavigateTo(ViewModelType.DeckDesigner);
         }
 

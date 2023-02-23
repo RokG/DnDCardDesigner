@@ -1,7 +1,6 @@
 ﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CardDesigner.Domain.Models
 {

@@ -3,7 +3,7 @@
       "ID": "head1",
       "Name": "Spiky helm",
       "EquipmentSlot": "Head",
-      "ArmourType": "Medium",
+      "ArmourType": "Light",
       "ArmourClass": "12"
     },
     {
@@ -17,7 +17,7 @@
       "ID": "head3",
       "Name": "Hat",
       "EquipmentSlot": "Head",
-      "ArmourType": "Medium",
+      "ArmourType": "Heavy",
       "ArmourClass": "12"
     }
   ]

@@ -2,7 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Viewbox x:Key="Square">
+    <Viewbox x:Key="Square"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -30,7 +31,8 @@
         </Canvas>
     </Viewbox>
 
-    <Viewbox x:Key="Sphere">
+    <Viewbox x:Key="Sphere"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -58,7 +60,8 @@
         </Canvas>
     </Viewbox>
 
-    <Viewbox x:Key="Line">
+    <Viewbox x:Key="Line"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -86,7 +89,8 @@
         </Canvas>
     </Viewbox>
 
-    <Viewbox x:Key="Cone">
+    <Viewbox x:Key="Cone"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">

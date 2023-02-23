@@ -160,12 +160,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.CharacterChanged += OnCharacterChanged;
-            _cardDesignerStore.SpellDeckDesignChanged += OnSpellDeckDesignChanged;
-            _cardDesignerStore.ItemDeckDesignChanged += OnItemDeckDesignChanged;
-            _cardDesignerStore.DeckBackgroundDesignChanged += OnCharacterDeckDesignChanged;
-
-            _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            SetUnsetDatabaseEvents(true);
 
             LoadData();
 
@@ -194,60 +189,71 @@ namespace CardDesigner.UI.ViewModels
             SetSelectionFromNavigation();
         }
 
+        private void SetUnsetDatabaseEvents(bool set)
+        {
+            if (set)
+            {
+                _cardDesignerStore.CharacterChanged += OnCharacterChanged;
+                _cardDesignerStore.SpellDeckDesignChanged += OnSpellDeckDesignChanged;
+                _cardDesignerStore.ItemDeckDesignChanged += OnItemDeckDesignChanged;
+                _cardDesignerStore.DeckBackgroundDesignChanged += OnCharacterDeckDesignChanged;
+                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            }
+            else
+            {
+                _cardDesignerStore.CharacterChanged -= OnCharacterChanged;
+                _cardDesignerStore.SpellDeckDesignChanged -= OnSpellDeckDesignChanged;
+                _cardDesignerStore.ItemDeckDesignChanged -= OnItemDeckDesignChanged;
+                _cardDesignerStore.DeckBackgroundDesignChanged -= OnCharacterDeckDesignChanged;
+                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            }
+        }
+
         private void SetSelectionFromNavigation()
         {
             if (_navigationStore != null)
             {
-                switch (_navigationStore.CurrentViewModel.Type)
+                if (_navigationStore.UseSelection)
                 {
-                    case ViewModelType.Unknown:
-                        return;
-                    case ViewModelType.Home:
-                        SelectedCharacter = _navigationStore.SelectedCharacter;
-                        switch (_navigationStore.SelectedCardType)
-                        {
-                            case CardType.Spell:
-                                TestSpellCard = _navigationStore.SelectedSpellCard;
-                                SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
-                                SelectedTabItem = 2;
-                                break;
-                            case CardType.Item:
-                                TestItemCard = _navigationStore.SelectedItemCard;
-                                SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
-                                SelectedTabItem = 3;
-                                break;
-                            case CardType.Character:
-                                TestCharacterCard = _navigationStore.SelectedCharacterCard;
-                                SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
-                                SelectedTabItem = 1;
-                                break;
-                            default:
-                                break;
-                        }
-                        return;
-                    case ViewModelType.SpellCardCreator:
-                        return;
-                    case ViewModelType.ItemCardCreator:
-                        return;
-                    case ViewModelType.DeckCreator:
-                        return;
-                    case ViewModelType.CharacterCreator:
-                        return;
-                    case ViewModelType.DeckDesigner:
-                        return;
-                    default:
-                        break;
+                    switch (_navigationStore.CurrentViewModel.Type)
+                    {
+                        case ViewModelType.Home:
+                            SelectedCharacter = _navigationStore.SelectedCharacter;
+                            switch (_navigationStore.SelectedCardType)
+                            {
+                                case CardType.Spell:
+                                    TestSpellCard = _navigationStore.SelectedSpellCard;
+                                    SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
+                                    SelectedTabItem = 2;
+                                    break;
+                                case CardType.Item:
+                                    TestItemCard = _navigationStore.SelectedItemCard;
+                                    SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                                    SelectedTabItem = 3;
+                                    break;
+                                case CardType.Character:
+                                    TestCharacterCard = _navigationStore.SelectedCharacterCard;
+                                    SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
+                                    SelectedTabItem = 1;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
                 }
             }
         }
 
         private void OnNavigatingAway(ViewModelType type)
         {
-            _navigationStore.SelectedItemDeck = SelectedItemDeck;
-            _navigationStore.SelectedSpellDeck = SelectedSpellDeck;
-            _navigationStore.SelectedItemDeckDesign = SelectedItemDeckDesign;
-            _navigationStore.SelectedCharacterDeckDesign = SelectedCharacterDeckDesign;
-            _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            SetUnsetDatabaseEvents(false);
         }
 
         #endregion
@@ -259,16 +265,16 @@ namespace CardDesigner.UI.ViewModels
             switch (change)
             {
                 case DataChangeType.Created:
-                    AllItemDeckDesigns.Remove(itemDeckDesign);
-                    SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault();
+                    AllItemDeckDesigns.Add(itemDeckDesign);
+                    SelectedItemDeckDesign = itemDeckDesign;
                     break;
                 case DataChangeType.Removed:
                     break;
                 case DataChangeType.Updated:
                     break;
                 case DataChangeType.Deleted:
-                    AllItemDeckDesigns.Add(itemDeckDesign);
-                    SelectedItemDeckDesign = itemDeckDesign;
+                    AllItemDeckDesigns.Remove(itemDeckDesign);
+                    SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault();
                     break;
                 default:
                     break;
@@ -396,7 +402,7 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
 
         }
-        
+
         [RelayCommand(CanExecute = nameof(CanCreateCharacterDeckDesign))]
         private async void CreateCharacterDeckDesign()
         {
@@ -408,7 +414,7 @@ namespace CardDesigner.UI.ViewModels
         {
             await _cardDesignerStore.UpdateCardDesign(SelectedCharacterDeckDesign);
         }
-        
+
         [RelayCommand]
         private async void DeleteCharacterDeckDesign()
         {
@@ -423,7 +429,7 @@ namespace CardDesigner.UI.ViewModels
         {
             return SelectedCharacter != null && SelectedItemDeckDesign != null && SelectedItemDeck != null;
         }
-        
+
         private bool CanCreateItemDeckDesign()
         {
             bool noName = (AddedItemDeckDesignName == string.Empty || AddedItemDeckDesignName == null);
@@ -532,7 +538,7 @@ namespace CardDesigner.UI.ViewModels
             }
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
-        
+
         [RelayCommand(CanExecute = nameof(CanCreateDeckBackgroundDesign))]
         private async void CreateDeckBackgroundDesign()
         {

@@ -62,7 +62,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.CharacterCardChanged += OnCharacterCardChanged;
+            SetUnsetDatabaseEvents(true);
 
             LoadData();
 
@@ -72,27 +72,23 @@ namespace CardDesigner.UI.ViewModels
         {
             if (_navigationStore != null)
             {
-                switch (_navigationStore.CurrentViewModel.Type)
+                if (_navigationStore.UseSelection)
                 {
-                    case ViewModelType.Unknown:
-                        return;
-                    case ViewModelType.Home:
-                        SelectedCharacterCard = _navigationStore.SelectedCharacterCard;
-                        SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
-                        return;
-                    case ViewModelType.CharacterCardCreator:
-                        return;
-                    case ViewModelType.ItemCardCreator:
-                        return;
-                    case ViewModelType.DeckCreator:
-                        return;
-                    case ViewModelType.CharacterCreator:
-                        return;
-                    case ViewModelType.DeckDesigner:
-                        SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
-                        return;
-                    default:
-                        break;
+                    switch (_navigationStore.CurrentViewModel.Type)
+                    {
+                        case ViewModelType.Home:
+                            SelectedCharacterCard = _navigationStore.SelectedCharacterCard;
+                            SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
+                            return;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
+                    SelectedCharacterCard = AllCharacterCards.FirstOrDefault();
+                    SelectedCharacterDeckDesign = new();
                 }
             }
         }
@@ -113,6 +109,25 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Private methods
+
+        private void OnNavigatingAway(ViewModelType type)
+        {
+            SetUnsetDatabaseEvents(false);
+        }
+
+        private void SetUnsetDatabaseEvents(bool set)
+        {
+            if (set)
+            {
+                _cardDesignerStore.CharacterCardChanged += OnCharacterCardChanged;
+                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            }
+            else
+            {
+                _cardDesignerStore.CharacterCardChanged -= OnCharacterCardChanged;
+                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            }
+        }
 
         private async void LoadData()
         {
