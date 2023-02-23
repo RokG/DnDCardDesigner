@@ -81,7 +81,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.ItemCardChanged += OnItemCardChanged;
+            SetUnsetDatabaseEvents(true);
 
             LoadData();
 
@@ -89,6 +89,25 @@ namespace CardDesigner.UI.ViewModels
             allWeaponsCollectionView = CollectionViewSource.GetDefaultView(AllWeapons);
 
             SetSelectionFromNavigation();
+        }
+
+        private void OnNavigatingAway(ViewModelType type)
+        {
+            SetUnsetDatabaseEvents(false);
+        }
+
+        private void SetUnsetDatabaseEvents(bool set)
+        {
+            if (set)
+            {
+                _cardDesignerStore.ItemCardChanged += OnItemCardChanged;
+                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            }
+            else
+            {
+                _cardDesignerStore.ItemCardChanged -= OnItemCardChanged;
+                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            }
         }
 
         private void SetSelectionFromNavigation()

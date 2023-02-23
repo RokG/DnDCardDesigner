@@ -48,34 +48,37 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private void ChangeViewModel(ViewModelType viewModelType)
         {
-            switch (viewModelType)
+            if (viewModelType != CurrentViewModel?.Type)
             {
-                case ViewModelType.Home:
-                    CurrentViewModel = new HomeViewModel(_cardDesignerStore, _navigationStore);
-                    break;
-                case ViewModelType.SpellCardCreator:
-                    CurrentViewModel = new SpellCardViewModel(_cardDesignerStore, _navigationStore);
-                    break;
-                case ViewModelType.CharacterCardCreator:
-                    CurrentViewModel = new CharacterCardViewModel(_cardDesignerStore, _navigationStore);
-                    break;
-                case ViewModelType.ItemCardCreator:
-                    CurrentViewModel = new ItemCardViewModel(_cardDesignerStore, _navigationStore);
-                    break;
-                case ViewModelType.DeckCreator:
-                    CurrentViewModel = new CardDecksViewModel(_cardDesignerStore, _navigationStore);
-                    break;
-                case ViewModelType.CharacterCreator:
-                    CurrentViewModel = new CharacterViewModel(_cardDesignerStore, _navigationStore);
-                    break;
-                case ViewModelType.DeckDesigner:
-                    CurrentViewModel = new DeckDesignViewModel(_cardDesignerStore, _navigationStore);
-                    break;
-                default:
-                    break;
+                _navigationStore.CurrentViewModel = CurrentViewModel;
+                switch (viewModelType)
+                {
+                    case ViewModelType.Home:
+                        CurrentViewModel = new HomeViewModel(_cardDesignerStore, _navigationStore);
+                        break;
+                    case ViewModelType.SpellCardCreator:
+                        CurrentViewModel = new SpellCardViewModel(_cardDesignerStore, _navigationStore);
+                        break;
+                    case ViewModelType.CharacterCardCreator:
+                        CurrentViewModel = new CharacterCardViewModel(_cardDesignerStore, _navigationStore);
+                        break;
+                    case ViewModelType.ItemCardCreator:
+                        CurrentViewModel = new ItemCardViewModel(_cardDesignerStore, _navigationStore);
+                        break;
+                    case ViewModelType.DeckCreator:
+                        CurrentViewModel = new CardDecksViewModel(_cardDesignerStore, _navigationStore);
+                        break;
+                    case ViewModelType.CharacterCreator:
+                        CurrentViewModel = new CharacterViewModel(_cardDesignerStore, _navigationStore);
+                        break;
+                    case ViewModelType.DeckDesigner:
+                        CurrentViewModel = new DeckDesignViewModel(_cardDesignerStore, _navigationStore);
+                        break;
+                    default:
+                        break;
+                }
+                _navigationStore.UseSelection = false;
             }
-            _navigationStore.CurrentViewModel = CurrentViewModel;
-            _navigationStore.UseSelection = false;
         }
 
         #endregion

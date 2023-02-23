@@ -28,7 +28,15 @@ namespace CardDesigner.Domain.Stores
         public IViewModelBase CurrentViewModel
         {
             get => _currentViewModel;
-            set => _currentViewModel = value;
+            set
+            {
+                if (_currentViewModel != value)
+                {
+                    _currentViewModel = value;
+                    CurrentViewModelChanged?.Invoke(_currentViewModel.Type);
+                }
+            }
+            //set => _currentViewModel = value;
         }
 
         public void NavigateTo(ViewModelType type)

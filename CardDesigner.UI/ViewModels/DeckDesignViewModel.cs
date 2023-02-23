@@ -160,12 +160,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.CharacterChanged += OnCharacterChanged;
-            _cardDesignerStore.SpellDeckDesignChanged += OnSpellDeckDesignChanged;
-            _cardDesignerStore.ItemDeckDesignChanged += OnItemDeckDesignChanged;
-            _cardDesignerStore.DeckBackgroundDesignChanged += OnCharacterDeckDesignChanged;
-
-            _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            SetUnsetDatabaseEvents(true);
 
             LoadData();
 
@@ -192,6 +187,26 @@ namespace CardDesigner.UI.ViewModels
             SelectedCharacter = AllCharacters.FirstOrDefault();
 
             SetSelectionFromNavigation();
+        }
+
+        private void SetUnsetDatabaseEvents(bool set)
+        {
+            if (set)
+            {
+                _cardDesignerStore.CharacterChanged += OnCharacterChanged;
+                _cardDesignerStore.SpellDeckDesignChanged += OnSpellDeckDesignChanged;
+                _cardDesignerStore.ItemDeckDesignChanged += OnItemDeckDesignChanged;
+                _cardDesignerStore.DeckBackgroundDesignChanged += OnCharacterDeckDesignChanged;
+                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            }
+            else
+            {
+                _cardDesignerStore.CharacterChanged -= OnCharacterChanged;
+                _cardDesignerStore.SpellDeckDesignChanged -= OnSpellDeckDesignChanged;
+                _cardDesignerStore.ItemDeckDesignChanged -= OnItemDeckDesignChanged;
+                _cardDesignerStore.DeckBackgroundDesignChanged -= OnCharacterDeckDesignChanged;
+                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            }
         }
 
         private void SetSelectionFromNavigation()
@@ -238,11 +253,7 @@ namespace CardDesigner.UI.ViewModels
 
         private void OnNavigatingAway(ViewModelType type)
         {
-            _navigationStore.SelectedItemDeck = SelectedItemDeck;
-            _navigationStore.SelectedSpellDeck = SelectedSpellDeck;
-            _navigationStore.SelectedItemDeckDesign = SelectedItemDeckDesign;
-            _navigationStore.SelectedCharacterDeckDesign = SelectedCharacterDeckDesign;
-            _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            SetUnsetDatabaseEvents(false);
         }
 
         #endregion

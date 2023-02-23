@@ -113,10 +113,7 @@ namespace CardDesigner.UI.ViewModels
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
 
-            _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
-            _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
-            _cardDesignerStore.CharacterDeckChanged += OnCharacterDeckChanged;
-            _cardDesignerStore.CharacterChanged += OnCharacterChanged;
+            SetUnsetDatabaseEvents(true);
 
             LoadData();
 
@@ -126,6 +123,31 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Private methods
+
+        private void OnNavigatingAway(ViewModelType type)
+        {
+            SetUnsetDatabaseEvents(false);
+        }
+
+        private void SetUnsetDatabaseEvents(bool set)
+        {
+            if (set)
+            {
+                _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
+                _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
+                _cardDesignerStore.CharacterDeckChanged += OnCharacterDeckChanged;
+                _cardDesignerStore.CharacterChanged += OnCharacterChanged;
+                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            }
+            else
+            {
+                _cardDesignerStore.SpellDeckChanged -= OnSpellDeckChanged;
+                _cardDesignerStore.ItemDeckChanged -= OnItemDeckChanged;
+                _cardDesignerStore.CharacterDeckChanged -= OnCharacterDeckChanged;
+                _cardDesignerStore.CharacterChanged -= OnCharacterChanged;
+                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            }
+        }
 
         private async void LoadData()
         {
