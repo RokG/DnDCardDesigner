@@ -166,8 +166,6 @@ namespace CardDesigner.UI.ViewModels
 
         #region Database update methods
 
-
-
         private void OnItemCardChanged(ItemCardModel itemCard, DataChangeType change)
         {
             switch (change)
@@ -175,6 +173,10 @@ namespace CardDesigner.UI.ViewModels
                 case DataChangeType.Created:
                     AllItemCards.Add(itemCard);
                     SelectedItemCard = itemCard;
+                    break;
+                case DataChangeType.Deleted:
+                    AllItemCards.Remove(itemCard);
+                    SelectedItemCard = AllItemCards.FirstOrDefault();
                     break;
                 default:
                     break;
@@ -256,6 +258,12 @@ namespace CardDesigner.UI.ViewModels
         {
             SelectedItemCard.ItemID = SelectedItemCard.Item?.ID;
             await _cardDesignerStore.UpdateItemCard(SelectedItemCard);
+        }
+
+        [RelayCommand]
+        private async void DeleteItemCard()
+        {
+            await _cardDesignerStore.DeleteItemCard(SelectedItemCard);
         }
 
         #endregion

@@ -173,6 +173,12 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.UpdateSpellCard(SelectedSpellCard);
         }
 
+        [RelayCommand]
+        private async void DeleteSpellCard()
+        {
+            await _cardDesignerStore.DeleteSpellCard(SelectedSpellCard);
+        }
+
         #endregion
     }
 }
