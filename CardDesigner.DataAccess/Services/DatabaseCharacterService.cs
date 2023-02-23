@@ -47,6 +47,15 @@ namespace CardDesigner.DataAccess.Services
                     .Include(c => c.Classes)
                     .Single(c => c.ID == characterModel.ID);
 
+                characterEntity.Title= characterModel.Title;
+                characterEntity.Weight= characterModel.Weight;
+                characterEntity.Height= characterModel.Height;
+                characterEntity.Age= characterModel.Age;
+                characterEntity.Hitpoints= characterModel.Hitpoints;
+                characterEntity.Race = characterModel.Race;
+                characterEntity.Alignment = characterModel.Alignment;
+                
+
                 // Update one-to-one bindings
                 characterEntity.Abilities = _mapper.Map<CharacterAbilitiesEntity>(characterModel.Abilities);
                 characterEntity.CasterStats = _mapper.Map<CasterStatsEntity>(characterModel.CasterStats);
