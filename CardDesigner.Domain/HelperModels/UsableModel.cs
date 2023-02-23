@@ -1,8 +1,9 @@
 ﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Models;
 
 namespace CardDesigner.Domain.HelperModels
 {
-    public class UsableModel
+    public class UsableModel : IItem
     {
         public string ID { get; set; }
         public string Name { get; set; }

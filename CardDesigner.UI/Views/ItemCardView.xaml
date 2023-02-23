@@ -10,6 +10,8 @@
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
+
+        <!--  Armour tempalte  -->
         <ControlTemplate x:Key="ArmourTemplate">
             <DockPanel>
                 <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
@@ -45,7 +47,7 @@
             </DockPanel>
         </ControlTemplate>
 
-        <!--  Templates  -->
+        <!--  Weapon template  -->
         <ControlTemplate x:Key="WeaponTemplate">
             <DockPanel>
                 <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
@@ -91,6 +93,122 @@
                             Width="*"
                             Binding="{Binding DamageModifier, StringFormat='{}+{0}'}"
                             Header="Modifier" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </ControlTemplate>
+
+        <!--  Usable template  -->
+        <ControlTemplate x:Key="UsablesTemplate">
+            <DockPanel>
+                <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
+                    Background="{StaticResource TabItemNormalBGND}"
+                    BorderBrush="{StaticResource TabItemSelectedFGND}"
+                    BorderThickness="1"
+                    DockPanel.Dock="Top"
+                    InputText="{Binding DataContext.UsableSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    PlaceholderText="Search.." />
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    ItemsSource="{Binding DataContext.AllUsablesCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Name}"
+                            Header="Name" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Uses}"
+                            Header="Uses" />
+                        <DataGridTemplateColumn
+                            Width="*"
+                            Header="Use cost">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>
+                                            <Run Text="{Binding UseTimeValue}" />
+                                            <Run Text="{Binding UseTimeType}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </ControlTemplate>
+
+        <!--  Consumables template  -->
+        <ControlTemplate x:Key="ConsumablesTemplate">
+            <DockPanel>
+                <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
+                    Background="{StaticResource TabItemNormalBGND}"
+                    BorderBrush="{StaticResource TabItemSelectedFGND}"
+                    BorderThickness="1"
+                    DockPanel.Dock="Top"
+                    InputText="{Binding DataContext.ConsumableSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    PlaceholderText="Search.." />
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    ItemsSource="{Binding DataContext.AllConsumablesCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Name}"
+                            Header="Name" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Doses}"
+                            Header="Doses" />
+                        <DataGridTemplateColumn
+                            Width="*"
+                            Header="Use cost">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>
+                                            <Run Text="{Binding UseTimeValue}" />
+                                            <Run Text="{Binding UseTimeType}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </ControlTemplate>
+
+        <!--  Clothing template  -->
+        <ControlTemplate x:Key="ClothingTemplate">
+            <DockPanel>
+                <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
+                    Background="{StaticResource TabItemNormalBGND}"
+                    BorderBrush="{StaticResource TabItemSelectedFGND}"
+                    BorderThickness="1"
+                    DockPanel.Dock="Top"
+                    InputText="{Binding DataContext.ClothingSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    PlaceholderText="Search.." />
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    ItemsSource="{Binding DataContext.AllClothingCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Name}"
+                            Header="Name" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding ArmourType}"
+                            Header="Type" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding EquipmentSlot}"
+                            Header="Slot" />
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
@@ -212,6 +330,21 @@
                                                             Binding="{Binding}"
                                                             Value="Weapon">
                                                             <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Usable">
+                                                            <Setter Property="Template" Value="{StaticResource UsablesTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Clothing">
+                                                            <Setter Property="Template" Value="{StaticResource ClothingTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Consumable">
+                                                            <Setter Property="Template" Value="{StaticResource ConsumablesTemplate}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
