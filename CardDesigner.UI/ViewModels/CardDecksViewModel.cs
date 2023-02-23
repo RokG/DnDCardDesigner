@@ -12,7 +12,6 @@ namespace CardDesigner.UI.ViewModels
 {
     public partial class CardDecksViewModel : ViewModelBase
     {
-
         #region Private fields
 
         private readonly CardDesignerStore _cardDesignerStore;
@@ -124,31 +123,6 @@ namespace CardDesigner.UI.ViewModels
 
         #region Private methods
 
-        private void OnNavigatingAway(ViewModelType type)
-        {
-            SetUnsetDatabaseEvents(false);
-        }
-
-        private void SetUnsetDatabaseEvents(bool set)
-        {
-            if (set)
-            {
-                _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
-                _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
-                _cardDesignerStore.CharacterDeckChanged += OnCharacterDeckChanged;
-                _cardDesignerStore.CharacterChanged += OnCharacterChanged;
-                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
-            }
-            else
-            {
-                _cardDesignerStore.SpellDeckChanged -= OnSpellDeckChanged;
-                _cardDesignerStore.ItemDeckChanged -= OnItemDeckChanged;
-                _cardDesignerStore.CharacterDeckChanged -= OnCharacterDeckChanged;
-                _cardDesignerStore.CharacterChanged -= OnCharacterChanged;
-                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
-            }
-        }
-
         private async void LoadData()
         {
             await _cardDesignerStore.Load();
@@ -166,53 +140,6 @@ namespace CardDesigner.UI.ViewModels
             SelectedItemDeck = AllItemDecks.FirstOrDefault();
             SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault();
             SelectedCharacter = AllCharacters.FirstOrDefault();
-        }
-
-        private void SetSelectionFromNavigation()
-        {
-            if (_navigationStore != null)
-            {
-                if (_navigationStore.UseSelection)
-                {
-                    switch (_navigationStore.CurrentViewModel.Type)
-                    {
-                        case ViewModelType.Home:
-                            SelectedCharacter = _navigationStore.SelectedCharacter;
-                            switch (_navigationStore.SelectedCardType)
-                            {
-                                case CardType.Spell:
-                                    SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
-                                    break;
-                                case CardType.Item:
-                                    SelectedItemDeck = _navigationStore.SelectedItemDeck;
-                                    break;
-                                case CardType.Character:
-                                    SelectedCharacterDeck = _navigationStore.SelectedCharacterDeck;
-                                    break;
-                                default:
-                                    break;
-                            }
-                            return;
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    SelectedCharacter = AllCharacters.FirstOrDefault();
-                    SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
-                    SelectedItemDeck = AllItemDecks.FirstOrDefault();
-                    SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault();
-                }
-            }
-        }
-
-        public static CardDecksViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
-        {
-            CardDecksViewModel viewModel = new(cardDesignerStore, navigationStore);
-            viewModel.LoadData();
-
-            return viewModel;
         }
 
         private void GetCharacterSpellDecks()
@@ -253,7 +180,39 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
 
+        #region Public methods
+
+        public static CardDecksViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        {
+            CardDecksViewModel viewModel = new(cardDesignerStore, navigationStore);
+            viewModel.LoadData();
+
+            return viewModel;
+        }
+
+        #endregion
+
         #region Database update methods
+
+        private void SetUnsetDatabaseEvents(bool set)
+        {
+            if (set)
+            {
+                _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
+                _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
+                _cardDesignerStore.CharacterDeckChanged += OnCharacterDeckChanged;
+                _cardDesignerStore.CharacterChanged += OnCharacterChanged;
+                _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
+            }
+            else
+            {
+                _cardDesignerStore.SpellDeckChanged -= OnSpellDeckChanged;
+                _cardDesignerStore.ItemDeckChanged -= OnItemDeckChanged;
+                _cardDesignerStore.CharacterDeckChanged -= OnCharacterDeckChanged;
+                _cardDesignerStore.CharacterChanged -= OnCharacterChanged;
+                _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
+            }
+        }
 
         private void OnCharacterChanged(CharacterModel characterModel, DataChangeType change)
         {
@@ -343,6 +302,54 @@ namespace CardDesigner.UI.ViewModels
             GetCharacterSpellDecks();
             GetCharacterItemDecks();
             GetCharacterCharacterDecks();
+        }
+
+        #endregion
+
+        #region Navigation
+
+        private void SetSelectionFromNavigation()
+        {
+            if (_navigationStore != null)
+            {
+                if (_navigationStore.UseSelection)
+                {
+                    switch (_navigationStore.CurrentViewModel.Type)
+                    {
+                        case ViewModelType.Home:
+                            SelectedCharacter = _navigationStore.SelectedCharacter;
+                            switch (_navigationStore.SelectedCardType)
+                            {
+                                case CardType.Spell:
+                                    SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
+                                    break;
+                                case CardType.Item:
+                                    SelectedItemDeck = _navigationStore.SelectedItemDeck;
+                                    break;
+                                case CardType.Character:
+                                    SelectedCharacterDeck = _navigationStore.SelectedCharacterDeck;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    SelectedCharacter = AllCharacters.FirstOrDefault();
+                    SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
+                    SelectedItemDeck = AllItemDecks.FirstOrDefault();
+                    SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault();
+                }
+            }
+        }
+
+        private void OnNavigatingAway(ViewModelType type)
+        {
+            SetUnsetDatabaseEvents(false);
         }
 
         #endregion

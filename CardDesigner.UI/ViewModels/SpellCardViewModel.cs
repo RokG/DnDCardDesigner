@@ -5,7 +5,6 @@ using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -58,37 +57,17 @@ namespace CardDesigner.UI.ViewModels
             SetSelectionFromNavigation();
         }
 
-        private void SetSelectionFromNavigation()
-        {
-            if (_navigationStore != null)
-            {
-                if(_navigationStore.UseSelection)
-                {
-                switch (_navigationStore.CurrentViewModel.Type)
-                {
-                    case ViewModelType.Home:
-                        SelectedSpellCard = _navigationStore.SelectedSpellCard;
-                        SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
-                        return;
-                    default:
-                        break;
-                }
-                }
-                else
-                {
-                    SelectedSpellCard = AllSpellCards.FirstOrDefault();
-                    SelectedSpellDeckDesign = new();
-                }
-            }
-        }
-
         #endregion
 
         #region Private methods
 
-        private void OnNavigatingAway(ViewModelType type)
+        private async void LoadData()
         {
-            SetUnsetDatabaseEvents(false);
+            await _cardDesignerStore.Load();
+
+            AllSpellCards = new(_cardDesignerStore.SpellCards);
+
+            SelectedSpellCard = AllSpellCards.FirstOrDefault();
         }
 
         private void SetUnsetDatabaseEvents(bool set)
@@ -105,14 +84,21 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
-        private async void LoadData()
+        #endregion
+
+        #region Public methods
+
+        public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
-            await _cardDesignerStore.Load();
+            SpellCardViewModel viewModel = new(cardDesignerStore, navigationStore);
+            viewModel.LoadData();
 
-            AllSpellCards = new(_cardDesignerStore.SpellCards);
-
-            SelectedSpellCard = AllSpellCards.FirstOrDefault();
+            return viewModel;
         }
+
+        #endregion
+
+        #region Database update methods
 
         private void OnSpellCardChanged(SpellCardModel spellCard, DataChangeType change)
         {
@@ -133,14 +119,35 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
 
-        #region Public methods
+        #region Navigation
 
-        public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        private void SetSelectionFromNavigation()
         {
-            SpellCardViewModel viewModel = new(cardDesignerStore, navigationStore);
-            viewModel.LoadData();
+            if (_navigationStore != null)
+            {
+                if (_navigationStore.UseSelection)
+                {
+                    switch (_navigationStore.CurrentViewModel.Type)
+                    {
+                        case ViewModelType.Home:
+                            SelectedSpellCard = _navigationStore.SelectedSpellCard;
+                            SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
+                            return;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    SelectedSpellCard = AllSpellCards.FirstOrDefault();
+                    SelectedSpellDeckDesign = new();
+                }
+            }
+        }
 
-            return viewModel;
+        private void OnNavigatingAway(ViewModelType type)
+        {
+            SetUnsetDatabaseEvents(false);
         }
 
         #endregion

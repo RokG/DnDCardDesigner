@@ -20,11 +20,11 @@ namespace CardDesigner.UI.ViewModels
         private readonly CardDesignerStore _cardDesignerStore;
         private readonly NavigationStore _navigationStore;
 
-
         private List<ItemDeckDesignModel> AllItemDeckDesigns;
         private List<SpellDeckDesignModel> AllSpellDeckDesigns;
         private List<CharacterDeckDesignModel> AllCharacterDeckDesigns;
         private CardType selectedCardType;
+
         #endregion
 
         #region Properties
@@ -68,6 +68,7 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Constructor
+
         public HomeViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
             Name = Regex.Replace(nameof(HomeViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
@@ -80,33 +81,6 @@ namespace CardDesigner.UI.ViewModels
             LoadData();
             GenerateCharacterTree();
 
-        }
-
-        #endregion
-
-        #region Public methods
-
-        public void SetSelectedItem(TreeItemModel selectableItem)
-        {
-            if (selectableItem.Item is CharacterCardModel characterCardModel)
-            {
-                SelectedCard = characterCardModel;
-                selectedCardType = CardType.Character;
-            }
-
-            if (selectableItem.Item is SpellCardModel spellCardModel)
-            {
-                SelectedCard = spellCardModel;
-                selectedCardType = CardType.Spell;
-            }
-
-            if (selectableItem.Item is ItemCardModel itemCardModel)
-            {
-                SelectedCard = itemCardModel;
-                selectedCardType = CardType.Item;
-            }
-
-            SetSelectedItemParents(selectableItem, selectedCardType);
         }
 
         #endregion
@@ -291,6 +265,33 @@ namespace CardDesigner.UI.ViewModels
             return new(cardDesignerStore, navigationStore);
         }
 
+        public void SetSelectedItem(TreeItemModel selectableItem)
+        {
+            if (selectableItem.Item is CharacterCardModel characterCardModel)
+            {
+                SelectedCard = characterCardModel;
+                selectedCardType = CardType.Character;
+            }
+
+            if (selectableItem.Item is SpellCardModel spellCardModel)
+            {
+                SelectedCard = spellCardModel;
+                selectedCardType = CardType.Spell;
+            }
+
+            if (selectableItem.Item is ItemCardModel itemCardModel)
+            {
+                SelectedCard = itemCardModel;
+                selectedCardType = CardType.Item;
+            }
+
+            SetSelectedItemParents(selectableItem, selectedCardType);
+        }
+
+        #endregion
+
+        #region Commands
+
         [RelayCommand]
         private void NavigateToCardCreator()
         {
@@ -369,5 +370,4 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
     }
-
 }

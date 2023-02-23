@@ -64,12 +64,6 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
 
-        #region Actions, Events, Commands
-
-        public ICommand DoNavigateCommand { get; }
-
-        #endregion Actions, Events, Commands
-
         #region Constructor
 
         public ItemCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
@@ -91,9 +85,19 @@ namespace CardDesigner.UI.ViewModels
             SetSelectionFromNavigation();
         }
 
-        private void OnNavigatingAway(ViewModelType type)
+        #endregion
+
+        #region Private methods
+
+        private async void LoadData()
         {
-            SetUnsetDatabaseEvents(false);
+            await _cardDesignerStore.Load();
+
+            AllItemCards = new(_cardDesignerStore.ItemCards);
+            AllArmours = new(_cardDesignerStore.Armours);
+            AllWeapons = new(_cardDesignerStore.Weapons);
+
+            SelectedItemCard = AllItemCards.FirstOrDefault();
         }
 
         private void SetUnsetDatabaseEvents(bool set)
@@ -107,30 +111,6 @@ namespace CardDesigner.UI.ViewModels
             {
                 _cardDesignerStore.ItemCardChanged -= OnItemCardChanged;
                 _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
-            }
-        }
-
-        private void SetSelectionFromNavigation()
-        {
-            if (_navigationStore != null)
-            {
-                    if (_navigationStore.UseSelection)
-                    {
-                        switch (_navigationStore.CurrentViewModel.Type)
-                        {
-                            case ViewModelType.Home:
-                                SelectedItemCard = _navigationStore.SelectedItemCard;
-                                SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
-                                return;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        SelectedItemCard = AllItemCards.FirstOrDefault();
-                        SelectedItemDeckDesign = new();
-                    }
             }
         }
 
@@ -170,6 +150,24 @@ namespace CardDesigner.UI.ViewModels
             || weapon.DamageModifier.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase);
         }
 
+        #endregion
+
+        #region Public methods
+
+        public static ItemCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        {
+            ItemCardViewModel viewModel = new(cardDesignerStore, navigationStore);
+            viewModel.LoadData();
+
+            return viewModel;
+        }
+
+        #endregion
+
+        #region Database update methods
+
+
+
         private void OnItemCardChanged(ItemCardModel itemCard, DataChangeType change)
         {
             switch (change)
@@ -201,31 +199,38 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
+
         #endregion
+        
+        #region Navigation
 
-        #region Private methods
-
-        private async void LoadData()
+        private void SetSelectionFromNavigation()
         {
-            await _cardDesignerStore.Load();
-
-            AllItemCards = new(_cardDesignerStore.ItemCards);
-            AllArmours = new(_cardDesignerStore.Armours);
-            AllWeapons = new(_cardDesignerStore.Weapons);
-
-            SelectedItemCard = AllItemCards.FirstOrDefault();
+            if (_navigationStore != null)
+            {
+                    if (_navigationStore.UseSelection)
+                    {
+                        switch (_navigationStore.CurrentViewModel.Type)
+                        {
+                            case ViewModelType.Home:
+                                SelectedItemCard = _navigationStore.SelectedItemCard;
+                                SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                                return;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        SelectedItemCard = AllItemCards.FirstOrDefault();
+                        SelectedItemDeckDesign = new();
+                    }
+            }
         }
 
-        #endregion
-
-        #region Public methods
-
-        public static ItemCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        private void OnNavigatingAway(ViewModelType type)
         {
-            ItemCardViewModel viewModel = new(cardDesignerStore, navigationStore);
-            viewModel.LoadData();
-
-            return viewModel;
+            SetUnsetDatabaseEvents(false);
         }
 
         #endregion
