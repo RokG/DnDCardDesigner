@@ -206,8 +206,6 @@ namespace CardDesigner.Domain.Stores
 
         public async Task UpdateCharacter(CharacterModel character)
         {
-
-
             if (await _characterService.UpdateCharacter(character) is CharacterModel updatedCharacter)
             {
                 await UpdateCharactersFromDb();

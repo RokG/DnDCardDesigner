@@ -56,15 +56,15 @@ namespace CardDesigner.DataAccess.Services
                         .Include(c => c.SpellDeckDescriptors)
                         .Include(c => c.ItemDeckDescriptors)
                         .Include(c => c.CharacterDeckDescriptors)
-                        .Include(c => c.DeckBackgroundDesign)
                         .Include(c => c.Classes)
                         .Single(c => c.ID == characterModel.ID);
 
-                    // Update attributes and caster stats
+                    // Update one-to-one bindings
                     characterEntity.Abilities = _mapper.Map<CharacterAbilitiesEntity>(characterModel.Abilities);
                     characterEntity.CasterStats = _mapper.Map<CasterStatsEntity>(characterModel.CasterStats);
+                    characterEntity.DeckBackgroundDesign = _mapper.Map<DeckBackgroundDesignEntity>(characterModel.DeckBackgroundDesign);
 
-                    // Add classes
+                    // Add Classes
                     foreach (CharacterClassModel characterClassModel in characterModel.Classes)
                     {
                         CharacterClassEntity matchingEntity = characterEntity.Classes.FirstOrDefault(c => c.ClassID == characterClassModel.ClassID);
@@ -81,7 +81,7 @@ namespace CardDesigner.DataAccess.Services
                         }
                     }
 
-                    // Remove Spell Decks
+                    // Remove Classes
                     CharacterClassEntity removedClassEntity = characterEntity.Classes
                         .FirstOrDefault(p => characterModel.Classes.All(p2 => p2.ClassID != p.ClassID));
                     if (removedClassEntity != null)
