@@ -1,0 +1,20 @@
+  [
+    {
+      "ID": "cape1",
+      "Name": "Small cape",
+      "ArmourType": "Light",
+      "EquipmentSlot": "Back"
+    },
+    {
+      "ID": "cape2",
+      "Name": "Wings",
+      "ArmourType": "Light",
+      "EquipmentSlot": "Back"
+    },
+    {
+      "ID": "cape3",
+      "Name": "Cape Canaveron",
+      "ArmourType": "Light",
+      "EquipmentSlot": "Back"
+    }
+  ]

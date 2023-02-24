@@ -163,6 +163,45 @@
 
     <!--  Listbox style  -->
 
+    <Style x:Key="ItemCardListboxLabel" BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Padding" Value="10,0,0,0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+
+    <Style x:Key="ItemCardListboxItem" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border x:Name="Border"
+                        Margin="0"
+                        Padding="0"
+                        SnapsToDevicePixels="true">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemHighlightBGND}" />
+                            <Setter Property="Margin" Value="6,0,0,0" />
+                            <Setter Property="Padding" Value="0" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemSelectedBGND}" />
+                            <Setter Property="Margin" Value="8,0,0,0" />
+                            <Setter Property="Padding" Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <Style TargetType="{x:Type ListBox}">
         <Setter Property="Margin" Value="10" />
         <Setter Property="Padding" Value="5" />
@@ -372,20 +411,20 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-
     </Style>
 
+    <!--  Datagrid style  -->
+
     <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="AreRowDetailsFrozen" Value="True" />
+        <Setter Property="HeadersVisibility" Value="None" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <!--<Setter Property="AutoGenerateColumns" Value="False" />-->
         <Setter Property="BorderBrush" Value="{StaticResource TabItemSelectedFGND}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CanUserAddRows" Value="False" />
         <Setter Property="CanUserDeleteRows" Value="False" />
-        <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="ColumnHeaderStyle" Value="{StaticResource {x:Type DataGridColumnHeader}}" />
         <Setter Property="CellStyle" Value="{StaticResource {x:Type DataGridCell}}" />
@@ -414,8 +453,15 @@
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Foreground" Value="{StaticResource TabItemSelectedFGND}" />
+                <Setter Property="Background" Value="{StaticResource TabItemSelectedBGND}" />
                 <Setter Property="FontWeight" Value="DemiBold" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource TabItemSelectedFGND}" />
+                <Setter Property="Background" Value="{StaticResource TabItemSelectedBGND}" />
+                <Setter Property="Cursor" Value="Hand" />
             </Trigger>
         </Style.Triggers>
     </Style>
+
 </ResourceDictionary>

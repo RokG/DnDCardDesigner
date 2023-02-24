@@ -11,45 +11,7 @@
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
 
-        <Style x:Key="listboxLabel" BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="VerticalContentAlignment" Value="Top" />
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="Padding" Value="10,0,0,0" />
-            <Setter Property="Margin" Value="0" />
-        </Style>
-
-        <Style x:Key="ItemListboxItem" TargetType="{x:Type ListBoxItem}">
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="VerticalContentAlignment" Value="Top" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="Border"
-                            Margin="0"
-                            Padding="0"
-                            SnapsToDevicePixels="true">
-                            <ContentPresenter />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemHighlightBGND}" />
-                                <Setter Property="Margin" Value="6,0,0,0" />
-                                <Setter Property="Padding" Value="0" />
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{StaticResource ListItemSelectedBGND}" />
-                                <Setter Property="Margin" Value="8,0,0,0" />
-                                <Setter Property="Padding" Value="0" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!--  Templates  -->
+        <!--  Armour Templates  -->
         <ControlTemplate x:Key="ArmourTemplate">
             <DockPanel>
                 <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
@@ -62,7 +24,7 @@
                 <!--  Source and selected are reason for binding errors  -->
                 <ListBox
                     Grid.IsSharedSizeScope="True"
-                    ItemContainerStyle="{StaticResource ItemListboxItem}"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
                     ItemsSource="{Binding DataContext.AllArmoursCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
                     <ListBox.ItemTemplate>
@@ -79,19 +41,19 @@
                                 <Label
                                     Grid.Column="0"
                                     Content="{Binding Name}"
-                                    Style="{StaticResource listboxLabel}" />
+                                    Style="{StaticResource ItemCardListboxLabel}" />
                                 <Label
                                     Grid.Column="1"
                                     Content="{Binding ArmourType}"
-                                    Style="{StaticResource listboxLabel}" />
+                                    Style="{StaticResource ItemCardListboxLabel}" />
                                 <Label
                                     Grid.Column="2"
                                     Content="{Binding EquipmentSlot}"
-                                    Style="{StaticResource listboxLabel}" />
+                                    Style="{StaticResource ItemCardListboxLabel}" />
                                 <Label
                                     Grid.Column="3"
                                     Content="{Binding ArmourClass}"
-                                    Style="{StaticResource listboxLabel}" />
+                                    Style="{StaticResource ItemCardListboxLabel}" />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -99,7 +61,7 @@
             </DockPanel>
         </ControlTemplate>
 
-        <!--  Templates  -->
+        <!--  Weapon Templates  -->
         <ControlTemplate x:Key="WeaponTemplate">
             <DockPanel>
                 <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
@@ -111,7 +73,7 @@
                     PlaceholderText="Search.." />
                 <ListBox
                     Grid.IsSharedSizeScope="True"
-                    ItemContainerStyle="{StaticResource ItemListboxItem}"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
                     ItemsSource="{Binding DataContext.AllWeaponsCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
                     <ListBox.ItemTemplate>
@@ -130,37 +92,186 @@
                                 <Label
                                     Grid.Column="0"
                                     Content="{Binding Name}"
-                                    Style="{StaticResource listboxLabel}" />
+                                    Style="{StaticResource ItemCardListboxLabel}" />
                                 <Label
                                     Grid.Column="1"
                                     Content="{Binding WeaponType}"
-                                    Style="{StaticResource listboxLabel}" />
+                                    Style="{StaticResource ItemCardListboxLabel}" />
                                 <Label
                                     Grid.Column="2"
                                     Content="{Binding EquipmentSlot}"
-                                    Style="{StaticResource listboxLabel}" />
-                                <Label
-                                    Grid.Column="3"
-                                    Content="{Binding WeaponType}"
-                                    Style="{StaticResource listboxLabel}" />
+                                    Style="{StaticResource ItemCardListboxLabel}" />
                                 <StackPanel
                                     Grid.Column="4"
                                     Orientation="Horizontal">
                                     <Label
                                         Content="{Binding DiceValue}"
-                                        Style="{StaticResource listboxLabel}" />
+                                        Style="{StaticResource ItemCardListboxLabel}" />
                                     <Label
                                         Content="{Binding DiceType}"
-                                        Style="{StaticResource listboxLabel}" />
+                                        Style="{StaticResource ItemCardListboxLabel}" />
                                     <Label
                                         Content="{Binding PhysicalDamageType}"
-                                        Style="{StaticResource listboxLabel}" />
+                                        Style="{StaticResource ItemCardListboxLabel}" />
                                 </StackPanel>
                                 <Label
                                     Grid.Column="5"
                                     Content="{Binding DamageModifier}"
                                     ContentStringFormat="{}+{0}"
-                                    Style="{StaticResource listboxLabel}" />
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </ControlTemplate>
+
+        <!--  Usable template  -->
+        <ControlTemplate x:Key="UsablesTemplate">
+            <DockPanel>
+                <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
+                    Background="{StaticResource TabItemNormalBGND}"
+                    BorderBrush="{StaticResource TabItemSelectedFGND}"
+                    BorderThickness="1"
+                    DockPanel.Dock="Top"
+                    InputText="{Binding DataContext.UsableSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    PlaceholderText="Search.." />
+                <ListBox
+                    Grid.IsSharedSizeScope="True"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
+                    ItemsSource="{Binding DataContext.AllUsablesCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                HorizontalAlignment="Stretch"
+                                Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="col0" />
+                                    <ColumnDefinition SharedSizeGroup="col1" />
+                                    <ColumnDefinition SharedSizeGroup="col2" />
+                                    <ColumnDefinition SharedSizeGroup="col3" />
+                                    <ColumnDefinition SharedSizeGroup="col4" />
+                                    <ColumnDefinition SharedSizeGroup="col5" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="{Binding Name}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="{Binding Uses}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <StackPanel
+                                    Grid.Column="4"
+                                    Orientation="Horizontal">
+                                    <Label
+                                        Content="{Binding UseTimeValue}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                    <Label
+                                        Content="{Binding UseTimeType}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </ControlTemplate>
+
+        <!--  Consumables template  -->
+        <ControlTemplate x:Key="ConsumablesTemplate">
+            <DockPanel>
+                <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
+                    Background="{StaticResource TabItemNormalBGND}"
+                    BorderBrush="{StaticResource TabItemSelectedFGND}"
+                    BorderThickness="1"
+                    DockPanel.Dock="Top"
+                    InputText="{Binding DataContext.ConsumableSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    PlaceholderText="Search.." />
+                <ListBox
+                    Grid.IsSharedSizeScope="True"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
+                    ItemsSource="{Binding DataContext.AllConsumablesCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                HorizontalAlignment="Stretch"
+                                Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="col0" />
+                                    <ColumnDefinition SharedSizeGroup="col1" />
+                                    <ColumnDefinition SharedSizeGroup="col2" />
+                                    <ColumnDefinition SharedSizeGroup="col3" />
+                                    <ColumnDefinition SharedSizeGroup="col4" />
+                                    <ColumnDefinition SharedSizeGroup="col5" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="{Binding Name}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="{Binding Doses}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <StackPanel
+                                    Grid.Column="4"
+                                    Orientation="Horizontal">
+                                    <Label
+                                        Content="{Binding UseTimeValue}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                    <Label
+                                        Content="{Binding UseTimeType}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </ControlTemplate>
+
+        <!--  Clothing template  -->
+        <ControlTemplate x:Key="ClothingTemplate">
+            <DockPanel>
+                <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
+                    Background="{StaticResource TabItemNormalBGND}"
+                    BorderBrush="{StaticResource TabItemSelectedFGND}"
+                    BorderThickness="1"
+                    DockPanel.Dock="Top"
+                    InputText="{Binding DataContext.ClothingSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    PlaceholderText="Search.." />
+                <ListBox
+                    Grid.IsSharedSizeScope="True"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
+                    ItemsSource="{Binding DataContext.AllClothingCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                HorizontalAlignment="Stretch"
+                                Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="col0" />
+                                    <ColumnDefinition SharedSizeGroup="col1" />
+                                    <ColumnDefinition SharedSizeGroup="col2" />
+                                    <ColumnDefinition SharedSizeGroup="col3" />
+                                    <ColumnDefinition SharedSizeGroup="col4" />
+                                    <ColumnDefinition SharedSizeGroup="col5" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="{Binding Name}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="{Binding ArmourType}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="2"
+                                    Content="{Binding EquipmentSlot}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -284,6 +395,21 @@
                                                             Binding="{Binding}"
                                                             Value="Weapon">
                                                             <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Usable">
+                                                            <Setter Property="Template" Value="{StaticResource UsablesTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Clothing">
+                                                            <Setter Property="Template" Value="{StaticResource ClothingTemplate}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding}"
+                                                            Value="Consumable">
+                                                            <Setter Property="Template" Value="{StaticResource ConsumablesTemplate}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

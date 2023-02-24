@@ -1,5 +1,6 @@
 ﻿using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,7 +11,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
-using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -36,6 +36,15 @@ namespace CardDesigner.UI.ViewModels
         private ICollectionView allWeaponsCollectionView;
 
         [ObservableProperty]
+        private ICollectionView allUsablesCollectionView;
+
+        [ObservableProperty]
+        private ICollectionView allClothingCollectionView;
+
+        [ObservableProperty]
+        private ICollectionView allConsumablesCollectionView;
+
+        [ObservableProperty]
         private ItemCardModel selectedItemCard;
 
         [ObservableProperty]
@@ -51,6 +60,15 @@ namespace CardDesigner.UI.ViewModels
         private string weaponSearchFilter;
 
         [ObservableProperty]
+        private string usableSearchFilter;
+
+        [ObservableProperty]
+        private string clothingSearchFilter;
+
+        [ObservableProperty]
+        private string consumableSearchFilter;
+
+        [ObservableProperty]
         private ItemDeckDesignModel selectedItemDeckDesign = new();
 
         [ObservableProperty]
@@ -61,6 +79,15 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<ArmourModel> allArmours;
+
+        [ObservableProperty]
+        private ObservableCollection<UsableModel> allUsables;
+
+        [ObservableProperty]
+        private ObservableCollection<ClothingModel> allClothing;
+
+        [ObservableProperty]
+        private ObservableCollection<ConsumableModel> allConsumables;
 
         #endregion
 
@@ -79,8 +106,11 @@ namespace CardDesigner.UI.ViewModels
 
             LoadData();
 
-            allArmoursCollectionView = CollectionViewSource.GetDefaultView(AllArmours);
-            allWeaponsCollectionView = CollectionViewSource.GetDefaultView(AllWeapons);
+            AllArmoursCollectionView = CollectionViewSource.GetDefaultView(AllArmours);
+            AllWeaponsCollectionView = CollectionViewSource.GetDefaultView(AllWeapons);
+            AllUsablesCollectionView = CollectionViewSource.GetDefaultView(AllUsables);
+            AllClothingCollectionView = CollectionViewSource.GetDefaultView(AllClothing);
+            AllConsumablesCollectionView = CollectionViewSource.GetDefaultView(AllConsumables);
 
             SetSelectionFromNavigation();
         }
@@ -96,6 +126,9 @@ namespace CardDesigner.UI.ViewModels
             AllItemCards = new(_cardDesignerStore.ItemCards);
             AllArmours = new(_cardDesignerStore.Armours);
             AllWeapons = new(_cardDesignerStore.Weapons);
+            AllUsables = new(_cardDesignerStore.Usables);
+            AllClothing = new(_cardDesignerStore.Clothings);
+            AllConsumables = new(_cardDesignerStore.Consumables);
 
             SelectedItemCard = AllItemCards.FirstOrDefault();
         }
@@ -150,6 +183,41 @@ namespace CardDesigner.UI.ViewModels
             || weapon.DamageModifier.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase);
         }
 
+        private bool UsablesFilter(object obj)
+        {
+            //your logicComplexFilter
+            UsableModel usables = (UsableModel)obj;
+            return
+                WeaponSearchFilter == null ? false :
+               usables.Name.Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || usables.Uses.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || usables.UseTimeType.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || usables.UseTimeValue.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase);
+        }
+
+
+        private bool ClothingFilter(object obj)
+        {
+            //your logicComplexFilter
+            ClothingModel clothings = (ClothingModel)obj;
+            return
+                ClothingSearchFilter == null ? false :
+               clothings.Name.Contains(ClothingSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || clothings.ArmourType.ToString().Contains(ClothingSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || clothings.EquipmentSlot.ToString().Contains(ClothingSearchFilter, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool ConsumablesFilter(object obj)
+        {
+            //your logicComplexFilter
+            ConsumableModel consumables = (ConsumableModel)obj;
+            return
+                ConsumableSearchFilter == null ? false :
+               consumables.Name.Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || consumables.Doses.ToString().Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || consumables.UseTimeType.ToString().Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase)
+            || consumables.UseTimeValue.ToString().Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase);
+        }
         #endregion
 
         #region Public methods
@@ -178,6 +246,9 @@ namespace CardDesigner.UI.ViewModels
                     AllItemCards.Remove(itemCard);
                     SelectedItemCard = AllItemCards.FirstOrDefault();
                     break;
+                case DataChangeType.Updated:
+                    SelectedItemCard = itemCard;
+                    break;
                 default:
                     break;
             }
@@ -195,6 +266,15 @@ namespace CardDesigner.UI.ViewModels
                     case ItemType.Armour:
                         SelectedItemCard.Item = AllArmours.FirstOrDefault(i => i.ID == value.ItemID);
                         break;
+                    case ItemType.Usable:
+                        SelectedItemCard.Item = AllUsables.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
+                    case ItemType.Clothing:
+                        SelectedItemCard.Item = AllClothing.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
+                    case ItemType.Consumable:
+                        SelectedItemCard.Item = AllConsumables.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
                     default:
                         break;
                 }
@@ -203,30 +283,30 @@ namespace CardDesigner.UI.ViewModels
 
 
         #endregion
-        
+
         #region Navigation
 
         private void SetSelectionFromNavigation()
         {
             if (_navigationStore != null)
             {
-                    if (_navigationStore.UseSelection)
+                if (_navigationStore.UseSelection)
+                {
+                    switch (_navigationStore.CurrentViewModel.Type)
                     {
-                        switch (_navigationStore.CurrentViewModel.Type)
-                        {
-                            case ViewModelType.Home:
-                                SelectedItemCard = _navigationStore.SelectedItemCard;
-                                SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
-                                return;
-                            default:
-                                break;
-                        }
+                        case ViewModelType.Home:
+                            SelectedItemCard = AllItemCards.FirstOrDefault(ic=>ic.ID == _navigationStore.SelectedItemCard.ID);
+                            SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                            return;
+                        default:
+                            break;
                     }
-                    else
-                    {
-                        SelectedItemCard = AllItemCards.FirstOrDefault();
-                        SelectedItemDeckDesign = new();
-                    }
+                }
+                else
+                {
+                    SelectedItemCard = AllItemCards.FirstOrDefault();
+                    SelectedItemDeckDesign = new();
+                }
             }
         }
 

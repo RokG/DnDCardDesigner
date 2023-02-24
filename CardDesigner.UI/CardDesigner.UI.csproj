@@ -21,6 +21,13 @@
 
   <ItemGroup>
     <None Remove="Resources\Configs\Classes\Classes.json" />
+    <None Remove="Resources\Configs\Clothing\Capes.json" />
+    <None Remove="Resources\Configs\Consumables\Drinks.json" />
+    <None Remove="Resources\Configs\Consumables\Food.json" />
+    <None Remove="Resources\Configs\Consumables\Potions.json" />
+    <None Remove="Resources\Configs\Usables\Bombs.json" />
+    <None Remove="Resources\Configs\Usables\Gems.json" />
+    <None Remove="Resources\Configs\Usables\Scrolls.json" />
     <None Remove="Resources\Images\dnd-icon-13.png" />
     <None Remove="Resources\Configs\Armour\ChestArmours.json" />
     <None Remove="Resources\Configs\Armour\HeadArmours.json" />
@@ -53,6 +60,27 @@
 
   <ItemGroup>
     <Content Include="Resources\Configs\Classes\Classes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Configs\Clothing\Capes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Configs\Consumables\Drinks.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Configs\Consumables\Food.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Configs\Consumables\Potions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Configs\Usables\Bombs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Configs\Usables\Gems.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Configs\Usables\Scrolls.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\dnd-icon-13.png">

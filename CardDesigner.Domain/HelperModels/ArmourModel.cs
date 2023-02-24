@@ -1,6 +1,7 @@
 ﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Models;
 
-namespace CardDesigner.Domain.Models
+namespace CardDesigner.Domain.HelperModels
 {
     public class ArmourModel : IItem
     {

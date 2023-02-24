@@ -1,7 +1,7 @@
 ﻿using CardDesigner.Domain.Enums;
 using System.Collections.Generic;
 
-namespace CardDesigner.Domain.Models
+namespace CardDesigner.Domain.HelperModels
 {
     public class ClassModel
     {

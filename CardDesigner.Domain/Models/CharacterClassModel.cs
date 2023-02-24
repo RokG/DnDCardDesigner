@@ -1,4 +1,6 @@
-﻿namespace CardDesigner.Domain.Models
+﻿using CardDesigner.Domain.HelperModels;
+
+namespace CardDesigner.Domain.Models
 {
     public class CharacterClassModel
     {

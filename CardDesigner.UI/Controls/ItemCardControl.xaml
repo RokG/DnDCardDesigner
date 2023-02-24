@@ -6,6 +6,33 @@
     xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain">
     <UserControl.Resources>
         <!--  Templates  -->
+        <ControlTemplate x:Key="ClothingTemplate">
+            <Grid Background="Transparent">
+                <Label
+                    Background="Transparent"
+                    Content="{StaticResource Clothing}"
+                    Foreground="{Binding CardDesign.HeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource IconLabel}" />
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="UsableTemplate">
+            <Grid Background="Transparent">
+                <Label
+                    Background="Transparent"
+                    Content="{StaticResource Usable}"
+                    Foreground="{Binding CardDesign.HeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource IconLabel}" />
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ConsumableTemplate">
+            <Grid Background="Transparent">
+                <Label
+                    Background="Transparent"
+                    Content="{StaticResource Consumable}"
+                    Foreground="{Binding CardDesign.HeaderIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource IconLabel}" />
+            </Grid>
+        </ControlTemplate>
         <ControlTemplate x:Key="ArmourTemplate">
             <Grid Background="Transparent">
                 <Label
@@ -32,6 +59,7 @@
                     Style="{StaticResource IconLabel}" />
             </Grid>
         </ControlTemplate>
+
         <ControlTemplate x:Key="WeaponProperties">
             <WrapPanel
                 Canvas.Top="315"
@@ -75,7 +103,7 @@
                     Background="Transparent"
                     Content="AC: "
                     FontSize="12"
-                    Foreground="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Foreground="{Binding CardDesign.FooterIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Label
                     Margin="0,5,0,0"
                     Padding="0"
@@ -86,6 +114,77 @@
                     Foreground="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </WrapPanel>
         </ControlTemplate>
+
+        <ControlTemplate x:Key="UsableProperties">
+            <WrapPanel
+                Canvas.Top="315"
+                Width="250"
+                Height="32.5"
+                Margin="0"
+                ItemHeight="30"
+                ItemWidth="60"
+                Orientation="Horizontal">
+                <controls:IconWithPropertyControl
+                    Icon="{StaticResource SpellCastingTime}"
+                    IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextColor="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Unit="{Binding ItemCard.Item.UseTimeType, ElementName=itemCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
+                    Value="{Binding ItemCard.Item.UseTimeValue, ElementName=itemCard}" />
+                <Label
+                    Width="40"
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Content="Uses: "
+                    FontSize="12"
+                    Foreground="{Binding CardDesign.FooterIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Label
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Content="{Binding ItemCard.Item.Uses, ElementName=itemCard}"
+                    FontSize="12"
+                    Foreground="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </WrapPanel>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ConsumableProperties">
+            <WrapPanel
+                Canvas.Top="315"
+                Width="250"
+                Height="32.5"
+                Margin="0"
+                ItemHeight="30"
+                ItemWidth="60"
+                Orientation="Horizontal">
+                <controls:IconWithPropertyControl
+                    Icon="{StaticResource SpellCastingTime}"
+                    IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextColor="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Unit="{Binding ItemCard.Item.UseTimeType, ElementName=itemCard, Converter={converters:EnumToPropertyConverter}, ConverterParameter=Unit}"
+                    Value="{Binding ItemCard.Item.UseTimeValue, ElementName=itemCard}" />
+                <Label
+                    Width="40"
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Content="Doses: "
+                    FontSize="12"
+                    Foreground="{Binding CardDesign.FooterIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Label
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Content="{Binding ItemCard.Item.Doses, ElementName=itemCard}"
+                    FontSize="12"
+                    Foreground="{Binding CardDesign.FooterTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </WrapPanel>
+        </ControlTemplate>
+
     </UserControl.Resources>
     <Viewbox>
         <Grid>
@@ -160,6 +259,21 @@
                                             Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
                                             Value="WeaponModel">
                                             <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
+                                            Value="UsableModel">
+                                            <Setter Property="Template" Value="{StaticResource UsableTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
+                                            Value="ClothingModel">
+                                            <Setter Property="Template" Value="{StaticResource ClothingTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
+                                            Value="ConsumableModel">
+                                            <Setter Property="Template" Value="{StaticResource ConsumableTemplate}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -252,6 +366,16 @@
                                     Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
                                     Value="WeaponModel">
                                     <Setter Property="Template" Value="{StaticResource WeaponProperties}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
+                                    Value="UsableModel">
+                                    <Setter Property="Template" Value="{StaticResource UsableProperties}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding ItemCard.Item, ElementName=itemCard, Converter={converters:TypeToStringConverter}}"
+                                    Value="ConsumableModel">
+                                    <Setter Property="Template" Value="{StaticResource ConsumableProperties}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

@@ -135,7 +135,8 @@ namespace CardDesigner.UI.ViewModels
                     switch (_navigationStore.CurrentViewModel.Type)
                     {
                         case ViewModelType.Home:
-                            SelectedCharacterCard = _navigationStore.SelectedCharacterCard;
+                            SelectedCharacter = AllCharacters.FirstOrDefault(ic => ic.ID == _navigationStore.SelectedCharacter.ID);
+                            SelectedCharacterCard = AllCharacterCards.FirstOrDefault(ic => ic.ID == _navigationStore.SelectedCharacterCard.ID);
                             SelectedCharacterDeckDesign = _navigationStore.SelectedCharacterDeckDesign;
                             return;
                         default:

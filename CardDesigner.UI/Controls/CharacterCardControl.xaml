@@ -42,7 +42,8 @@
                                     BorderThickness="2"
                                     CornerRadius="20">
                                     <Label
-                                        Content="{StaticResource Druid}"
+                                        Content="{Binding Class.Name, Converter={converters:StringToResourceKeyConverter}}"
+                                        Foreground="{Binding CardDesign.HeaderIconColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         Style="{StaticResource IconLabel}" />
                                 </Border>
                                 <Border
