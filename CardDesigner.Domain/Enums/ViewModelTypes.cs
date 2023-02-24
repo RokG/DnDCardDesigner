@@ -9,6 +9,7 @@
         CharacterCardCreator,
         DeckCreator,
         CharacterCreator,
-        DeckDesigner
+        DeckDesigner,
+        PrintLayout
     }
 }

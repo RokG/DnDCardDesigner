@@ -74,6 +74,9 @@ namespace CardDesigner.UI.ViewModels
                     case ViewModelType.DeckDesigner:
                         CurrentViewModel = new DeckDesignViewModel(_cardDesignerStore, _navigationStore);
                         break;
+                    case ViewModelType.PrintLayout:
+                        CurrentViewModel = new PrintLayoutViewModel(_cardDesignerStore, _navigationStore);
+                        break;
                     default:
                         break;
                 }
