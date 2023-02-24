@@ -1,5 +1,4 @@
 ﻿using CardDesigner.Domain.Enums;
-using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
@@ -25,6 +24,9 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Properties
+
+        [ObservableProperty]
+        private int cardSize = 698;
 
         [ObservableProperty]
         private ICardDesign selectedCardDesign;
