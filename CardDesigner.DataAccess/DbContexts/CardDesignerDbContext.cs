@@ -162,7 +162,7 @@ namespace CardDesigner.DataAccess.DbContexts
                        j.HasKey(t => new { t.CharacterDeckID, t.CharacterCardID });
                    });
 
-            //Seed(modelBuilder);
+            Seed(modelBuilder);
         }
 
         private void Seed(ModelBuilder modelBuilder)
@@ -349,6 +349,13 @@ namespace CardDesigner.DataAccess.DbContexts
                 new ItemCardEntity() {ID = 1, Name="SampleItemCard_1", IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage1.jpeg", Level = 1, Description="This strange armour is very hairy. Identify it to find out its properties", DescriptionFontSize=14.1, IsMagical = true, IsUnidentified = true, ItemID="chest1", Title="Hairy chest", RequiresAttunement=true, Type=ItemType.Armour, TitleFontSize=16},
                 new ItemCardEntity() {ID = 2, Name="SampleItemCard_2", IconStretch="Fill", IconFilePath="/Resources/Images/sampleimage2.jpg",Level = 2, Description="A very common sword mostly used by nobility", DescriptionFontSize=14.1, IsMagical = false, IsUnidentified = false, ItemID="melee1", Title="Common Longsword", RequiresAttunement=false, Type=ItemType.Weapon, TitleFontSize=16},
                 new ItemCardEntity() {ID = 3, Name="SampleItemCard_3", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14.1, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Big Bertha", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 4, Name="SampleItemCard_4", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14.1, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Test Card 1", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 5, Name="SampleItemCard_5", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14.1, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Test Card 2", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 6, Name="SampleItemCard_6", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14.1, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Test Card 3", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 7, Name="SampleItemCard_7", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14.1, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Test Card 4", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 8, Name="SampleItemCard_8", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14.1, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Test Card 5", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 9, Name="SampleItemCard_9", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14.1, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Test Card 6", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
+                new ItemCardEntity() {ID = 10, Name="SampleItemCard_10", IconStretch="Uniform", IconFilePath="/Resources/Images/sampleimage3.png",Level = 3, Description="Special bow designed by the best dwarven engineers. Add +1d6 on successful hit", DescriptionFontSize=14.1, IsMagical = true, IsUnidentified = false, ItemID="ranged1", Title="Test Card 7", RequiresAttunement=true, Type=ItemType.Weapon, TitleFontSize=16},
             };
             modelBuilder.Entity<ItemCardEntity>().HasData(itemCards);
 
@@ -356,7 +363,13 @@ namespace CardDesigner.DataAccess.DbContexts
             modelBuilder.Entity<ItemDeckDesignEntity>().HasData(itemDeckDesign);
 
             ItemDeckEntity itemDeck = new ItemDeckEntity() { ID = 1, Name = "SampleItemDeck_1", Title = "Sample Item Deck" };
-            modelBuilder.Entity<ItemDeckEntity>().HasData(itemDeck);
+            IList<ItemDeckEntity> itemDecks = new List<ItemDeckEntity>
+            {
+                new ItemDeckEntity() { ID = 1, Name = "SampleItemDeck_1", Title = "Sample Item Deck 1" },
+                new ItemDeckEntity() { ID = 2, Name = "SampleItemDeck_2", Title = "Sample Item Deck 2" },
+                new ItemDeckEntity() { ID = 3, Name = "SampleItemDeck_3", Title = "Sample Item Deck 3" }
+            };
+            modelBuilder.Entity<ItemDeckEntity>().HasData(itemDecks);
 
             modelBuilder.Entity<ItemDeckDesignLinkerEntity>().HasData(new
             {
@@ -373,6 +386,17 @@ namespace CardDesigner.DataAccess.DbContexts
             {
                 new { ItemCardID = 1, ItemDeckID = 1},
                 new { ItemCardID = 2, ItemDeckID = 1},
+                new { ItemCardID = 3, ItemDeckID = 1},
+                new { ItemCardID = 4, ItemDeckID = 1},
+                new { ItemCardID = 5, ItemDeckID = 1},
+                new { ItemCardID = 6, ItemDeckID = 1},
+                new { ItemCardID = 7, ItemDeckID = 1},
+                new { ItemCardID = 8, ItemDeckID = 2},
+                new { ItemCardID = 9, ItemDeckID = 2},
+                new { ItemCardID = 10, ItemDeckID = 2},
+                new { ItemCardID = 1, ItemDeckID = 2},
+                new { ItemCardID = 2, ItemDeckID = 3},
+                new { ItemCardID = 3, ItemDeckID = 3},
             }));
         }
 
