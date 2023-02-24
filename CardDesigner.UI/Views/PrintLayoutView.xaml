@@ -10,48 +10,56 @@
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <Grid>
-        <ListView
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Button
+            Grid.Column="1"
+            Click="Button_Click"
+            Content="Print" />
+        <Grid x:Name="gridElement"
             Width="1050"
-            Background="White"
-            ItemsSource="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <controls:ItemCardControl
-                        Margin="0"
-                        Padding="0"
-                        ItemCard="{Binding}" />
-                    <!--<ContentControl>
-                        <ContentControl.Style>
-                            <Style TargetType="{x:Type ContentControl}">
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Converter={converters:TypeToStringConverter}}"
-                                        Value="ItemDeckModel">
-                                        <Setter Property="Template" Value="{StaticResource ArmourTemplate}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ContentControl.Style>
-                    </ContentControl>-->
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel
-                        Width="1050"
-                        Height="1485"
-                        Background="White"
-                        IsItemsHost="True"
-                        ItemWidth="250" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Background" Value="White" />
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="Padding" Value="0" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+            Height="1485">
+            <ListView x:Name="itemCardsToPDF"
+                Width="1050"
+                Height="1485"
+                Background="White"
+                ItemsSource="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:ItemCardControl
+                            Margin="0"
+                            Padding="0"
+                            ItemCard="{Binding}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel
+                            Width="1050"
+                            Height="1485"
+                            Background="White"
+                            IsItemsHost="True"
+                            ItemWidth="250" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="Padding" Value="0" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White" />
+
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>
