@@ -247,6 +247,9 @@ namespace CardDesigner.UI.ViewModels
                     AllItemCards.Remove(itemCard);
                     SelectedItemCard = AllItemCards.FirstOrDefault();
                     break;
+                case DataChangeType.Updated:
+                    SelectedItemCard = itemCard;
+                    break;
                 default:
                     break;
             }
@@ -263,6 +266,15 @@ namespace CardDesigner.UI.ViewModels
                         break;
                     case ItemType.Armour:
                         SelectedItemCard.Item = AllArmours.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
+                    case ItemType.Usable:
+                        SelectedItemCard.Item = AllUsables.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
+                    case ItemType.Clothing:
+                        SelectedItemCard.Item = AllClothing.FirstOrDefault(i => i.ID == value.ItemID);
+                        break;
+                    case ItemType.Consumable:
+                        SelectedItemCard.Item = AllConsumables.FirstOrDefault(i => i.ID == value.ItemID);
                         break;
                     default:
                         break;

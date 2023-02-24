@@ -11,7 +11,7 @@
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
 
-        <!--  Armour tempalte  -->
+        <!--  Armour Templates  -->
         <ControlTemplate x:Key="ArmourTemplate">
             <DockPanel>
                 <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
@@ -21,35 +21,47 @@
                     DockPanel.Dock="Top"
                     InputText="{Binding DataContext.ArmourSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
-                <DataGrid
-                    AreRowDetailsFrozen="False"
-                    AutoGenerateColumns="False"
-                    HeadersVisibility="Column"
+                <!--  Source and selected are reason for binding errors  -->
+                <ListBox
+                    Grid.IsSharedSizeScope="True"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
                     ItemsSource="{Binding DataContext.AllArmoursCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Name}"
-                            Header="Name" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding ArmourType}"
-                            Header="Type" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding EquipmentSlot}"
-                            Header="Slot" />
-                        <DataGridTextColumn
-                            Width="50"
-                            Binding="{Binding ArmourClass}"
-                            Header="AC" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                HorizontalAlignment="Stretch"
+                                Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="col0" />
+                                    <ColumnDefinition SharedSizeGroup="col1" />
+                                    <ColumnDefinition SharedSizeGroup="col2" />
+                                    <ColumnDefinition SharedSizeGroup="col3" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="{Binding Name}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="{Binding ArmourType}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="2"
+                                    Content="{Binding EquipmentSlot}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="3"
+                                    Content="{Binding ArmourClass}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
         </ControlTemplate>
 
-        <!--  Weapon template  -->
+        <!--  Weapon Templates  -->
         <ControlTemplate x:Key="WeaponTemplate">
             <DockPanel>
                 <controls:TextBoxWithPlaceholderControl x:Name="searchTextBox"
@@ -59,46 +71,58 @@
                     DockPanel.Dock="Top"
                     InputText="{Binding DataContext.WeaponSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
-                <DataGrid
-                    AreRowDetailsFrozen="False"
-                    AutoGenerateColumns="False"
-                    HeadersVisibility="Column"
+                <ListBox
+                    Grid.IsSharedSizeScope="True"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
                     ItemsSource="{Binding DataContext.AllWeaponsCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Name}"
-                            Header="Name" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding WeaponType}"
-                            Header="Type" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding EquipmentSlot}"
-                            Header="Slot" />
-                        <DataGridTemplateColumn
-                            Width="*"
-                            Header="Damage">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock>
-                                            <Run Text="{Binding DiceValue}" />
-                                            <Run Text="{Binding DiceType}" />
-                                            <Run Text="{Binding PhysicalDamageType}" />
-                                        </TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding DamageModifier, StringFormat='{}+{0}'}"
-                            Header="Modifier" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                HorizontalAlignment="Stretch"
+                                Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="col0" />
+                                    <ColumnDefinition SharedSizeGroup="col1" />
+                                    <ColumnDefinition SharedSizeGroup="col2" />
+                                    <ColumnDefinition SharedSizeGroup="col3" />
+                                    <ColumnDefinition SharedSizeGroup="col4" />
+                                    <ColumnDefinition SharedSizeGroup="col5" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="{Binding Name}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="{Binding WeaponType}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="2"
+                                    Content="{Binding EquipmentSlot}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <StackPanel
+                                    Grid.Column="4"
+                                    Orientation="Horizontal">
+                                    <Label
+                                        Content="{Binding DiceValue}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                    <Label
+                                        Content="{Binding DiceType}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                    <Label
+                                        Content="{Binding PhysicalDamageType}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                </StackPanel>
+                                <Label
+                                    Grid.Column="5"
+                                    Content="{Binding DamageModifier}"
+                                    ContentStringFormat="{}+{0}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
         </ControlTemplate>
 
@@ -112,37 +136,46 @@
                     DockPanel.Dock="Top"
                     InputText="{Binding DataContext.UsableSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
-                <DataGrid
-                    AreRowDetailsFrozen="False"
-                    AutoGenerateColumns="False"
-                    HeadersVisibility="Column"
+                <ListBox
+                    Grid.IsSharedSizeScope="True"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
                     ItemsSource="{Binding DataContext.AllUsablesCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Name}"
-                            Header="Name" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Uses}"
-                            Header="Uses" />
-                        <DataGridTemplateColumn
-                            Width="*"
-                            Header="Use cost">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock>
-                                            <Run Text="{Binding UseTimeValue}" />
-                                            <Run Text="{Binding UseTimeType}" />
-                                        </TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                HorizontalAlignment="Stretch"
+                                Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="col0" />
+                                    <ColumnDefinition SharedSizeGroup="col1" />
+                                    <ColumnDefinition SharedSizeGroup="col2" />
+                                    <ColumnDefinition SharedSizeGroup="col3" />
+                                    <ColumnDefinition SharedSizeGroup="col4" />
+                                    <ColumnDefinition SharedSizeGroup="col5" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="{Binding Name}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="{Binding Uses}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <StackPanel
+                                    Grid.Column="4"
+                                    Orientation="Horizontal">
+                                    <Label
+                                        Content="{Binding UseTimeValue}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                    <Label
+                                        Content="{Binding UseTimeType}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
         </ControlTemplate>
 
@@ -156,37 +189,46 @@
                     DockPanel.Dock="Top"
                     InputText="{Binding DataContext.ConsumableSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
-                <DataGrid
-                    AreRowDetailsFrozen="False"
-                    AutoGenerateColumns="False"
-                    HeadersVisibility="Column"
+                <ListBox
+                    Grid.IsSharedSizeScope="True"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
                     ItemsSource="{Binding DataContext.AllConsumablesCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Name}"
-                            Header="Name" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Doses}"
-                            Header="Doses" />
-                        <DataGridTemplateColumn
-                            Width="*"
-                            Header="Use cost">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock>
-                                            <Run Text="{Binding UseTimeValue}" />
-                                            <Run Text="{Binding UseTimeType}" />
-                                        </TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                HorizontalAlignment="Stretch"
+                                Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="col0" />
+                                    <ColumnDefinition SharedSizeGroup="col1" />
+                                    <ColumnDefinition SharedSizeGroup="col2" />
+                                    <ColumnDefinition SharedSizeGroup="col3" />
+                                    <ColumnDefinition SharedSizeGroup="col4" />
+                                    <ColumnDefinition SharedSizeGroup="col5" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="{Binding Name}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="{Binding Doses}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <StackPanel
+                                    Grid.Column="4"
+                                    Orientation="Horizontal">
+                                    <Label
+                                        Content="{Binding UseTimeValue}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                    <Label
+                                        Content="{Binding UseTimeType}"
+                                        Style="{StaticResource ItemCardListboxLabel}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
         </ControlTemplate>
 
@@ -200,27 +242,40 @@
                     DockPanel.Dock="Top"
                     InputText="{Binding DataContext.ClothingSearchFilter, ElementName=itemCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     PlaceholderText="Search.." />
-                <DataGrid
-                    AreRowDetailsFrozen="False"
-                    AutoGenerateColumns="False"
-                    HeadersVisibility="Column"
+                <ListBox
+                    Grid.IsSharedSizeScope="True"
+                    ItemContainerStyle="{StaticResource ItemCardListboxItem}"
                     ItemsSource="{Binding DataContext.AllClothingCollectionView, ElementName=itemCardControl, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding DataContext.SelectedItemCard.Item, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Name}"
-                            Header="Name" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding ArmourType}"
-                            Header="Type" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding EquipmentSlot}"
-                            Header="Slot" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                HorizontalAlignment="Stretch"
+                                Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="col0" />
+                                    <ColumnDefinition SharedSizeGroup="col1" />
+                                    <ColumnDefinition SharedSizeGroup="col2" />
+                                    <ColumnDefinition SharedSizeGroup="col3" />
+                                    <ColumnDefinition SharedSizeGroup="col4" />
+                                    <ColumnDefinition SharedSizeGroup="col5" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Content="{Binding Name}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Content="{Binding ArmourType}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                                <Label
+                                    Grid.Column="2"
+                                    Content="{Binding EquipmentSlot}"
+                                    Style="{StaticResource ItemCardListboxLabel}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
         </ControlTemplate>
 
