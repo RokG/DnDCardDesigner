@@ -130,7 +130,7 @@ namespace CardDesigner.UI.ViewModels
                     switch (_navigationStore.CurrentViewModel.Type)
                     {
                         case ViewModelType.Home:
-                            SelectedSpellCard = _navigationStore.SelectedSpellCard;
+                            SelectedSpellCard = AllSpellCards.FirstOrDefault(ic => ic.ID == _navigationStore.SelectedSpellCard.ID);
                             SelectedSpellDeckDesign = _navigationStore.SelectedSpellDeckDesign;
                             return;
                         default:

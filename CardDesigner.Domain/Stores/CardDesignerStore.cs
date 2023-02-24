@@ -540,10 +540,13 @@ namespace CardDesigner.Domain.Stores
                         itemCard.Item = Weapons.FirstOrDefault(a => a.ID == itemCard.ItemID);
                         break;
                     case Enums.ItemType.Consumable:
+                        itemCard.Item = Consumables.FirstOrDefault(a => a.ID == itemCard.ItemID);
                         break;
                     case Enums.ItemType.Usable:
+                        itemCard.Item = Usables.FirstOrDefault(a => a.ID == itemCard.ItemID);
                         break;
                     case Enums.ItemType.Clothing:
+                        itemCard.Item = Clothings.FirstOrDefault(a => a.ID == itemCard.ItemID);
                         break;
                     default:
                         break;

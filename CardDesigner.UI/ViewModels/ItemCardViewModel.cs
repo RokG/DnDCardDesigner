@@ -11,7 +11,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
-using System.Windows.Input;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -284,30 +283,30 @@ namespace CardDesigner.UI.ViewModels
 
 
         #endregion
-        
+
         #region Navigation
 
         private void SetSelectionFromNavigation()
         {
             if (_navigationStore != null)
             {
-                    if (_navigationStore.UseSelection)
+                if (_navigationStore.UseSelection)
+                {
+                    switch (_navigationStore.CurrentViewModel.Type)
                     {
-                        switch (_navigationStore.CurrentViewModel.Type)
-                        {
-                            case ViewModelType.Home:
-                                SelectedItemCard = _navigationStore.SelectedItemCard;
-                                SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
-                                return;
-                            default:
-                                break;
-                        }
+                        case ViewModelType.Home:
+                            SelectedItemCard = AllItemCards.FirstOrDefault(ic=>ic.ID == _navigationStore.SelectedItemCard.ID);
+                            SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
+                            return;
+                        default:
+                            break;
                     }
-                    else
-                    {
-                        SelectedItemCard = AllItemCards.FirstOrDefault();
-                        SelectedItemDeckDesign = new();
-                    }
+                }
+                else
+                {
+                    SelectedItemCard = AllItemCards.FirstOrDefault();
+                    SelectedItemDeckDesign = new();
+                }
             }
         }
 
