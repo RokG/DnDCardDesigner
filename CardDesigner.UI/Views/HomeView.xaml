@@ -8,18 +8,6 @@
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <UserControl.Resources>
-
-        <Style x:Key="ExpanderStyle" TargetType="{x:Type ToggleButton}">
-            <Setter Property="IsEnabled" Value="True" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Image Source="/Images/SHCalendarLeftArrow.tiff" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <!--  https://www.codemag.com/Article/1401031/Using-the-WPF-TreeView-with-Multiple-Levels  -->
         <DataTemplate x:Key="card">
             <TextBlock>

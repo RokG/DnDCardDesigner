@@ -1,4 +1,5 @@
 ﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Stores;
@@ -24,6 +25,9 @@ namespace CardDesigner.UI.ViewModels
         #endregion
 
         #region Properties
+
+        [ObservableProperty]
+        private ObservableCollection<TreeItemModel> treeCharacters;
 
         [ObservableProperty]
         private int cardSize = 698;
@@ -63,7 +67,7 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
 
-        #region MyRegion
+        #region Constructor
 
         public PrintLayoutViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
         {
@@ -76,6 +80,7 @@ namespace CardDesigner.UI.ViewModels
 
             LoadData();
 
+            GenerateCharacterTree();
         }
 
         #endregion
@@ -114,6 +119,77 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
+
+        /// <summary>
+        /// Create tree view listings
+        /// </summary>
+        private void GenerateCharacterTree()
+        {
+            TreeCharacters = new();
+            foreach (CharacterModel character in AllCharacters)
+            {
+                TreeItemModel addedCharacter = new()
+                {
+                    Name = character.Name,
+                    Title = character.Title,
+                    ID = character.ID,
+                    IsExpanded = true,
+                    IsSelected = true
+                };
+
+                // Create Item deck tree structure
+                foreach (ItemDeckDesignLinkerModel itemDeckDescriptor in character.ItemDeckDescriptors)
+                {
+                    ItemDeckModel itemDeck = AllItemDecks.FirstOrDefault(id => id.ID == itemDeckDescriptor.ItemDeckID);
+
+                    TreeItemModel addedItemDeck = new()
+                    {
+                        Name = itemDeck?.Name,
+                        Title = itemDeck?.Title,
+                        ID = itemDeck.ID,
+                        Item = itemDeck,
+                        ParentID = character.ID
+                    };
+                    addedCharacter.Items.Add(addedItemDeck);
+                }
+
+                // Create Spell deck tree structure
+                foreach (SpellDeckDesignLinkerModel spellDeckDescriptor in character.SpellDeckDescriptors)
+                {
+                    SpellDeckModel spellDeck = AllSpellDecks.FirstOrDefault(id => id.ID == spellDeckDescriptor.SpellDeckID);
+
+                    TreeItemModel addedSpellDeck = new()
+                    {
+                        Name = spellDeck?.Name,
+                        Title = spellDeck?.Title,
+                        ID = spellDeck.ID,
+                        Item = spellDeck,
+                        ParentID = character.ID
+                    };
+                    addedCharacter.Items.Add(addedSpellDeck);
+                }
+
+                // Create Character deck tree structure
+                foreach (CharacterDeckDesignLinkerModel characterDeckDescriptor in character.CharacterDeckDescriptors)
+                {
+                    CharacterDeckModel characterDeck = AllCharacterDecks.FirstOrDefault(id => id.ID == characterDeckDescriptor.CharacterDeckID);
+
+                    TreeItemModel addedCharacterDeck = new()
+                    {
+                        Name = characterDeck?.Name,
+                        Title = characterDeck?.Title,
+                        ID = characterDeck.ID,
+                        Item = characterDeck,
+                        ParentID = character.ID
+                    };
+
+                    addedCharacter.Items.Add(addedCharacterDeck);
+                }
+
+                TreeCharacters.Add(addedCharacter);
+            }
+        }
+
         #endregion
 
         #region Public methods
@@ -124,6 +200,24 @@ namespace CardDesigner.UI.ViewModels
             viewModel.LoadData();
 
             return viewModel;
+        }
+
+        public void SetSelectedItem(TreeItemModel selectableItem)
+        {
+            if (selectableItem.Item is CharacterDeckModel characterCardModel)
+            {
+                SelectedCharacterDeck = characterCardModel;
+            }
+
+            if (selectableItem.Item is SpellDeckModel spellCardModel)
+            {
+                SelectedSpellDeck = spellCardModel;
+            }
+
+            if (selectableItem.Item is ItemDeckModel itemCardModel)
+            {
+                SelectedItemDeck = itemCardModel;
+            }
         }
 
         #endregion

@@ -9,37 +9,100 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
+    <UserControl.Resources>
+        <HierarchicalDataTemplate x:Key="deck"
+            ItemsSource="{Binding Items}">
+            <TextBlock>
+                <Run
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="14"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="character"
+            ItemTemplate="{StaticResource deck}"
+            ItemsSource="{Binding Items}">
+            <TextBlock>
+                <Run
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="14"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
+        </HierarchicalDataTemplate>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <StackPanel>
+
+        <TreeView
+            Grid.Column="0"
+            ItemTemplate="{StaticResource character}"
+            ItemsSource="{Binding TreeCharacters}"
+            SelectedItemChanged="TreeView_SelectedItemChanged">
+            <TreeView.Resources>
+                <!--  Because setting background in style is not working? Only background..  -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#44000000" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#44000000" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+            </TreeView.Resources>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter Property="Background" Value="#11000000" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+
+        <StackPanel Grid.Column="1">
             <Button
                 Click="Button_Click"
                 Content="Create PDF" />
         </StackPanel>
-        <Viewbox Grid.Column="1">
-            <Grid x:Name="gridElement"
-                Width="2100"
-                Height="2970">
-                <controls:CardPageControl x:Name="itemCardsToPDF"
-                    Width="2100"
-                    Height="2970"
-                    CardSize="{Binding CardSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Cards="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </Grid>
-        </Viewbox>
-        <Viewbox Grid.Column="1">
-            <Grid x:Name="gridElement1"
-                Width="2100"
-                Height="2970">
-                <controls:CardPageControl x:Name="spellCardsToPDF"
-                    Width="2100"
-                    Height="2970"
-                    CardSize="{Binding CardSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Cards="{Binding SelectedSpellDeck.SpellCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </Grid>
-        </Viewbox>
+        <TabControl Grid.Column="2">
+            <TabItem Header="Item Cards">
+                <Viewbox>
+                    <Grid x:Name="gridElement"
+                        Width="2100"
+                        Height="2970">
+                        <controls:CardPageControl x:Name="itemCardsToPDF"
+                            Width="2100"
+                            Height="2970"
+                            CardSize="{Binding CardSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Cards="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+            <TabItem Header="Spell Cards">
+                <Viewbox>
+                    <Grid x:Name="gridElement1"
+                        Width="2100"
+                        Height="2970">
+                        <controls:CardPageControl x:Name="spellCardsToPDF"
+                            Width="2100"
+                            Height="2970"
+                            CardSize="{Binding CardSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Cards="{Binding SelectedSpellDeck.SpellCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

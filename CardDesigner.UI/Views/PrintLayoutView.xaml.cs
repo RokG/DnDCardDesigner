@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using CardDesigner.Domain.HelperModels;
+using CardDesigner.UI.ViewModels;
+using Microsoft.Win32;
 using PdfSharp.Drawing;
 using System;
 using System.IO;
@@ -21,6 +23,17 @@ namespace CardDesigner.UI.Views
             InitializeComponent();
         }
 
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (sender is TreeView treeView)
+            {
+                if (treeView.DataContext is PrintLayoutViewModel plvm)
+                {
+                    plvm.SetSelectedItem((TreeItemModel)treeView.SelectedItem);
+                }
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new SaveFileDialog();
@@ -38,6 +51,8 @@ namespace CardDesigner.UI.Views
             XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
 
             var collator = writer.CreateVisualsCollator();
+
+            // Have to navigate tabs to create pages
 
             collator.BeginBatchWrite();
             collator.Write(itemCardsToPDF);
