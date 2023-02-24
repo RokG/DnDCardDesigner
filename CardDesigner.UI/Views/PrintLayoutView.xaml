@@ -23,114 +23,22 @@
             <Grid x:Name="gridElement"
                 Width="2100"
                 Height="2970">
-                <ListView x:Name="itemCardsToPDF"
+                <controls:CardPageControl x:Name="itemCardsToPDF"
                     Width="2100"
                     Height="2970"
-                    Background="White"
-                    ItemsSource="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <controls:ItemCardControl
-                                Margin="0"
-                                Padding="0"
-                                ItemCard="{Binding}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel
-                                Width="2100"
-                                Height="2970"
-                                Background="White"
-                                IsItemsHost="True"
-                                ItemWidth="{Binding CardSize}" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Background" Value="White" />
-                            <Setter Property="Margin" Value="0" />
-                            <Setter Property="Padding" Value="0" />
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="White" />
-
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <!--<ListView.Style>
-                        <Style TargetType="{x:Type ListView}">
-                            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
-                            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Visible" />
-                                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.Style>-->
-                </ListView>
+                    CardSize="{Binding CardSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Cards="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Viewbox>
         <Viewbox Grid.Column="1">
             <Grid x:Name="gridElement1"
                 Width="2100"
                 Height="2970">
-                <ListView x:Name="spellCardsToPDF"
+                <controls:CardPageControl x:Name="spellCardsToPDF"
                     Width="2100"
                     Height="2970"
-                    Background="White"
-                    ItemsSource="{Binding SelectedSpellDeck.SpellCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <controls:SpellCardControl
-                                Margin="0"
-                                Padding="0"
-                                SpellCard="{Binding}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel
-                                Width="2100"
-                                Height="2970"
-                                Background="White"
-                                IsItemsHost="True"
-                                ItemWidth="{Binding CardSize}" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Background" Value="White" />
-                            <Setter Property="Margin" Value="0" />
-                            <Setter Property="Padding" Value="0" />
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="White" />
-
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <!--<ListView.Style>
-                        <Style TargetType="{x:Type ListView}">
-                            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
-                            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Visible" />
-                                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.Style>-->
-                </ListView>
+                    CardSize="{Binding CardSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Cards="{Binding SelectedSpellDeck.SpellCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Viewbox>
     </Grid>

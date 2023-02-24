@@ -15,7 +15,14 @@ namespace CardDesigner.UI.Converters
             }
             else
             {
-                return value.GetType().Name;
+                if (value is object[] values)
+                {
+                    return values[0].GetType().Name;
+                }
+                else
+                {
+                    return value.GetType().Name;
+                }
             }
         }
 
