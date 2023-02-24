@@ -1,20 +1,11 @@
-﻿using System;
-using System.IO.Packaging;
+﻿using Microsoft.Win32;
+using System;
 using System.IO;
-using System.Printing;
+using System.IO.Packaging;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
-using System.Windows.Documents;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using CardDesigner.Domain.Enums;
-using Microsoft.Win32;
-using System.Xml.Linq;
-using System.Runtime.Intrinsics.Arm;
-using System.Drawing.Printing;
+using System.Windows.Xps.Packaging;
 
 namespace CardDesigner.UI.Views
 {
@@ -30,10 +21,15 @@ namespace CardDesigner.UI.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //// Printa v kvadrat?
-            /*
-            *  Convert WPF -> XPS -> PDF
-            */
+            var dialog = new SaveFileDialog();
+
+            dialog.AddExtension = true;
+            dialog.DefaultExt = "pdf";
+            dialog.Filter = "PDF Document (*.pdf)|*.pdf";
+
+            if (dialog.ShowDialog() == false)
+                return;
+
             MemoryStream lMemoryStream = new MemoryStream();
             Package package = Package.Open(lMemoryStream, FileMode.Create);
             XpsDocument doc = new XpsDocument(package);
@@ -50,7 +46,7 @@ namespace CardDesigner.UI.Views
             PdfSharp.Xps.XpsConverter.Convert(lMemoryStream, outStream, false);
 
             // Write pdf file
-            FileStream fileStream = new FileStream("E:\\test1" +DateTime.Now.ToString("yyyy_mm_dd_hh_mm_ss")+ ".pdf", FileMode.Create);
+            FileStream fileStream = new FileStream(dialog.FileName, FileMode.Create);
             outStream.CopyTo(fileStream);
 
             // Clean up
