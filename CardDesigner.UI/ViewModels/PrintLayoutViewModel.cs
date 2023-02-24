@@ -141,6 +141,7 @@ namespace CardDesigner.UI.ViewModels
                         case ViewModelType.Home:
                             SelectedCharacter = AllCharacters.FirstOrDefault(ic => ic.ID == _navigationStore.SelectedCharacter.ID);
                             SelectedItemDeck = _navigationStore.SelectedItemDeck;
+                            SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
                             return;
                         default:
                             break;

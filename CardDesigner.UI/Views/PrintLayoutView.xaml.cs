@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
+using PdfSharp.Drawing;
 using System;
 using System.IO;
 using System.IO.Packaging;
+using System.Printing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Xps;
@@ -35,8 +37,12 @@ namespace CardDesigner.UI.Views
             XpsDocument doc = new XpsDocument(package);
             XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
 
-            // This is your window
-            writer.Write(itemCardsToPDF);
+            var collator = writer.CreateVisualsCollator();
+
+            collator.BeginBatchWrite();
+            collator.Write(itemCardsToPDF);
+            collator.Write(spellCardsToPDF);
+            collator.EndBatchWrite();
 
             doc.Close();
             package.Close();
@@ -55,5 +61,6 @@ namespace CardDesigner.UI.Views
             fileStream.Flush();
             fileStream.Close();
         }
+
     }
 }
