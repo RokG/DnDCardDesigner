@@ -27,10 +27,16 @@ namespace CardDesigner.UI.ViewModels
         #region Properties
 
         [ObservableProperty]
+        private ObservableCollection<ObservableCollection<ICard>> cardPages;
+
+        [ObservableProperty]
         private ObservableCollection<TreeItemModel> treeCharacters;
 
         [ObservableProperty]
         private int cardSize = 698;
+
+        [ObservableProperty]
+        private int selectedPageIndex = 0;
 
         [ObservableProperty]
         private ICardDesign selectedCardDesign;
@@ -204,20 +210,37 @@ namespace CardDesigner.UI.ViewModels
 
         public void SetSelectedItem(TreeItemModel selectableItem)
         {
+            List<ICard> cardsInDeck = new();
             if (selectableItem.Item is CharacterDeckModel characterCardModel)
             {
                 SelectedCharacterDeck = characterCardModel;
+                cardsInDeck.AddRange(SelectedCharacterDeck.CharacterCards);
             }
 
             if (selectableItem.Item is SpellDeckModel spellCardModel)
             {
                 SelectedSpellDeck = spellCardModel;
+                cardsInDeck.AddRange(SelectedSpellDeck.SpellCards);
             }
 
             if (selectableItem.Item is ItemDeckModel itemCardModel)
             {
                 SelectedItemDeck = itemCardModel;
+                cardsInDeck.AddRange(SelectedItemDeck.ItemCards);
             }
+
+            int chunkSize = 9;
+            IEnumerable<IEnumerable<ICard>> CardPagesList = cardsInDeck
+                .Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / chunkSize)
+                .Select(x => x.Select(v => v.Value));
+
+            CardPages = new();
+            foreach (IEnumerable<ICard> item in CardPagesList)
+            {
+                CardPages.Add(new(item));
+            }
+            SelectedPageIndex = 0;
         }
 
         #endregion

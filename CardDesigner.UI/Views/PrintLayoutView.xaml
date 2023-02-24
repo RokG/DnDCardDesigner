@@ -76,7 +76,31 @@
                 Click="Button_Click"
                 Content="Create PDF" />
         </StackPanel>
-        <TabControl Grid.Column="2">
+
+        <TabControl x:Name="cardPages"
+            Grid.Column="2"
+            ItemsSource="{Binding CardPages}"
+            SelectedIndex="{Binding SelectedPageIndex}">
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Viewbox>
+                        <Grid x:Name="gridElement"
+                            Width="2100"
+                            Height="2970">
+                            <controls:CardPageControl x:Name="itemCardsToPDF"
+                                Width="2100"
+                                Height="2970"
+                                CardSize="{Binding DataContext.CardSize, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Cards="{Binding UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </Viewbox>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+
+        <TabControl
+            Grid.Column="2"
+            Visibility="Collapsed">
             <TabItem Header="Item Cards">
                 <Viewbox>
                     <Grid x:Name="gridElement"
