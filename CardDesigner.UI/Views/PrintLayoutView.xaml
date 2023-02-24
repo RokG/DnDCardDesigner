@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CardDesigner.UI.Views.PrintLayoutView"
+﻿<UserControl x:Class="CardDesigner.UI.Views.PrintLayoutView" x:Name="printLayout"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
@@ -10,8 +10,48 @@
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
     <Grid>
-        <Border>
-            <Label Content="A" />
-        </Border>
+        <ListView
+            Width="1050"
+            Background="White"
+            ItemsSource="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <controls:ItemCardControl
+                        Margin="0"
+                        Padding="0"
+                        ItemCard="{Binding}" />
+                    <!--<ContentControl>
+                        <ContentControl.Style>
+                            <Style TargetType="{x:Type ContentControl}">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Converter={converters:TypeToStringConverter}}"
+                                        Value="ItemDeckModel">
+                                        <Setter Property="Template" Value="{StaticResource ArmourTemplate}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>-->
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel
+                        Width="1050"
+                        Height="1485"
+                        Background="White"
+                        IsItemsHost="True"
+                        ItemWidth="250" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </UserControl>

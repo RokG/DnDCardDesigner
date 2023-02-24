@@ -80,7 +80,6 @@ namespace CardDesigner.UI.ViewModels
 
             LoadData();
             GenerateCharacterTree();
-
         }
 
         #endregion
@@ -361,8 +360,35 @@ namespace CardDesigner.UI.ViewModels
             }
             _navigationStore.SelectedCharacter = SelectedCharacter;
             _navigationStore.SelectedCardType = selectedCardType;
-            //_navigationStore.CurrentViewModel = ViewModelType.DeckDesigner;
             _navigationStore.NavigateTo(ViewModelType.DeckDesigner);
+        }
+
+        [RelayCommand]
+        private void NavigateToPrintView()
+        {
+            switch (selectedCardType)
+            {
+                case CardType.Spell:
+                    _navigationStore.SelectedSpellDeck = (SpellDeckModel)SelectedDeck;
+                    _navigationStore.SelectedSpellCard = (SpellCardModel)SelectedCard;
+                    _navigationStore.SelectedSpellDeckDesign = (SpellDeckDesignModel)SelectedCardDesign;
+                    break;
+                case CardType.Item:
+                    _navigationStore.SelectedItemDeck = (ItemDeckModel)SelectedDeck;
+                    _navigationStore.SelectedItemCard = (ItemCardModel)SelectedCard;
+                    _navigationStore.SelectedItemDeckDesign = (ItemDeckDesignModel)SelectedCardDesign;
+                    break;
+                case CardType.Character:
+                    _navigationStore.SelectedCharacterDeck = (CharacterDeckModel)SelectedDeck;
+                    _navigationStore.SelectedCharacterCard = (CharacterCardModel)SelectedCard;
+                    _navigationStore.SelectedCharacterDeckDesign = (CharacterDeckDesignModel)SelectedCardDesign;
+                    break;
+                default:
+                    break;
+            }
+            _navigationStore.SelectedCharacter = SelectedCharacter;
+            _navigationStore.SelectedCardType = selectedCardType;
+            _navigationStore.NavigateTo(ViewModelType.PrintLayout);
         }
 
         #endregion

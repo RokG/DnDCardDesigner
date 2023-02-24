@@ -36,25 +36,25 @@ namespace CardDesigner.UI.ViewModels
         private IDeck selectedDeck;
 
         [ObservableProperty]
+        private ItemDeckModel selectedItemDeck;
+
+        [ObservableProperty]
+        private SpellDeckModel selectedSpellDeck;
+
+        [ObservableProperty]
+        private CharacterDeckModel selectedCharacterDeck;
+
+        [ObservableProperty]
         private CharacterModel selectedCharacter;
 
         [ObservableProperty]
-        private ObservableCollection<SpellCardModel> allSpellCards;
-
-        [ObservableProperty]
         private ObservableCollection<SpellDeckModel> allSpellDecks;
-
-        [ObservableProperty]
-        private ObservableCollection<ItemCardModel> allItemCards;
 
         [ObservableProperty]
         private ObservableCollection<ItemDeckModel> allItemDecks;
 
         [ObservableProperty]
         private ObservableCollection<CharacterDeckModel> allCharacterDecks;
-
-        [ObservableProperty]
-        private ObservableCollection<CharacterCardModel> allCharacterCards;
 
         [ObservableProperty]
         private ObservableCollection<CharacterModel> allCharacters;
@@ -85,16 +85,19 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllCharacters = _cardDesignerStore.Characters == null ? new() : new(_cardDesignerStore.Characters);
-            AllSpellCards = _cardDesignerStore.SpellCards == null ? new() : new(_cardDesignerStore.SpellCards);
             AllSpellDecks = _cardDesignerStore.SpellDecks == null ? new() : new(_cardDesignerStore.SpellDecks);
-            AllItemCards = _cardDesignerStore.ItemCards == null ? new() : new(_cardDesignerStore.ItemCards);
             AllItemDecks = _cardDesignerStore.ItemDecks == null ? new() : new(_cardDesignerStore.ItemDecks);
-            AllCharacterCards = _cardDesignerStore.CharacterCards == null ? new() : new(_cardDesignerStore.CharacterCards);
             AllCharacterDecks = _cardDesignerStore.CharacterDecks == null ? new() : new(_cardDesignerStore.CharacterDecks);
+
+            SelectedItemDeck = AllItemDecks.FirstOrDefault();
+            SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
+            SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault();
 
             AllItemDeckDesigns = _cardDesignerStore.ItemDeckDesigns.ToList();
             AllSpellDeckDesigns = _cardDesignerStore.SpellDeckDesigns.ToList();
             AllCharacterDeckDesigns = _cardDesignerStore.CharacterDeckDesigns.ToList();
+
+            SetSelectionFromNavigation();
         }
 
         private void SetUnsetDatabaseEvents(bool set)
@@ -135,6 +138,7 @@ namespace CardDesigner.UI.ViewModels
                     {
                         case ViewModelType.Home:
                             SelectedCharacter = AllCharacters.FirstOrDefault(ic => ic.ID == _navigationStore.SelectedCharacter.ID);
+                            SelectedItemDeck = _navigationStore.SelectedItemDeck;
                             return;
                         default:
                             break;

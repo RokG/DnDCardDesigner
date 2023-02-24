@@ -136,6 +136,9 @@
                     <Button
                         Command="{Binding NavigateToDeckCreatorCommand}"
                         Content="Edit Deck" />
+                    <Button
+                        Command="{Binding NavigateToPrintViewCommand}"
+                        Content="Print Deck" />
                 </StackPanel>
                 <ContentControl Grid.Row="1">
                     <ContentControl.Style>
