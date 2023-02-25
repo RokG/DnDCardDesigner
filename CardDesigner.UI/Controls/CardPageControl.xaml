@@ -11,18 +11,22 @@
             <controls:ItemCardControl
                 Margin="0"
                 Padding="0"
+                CardDesign="{Binding CardDesign, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 ItemCard="{Binding}" />
         </ControlTemplate>
         <ControlTemplate x:Key="cardsSpell">
             <controls:SpellCardControl
                 Margin="0"
                 Padding="0"
+                CardDesign="{Binding CardDesign, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SpellCard="{Binding}" />
         </ControlTemplate>
         <ControlTemplate x:Key="cardsCharacter">
             <controls:CharacterCardControl
                 Margin="0"
                 Padding="0"
+                CardDesign="{Binding CardDesign, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Character="{Binding Character, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 CharacterCard="{Binding}" />
         </ControlTemplate>
     </UserControl.Resources>
@@ -50,7 +54,7 @@
                                     <Setter Property="Template" Value="{StaticResource cardsSpell}" />
                                 </DataTrigger>
                                 <DataTrigger
-                                    Binding="{Binding ElementName=cardPageControl, Converter={conv:TypeToStringConverter}}"
+                                    Binding="{Binding Converter={conv:TypeToStringConverter}}"
                                     Value="CharacterCardModel">
                                     <Setter Property="Template" Value="{StaticResource cardsCharacter}" />
                                 </DataTrigger>

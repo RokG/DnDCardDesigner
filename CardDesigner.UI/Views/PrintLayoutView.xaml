@@ -81,6 +81,14 @@
             Grid.Column="2"
             ItemsSource="{Binding CardPages}"
             SelectedIndex="{Binding SelectedPageIndex}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <Label
+                        Margin="0"
+                        Padding="0"
+                        Content="{Binding Name}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <Viewbox>
@@ -90,8 +98,10 @@
                             <controls:CardPageControl x:Name="itemCardsToPDF"
                                 Width="2100"
                                 Height="2970"
+                                CardDesign="{Binding DataContext.SelectedCardDesign, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 CardSize="{Binding DataContext.CardSize, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Cards="{Binding UpdateSourceTrigger=PropertyChanged}" />
+                                Cards="{Binding Cards, UpdateSourceTrigger=PropertyChanged}"
+                                Character="{Binding DataContext.SelectedCharacter, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </Viewbox>
                 </DataTemplate>

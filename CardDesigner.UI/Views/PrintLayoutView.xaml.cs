@@ -42,10 +42,19 @@ namespace CardDesigner.UI.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            string baseName = string.Empty;
+            if (sender is Button button) { 
+                if (button.DataContext is PrintLayoutViewModel plvm)
+                {
+                    baseName = plvm.SelectedCharacter.Name + "_" + plvm.SelectedDeck.Name + "_" + DateTime.Now.ToString("yymmdd_hhmmss");
+                }
+            }
+
             var dialog = new SaveFileDialog();
 
             dialog.AddExtension = true;
             dialog.DefaultExt = "pdf";
+            dialog.FileName = baseName;
             dialog.Filter = "PDF Document (*.pdf)|*.pdf";
 
             if (dialog.ShowDialog() == false)

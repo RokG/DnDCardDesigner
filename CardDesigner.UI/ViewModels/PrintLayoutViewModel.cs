@@ -27,7 +27,7 @@ namespace CardDesigner.UI.ViewModels
         #region Properties
 
         [ObservableProperty]
-        private ObservableCollection<ObservableCollection<ICard>> cardPages;
+        private ObservableCollection<CardPageModel> cardPages;
 
         [ObservableProperty]
         private ObservableCollection<TreeItemModel> treeCharacters;
@@ -40,9 +40,6 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ICardDesign selectedCardDesign;
-
-        [ObservableProperty]
-        private ICard selectedCard;
 
         [ObservableProperty]
         private IDeck selectedDeck;
@@ -210,36 +207,62 @@ namespace CardDesigner.UI.ViewModels
 
         public void SetSelectedItem(TreeItemModel selectableItem)
         {
+            SelectedCharacter = AllCharacters.FirstOrDefault(c => c.ID == selectableItem.ParentID);
+
             List<ICard> cardsInDeck = new();
             if (selectableItem.Item is CharacterDeckModel characterCardModel)
             {
                 SelectedCharacterDeck = characterCardModel;
+                SelectedDeck = SelectedCharacterDeck;
+
+                int deckDesingID = SelectedCharacter.CharacterDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == SelectedCharacter.ID && idd.CharacterDeckID == SelectedCharacterDeck.ID)?.DesignID ?? 0;
+                selectedCardDesign = AllCharacterDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID) ?? new();
+
                 cardsInDeck.AddRange(SelectedCharacterDeck.CharacterCards);
             }
 
             if (selectableItem.Item is SpellDeckModel spellCardModel)
             {
                 SelectedSpellDeck = spellCardModel;
+                SelectedDeck = SelectedSpellDeck;
+
+                int deckDesingID = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == SelectedCharacter.ID && idd.SpellDeckID == SelectedSpellDeck.ID)?.DesignID ?? 0;
+                selectedCardDesign = AllSpellDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID) ?? new();
+
                 cardsInDeck.AddRange(SelectedSpellDeck.SpellCards);
             }
 
             if (selectableItem.Item is ItemDeckModel itemCardModel)
             {
                 SelectedItemDeck = itemCardModel;
+                SelectedDeck = SelectedItemDeck;
+
+                int deckDesingID = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == SelectedCharacter.ID && idd.ItemDeckID == SelectedItemDeck.ID)?.DesignID ?? 0;
+                selectedCardDesign = AllItemDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID) ?? new();
+
                 cardsInDeck.AddRange(SelectedItemDeck.ItemCards);
             }
 
             int chunkSize = 9;
-            IEnumerable<IEnumerable<ICard>> CardPagesList = cardsInDeck
-                .Select((x, i) => new { Index = i, Value = x })
-                .GroupBy(x => x.Index / chunkSize)
-                .Select(x => x.Select(v => v.Value));
-
+            int pageCtr = 1;
+            int lastCount = cardsInDeck.Count % chunkSize;
+            int nCards = cardsInDeck.Count;
             CardPages = new();
-            foreach (IEnumerable<ICard> item in CardPagesList)
+            for (int i = 0; i < nCards; i += chunkSize)
             {
-                CardPages.Add(new(item));
+                CardPageModel cardPage = new() { Name = $"Page {pageCtr}" };
+                if (i + chunkSize > nCards)
+                {
+                    cardPage.Cards = cardsInDeck.GetRange(i, lastCount);
+                }
+                else
+                {
+                    cardPage.Cards = cardsInDeck.GetRange(i, chunkSize);
+                }
+                CardPages.Add(cardPage);
+                pageCtr++;
             }
+
             SelectedPageIndex = 0;
         }
 
