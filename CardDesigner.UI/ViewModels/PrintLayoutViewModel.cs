@@ -36,7 +36,10 @@ namespace CardDesigner.UI.ViewModels
         private ObservableCollection<TreeItemModel> treeCharacters;
 
         [ObservableProperty]
-        private int cardSize = 698;
+        private int cardSize = 100;
+
+        [ObservableProperty]
+        private int cardOffset = 0;
 
         [ObservableProperty]
         private int selectedPageIndex = 0;

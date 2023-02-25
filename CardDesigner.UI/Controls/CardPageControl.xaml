@@ -36,9 +36,10 @@
                 CardDesign="{Binding CardDesign, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </ControlTemplate>
     </UserControl.Resources>
-    <ListView
+    <ListView x:Name="cardView"
         Width="2100"
         Height="2970"
+        Padding="{Binding PageOffset, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         Background="White"
         ItemsSource="{Binding Cards, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         ScrollViewer.HorizontalScrollBarVisibility="Disabled"

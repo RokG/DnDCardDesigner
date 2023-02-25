@@ -51,5 +51,31 @@ namespace CardDesigner.UI.Controls
 
         public static readonly DependencyProperty CardSizeProperty =
             DependencyProperty.Register(nameof(CardSize), typeof(double), typeof(CardPageControl), new PropertyMetadata(635.0));
+
+        public double PageOffsetX
+        {
+            get => (double)GetValue(PageOffsetXProperty);
+            set => SetValue(PageOffsetXProperty, value);
+        }
+
+        public static readonly DependencyProperty PageOffsetXProperty =
+            DependencyProperty.Register(nameof(PageOffsetX), typeof(double), typeof(CardPageControl), new PropertyMetadata(0.0, PageOffsetChange));
+
+        public Thickness PageOffset
+        {
+            get => (Thickness)GetValue(PageOffsetProperty);
+            set => SetValue(PageOffsetProperty, value);
+        }
+
+        public static readonly DependencyProperty PageOffsetProperty =
+            DependencyProperty.Register(nameof(PageOffset), typeof(Thickness), typeof(CardPageControl), new PropertyMetadata(new Thickness()));
+
+        private static void PageOffsetChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CardPageControl pageControl)
+            {
+                pageControl.PageOffset = new Thickness(pageControl.PageOffsetX, 0, 0, 0);
+            }
+        }
     }
 }

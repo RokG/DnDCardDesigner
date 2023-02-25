@@ -162,7 +162,7 @@ namespace CardDesigner.DataAccess.DbContexts
                        j.HasKey(t => new { t.CharacterDeckID, t.CharacterCardID });
                    });
 
-            //Seed(modelBuilder);
+            Seed(modelBuilder);
         }
 
         private void Seed(ModelBuilder modelBuilder)

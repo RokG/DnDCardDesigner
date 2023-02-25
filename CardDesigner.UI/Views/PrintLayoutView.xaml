@@ -45,6 +45,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
+        <!--  Selection  -->
         <TreeView
             Grid.Column="0"
             ItemTemplate="{StaticResource character}"
@@ -71,12 +72,28 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
 
+        <!--  Settings  -->
         <StackPanel Grid.Column="1">
             <Button
                 Click="Button_Click"
                 Content="Create PDF" />
+            <DockPanel>
+                <Label Content="Card size [%]" />
+                <Slider
+                    Maximum="100"
+                    Minimum="90"
+                    Value="{Binding CardSize}" />
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Card offset X" />
+                <Slider
+                    Maximum="100"
+                    Minimum="0"
+                    Value="{Binding CardOffset}" />
+            </DockPanel>
         </StackPanel>
 
+        <!--  Card back  -->
         <TabControl
             Grid.Column="2"
             SelectedIndex="0">
@@ -89,7 +106,7 @@
                             Width="2100"
                             Height="2970"
                             CardDesign="{Binding SelectedCharacterBacgroundDesign}"
-                            CardSize="{Binding CardSize}"
+                            CardSize="{Binding CardSize, Converter={converters:PercentageConverter}, ConverterParameter=698}"
                             Cards="{Binding BackgroundPage}"
                             Character="{Binding SelectedCharacter}" />
                     </Grid>
@@ -97,6 +114,7 @@
             </TabItem>
         </TabControl>
 
+        <!--  Card front  -->
         <TabControl x:Name="cardPages"
             Grid.Column="2"
             ItemsSource="{Binding CardPages}"
@@ -119,9 +137,10 @@
                                 Width="2100"
                                 Height="2970"
                                 CardDesign="{Binding DataContext.SelectedCardDesign, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                CardSize="{Binding DataContext.CardSize, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                CardSize="{Binding DataContext.CardSize, Converter={converters:PercentageConverter}, ConverterParameter=698, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Cards="{Binding Cards, UpdateSourceTrigger=PropertyChanged}"
-                                Character="{Binding DataContext.SelectedCharacter, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Character="{Binding DataContext.SelectedCharacter, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                PageOffsetX="{Binding DataContext.CardOffset, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </Viewbox>
                 </DataTemplate>
