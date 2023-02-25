@@ -326,129 +326,143 @@
         </Border>
 
         <!--  Content Area  -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <Border Grid.Row="1">
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedItemCard}"
+                            Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <!--  Card Settings  -->
-            <StackPanel Orientation="Vertical">
+                <!--  Card Settings  -->
+                <StackPanel Orientation="Vertical">
 
-                <!--  Name, Icon, Item  -->
-                <Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <StackPanel Grid.Row="1">
-                        <Label
-                            Margin="5,0"
-                            Padding="0"
-                            Content="Card name:" />
-                        <TextBox
-                            Margin="5,0"
-                            Text="{Binding SelectedItemCard.Name}" />
-                        <Label
-                            Margin="5,10,0,0"
-                            Padding="0"
-                            Content="Item image and image fill:" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <controls:FilePicker
-                                Margin="5"
-                                Text="{Binding SelectedItemCard.IconFilePath, Mode=TwoWay}" />
-                            <ComboBox
-                                Grid.Column="1"
-                                SelectedItem="{Binding SelectedItemCard.IconStretch}">
-                                <sys:String>None</sys:String>
-                                <sys:String>Fill</sys:String>
-                                <sys:String>Uniform</sys:String>
-                                <sys:String>Uniform To Fill</sys:String>
-                            </ComboBox>
-                        </Grid>
-                        <TabControl
-                            Grid.Row="2"
-                            Height="500"
-                            MaxHeight="500"
-                            ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
-                            SelectedItem="{Binding SelectedItemCard.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <TabControl.ContentTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <Label
-                                            Background="Transparent"
-                                            Content="{Binding DataContext.SelectedItemCard.Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl, FallbackValue='None'}"
-                                            ContentStringFormat="{}Currently selected: {0}"
-                                            DockPanel.Dock="Top" />
-                                        <ContentControl>
-                                            <ContentControl.Style>
-                                                <Style TargetType="{x:Type ContentControl}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding}"
-                                                            Value="Armour">
-                                                            <Setter Property="Template" Value="{StaticResource ArmourTemplate}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger
-                                                            Binding="{Binding}"
-                                                            Value="Weapon">
-                                                            <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger
-                                                            Binding="{Binding}"
-                                                            Value="Usable">
-                                                            <Setter Property="Template" Value="{StaticResource UsablesTemplate}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger
-                                                            Binding="{Binding}"
-                                                            Value="Clothing">
-                                                            <Setter Property="Template" Value="{StaticResource ClothingTemplate}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger
-                                                            Binding="{Binding}"
-                                                            Value="Consumable">
-                                                            <Setter Property="Template" Value="{StaticResource ConsumablesTemplate}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </ContentControl.Style>
-                                        </ContentControl>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </TabControl.ContentTemplate>
-                        </TabControl>
-                    </StackPanel>
-                </Border>
+                    <!--  Name, Icon, Item  -->
+                    <Border
+                        BorderThickness="1"
+                        Style="{StaticResource VisibleBorder}">
+                        <StackPanel Grid.Row="1">
+                            <Label
+                                Margin="5,0"
+                                Padding="0"
+                                Content="Card name:" />
+                            <TextBox
+                                Margin="5,0"
+                                Text="{Binding SelectedItemCard.Name}" />
+                            <Label
+                                Margin="5,10,0,0"
+                                Padding="0"
+                                Content="Item image and image fill:" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <controls:FilePicker
+                                    Margin="5"
+                                    Text="{Binding SelectedItemCard.IconFilePath, Mode=TwoWay}" />
+                                <ComboBox
+                                    Grid.Column="1"
+                                    SelectedItem="{Binding SelectedItemCard.IconStretch}">
+                                    <sys:String>None</sys:String>
+                                    <sys:String>Fill</sys:String>
+                                    <sys:String>Uniform</sys:String>
+                                    <sys:String>Uniform To Fill</sys:String>
+                                </ComboBox>
+                            </Grid>
+                            <TabControl
+                                Grid.Row="2"
+                                Height="500"
+                                MaxHeight="500"
+                                ItemsSource="{Binding Source={StaticResource ItemTypeEnum}}"
+                                SelectedItem="{Binding SelectedItemCard.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <TabControl.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Label
+                                                Background="Transparent"
+                                                Content="{Binding DataContext.SelectedItemCard.Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=itemCardControl, FallbackValue='None'}"
+                                                ContentStringFormat="{}Currently selected: {0}"
+                                                DockPanel.Dock="Top" />
+                                            <ContentControl>
+                                                <ContentControl.Style>
+                                                    <Style TargetType="{x:Type ContentControl}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                                Binding="{Binding}"
+                                                                Value="Armour">
+                                                                <Setter Property="Template" Value="{StaticResource ArmourTemplate}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                                Binding="{Binding}"
+                                                                Value="Weapon">
+                                                                <Setter Property="Template" Value="{StaticResource WeaponTemplate}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                                Binding="{Binding}"
+                                                                Value="Usable">
+                                                                <Setter Property="Template" Value="{StaticResource UsablesTemplate}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                                Binding="{Binding}"
+                                                                Value="Clothing">
+                                                                <Setter Property="Template" Value="{StaticResource ClothingTemplate}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                                Binding="{Binding}"
+                                                                Value="Consumable">
+                                                                <Setter Property="Template" Value="{StaticResource ConsumablesTemplate}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ContentControl.Style>
+                                            </ContentControl>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </TabControl.ContentTemplate>
+                            </TabControl>
+                        </StackPanel>
+                    </Border>
 
-                <!--  True/False properties  -->
-                <Border
-                    BorderThickness="1"
-                    Style="{StaticResource VisibleBorder}">
-                    <!--  True/False props  -->
-                    <StackPanel Grid.Row="3">
-                        <CheckBox
-                            Content="Magical"
-                            IsChecked="{Binding SelectedItemCard.IsMagical}" />
-                        <CheckBox
-                            Content="Unidentified"
-                            IsChecked="{Binding SelectedItemCard.IsUnidentified}" />
-                        <CheckBox
-                            Content="Attunement"
-                            IsChecked="{Binding SelectedItemCard.RequiresAttunement}" />
-                    </StackPanel>
-                </Border>
+                    <!--  True/False properties  -->
+                    <Border
+                        BorderThickness="1"
+                        Style="{StaticResource VisibleBorder}">
+                        <!--  True/False props  -->
+                        <StackPanel Grid.Row="3">
+                            <CheckBox
+                                Content="Magical"
+                                IsChecked="{Binding SelectedItemCard.IsMagical}" />
+                            <CheckBox
+                                Content="Unidentified"
+                                IsChecked="{Binding SelectedItemCard.IsUnidentified}" />
+                            <CheckBox
+                                Content="Attunement"
+                                IsChecked="{Binding SelectedItemCard.RequiresAttunement}" />
+                        </StackPanel>
+                    </Border>
 
-            </StackPanel>
+                </StackPanel>
 
-            <!--  Card view  -->
-            <controls:ItemCardControl
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                CardDesign="{Binding SelectedItemDeckDesign}"
-                IsEditable="True"
-                ItemCard="{Binding SelectedItemCard, Mode=TwoWay}" />
-        </Grid>
+                <!--  Card view  -->
+                <controls:ItemCardControl
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    CardDesign="{Binding SelectedItemDeckDesign}"
+                    IsEditable="True"
+                    ItemCard="{Binding SelectedItemCard, Mode=TwoWay}" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
