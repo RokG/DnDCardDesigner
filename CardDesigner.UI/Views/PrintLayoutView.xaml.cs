@@ -2,16 +2,13 @@
 using CardDesigner.UI.Controls;
 using CardDesigner.UI.ViewModels;
 using Microsoft.Win32;
-using PdfSharp.Drawing;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Packaging;
-using System.Printing;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
 using System.Windows.Xps;
@@ -43,29 +40,33 @@ namespace CardDesigner.UI.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string baseName = string.Empty;
-            if (sender is Button button) { 
+            if (sender is Button button)
+            {
                 if (button.DataContext is PrintLayoutViewModel plvm)
                 {
                     baseName = plvm.SelectedCharacter.Name + "_" + plvm.SelectedDeck.Name + "_" + DateTime.Now.ToString("yymmdd_hhmmss");
                 }
             }
 
-            var dialog = new SaveFileDialog();
-
-            dialog.AddExtension = true;
-            dialog.DefaultExt = "pdf";
-            dialog.FileName = baseName;
-            dialog.Filter = "PDF Document (*.pdf)|*.pdf";
+            SaveFileDialog dialog = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = "pdf",
+                FileName = baseName,
+                Filter = "PDF Document (*.pdf)|*.pdf"
+            };
 
             if (dialog.ShowDialog() == false)
+            {
                 return;
+            }
 
             MemoryStream lMemoryStream = new MemoryStream();
             Package package = Package.Open(lMemoryStream, FileMode.Create);
             XpsDocument doc = new XpsDocument(package);
             XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
 
-            var collator = writer.CreateVisualsCollator();
+            System.Windows.Documents.Serialization.SerializerWriterCollator collator = writer.CreateVisualsCollator();
 
             int sIdx = cardPages.SelectedIndex;
             int tabs = cardPages.Items.Count;
@@ -122,14 +123,17 @@ namespace CardDesigner.UI.Views
         public static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
         {
             // Confirm parent and childName are valid. 
-            if (parent == null) return null;
+            if (parent == null)
+            {
+                return null;
+            }
 
             T foundChild = null;
 
             int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < childrenCount; i++)
             {
-                var child = VisualTreeHelper.GetChild(parent, i);
+                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
                 // If the child is not of the request child type child
                 T childType = child as T;
                 if (childType == null)
@@ -138,11 +142,14 @@ namespace CardDesigner.UI.Views
                     foundChild = FindChild<T>(child, childName);
 
                     // If the child is found, break so we do not overwrite the found child. 
-                    if (foundChild != null) break;
+                    if (foundChild != null)
+                    {
+                        break;
+                    }
                 }
                 else if (!string.IsNullOrEmpty(childName))
                 {
-                    var frameworkElement = child as FrameworkElement;
+                    FrameworkElement frameworkElement = child as FrameworkElement;
                     // If the child's name is set for search
                     if (frameworkElement != null && frameworkElement.Name == childName)
                     {

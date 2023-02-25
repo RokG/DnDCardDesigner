@@ -1,19 +1,8 @@
 ﻿using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CardDesigner.UI.Controls
 {
@@ -29,8 +18,8 @@ namespace CardDesigner.UI.Controls
 
         public CharacterModel Character
         {
-            get { return (CharacterModel)GetValue(CharacterProperty); }
-            set { SetValue(CharacterProperty, value); }
+            get => (CharacterModel)GetValue(CharacterProperty);
+            set => SetValue(CharacterProperty, value);
         }
 
         public static readonly DependencyProperty CharacterProperty =
@@ -38,8 +27,8 @@ namespace CardDesigner.UI.Controls
 
         public ICardDesign CardDesign
         {
-            get { return (ICardDesign)GetValue(CardDesignProperty); }
-            set { SetValue(CardDesignProperty, value); }
+            get => (ICardDesign)GetValue(CardDesignProperty);
+            set => SetValue(CardDesignProperty, value);
         }
 
         public static readonly DependencyProperty CardDesignProperty =
@@ -47,8 +36,8 @@ namespace CardDesigner.UI.Controls
 
         public IEnumerable<ICard> Cards
         {
-            get { return (IEnumerable<ICard>)GetValue(CardsProperty); }
-            set { SetValue(CardsProperty, value); }
+            get => (IEnumerable<ICard>)GetValue(CardsProperty);
+            set => SetValue(CardsProperty, value);
         }
 
         public static readonly DependencyProperty CardsProperty =
@@ -56,8 +45,8 @@ namespace CardDesigner.UI.Controls
 
         public double CardSize
         {
-            get { return (double)GetValue(CardSizeProperty); }
-            set { SetValue(CardSizeProperty, value); }
+            get => (double)GetValue(CardSizeProperty);
+            set => SetValue(CardSizeProperty, value);
         }
 
         public static readonly DependencyProperty CardSizeProperty =

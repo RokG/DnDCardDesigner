@@ -621,7 +621,7 @@ namespace CardDesigner.UI.ViewModels
             }
 
             await _cardDesignerStore.DeleteCardDesign(SelectedSpellDeckDesign);
-            SelectedCharacter = AllCharacters.First(c=>c.ID == selectedCharacterID);
+            SelectedCharacter = AllCharacters.First(c => c.ID == selectedCharacterID);
         }
 
         #endregion

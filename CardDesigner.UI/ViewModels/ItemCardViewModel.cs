@@ -295,7 +295,7 @@ namespace CardDesigner.UI.ViewModels
                     switch (_navigationStore.CurrentViewModel.Type)
                     {
                         case ViewModelType.Home:
-                            SelectedItemCard = AllItemCards.FirstOrDefault(ic=>ic.ID == _navigationStore.SelectedItemCard.ID);
+                            SelectedItemCard = AllItemCards.FirstOrDefault(ic => ic.ID == _navigationStore.SelectedItemCard.ID);
                             SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
                             return;
                         default:
