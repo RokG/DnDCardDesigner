@@ -77,6 +77,26 @@
                 Content="Create PDF" />
         </StackPanel>
 
+        <TabControl
+            Grid.Column="2"
+            SelectedIndex="0">
+            <TabItem>
+                <Viewbox>
+                    <Grid x:Name="gridElementBGND"
+                        Width="2100"
+                        Height="2970">
+                        <controls:CardPageControl x:Name="cardBackgroundPages"
+                            Width="2100"
+                            Height="2970"
+                            CardDesign="{Binding SelectedCharacterBacgroundDesign}"
+                            CardSize="{Binding CardSize}"
+                            Cards="{Binding BackgroundPage}"
+                            Character="{Binding SelectedCharacter}" />
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+        </TabControl>
+
         <TabControl x:Name="cardPages"
             Grid.Column="2"
             ItemsSource="{Binding CardPages}"
@@ -95,7 +115,7 @@
                         <Grid x:Name="gridElement"
                             Width="2100"
                             Height="2970">
-                            <controls:CardPageControl x:Name="itemCardsToPDF"
+                            <controls:CardPageControl
                                 Width="2100"
                                 Height="2970"
                                 CardDesign="{Binding DataContext.SelectedCardDesign, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -108,35 +128,5 @@
             </TabControl.ContentTemplate>
         </TabControl>
 
-        <TabControl
-            Grid.Column="2"
-            Visibility="Collapsed">
-            <TabItem Header="Item Cards">
-                <Viewbox>
-                    <Grid x:Name="gridElement"
-                        Width="2100"
-                        Height="2970">
-                        <controls:CardPageControl x:Name="itemCardsToPDF"
-                            Width="2100"
-                            Height="2970"
-                            CardSize="{Binding CardSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Cards="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </Grid>
-                </Viewbox>
-            </TabItem>
-            <TabItem Header="Spell Cards">
-                <Viewbox>
-                    <Grid x:Name="gridElement1"
-                        Width="2100"
-                        Height="2970">
-                        <controls:CardPageControl x:Name="spellCardsToPDF"
-                            Width="2100"
-                            Height="2970"
-                            CardSize="{Binding CardSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Cards="{Binding SelectedSpellDeck.SpellCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </Grid>
-                </Viewbox>
-            </TabItem>
-        </TabControl>
     </Grid>
 </UserControl>

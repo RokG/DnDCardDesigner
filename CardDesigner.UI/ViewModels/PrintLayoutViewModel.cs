@@ -27,6 +27,9 @@ namespace CardDesigner.UI.ViewModels
         #region Properties
 
         [ObservableProperty]
+        private ObservableCollection<BackgroundCardModel> backgroundPage;
+
+        [ObservableProperty]
         private ObservableCollection<CardPageModel> cardPages;
 
         [ObservableProperty]
@@ -43,6 +46,9 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private IDeck selectedDeck;
+
+        [ObservableProperty]
+        private DeckBackgroundDesignModel selectedCharacterBacgroundDesign;
 
         [ObservableProperty]
         private ItemDeckModel selectedItemDeck;
@@ -207,8 +213,20 @@ namespace CardDesigner.UI.ViewModels
 
         public void SetSelectedItem(TreeItemModel selectableItem)
         {
-            SelectedCharacter = AllCharacters.FirstOrDefault(c => c.ID == selectableItem.ParentID);
+            // Set selected character
+            if (selectableItem.ParentID == 0)
+            {
+                SelectedCharacter = AllCharacters.FirstOrDefault(c => c.ID == selectableItem.ID);
+            }
+            else
+            {
+                SelectedCharacter = AllCharacters.FirstOrDefault(c => c.ID == selectableItem.ParentID);
+            }
 
+            // Set character background deck
+            SelectedCharacterBacgroundDesign = SelectedCharacter?.DeckBackgroundDesign ?? new();
+
+            // Set selected deck
             List<ICard> cardsInDeck = new();
             if (selectableItem.Item is CharacterDeckModel characterCardModel)
             {
@@ -243,6 +261,7 @@ namespace CardDesigner.UI.ViewModels
                 cardsInDeck.AddRange(SelectedItemDeck.ItemCards);
             }
 
+            // Populate card pages
             int chunkSize = 9;
             int pageCtr = 1;
             int lastCount = cardsInDeck.Count % chunkSize;
@@ -263,6 +282,21 @@ namespace CardDesigner.UI.ViewModels
                 pageCtr++;
             }
 
+            // Populate background
+            BackgroundPage = new()
+            {
+                new BackgroundCardModel(),
+                new BackgroundCardModel(),
+                new BackgroundCardModel(),
+                new BackgroundCardModel(),
+                new BackgroundCardModel(),
+                new BackgroundCardModel(),
+                new BackgroundCardModel(),
+                new BackgroundCardModel(),
+                new BackgroundCardModel(),
+            };
+
+            // Set first tab
             SelectedPageIndex = 0;
         }
 

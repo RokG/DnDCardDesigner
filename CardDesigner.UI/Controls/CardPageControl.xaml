@@ -29,6 +29,12 @@
                 Character="{Binding Character, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 CharacterCard="{Binding}" />
         </ControlTemplate>
+        <ControlTemplate x:Key="cardsBackground">
+            <controls:CardBackgroundControl
+                Margin="0"
+                Padding="0"
+                CardDesign="{Binding CardDesign, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </ControlTemplate>
     </UserControl.Resources>
     <ListView
         Width="2100"
@@ -42,6 +48,7 @@
                 <ContentControl>
                     <ContentControl.Style>
                         <Style TargetType="{x:Type ContentControl}">
+                            <Setter Property="Template" Value="{StaticResource cardsBackground}" />
                             <Style.Triggers>
                                 <DataTrigger
                                     Binding="{Binding Converter={conv:TypeToStringConverter}}"
