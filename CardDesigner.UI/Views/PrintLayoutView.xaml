@@ -80,8 +80,9 @@
             <DockPanel>
                 <Label Content="Card size [%]" />
                 <Slider
-                    Maximum="100"
-                    Minimum="90"
+                    Maximum="100.0"
+                    Minimum="90.0"
+                    SmallChange=".1"
                     Value="{Binding CardScale}" />
             </DockPanel>
             <DockPanel>

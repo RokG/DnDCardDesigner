@@ -41,10 +41,10 @@ namespace CardDesigner.UI.ViewModels
         private ObservableCollection<TreeItemModel> treeCharacters;
 
         [ObservableProperty]
-        private int cardScale = 100;
+        private double cardScale = 100;
 
         [ObservableProperty]
-        private int pageOffsetX = 0;
+        private double pageOffsetX = 0;
 
         [ObservableProperty]
         private int selectedPageIndex = 0;
@@ -315,12 +315,12 @@ namespace CardDesigner.UI.ViewModels
 
         #region Settings
 
-        partial void OnCardScaleChanged(int value)
+        partial void OnCardScaleChanged(double value)
         {
             _settingsStore.PrintCardScale = value;
         }
 
-        partial void OnPageOffsetXChanged(int value)
+        partial void OnPageOffsetXChanged(double value)
         {
             _settingsStore.PrintPageOffsetX = value;
         }
