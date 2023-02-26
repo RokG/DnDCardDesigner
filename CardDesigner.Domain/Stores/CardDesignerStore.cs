@@ -12,25 +12,45 @@ namespace CardDesigner.Domain.Stores
 {
     public class CardDesignerStore
     {
+        #region Private fields
+
         private readonly Lazy<Task> _initializeLazy;
 
+        // Services
         private readonly ICharacterService _characterService;
         private readonly ICardDesignService _cardDesignService;
         private readonly IDeckService _deckService;
         private readonly ICardService _cardService;
         private readonly IJsonFileItemService _jsonFileItemService;
 
-        private readonly List<SpellCardModel> _spellCards;
-        private readonly List<ItemCardModel> _itemCards;
-        private readonly List<CharacterCardModel> _characterCards;
-        private readonly List<SpellDeckModel> _spellDecks;
-        private readonly List<ItemDeckModel> _itemDecks;
-        private readonly List<CharacterDeckModel> _characterDecks;
+        // Character
         private readonly List<CharacterModel> _characters;
-        private readonly List<SpellDeckDesignModel> _spellDeckDesigns;
-        private readonly List<ItemDeckDesignModel> _itemDeckDesigns;
-        private readonly List<CharacterDeckDesignModel> _characterDeckDesigns;
         private readonly List<DeckBackgroundDesignModel> _deckBackgroundDesigns;
+
+        // Minions
+        private readonly List<MinionModel> _minions;
+
+        // Spell cards
+        private readonly List<SpellCardModel> _spellCards;
+        private readonly List<SpellDeckModel> _spellDecks;
+        private readonly List<SpellDeckDesignModel> _spellDeckDesigns;
+
+        // Item cards
+        private readonly List<ItemCardModel> _itemCards;
+        private readonly List<ItemDeckModel> _itemDecks;
+        private readonly List<ItemDeckDesignModel> _itemDeckDesigns;
+
+        // Character cards
+        private readonly List<CharacterCardModel> _characterCards;
+        private readonly List<CharacterDeckModel> _characterDecks;
+        private readonly List<CharacterDeckDesignModel> _characterDeckDesigns;
+
+        // Minion cards
+        private readonly List<MinionCardModel> _minionCards;
+        private readonly List<MinionDeckModel> _minionDecks;
+        private readonly List<MinionDeckDesignModel> _minionDeckDesigns;
+
+        // Other
         private readonly List<WeaponModel> _weapons;
         private readonly List<ArmourModel> _armours;
         private readonly List<ClassModel> _classes;
@@ -38,17 +58,38 @@ namespace CardDesigner.Domain.Stores
         private readonly List<ClothingModel> _clothings;
         private readonly List<ConsumableModel> _consumables;
 
-        public IEnumerable<SpellCardModel> SpellCards => _spellCards;
-        public IEnumerable<ItemCardModel> ItemCards => _itemCards;
-        public IEnumerable<CharacterCardModel> CharacterCards => _characterCards;
-        public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
-        public IEnumerable<ItemDeckModel> ItemDecks => _itemDecks;
-        public IEnumerable<CharacterDeckModel> CharacterDecks => _characterDecks;
+        #endregion
+
+        #region Properties
+
+        // Character
         public IEnumerable<CharacterModel> Characters => _characters;
-        public IEnumerable<SpellDeckDesignModel> SpellDeckDesigns => _spellDeckDesigns;
-        public IEnumerable<ItemDeckDesignModel> ItemDeckDesigns => _itemDeckDesigns;
-        public IEnumerable<CharacterDeckDesignModel> CharacterDeckDesigns => _characterDeckDesigns;
         public IEnumerable<DeckBackgroundDesignModel> DeckBackgroundDesigns => _deckBackgroundDesigns;
+
+        // Minion
+        public IEnumerable<MinionModel> Minions => _minions;
+
+        // Spell cards
+        public IEnumerable<SpellCardModel> SpellCards => _spellCards;
+        public IEnumerable<SpellDeckModel> SpellDecks => _spellDecks;
+        public IEnumerable<SpellDeckDesignModel> SpellDeckDesigns => _spellDeckDesigns;
+        
+        // Item cards
+        public IEnumerable<ItemCardModel> ItemCards => _itemCards;
+        public IEnumerable<ItemDeckModel> ItemDecks => _itemDecks;
+        public IEnumerable<ItemDeckDesignModel> ItemDeckDesigns => _itemDeckDesigns;
+
+        // Character cards
+        public IEnumerable<CharacterCardModel> CharacterCards => _characterCards;
+        public IEnumerable<CharacterDeckModel> CharacterDecks => _characterDecks;
+        public IEnumerable<CharacterDeckDesignModel> CharacterDeckDesigns => _characterDeckDesigns;
+
+        // Minion cards
+        public IEnumerable<MinionCardModel> MinionCards => _minionCards;
+        public IEnumerable<MinionDeckModel> MinionDecks => _minionDecks;
+        public IEnumerable<MinionDeckDesignModel> MinionDeckDesigns => _minionDeckDesigns;
+
+        // Other
         public IEnumerable<WeaponModel> Weapons => _weapons;
         public IEnumerable<ArmourModel> Armours => _armours;
         public IEnumerable<ClassModel> Classes => _classes;
@@ -56,17 +97,30 @@ namespace CardDesigner.Domain.Stores
         public IEnumerable<ClothingModel> Clothings => _clothings;
         public IEnumerable<ConsumableModel> Consumables => _consumables;
 
+        #endregion
+
+        #region Events
+
         public event Action<CharacterModel, DataChangeType> CharacterChanged;
-        public event Action<SpellDeckDesignModel, DataChangeType> SpellDeckDesignChanged;
-        public event Action<ItemDeckDesignModel, DataChangeType> ItemDeckDesignChanged;
-        public event Action<CharacterDeckDesignModel, DataChangeType> CharacterDeckDesignChanged;
         public event Action<DeckBackgroundDesignModel, DataChangeType> DeckBackgroundDesignChanged;
+
         public event Action<SpellCardModel, DataChangeType> SpellCardChanged;
-        public event Action<ItemCardModel, DataChangeType> ItemCardChanged;
-        public event Action<CharacterCardModel, DataChangeType> CharacterCardChanged;
         public event Action<SpellDeckModel, DataChangeType> SpellDeckChanged;
+        public event Action<SpellDeckDesignModel, DataChangeType> SpellDeckDesignChanged;
+
+        public event Action<ItemCardModel, DataChangeType> ItemCardChanged;
         public event Action<ItemDeckModel, DataChangeType> ItemDeckChanged;
+        public event Action<ItemDeckDesignModel, DataChangeType> ItemDeckDesignChanged;
+
+        public event Action<MinionCardModel, DataChangeType> MinionCardChanged;
+        public event Action<MinionDeckModel, DataChangeType> MinionDeckChanged;
+        public event Action<MinionDeckDesignModel, DataChangeType> MinionDeckDesignChanged;
+
+        public event Action<CharacterCardModel, DataChangeType> CharacterCardChanged;
         public event Action<CharacterDeckModel, DataChangeType> CharacterDeckChanged;
+        public event Action<CharacterDeckDesignModel, DataChangeType> CharacterDeckDesignChanged;
+
+        #endregion
 
         /// <summary>
         /// Constructor
@@ -86,16 +140,24 @@ namespace CardDesigner.Domain.Stores
             _initializeLazy = new Lazy<Task>(Initialize);
 
             _characters = new();
-            _spellDeckDesigns = new();
-            _itemDeckDesigns = new();
-            _characterDeckDesigns = new();
             _deckBackgroundDesigns = new();
+
             _spellCards = new();
-            _itemCards = new();
-            _characterCards = new();
             _spellDecks = new();
+            _spellDeckDesigns = new();
+            
+            _itemCards = new();
             _itemDecks = new();
+            _itemDeckDesigns = new();
+            
+            _characterCards = new();
             _characterDecks = new();
+            _characterDeckDesigns = new();
+
+            _minionCards = new();
+            _minionDecks = new();
+            _minionDeckDesigns = new();
+
             _armours = new();
             _weapons = new();
             _classes = new();
@@ -112,14 +174,22 @@ namespace CardDesigner.Domain.Stores
         private async Task Initialize()
         {
             ReadAllItems();
-            await UpdateSpellCardsFromDb();
-            await UpdateItemCardsFromDb();
-            await UpdateCharacterCardsFromDb();
+
             await UpdateCharactersFromDb();
-            await UpdateCardDesignsFromDb();
+            
+            await UpdateSpellCardsFromDb();
             await UpdateSpellDecksFromDb();
+
+            await UpdateItemCardsFromDb();
             await UpdateItemDecksFromDb();
+            
+            await UpdateCharacterCardsFromDb();
             await UpdateCharacterDecksFromDb();
+
+            await UpdateMinionCardsFromDb();
+            await UpdateMinionDecksFromDb();
+
+            await UpdateCardDesignsFromDb();
         }
 
         /// <summary>
@@ -158,6 +228,10 @@ namespace CardDesigner.Domain.Stores
                         _characterDeckDesigns.Add(CharacterDeckDesignModel);
                         CharacterDeckDesignChanged?.Invoke(CharacterDeckDesignModel, DataChangeType.Created);
                         break;
+                    case MinionDeckDesignModel MinionDeckDesignModel:
+                        _minionDeckDesigns.Add(MinionDeckDesignModel);
+                        MinionDeckDesignChanged?.Invoke(MinionDeckDesignModel, DataChangeType.Created);
+                        break;
                     case DeckBackgroundDesignModel characterDeckDesignModel:
                         _deckBackgroundDesigns.Add(characterDeckDesignModel);
                         DeckBackgroundDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Created);
@@ -189,6 +263,13 @@ namespace CardDesigner.Domain.Stores
             CharacterDeckChanged?.Invoke(createdCharacterDeck, DataChangeType.Created);
         }
 
+        public async Task CreateMinionDeck(MinionDeckModel minionDeck)
+        {
+            MinionDeckModel createdMinionDeck = (MinionDeckModel)await _deckService.CreateDeck(minionDeck);
+            _minionDecks.Add(createdMinionDeck);
+            MinionDeckChanged?.Invoke(createdMinionDeck, DataChangeType.Created);
+        }
+
         public async Task CreateSpellCard(SpellCardModel spellCard)
         {
             SpellCardModel createdSpellCard = (SpellCardModel)await _cardService.CreateCard(spellCard);
@@ -208,6 +289,13 @@ namespace CardDesigner.Domain.Stores
             CharacterCardModel createdCharacterCard = (CharacterCardModel)await _cardService.CreateCard(characterCard);
             _characterCards.Add(createdCharacterCard);
             CharacterCardChanged?.Invoke(createdCharacterCard, DataChangeType.Created);
+        }
+
+        public async Task CreateMinionCard(MinionCardModel minionCard)
+        {
+            MinionCardModel createdMinionCard = (MinionCardModel)await _cardService.CreateCard(minionCard);
+            _minionCards.Add(createdMinionCard);
+            MinionCardChanged?.Invoke(createdMinionCard, DataChangeType.Created);
         }
 
         #endregion
@@ -239,6 +327,9 @@ namespace CardDesigner.Domain.Stores
                         break;
                     case CharacterDeckDesignModel characterDeckDesignModel:
                         CharacterDeckDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Updated);
+                        break;
+                    case MinionDeckDesignModel minionDeckDesignModel:
+                        MinionDeckDesignChanged?.Invoke(minionDeckDesignModel, DataChangeType.Updated);
                         break;
                     case DeckBackgroundDesignModel characterDeckDesignModel:
                         DeckBackgroundDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Updated);
@@ -276,6 +367,15 @@ namespace CardDesigner.Domain.Stores
             }
         }
 
+        public async Task UpdateMinionDeck(MinionDeckModel minionDeck)
+        {
+            if (await _deckService.UpdateDeck(minionDeck) is MinionDeckModel updatedMinionDeck)
+            {
+                await UpdateSpellDecksFromDb();
+                MinionDeckChanged?.Invoke(updatedMinionDeck, DataChangeType.Updated);
+            }
+        }
+
         public async Task UpdateSpellCard(SpellCardModel spellCard)
         {
             if ((SpellCardModel)await _cardService.UpdateCard(spellCard) is SpellCardModel updatedSpellCard)
@@ -289,6 +389,14 @@ namespace CardDesigner.Domain.Stores
             if ((ItemCardModel)await _cardService.UpdateCard(itemCard) is ItemCardModel updatedItemCard)
             {
                 ItemCardChanged?.Invoke(updatedItemCard, DataChangeType.Updated);
+            }
+        }
+
+        public async Task UpdateMinionCard(MinionCardModel minionCard)
+        {
+            if ((MinionCardModel)await _cardService.UpdateCard(minionCard) is MinionCardModel updatedMinionCard)
+            {
+                MinionCardChanged?.Invoke(updatedMinionCard, DataChangeType.Updated);
             }
         }
 
@@ -331,6 +439,10 @@ namespace CardDesigner.Domain.Stores
                     case CharacterDeckDesignModel characterDeckDesignModel:
                         _characterDeckDesigns.Remove(characterDeckDesignModel);
                         CharacterDeckDesignChanged?.Invoke(characterDeckDesignModel, DataChangeType.Deleted);
+                        break;
+                    case MinionDeckDesignModel minionDeckDesignModel:
+                        _minionDeckDesigns.Remove(minionDeckDesignModel);
+                        MinionDeckDesignChanged?.Invoke(minionDeckDesignModel, DataChangeType.Deleted);
                         break;
                     case DeckBackgroundDesignModel characterDeckDesignModel:
                         _deckBackgroundDesigns.Remove(characterDeckDesignModel);
@@ -396,6 +508,24 @@ namespace CardDesigner.Domain.Stores
             }
         }
 
+        public async Task DeleteMinionDeck(MinionDeckModel minionDeck)
+        {
+            // Update data from database
+            await UpdateMinionDecksFromDb();
+            // Find the deck to delete
+            IEnumerable<MinionDeckModel> a = MinionDecks.Where(sd => sd.ID == minionDeck.ID);
+            // Remove it from database if found
+            if (a.Any())
+            {
+                bool success = await _deckService.DeleteDeck(a.First());
+                if (success)
+                {
+                    _minionDecks.Remove(minionDeck);
+                    MinionDeckChanged?.Invoke(minionDeck, DataChangeType.Deleted);
+                }
+            }
+        }
+
         public async Task DeleteSpellCard(SpellCardModel spellCard)
         {
             bool success = await _cardService.DeleteCard(spellCard);
@@ -416,6 +546,16 @@ namespace CardDesigner.Domain.Stores
             }
         }
 
+        public async Task DeleteMinionCard(MinionCardModel minionCard)
+        {
+            bool success = await _cardService.DeleteCard(minionCard);
+            if (success)
+            {
+                _minionCards.Remove(minionCard);
+                MinionCardChanged?.Invoke(minionCard, DataChangeType.Deleted);
+            }
+        }
+
         public async Task DeleteCharacterCard(CharacterCardModel characterCard)
         {
             bool success = await _cardService.DeleteCard(characterCard);
@@ -429,13 +569,27 @@ namespace CardDesigner.Domain.Stores
         #endregion
 
         #region Updates
-
+        
         private async Task UpdateCharactersFromDb()
         {
             IEnumerable<CharacterModel> characters = await _characterService.GetAllCharacters();
             _characters.Clear();
             _characters.AddRange(characters);
             AssignClassesToAllCharacter(Characters);
+        }
+
+        private async Task UpdateSpellCardsFromDb()
+        {
+            IEnumerable<SpellCardModel> spellCards = await _cardService.GetAllCards<SpellCardModel>();
+            _spellCards.Clear();
+            _spellCards.AddRange(spellCards);
+        }
+        
+        private async Task UpdateSpellDecksFromDb()
+        {
+            IEnumerable<SpellDeckModel> spellDecks = await _deckService.GetAllDecks<SpellDeckModel>();
+            _spellDecks.Clear();
+            _spellDecks.AddRange(spellDecks);
         }
 
         private async Task UpdateItemCardsFromDb()
@@ -445,12 +599,41 @@ namespace CardDesigner.Domain.Stores
             _itemCards.AddRange(itemCards);
             AssignItemsToCards(_itemCards);
         }
-
-        private async Task UpdateSpellDecksFromDb()
+        
+        private async Task UpdateItemDecksFromDb()
         {
-            IEnumerable<SpellDeckModel> spellDecks = await _deckService.GetAllDecks<SpellDeckModel>();
-            _spellDecks.Clear();
-            _spellDecks.AddRange(spellDecks);
+            IEnumerable<ItemDeckModel> itemDecks = await _deckService.GetAllDecks<ItemDeckModel>();
+            _itemDecks.Clear();
+            _itemDecks.AddRange(itemDecks);
+            AssignItemsToItemDecks(_itemDecks);
+        }
+        
+        private async Task UpdateCharacterCardsFromDb()
+        {
+            IEnumerable<CharacterCardModel> characterCards = await _cardService.GetAllCards<CharacterCardModel>();
+            _characterCards.Clear();
+            _characterCards.AddRange(characterCards);
+        }
+        
+        private async Task UpdateCharacterDecksFromDb()
+        {
+            IEnumerable<CharacterDeckModel> characterDecks = await _deckService.GetAllDecks<CharacterDeckModel>();
+            _characterDecks.Clear();
+            _characterDecks.AddRange(characterDecks);
+        }
+
+        private async Task UpdateMinionCardsFromDb()
+        {
+            IEnumerable<MinionCardModel> minionCards = await _cardService.GetAllCards<MinionCardModel>();
+            _minionCards.Clear();
+            _minionCards.AddRange(minionCards);
+        }
+
+        private async Task UpdateMinionDecksFromDb()
+        {
+            IEnumerable<MinionDeckModel> minionDecks = await _deckService.GetAllDecks<MinionDeckModel>();
+            _minionDecks.Clear();
+            _minionDecks.AddRange(minionDecks);
         }
 
         private async Task UpdateCardDesignsFromDb()
@@ -461,37 +644,10 @@ namespace CardDesigner.Domain.Stores
             _itemDeckDesigns.AddRange(await _cardDesignService.GetAllItemDeckDesigns());
             _characterDeckDesigns.Clear();
             _characterDeckDesigns.AddRange(await _cardDesignService.GetAllCharacterDeckDesigns());
+            _minionDeckDesigns.Clear();
+            _minionDeckDesigns.AddRange(await _cardDesignService.GetAllMinionDeckDesigns());
             _deckBackgroundDesigns.Clear();
             _deckBackgroundDesigns.AddRange(await _cardDesignService.GetAllBackgroundDeckDesigns());
-        }
-
-        private async Task UpdateSpellCardsFromDb()
-        {
-            IEnumerable<SpellCardModel> spellCards = await _cardService.GetAllCards<SpellCardModel>();
-            _spellCards.Clear();
-            _spellCards.AddRange(spellCards);
-        }
-
-        private async Task UpdateItemDecksFromDb()
-        {
-            IEnumerable<ItemDeckModel> itemDecks = await _deckService.GetAllDecks<ItemDeckModel>();
-            _itemDecks.Clear();
-            _itemDecks.AddRange(itemDecks);
-            AssignItemsToItemDecks(_itemDecks);
-        }
-
-        private async Task UpdateCharacterDecksFromDb()
-        {
-            IEnumerable<CharacterDeckModel> characterDecks = await _deckService.GetAllDecks<CharacterDeckModel>();
-            _characterDecks.Clear();
-            _characterDecks.AddRange(characterDecks);
-        }
-
-        private async Task UpdateCharacterCardsFromDb()
-        {
-            IEnumerable<CharacterCardModel> characterCards = await _cardService.GetAllCards<CharacterCardModel>();
-            _characterCards.Clear();
-            _characterCards.AddRange(characterCards);
         }
 
         #endregion

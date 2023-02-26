@@ -161,19 +161,6 @@ namespace CardDesigner.DataAccess.Services
             }
         }
 
-        public async Task<IEnumerable<DeckBackgroundDesignModel>> GetAllBackgroundDeckDesigns()
-        {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
-            {
-                IEnumerable<DeckBackgroundDesignEntity> cardDesignEntities = await
-                    context.DeckBackgroundDesigns
-                    .Include(c => c.Characters)
-                    .ToListAsync();
-
-                return cardDesignEntities.Select(c => _mapper.Map<DeckBackgroundDesignModel>(c));
-            }
-        }
-
         public async Task<IEnumerable<CharacterDeckDesignModel>> GetAllCharacterDeckDesigns()
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
@@ -184,6 +171,32 @@ namespace CardDesigner.DataAccess.Services
                     .ToListAsync();
 
                 return cardDesignEntities.Select(c => _mapper.Map<CharacterDeckDesignModel>(c));
+            }
+        }
+
+        public async Task<IEnumerable<MinionDeckDesignModel>> GetAllMinionDeckDesigns()
+        {
+            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                IEnumerable<MinionDeckDesignEntity> cardDesignEntities = await
+                    context.MinionDeckDesigns
+                    .Include(c => c.Characters)
+                    .ToListAsync();
+
+                return cardDesignEntities.Select(c => _mapper.Map<MinionDeckDesignModel>(c));
+            }
+        }
+        
+        public async Task<IEnumerable<DeckBackgroundDesignModel>> GetAllBackgroundDeckDesigns()
+        {
+            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                IEnumerable<DeckBackgroundDesignEntity> cardDesignEntities = await
+                    context.DeckBackgroundDesigns
+                    .Include(c => c.Characters)
+                    .ToListAsync();
+
+                return cardDesignEntities.Select(c => _mapper.Map<DeckBackgroundDesignModel>(c));
             }
         }
     }

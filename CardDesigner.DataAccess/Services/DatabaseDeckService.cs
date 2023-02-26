@@ -227,6 +227,15 @@ namespace CardDesigner.DataAccess.Services
 
                     return (IEnumerable<T>)characterDeckEntities.Select(c => _mapper.Map<CharacterDeckModel>(c));
                 }
+                else if (typeof(T) == typeof(MinionDeckModel))
+                {
+                    IEnumerable<MinionDeckEntity> minionDeckEntities = await
+                        context.MinionDecks
+                        .Include(sd => sd.MinionCards)
+                        .ToListAsync();
+
+                    return (IEnumerable<T>)minionDeckEntities.Select(c => _mapper.Map<MinionDeckModel>(c));
+                }
                 else
                 {
                     return null;

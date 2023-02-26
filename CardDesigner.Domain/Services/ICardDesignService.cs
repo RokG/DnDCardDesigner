@@ -13,6 +13,7 @@ namespace CardDesigner.Domain.Services
         public Task<IEnumerable<SpellDeckDesignModel>> GetAllSpellDeckDesigns();
         public Task<IEnumerable<ItemDeckDesignModel>> GetAllItemDeckDesigns();
         public Task<IEnumerable<CharacterDeckDesignModel>> GetAllCharacterDeckDesigns();
+        public Task<IEnumerable<MinionDeckDesignModel>> GetAllMinionDeckDesigns();
         public Task<IEnumerable<DeckBackgroundDesignModel>> GetAllBackgroundDeckDesigns();
     }
 }
