@@ -205,7 +205,7 @@ namespace CardDesigner.DataAccess.Services
                 return cardDesignEntities.Select(c => _mapper.Map<MinionDeckDesignModel>(c));
             }
         }
-        
+
         public async Task<IEnumerable<DeckBackgroundDesignModel>> GetAllBackgroundDeckDesigns()
         {
             using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())

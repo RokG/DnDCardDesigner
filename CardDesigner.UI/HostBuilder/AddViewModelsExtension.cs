@@ -75,7 +75,7 @@ namespace CardDesigner.UI.HostBuilder
         {
             return MinionViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
-        
+
         private static MinionCardViewModel CreateMinionCardViewModel(IServiceProvider s)
         {
             return MinionCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
