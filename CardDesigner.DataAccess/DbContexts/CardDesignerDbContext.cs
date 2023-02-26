@@ -31,6 +31,9 @@ namespace CardDesigner.DataAccess.DbContexts
         public DbSet<CharacterAbilitiesEntity> CharacterAbilities { get; set; }
         public DbSet<CasterStatsEntity> CasterStats { get; set; }
 
+        // Minions
+        public DbSet<MinionEntity> Minions { get; set; }
+
         // Spell cards
         public DbSet<SpellCardEntity> SpellCards { get; set; }
         public DbSet<SpellDeckEntity> SpellDecks { get; set; }

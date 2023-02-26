@@ -55,7 +55,6 @@ namespace CardDesigner.DataAccess.Services
                 characterEntity.Race = characterModel.Race;
                 characterEntity.Alignment = characterModel.Alignment;
 
-
                 // Update one-to-one bindings
                 characterEntity.Abilities = _mapper.Map<CharacterAbilitiesEntity>(characterModel.Abilities);
                 characterEntity.CasterStats = _mapper.Map<CasterStatsEntity>(characterModel.CasterStats);
