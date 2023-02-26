@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Interfaces;
+﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.Interfaces;
 
 namespace CardDesigner.Domain.Models
 {
@@ -8,5 +9,6 @@ namespace CardDesigner.Domain.Models
         public string Name { get; set; }
         public string Title { get; set; }
         public MinionModel Minion { get; set; }
+        public MinionCardType Type { get; set; }
     }
 }

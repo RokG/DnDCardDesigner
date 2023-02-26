@@ -116,6 +116,14 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
+    <ObjectDataProvider x:Key="MinionCardTypeEnum"
+        MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:MinionCardType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
     <ObjectDataProvider x:Key="RaceEnum"
         MethodName="GetValues"
         ObjectType="{x:Type sys:Enum}">

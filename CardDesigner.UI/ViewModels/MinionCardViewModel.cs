@@ -23,14 +23,23 @@ namespace CardDesigner.UI.ViewModels
         #region Properties
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(CreateMinionCommand))]
-        private string addedMinionName;
-
-        [ObservableProperty]
         private MinionModel selectedMinion;
 
         [ObservableProperty]
         private ObservableCollection<MinionModel> allMinions;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateMinionCardCommand))]
+        private string minionCardName;
+
+        [ObservableProperty]
+        private MinionDeckDesignModel selectedMinionDeckDesign = new();
+
+        [ObservableProperty]
+        private MinionCardModel selectedMinionCard;
+
+        [ObservableProperty]
+        private ObservableCollection<MinionCardModel> allMinionCards;
 
         #endregion
 
@@ -62,18 +71,21 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllMinions = new(_cardDesignerStore.Minions);
+            SelectedMinion = AllMinions.FirstOrDefault();
+            AllMinionCards = new(_cardDesignerStore.MinionCards);
+            SelectedMinionCard = AllMinionCards.FirstOrDefault();
         }
 
         private void SetUnsetDatabaseEvents(bool set)
         {
             if (set)
             {
-                _cardDesignerStore.MinionChanged += OnMinionChanged;
+                _cardDesignerStore.MinionCardChanged += OnMinionCardChanged;
                 _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
             }
             else
             {
-                _cardDesignerStore.MinionChanged -= OnMinionChanged;
+                _cardDesignerStore.MinionCardChanged -= OnMinionCardChanged;
                 _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
             }
         }
@@ -95,20 +107,20 @@ namespace CardDesigner.UI.ViewModels
 
         #region Database update methods
 
-        private void OnMinionChanged(MinionModel minion, DataChangeType change)
+        private void OnMinionCardChanged(MinionCardModel minionCard, DataChangeType change)
         {
             switch (change)
             {
                 case DataChangeType.Created:
-                    AllMinions.Add(minion);
-                    SelectedMinion = minion;
+                    AllMinionCards.Add(minionCard);
+                    SelectedMinionCard = minionCard;
                     break;
                 case DataChangeType.Updated:
-                    SelectedMinion = minion;
+                    SelectedMinionCard = minionCard;
                     break;
                 case DataChangeType.Deleted:
-                    AllMinions.Remove(SelectedMinion);
-                    SelectedMinion = AllMinions.FirstOrDefault();
+                    AllMinionCards.Remove(SelectedMinionCard);
+                    SelectedMinionCard = AllMinionCards.FirstOrDefault();
                     break;
                 default:
                     break;
@@ -128,31 +140,31 @@ namespace CardDesigner.UI.ViewModels
 
         #region Commands
 
-        [RelayCommand(CanExecute = nameof(CanCreateMinion))]
-        private async void CreateMinion()
+        [RelayCommand(CanExecute = nameof(CanCreateMinionCard))]
+        private async void CreateMinionCard()
         {
-            await _cardDesignerStore.CreateMinion(new MinionModel() { Name = AddedMinionName });
+            await _cardDesignerStore.CreateMinionCard(new MinionCardModel() { Name = MinionCardName });
         }
 
-        private bool CanCreateMinion()
+        private bool CanCreateMinionCard()
         {
-            bool noName = (AddedMinionName == string.Empty || AddedMinionName == null);
-            bool spellDeckExists = AllMinions == null ? false : AllMinions.Where(c => c.Name == AddedMinionName).Any();
-
-            return (!noName && !spellDeckExists);
-        }
-
-        [RelayCommand]
-        private async void DeleteMinion()
-        {
-            await _cardDesignerStore.DeleteMinion(SelectedMinion);
+            return MinionCardName != null
+                && MinionCardName != string.Empty
+                && !AllMinionCards.Where(c => c.Name == MinionCardName).Any();
         }
 
         [RelayCommand]
-        private async void UpdateMinion()
+        private async void UpdateMinionCard()
         {
-            await _cardDesignerStore.UpdateMinion(SelectedMinion);
+            await _cardDesignerStore.UpdateMinionCard(SelectedMinionCard);
         }
+
+        [RelayCommand]
+        private async void DeleteMinionCard()
+        {
+            await _cardDesignerStore.DeleteMinionCard(SelectedMinionCard);
+        }
+
 
         #endregion
     }

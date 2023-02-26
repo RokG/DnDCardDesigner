@@ -6,7 +6,146 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
-    <Grid>
-        <Label Content="Minion Cards" />
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  header area  -->
+        <Border BorderThickness="0,0,0,3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Name}"
+                        ContentStringFormat="{}{0}s"
+                        FontSize="32" />
+                    <Label
+                        Margin="0,10"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Description}" />
+                </StackPanel>
+                <!--  Minion creation  -->
+                <controls:AddEditItem
+                    Title="Selected character card: "
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
+                    AddedItemName="{Binding MinionCardName, Mode=TwoWay}"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    DeleteCommand="{Binding DeleteMinionCardCommand}"
+                    ItemsSource="{Binding AllMinionCards, Mode=TwoWay}"
+                    Orientation="Horizontal"
+                    SaveCommand="{Binding CreateMinionCardCommand}"
+                    SelectedItem="{Binding SelectedMinionCard, Mode=TwoWay}"
+                    UpdateCommand="{Binding UpdateMinionCardCommand}"
+                    ViewOnly="False" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1">
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedMinionCard}"
+                            Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid>
+                <!--  Content area  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Card Settings  -->
+                <StackPanel Orientation="Vertical">
+                    <!--  Card name  -->
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                Margin="5,0"
+                                Padding="0"
+                                Content="Card name:" />
+                            <TextBox
+                                Margin="5,0"
+                                Text="{Binding SelectedMinionCard.Name}" />
+                        </StackPanel>
+                    </Border>
+                    <!--  Minions  -->
+                    <controls:AddEditItem
+                        Title="Minions"
+                        ItemsSource="{Binding AllMinions, Mode=TwoWay}"
+                        SelectedItem="{Binding SelectedMinion, Mode=TwoWay}"
+                        ViewOnly="True" />
+                    <!--  Card Type  -->
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                Content="Minion Card Type"
+                                FontSize="16" />
+                            <TabControl
+                                Grid.Row="2"
+                                Height="500"
+                                MaxHeight="500"
+                                ItemsSource="{Binding Source={StaticResource MinionCardTypeEnum}}"
+                                SelectedItem="{Binding SelectedMinionCard.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <!--<TabControl.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <ContentControl>
+                                                <ContentControl.Style>
+                                                    <Style TargetType="{x:Type ContentControl}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                                Binding="{Binding}"
+                                                                Value="Avatar">
+                                                                <Setter Property="Template" Value="{StaticResource AvatarTemplate}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                                Binding="{Binding}"
+                                                                Value="Feats">
+                                                                <Setter Property="Template" Value="{StaticResource FeatsTemplate}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                                Binding="{Binding}"
+                                                                Value="Abilities">
+                                                                <Setter Property="Template" Value="{StaticResource AbilitiesTemplate}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ContentControl.Style>
+                                            </ContentControl>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </TabControl.ContentTemplate>-->
+                            </TabControl>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+
+                <!--  Card view  -->
+                <!--<controls:MinionCardControl
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    CardDesign="{Binding SelectedMinionDeckDesign}"
+                    Minion="{Binding SelectedMinion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    MinionCard="{Binding SelectedMinionCard, Mode=TwoWay}"
+                    IsEditable="True" />-->
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
