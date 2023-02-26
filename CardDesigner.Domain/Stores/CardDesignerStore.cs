@@ -1,4 +1,4 @@
-﻿using CardDesigner.Domain.Entities;
+﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;

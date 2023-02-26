@@ -1,5 +1,4 @@
-﻿using CardDesigner.Domain.Entities;
-using CardDesigner.Domain.Enums;
+﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
