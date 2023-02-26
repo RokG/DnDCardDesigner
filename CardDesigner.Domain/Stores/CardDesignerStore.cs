@@ -18,6 +18,7 @@ namespace CardDesigner.Domain.Stores
 
         // Services
         private readonly ICharacterService _characterService;
+        private readonly IMinionService _minionService;
         private readonly ICardDesignService _cardDesignService;
         private readonly IDeckService _deckService;
         private readonly ICardService _cardService;
@@ -104,6 +105,8 @@ namespace CardDesigner.Domain.Stores
         public event Action<CharacterModel, DataChangeType> CharacterChanged;
         public event Action<DeckBackgroundDesignModel, DataChangeType> DeckBackgroundDesignChanged;
 
+        public event Action<MinionModel, DataChangeType> MinionChanged;
+
         public event Action<SpellCardModel, DataChangeType> SpellCardChanged;
         public event Action<SpellDeckModel, DataChangeType> SpellDeckChanged;
         public event Action<SpellDeckDesignModel, DataChangeType> SpellDeckDesignChanged;
@@ -127,12 +130,14 @@ namespace CardDesigner.Domain.Stores
         /// </summary>
         public CardDesignerStore(
             ICharacterService characterService,
+            IMinionService minionService,
             ICardDesignService cardDesignService,
             IDeckService deckService,
             ICardService cardService,
             IJsonFileItemService jsonFileItemService)
         {
             _characterService = characterService;
+            _minionService = minionService;
             _cardDesignService = cardDesignService;
             _cardService = cardService;
             _deckService = deckService;
@@ -141,6 +146,8 @@ namespace CardDesigner.Domain.Stores
 
             _characters = new();
             _deckBackgroundDesigns = new();
+
+            _minions = new();
 
             _spellCards = new();
             _spellDecks = new();
@@ -176,6 +183,7 @@ namespace CardDesigner.Domain.Stores
             ReadAllItems();
 
             await UpdateCharactersFromDb();
+            await UpdateMinionsFromDb();
             
             await UpdateSpellCardsFromDb();
             await UpdateSpellDecksFromDb();
@@ -208,6 +216,13 @@ namespace CardDesigner.Domain.Stores
             CharacterModel createdCharacter = await _characterService.CreateCharacter(character);
             _characters.Add(createdCharacter);
             CharacterChanged?.Invoke(createdCharacter, DataChangeType.Created);
+        }
+
+        public async Task CreateMinion(MinionModel minion)
+        {
+            MinionModel createdMinion = await _minionService.CreateMinion(minion);
+            _minions.Add(createdMinion);
+            MinionChanged?.Invoke(createdMinion, DataChangeType.Created);
         }
 
         public async Task CreateCardDesign(ICardDesign cardDesignModel)
@@ -309,6 +324,15 @@ namespace CardDesigner.Domain.Stores
                 await UpdateCharactersFromDb();
                 AssignClassesToCharacter(updatedCharacter);
                 CharacterChanged?.Invoke(updatedCharacter, DataChangeType.Updated);
+            }
+        }
+
+        public async Task UpdateMinion(MinionModel minion)
+        {
+            if (await _minionService.UpdateMinion(minion) is MinionModel updatedMinion)
+            {
+                await UpdateMinionsFromDb();
+                MinionChanged?.Invoke(updatedMinion, DataChangeType.Updated);
             }
         }
 
@@ -419,6 +443,16 @@ namespace CardDesigner.Domain.Stores
             {
                 _characters.Remove(character);
                 CharacterChanged?.Invoke(character, DataChangeType.Deleted);
+            }
+        }
+
+        public async Task DeleteMinion(MinionModel minion)
+        {
+            bool success = await _minionService.DeleteMinion(minion);
+            if (success)
+            {
+                _minions.Remove(minion);
+                MinionChanged?.Invoke(minion, DataChangeType.Deleted);
             }
         }
 
@@ -576,6 +610,13 @@ namespace CardDesigner.Domain.Stores
             _characters.Clear();
             _characters.AddRange(characters);
             AssignClassesToAllCharacter(Characters);
+        }
+
+        private async Task UpdateMinionsFromDb()
+        {
+            IEnumerable<MinionModel> minions = await _minionService.GetAllMinions();
+            _minions.Clear();
+            _minions.AddRange(minions);
         }
 
         private async Task UpdateSpellCardsFromDb()

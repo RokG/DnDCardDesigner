@@ -19,6 +19,7 @@ namespace CardDesigner.UI.HostBuilder
                 services.AddTransient((s) => CreateItemCardViewModel(s));
                 services.AddTransient((s) => CreateCharacterCardViewModel(s));
                 services.AddTransient((s) => CreateCharacterViewModel(s));
+                services.AddTransient((s) => CreateMinionViewModel(s));
                 services.AddTransient((s) => CreateDeckDesignViewModel(s));
                 services.AddTransient((s) => CreatePrintLayoutViewModel(s));
 
@@ -28,6 +29,7 @@ namespace CardDesigner.UI.HostBuilder
                 services.AddSingleton<Func<ItemCardViewModel>>((s) => () => s.GetRequiredService<ItemCardViewModel>());
                 services.AddSingleton<Func<CharacterCardViewModel>>((s) => () => s.GetRequiredService<CharacterCardViewModel>());
                 services.AddSingleton<Func<CharacterViewModel>>((s) => () => s.GetRequiredService<CharacterViewModel>());
+                services.AddSingleton<Func<MinionViewModel>>((s) => () => s.GetRequiredService<MinionViewModel>());
                 services.AddSingleton<Func<DeckDesignViewModel>>((s) => () => s.GetRequiredService<DeckDesignViewModel>());
                 services.AddSingleton<Func<PrintLayoutViewModel>>((s) => () => s.GetRequiredService<PrintLayoutViewModel>());
 
@@ -65,6 +67,10 @@ namespace CardDesigner.UI.HostBuilder
         private static CharacterViewModel CreateCharacterViewModel(IServiceProvider s)
         {
             return CharacterViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
+        }
+        private static MinionViewModel CreateMinionViewModel(IServiceProvider s)
+        {
+            return MinionViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
 
         private static DeckDesignViewModel CreateDeckDesignViewModel(IServiceProvider s)

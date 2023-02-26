@@ -9,6 +9,7 @@
         CharacterCardCreator,
         DeckCreator,
         CharacterCreator,
+        MinionCreator,
         DeckDesigner,
         PrintLayout
     }
