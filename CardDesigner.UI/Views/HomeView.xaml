@@ -115,6 +115,18 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
+                    <StackPanel.Style>
+                        <Style TargetType="{x:Type StackPanel}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedCard}"
+                                    Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
                     <Button
                         Command="{Binding NavigateToCardCreatorCommand}"
                         Content="Edit Card" />
@@ -128,6 +140,7 @@
                         Command="{Binding NavigateToPrintViewCommand}"
                         Content="Print Deck" />
                 </StackPanel>
+
                 <ContentControl Grid.Row="1">
                     <ContentControl.Style>
                         <Style TargetType="{x:Type ContentControl}">
