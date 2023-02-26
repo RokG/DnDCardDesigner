@@ -209,14 +209,16 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
         <Setter Property="MinWidth" Value="120" />
+        <Setter Property="Background" Value="{StaticResource ListAreaBGND}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ListAreaBRDR}" />
         <Setter Property="MinHeight" Value="95" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">
                     <Border
                         Name="Border"
-                        Background="{StaticResource ListAreaBGND}"
-                        BorderBrush="{StaticResource ListAreaBRDR}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2">
                         <ScrollViewer

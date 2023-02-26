@@ -19,6 +19,7 @@ namespace CardDesigner.UI.HostBuilder
                 services.AddSingleton<NavigationService<CardDecksViewModel>>();
                 services.AddSingleton<NavigationService<ItemCardViewModel>>();
                 services.AddSingleton<NavigationService<CharacterCardViewModel>>();
+                services.AddSingleton<NavigationService<PrintLayoutViewModel>>();
             });
 
             return hostBuilder;

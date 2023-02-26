@@ -1,6 +1,7 @@
 ﻿using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -16,6 +17,7 @@ namespace CardDesigner.UI.ViewModels
 
         private readonly CardDesignerStore _cardDesignerStore;
         private readonly NavigationStore _navigationStore;
+        private readonly SettingsStore _settingsStore;
 
         #endregion
 
@@ -103,7 +105,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public CardDecksViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public CardDecksViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
             Name = Regex.Replace(nameof(CardDecksViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Spell Decks";
@@ -111,6 +113,7 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
+            _settingsStore = settingsStore;
 
             SetUnsetDatabaseEvents(true);
 
@@ -182,9 +185,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static CardDecksViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public static CardDecksViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            CardDecksViewModel viewModel = new(cardDesignerStore, navigationStore);
+            CardDecksViewModel viewModel = new(cardDesignerStore, navigationStore, settingsStore);
             viewModel.LoadData();
 
             return viewModel;
@@ -389,7 +392,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void DeleteSpellDeck()
         {
-            var toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(dd => dd.SpellDeckID == SelectedSpellDeck.ID);
+            SpellDeckDesignLinkerModel toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(dd => dd.SpellDeckID == SelectedSpellDeck.ID);
             if (toRemove != null)
             {
                 SelectedCharacter.SpellDeckDescriptors.Remove(toRemove);
@@ -456,7 +459,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void DeleteItemDeck()
         {
-            var toRemove = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(dd => dd.ItemDeckID == SelectedItemDeck.ID);
+            ItemDeckDesignLinkerModel toRemove = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(dd => dd.ItemDeckID == SelectedItemDeck.ID);
             if (toRemove != null)
             {
                 SelectedCharacter.ItemDeckDescriptors.Remove(toRemove);
@@ -523,7 +526,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void DeleteCharacterDeck()
         {
-            var toRemove = SelectedCharacter.CharacterDeckDescriptors.FirstOrDefault(dd => dd.CharacterDeckID == SelectedCharacterDeck.ID);
+            CharacterDeckDesignLinkerModel toRemove = SelectedCharacter.CharacterDeckDescriptors.FirstOrDefault(dd => dd.CharacterDeckID == SelectedCharacterDeck.ID);
             if (toRemove != null)
             {
                 SelectedCharacter.CharacterDeckDescriptors.Remove(toRemove);

@@ -5,31 +5,21 @@ using System.Windows.Markup;
 
 namespace CardDesigner.UI.Converters
 {
-    public class TypeToStringConverter : MarkupExtension, IValueConverter
+    public class PercentageConverter : MarkupExtension, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-            {
-                return "null";
-            }
-            else
-            {
-                if (value is object[] values)
-                {
-                    return values[0].GetType().Name;
-                }
-                else
-                {
-                    return value.GetType().Name;
-                }
-            }
+            double value1 = System.Convert.ToDouble(value);
+            double value2 = System.Convert.ToDouble(parameter);
+
+            return value1 * value2 / 100;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Binding.DoNothing;
+            throw new NotImplementedException();
         }
+
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             return this;

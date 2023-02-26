@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="CardDesigner.UI.Views.PrintLayoutView" x:Name="printLayout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
+    xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
+    xmlns:enums="clr-namespace:CardDesigner.Domain.Enums;assembly=CardDesigner.Domain"
+    xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    xmlns:models="clr-namespace:CardDesigner.Domain.Models;assembly=CardDesigner.Domain"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    BorderBrush="{StaticResource WindowBorder}"
+    BorderThickness="3,0,0,0">
+    <UserControl.Resources>
+        <HierarchicalDataTemplate x:Key="deck"
+            ItemsSource="{Binding Items}">
+            <TextBlock>
+                <Run
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="14"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="character"
+            ItemTemplate="{StaticResource deck}"
+            ItemsSource="{Binding Items}">
+            <TextBlock>
+                <Run
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="{Binding Title}" />
+                <Run
+                    FontSize="14"
+                    FontWeight="Normal"
+                    Text="{Binding Name, StringFormat='{}({0})'}" />
+            </TextBlock>
+        </HierarchicalDataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Selection  -->
+        <TreeView
+            Grid.Column="0"
+            ItemTemplate="{StaticResource character}"
+            ItemsSource="{Binding TreeCharacters}"
+            SelectedItemChanged="TreeView_SelectedItemChanged">
+            <TreeView.Resources>
+                <!--  Because setting background in style is not working? Only background..  -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#44000000" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#44000000" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+            </TreeView.Resources>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter Property="Background" Value="#11000000" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+
+        <!--  Settings  -->
+        <StackPanel Grid.Column="1">
+            <Button
+                Click="Button_Click"
+                Content="Create PDF" />
+            <DockPanel>
+                <Label Content="Card size [%]" />
+                <Slider
+                    Maximum="100.0"
+                    Minimum="90.0"
+                    SmallChange=".1"
+                    Value="{Binding CardScale}" />
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Card offset X" />
+                <Slider
+                    Maximum="100"
+                    Minimum="0"
+                    Value="{Binding PageOffsetX}" />
+            </DockPanel>
+        </StackPanel>
+
+        <!--  Card back  -->
+        <TabControl
+            Grid.Column="2"
+            SelectedIndex="0">
+            <TabItem>
+                <Viewbox>
+                    <Grid x:Name="gridElementBGND"
+                        Width="2100"
+                        Height="2970">
+                        <controls:CardPageControl x:Name="cardBackgroundPages"
+                            Width="2100"
+                            Height="2970"
+                            CardDesign="{Binding SelectedCharacterBacgroundDesign}"
+                            CardSize="{Binding CardScale, Converter={converters:PercentageConverter}, ConverterParameter=698}"
+                            Cards="{Binding BackgroundPage}"
+                            Character="{Binding SelectedCharacter}" />
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+        </TabControl>
+
+        <!--  Card front  -->
+        <TabControl x:Name="cardPages"
+            Grid.Column="2"
+            ItemsSource="{Binding CardPages}"
+            SelectedIndex="{Binding SelectedPageIndex}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <Label
+                        Margin="0"
+                        Padding="0"
+                        Content="{Binding Name}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Viewbox>
+                        <Grid x:Name="gridElement"
+                            Width="2100"
+                            Height="2970">
+                            <controls:CardPageControl
+                                Width="2100"
+                                Height="2970"
+                                CardDesign="{Binding DataContext.SelectedCardDesign, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                CardSize="{Binding DataContext.CardScale, Converter={converters:PercentageConverter}, ConverterParameter=698, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Cards="{Binding Cards, UpdateSourceTrigger=PropertyChanged}"
+                                Character="{Binding DataContext.SelectedCharacter, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                PageOffsetX="{Binding DataContext.PageOffsetX, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </Viewbox>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+
+    </Grid>
+</UserControl>

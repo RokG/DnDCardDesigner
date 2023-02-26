@@ -2,6 +2,7 @@
 using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -20,6 +21,7 @@ namespace CardDesigner.UI.ViewModels
 
         private readonly CardDesignerStore _cardDesignerStore;
         private readonly NavigationStore _navigationStore;
+        private readonly SettingsStore _settingsStore;
 
         #endregion
 
@@ -93,7 +95,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public ItemCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public ItemCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
             Name = Regex.Replace(nameof(ItemCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Item Cards";
@@ -101,6 +103,7 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
+            _settingsStore = settingsStore;
 
             SetUnsetDatabaseEvents(true);
 
@@ -222,9 +225,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static ItemCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public static ItemCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            ItemCardViewModel viewModel = new(cardDesignerStore, navigationStore);
+            ItemCardViewModel viewModel = new(cardDesignerStore, navigationStore, settingsStore);
             viewModel.LoadData();
 
             return viewModel;
@@ -295,7 +298,7 @@ namespace CardDesigner.UI.ViewModels
                     switch (_navigationStore.CurrentViewModel.Type)
                     {
                         case ViewModelType.Home:
-                            SelectedItemCard = AllItemCards.FirstOrDefault(ic=>ic.ID == _navigationStore.SelectedItemCard.ID);
+                            SelectedItemCard = AllItemCards.FirstOrDefault(ic => ic.ID == _navigationStore.SelectedItemCard.ID);
                             SelectedItemDeckDesign = _navigationStore.SelectedItemDeckDesign;
                             return;
                         default:

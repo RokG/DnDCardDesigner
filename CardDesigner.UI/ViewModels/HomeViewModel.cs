@@ -2,6 +2,7 @@
 using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,6 +20,7 @@ namespace CardDesigner.UI.ViewModels
 
         private readonly CardDesignerStore _cardDesignerStore;
         private readonly NavigationStore _navigationStore;
+        private readonly SettingsStore _settingsStore;
 
         private List<ItemDeckDesignModel> AllItemDeckDesigns;
         private List<SpellDeckDesignModel> AllSpellDeckDesigns;
@@ -69,7 +71,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public HomeViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public HomeViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
             Name = Regex.Replace(nameof(HomeViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Home screen";
@@ -77,10 +79,10 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
+            _settingsStore = settingsStore;
 
             LoadData();
             GenerateCharacterTree();
-
         }
 
         #endregion
@@ -257,9 +259,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static HomeViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public static HomeViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            return new(cardDesignerStore, navigationStore);
+            return new(cardDesignerStore, navigationStore, settingsStore);
         }
 
         public void SetSelectedItem(TreeItemModel selectableItem)
@@ -361,8 +363,35 @@ namespace CardDesigner.UI.ViewModels
             }
             _navigationStore.SelectedCharacter = SelectedCharacter;
             _navigationStore.SelectedCardType = selectedCardType;
-            //_navigationStore.CurrentViewModel = ViewModelType.DeckDesigner;
             _navigationStore.NavigateTo(ViewModelType.DeckDesigner);
+        }
+
+        [RelayCommand]
+        private void NavigateToPrintView()
+        {
+            switch (selectedCardType)
+            {
+                case CardType.Spell:
+                    _navigationStore.SelectedSpellDeck = (SpellDeckModel)SelectedDeck;
+                    _navigationStore.SelectedSpellCard = (SpellCardModel)SelectedCard;
+                    _navigationStore.SelectedSpellDeckDesign = (SpellDeckDesignModel)SelectedCardDesign;
+                    break;
+                case CardType.Item:
+                    _navigationStore.SelectedItemDeck = (ItemDeckModel)SelectedDeck;
+                    _navigationStore.SelectedItemCard = (ItemCardModel)SelectedCard;
+                    _navigationStore.SelectedItemDeckDesign = (ItemDeckDesignModel)SelectedCardDesign;
+                    break;
+                case CardType.Character:
+                    _navigationStore.SelectedCharacterDeck = (CharacterDeckModel)SelectedDeck;
+                    _navigationStore.SelectedCharacterCard = (CharacterCardModel)SelectedCard;
+                    _navigationStore.SelectedCharacterDeckDesign = (CharacterDeckDesignModel)SelectedCardDesign;
+                    break;
+                default:
+                    break;
+            }
+            _navigationStore.SelectedCharacter = SelectedCharacter;
+            _navigationStore.SelectedCardType = selectedCardType;
+            _navigationStore.NavigateTo(ViewModelType.PrintLayout);
         }
 
         #endregion
