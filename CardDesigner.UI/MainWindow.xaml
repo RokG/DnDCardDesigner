@@ -38,6 +38,9 @@
             <DataTemplate DataType="{x:Type vms:MinionViewModel}">
                 <views:MinionView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:MinionCardViewModel}">
+                <views:MinionCardView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:DeckDesignViewModel}">
                 <views:DeckDesignView />
             </DataTemplate>
@@ -87,6 +90,13 @@
                     Content="Character Card creator"
                     DockPanel.Dock="Top"
                     IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.CharacterCardCreator}}" />
+                <RadioButton
+                    Height="60"
+                    Command="{Binding ChangeViewModelCommand}"
+                    CommandParameter="{x:Static enums:ViewModelType.MinionCardCreator}"
+                    Content="Minion Card creator"
+                    DockPanel.Dock="Top"
+                    IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.MinionCardCreator}}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
