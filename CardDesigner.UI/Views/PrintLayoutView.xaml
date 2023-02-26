@@ -82,14 +82,14 @@
                 <Slider
                     Maximum="100"
                     Minimum="90"
-                    Value="{Binding CardSize}" />
+                    Value="{Binding CardScale}" />
             </DockPanel>
             <DockPanel>
                 <Label Content="Card offset X" />
                 <Slider
                     Maximum="100"
                     Minimum="0"
-                    Value="{Binding CardOffset}" />
+                    Value="{Binding PageOffsetX}" />
             </DockPanel>
         </StackPanel>
 
@@ -106,7 +106,7 @@
                             Width="2100"
                             Height="2970"
                             CardDesign="{Binding SelectedCharacterBacgroundDesign}"
-                            CardSize="{Binding CardSize, Converter={converters:PercentageConverter}, ConverterParameter=698}"
+                            CardSize="{Binding CardScale, Converter={converters:PercentageConverter}, ConverterParameter=698}"
                             Cards="{Binding BackgroundPage}"
                             Character="{Binding SelectedCharacter}" />
                     </Grid>
@@ -137,10 +137,10 @@
                                 Width="2100"
                                 Height="2970"
                                 CardDesign="{Binding DataContext.SelectedCardDesign, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                CardSize="{Binding DataContext.CardSize, Converter={converters:PercentageConverter}, ConverterParameter=698, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                CardSize="{Binding DataContext.CardScale, Converter={converters:PercentageConverter}, ConverterParameter=698, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Cards="{Binding Cards, UpdateSourceTrigger=PropertyChanged}"
                                 Character="{Binding DataContext.SelectedCharacter, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                PageOffsetX="{Binding DataContext.CardOffset, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                PageOffsetX="{Binding DataContext.PageOffsetX, ElementName=printLayout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </Viewbox>
                 </DataTemplate>

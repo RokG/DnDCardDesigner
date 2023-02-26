@@ -2,6 +2,7 @@
 using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -17,6 +18,7 @@ namespace CardDesigner.UI.ViewModels
 
         private readonly CardDesignerStore _cardDesignerStore;
         private readonly NavigationStore _navigationStore;
+        private readonly SettingsStore _settingsStore;
 
         #endregion
 
@@ -50,7 +52,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public CharacterViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public CharacterViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
             Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Characters";
@@ -58,6 +60,7 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
+            _settingsStore = settingsStore;
 
             SetUnsetDatabaseEvents(true);
 
@@ -96,9 +99,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static CharacterViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public static CharacterViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            CharacterViewModel viewModel = new(cardDesignerStore, navigationStore);
+            CharacterViewModel viewModel = new(cardDesignerStore, navigationStore, settingsStore);
 
             viewModel.LoadData();
 

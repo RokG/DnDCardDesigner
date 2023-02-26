@@ -1,6 +1,7 @@
 ﻿using CardDesigner.Domain.Entities;
 using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -16,6 +17,7 @@ namespace CardDesigner.UI.ViewModels
 
         private readonly CardDesignerStore _cardDesignerStore;
         private readonly NavigationStore _navigationStore;
+        private readonly SettingsStore _settingsStore;
 
         #endregion
 
@@ -41,7 +43,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public SpellCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public SpellCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
             Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Create, view and edit Spell Cards";
@@ -49,6 +51,7 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
+            _settingsStore = settingsStore;
 
             SetUnsetDatabaseEvents(true);
 
@@ -88,9 +91,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public static SpellCardViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            SpellCardViewModel viewModel = new(cardDesignerStore, navigationStore);
+            SpellCardViewModel viewModel = new(cardDesignerStore, navigationStore, settingsStore);
             viewModel.LoadData();
 
             return viewModel;

@@ -2,6 +2,7 @@
 using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
@@ -20,6 +21,7 @@ namespace CardDesigner.UI.ViewModels
 
         private readonly CardDesignerStore _cardDesignerStore;
         private readonly NavigationStore _navigationStore;
+        private readonly SettingsStore _settingsStore;
 
         private List<ItemDeckDesignModel> AllItemDeckDesigns;
         private List<SpellDeckDesignModel> AllSpellDeckDesigns;
@@ -39,10 +41,10 @@ namespace CardDesigner.UI.ViewModels
         private ObservableCollection<TreeItemModel> treeCharacters;
 
         [ObservableProperty]
-        private int cardSize = 100;
+        private int cardScale = 100;
 
         [ObservableProperty]
-        private int cardOffset = 0;
+        private int pageOffsetX = 0;
 
         [ObservableProperty]
         private int selectedPageIndex = 0;
@@ -84,7 +86,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public PrintLayoutViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public PrintLayoutViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
             Name = Regex.Replace(nameof(PrintLayoutViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Print layout";
@@ -92,8 +94,12 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
+            _settingsStore = settingsStore;
 
             LoadData();
+
+            CardScale = _settingsStore.PrintCardScale;
+            PageOffsetX = _settingsStore.PrintPageOffsetX;
 
             GenerateCharacterTree();
         }
@@ -132,11 +138,6 @@ namespace CardDesigner.UI.ViewModels
             {
                 _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
             }
-        }
-
-        partial void OnCardSizeChanged(int value)
-        {
-            AddUpdateAppSettings("PrintCardScale", value.ToString());
         }
 
         /// <summary>
@@ -213,9 +214,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static PrintLayoutViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public static PrintLayoutViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            PrintLayoutViewModel viewModel = new(cardDesignerStore, navigationStore);
+            PrintLayoutViewModel viewModel = new(cardDesignerStore, navigationStore, settingsStore);
             viewModel.LoadData();
 
             return viewModel;
@@ -312,6 +313,20 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
 
+        #region Settings
+
+        partial void OnCardScaleChanged(int value)
+        {
+            _settingsStore.PrintCardScale = value;
+        }
+
+        partial void OnPageOffsetXChanged(int value)
+        {
+            _settingsStore.PrintPageOffsetX = value;
+        }
+
+        #endregion
+
         #region Navigation
 
         private void SetSelectionFromNavigation()
@@ -344,68 +359,5 @@ namespace CardDesigner.UI.ViewModels
         }
 
         #endregion
-
-
-        static void ReadAllSettings()
-        {
-            try
-            {
-                var appSettings = ConfigurationManager.AppSettings;
-
-                if (appSettings.Count == 0)
-                {
-                    Debug.WriteLine("AppSettings is empty.");
-                }
-                else
-                {
-                    foreach (var key in appSettings.AllKeys)
-                    {
-                        Debug.WriteLine("Key: {0} Value: {1}", key, appSettings[key]);
-                    }
-                }
-            }
-            catch (ConfigurationErrorsException)
-            {
-                Debug.WriteLine("Error reading app settings");
-            }
-        }
-
-        static void ReadSetting(string key)
-        {
-            try
-            {
-                var appSettings = ConfigurationManager.AppSettings;
-                string result = appSettings[key] ?? "Not Found";
-                Debug.WriteLine(result);
-            }
-            catch (ConfigurationErrorsException)
-            {
-                Debug.WriteLine("Error reading app settings");
-            }
-        }
-
-        static void AddUpdateAppSettings(string key, string value)
-        {
-            try
-            {
-                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var settings = configFile.AppSettings.Settings;
-                if (settings[key] == null)
-                {
-                    settings.Add(key, value);
-                }
-                else
-                {
-                    settings[key].Value = value;
-                }
-                configFile.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-            }
-            catch (ConfigurationErrorsException)
-            {
-                Debug.WriteLine("Error writing app settings");
-            }
-        }
-
     }
 }

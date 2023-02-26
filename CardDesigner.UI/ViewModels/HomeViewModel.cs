@@ -2,6 +2,7 @@
 using CardDesigner.Domain.HelperModels;
 using CardDesigner.Domain.Interfaces;
 using CardDesigner.Domain.Models;
+using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,6 +20,7 @@ namespace CardDesigner.UI.ViewModels
 
         private readonly CardDesignerStore _cardDesignerStore;
         private readonly NavigationStore _navigationStore;
+        private readonly SettingsStore _settingsStore;
 
         private List<ItemDeckDesignModel> AllItemDeckDesigns;
         private List<SpellDeckDesignModel> AllSpellDeckDesigns;
@@ -69,7 +71,7 @@ namespace CardDesigner.UI.ViewModels
 
         #region Constructor
 
-        public HomeViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public HomeViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
             Name = Regex.Replace(nameof(HomeViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
             Description = "Home screen";
@@ -77,6 +79,7 @@ namespace CardDesigner.UI.ViewModels
 
             _cardDesignerStore = cardDesignerStore;
             _navigationStore = navigationStore;
+            _settingsStore = settingsStore;
 
             LoadData();
             GenerateCharacterTree();
@@ -256,9 +259,9 @@ namespace CardDesigner.UI.ViewModels
 
         #region Public methods
 
-        public static HomeViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore)
+        public static HomeViewModel LoadViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            return new(cardDesignerStore, navigationStore);
+            return new(cardDesignerStore, navigationStore, settingsStore);
         }
 
         public void SetSelectedItem(TreeItemModel selectableItem)

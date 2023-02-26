@@ -1,4 +1,5 @@
-﻿using CardDesigner.Domain.Stores;
+﻿using CardDesigner.Domain.Services;
+using CardDesigner.Domain.Stores;
 using CardDesigner.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,42 +39,42 @@ namespace CardDesigner.UI.HostBuilder
 
         private static HomeViewModel CreateHomeViewModel(IServiceProvider s)
         {
-            return HomeViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
+            return HomeViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
 
         private static SpellCardViewModel CreateSpellCardViewModel(IServiceProvider s)
         {
-            return SpellCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
+            return SpellCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
 
         private static CardDecksViewModel CreateCardDecksViewModel(IServiceProvider s)
         {
-            return CardDecksViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
+            return CardDecksViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
 
         private static ItemCardViewModel CreateItemCardViewModel(IServiceProvider s)
         {
-            return ItemCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
+            return ItemCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
 
         private static CharacterCardViewModel CreateCharacterCardViewModel(IServiceProvider s)
         {
-            return CharacterCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
+            return CharacterCardViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
 
         private static CharacterViewModel CreateCharacterViewModel(IServiceProvider s)
         {
-            return CharacterViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
+            return CharacterViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
 
         private static DeckDesignViewModel CreateDeckDesignViewModel(IServiceProvider s)
         {
-            return DeckDesignViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
+            return DeckDesignViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
 
         private static PrintLayoutViewModel CreatePrintLayoutViewModel(IServiceProvider s)
         {
-            return PrintLayoutViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>());
+            return PrintLayoutViewModel.LoadViewModel(s.GetRequiredService<CardDesignerStore>(), s.GetRequiredService<NavigationStore>(), s.GetRequiredService<SettingsStore>());
         }
     }
 }

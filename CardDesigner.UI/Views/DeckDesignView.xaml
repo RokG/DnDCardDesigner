@@ -479,7 +479,7 @@
                                             <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                         <DataTrigger
-                                            Binding="{Binding TestitemCard}"
+                                            Binding="{Binding TestItemCard}"
                                             Value="{x:Null}">
                                             <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
