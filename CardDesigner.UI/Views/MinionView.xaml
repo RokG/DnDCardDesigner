@@ -92,14 +92,6 @@
                                 Text="{Binding DataContext.SelectedMinion.Title, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DockPanel>
                         <DockPanel LastChildFill="False">
-                            <Label Content="Race: " />
-                            <ComboBox
-                                Width="150"
-                                DockPanel.Dock="Right"
-                                ItemsSource="{Binding Source={StaticResource RaceEnum}}"
-                                SelectedItem="{Binding DataContext.SelectedMinion.Race, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </DockPanel>
-                        <DockPanel LastChildFill="False">
                             <Label Content="Alignment: " />
                             <ComboBox
                                 Width="150"
@@ -123,14 +115,6 @@
                                         MinWidth="40"
                                         DockPanel.Dock="Right"
                                         Text="{Binding DataContext.SelectedMinion.Hitpoints, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                </DockPanel>
-                                <DockPanel LastChildFill="False">
-                                    <Label Content="Passive Insight: " />
-                                    <TextBox
-                                        Width="40"
-                                        MinWidth="40"
-                                        DockPanel.Dock="Right"
-                                        Text="{Binding DataContext.SelectedMinion.PassiveInsight, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </DockPanel>
                                 <DockPanel LastChildFill="False">
                                     <Label Content="Passive Perception: " />
