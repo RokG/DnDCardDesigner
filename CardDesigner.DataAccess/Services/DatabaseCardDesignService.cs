@@ -44,6 +44,11 @@ namespace CardDesigner.DataAccess.Services
                         CharacterDeckDesignEntity createdCharacterDeckDesignEntity = dbContext.CharacterDeckDesigns.Add(characterDeckDesignEntity).Entity;
                         await dbContext.SaveChangesAsync();
                         return _mapper.Map<CharacterDeckDesignModel>(createdCharacterDeckDesignEntity);
+                    case MinionDeckDesignModel minionDeckDesignModel:
+                        MinionDeckDesignEntity minionDeckDesignEntity = _mapper.Map<MinionDeckDesignEntity>(minionDeckDesignModel);
+                        MinionDeckDesignEntity createdMinionDeckDesignEntity = dbContext.MinionDeckDesigns.Add(minionDeckDesignEntity).Entity;
+                        await dbContext.SaveChangesAsync();
+                        return _mapper.Map<MinionDeckDesignModel>(createdMinionDeckDesignEntity);
                     case DeckBackgroundDesignModel deckBackgroundDesignModel:
                         DeckBackgroundDesignEntity deckBackgroundDesignEntity = _mapper.Map<DeckBackgroundDesignEntity>(deckBackgroundDesignModel);
                         DeckBackgroundDesignEntity createdDeckBackgroundDesignEntity = dbContext.DeckBackgroundDesigns.Add(deckBackgroundDesignEntity).Entity;
@@ -76,6 +81,11 @@ namespace CardDesigner.DataAccess.Services
                         CharacterDeckDesignEntity createdCharacterDeckDesignEntity = dbContext.CharacterDeckDesigns.Update(characterDeckDesignEntity).Entity;
                         await dbContext.SaveChangesAsync();
                         return _mapper.Map<CharacterDeckDesignModel>(createdCharacterDeckDesignEntity);
+                    case MinionDeckDesignModel minionDeckDesignModel:
+                        MinionDeckDesignEntity minionDeckDesignEntity = _mapper.Map<MinionDeckDesignEntity>(minionDeckDesignModel);
+                        MinionDeckDesignEntity createdMinionDeckDesignEntity = dbContext.MinionDeckDesigns.Update(minionDeckDesignEntity).Entity;
+                        await dbContext.SaveChangesAsync();
+                        return _mapper.Map<MinionDeckDesignModel>(createdMinionDeckDesignEntity);
                     case DeckBackgroundDesignModel deckBackgroundDesignModel:
                         DeckBackgroundDesignEntity deckBackgroundDesignEntity = _mapper.Map<DeckBackgroundDesignEntity>(deckBackgroundDesignModel);
                         DeckBackgroundDesignEntity createdDeckBackgroundDesignEntity = dbContext.DeckBackgroundDesigns.Update(deckBackgroundDesignEntity).Entity;
@@ -116,6 +126,15 @@ namespace CardDesigner.DataAccess.Services
                         if (dbContext.CharacterDeckDesigns.Contains(characterDeckDesignEntity))
                         {
                             dbContext.CharacterDeckDesigns.Remove(characterDeckDesignEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
+                    case MinionDeckDesignModel minionDeckDesignModel:
+                        MinionDeckDesignEntity minionDeckDesignEntity = _mapper.Map<MinionDeckDesignEntity>(minionDeckDesignModel);
+                        if (dbContext.MinionDeckDesigns.Contains(minionDeckDesignEntity))
+                        {
+                            dbContext.MinionDeckDesigns.Remove(minionDeckDesignEntity);
                             await dbContext.SaveChangesAsync();
                             return true;
                         }

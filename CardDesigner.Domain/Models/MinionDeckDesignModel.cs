@@ -1,6 +1,8 @@
-﻿namespace CardDesigner.Domain.Models
+﻿using CardDesigner.Domain.Interfaces;
+
+namespace CardDesigner.Domain.Models
 {
-    public class MinionDeckDesignModel
+    public class MinionDeckDesignModel : ICardDesign
     {
         public int ID { get; set; }
         public string Name { get; set; }
