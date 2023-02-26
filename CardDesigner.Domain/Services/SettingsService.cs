@@ -5,7 +5,7 @@ namespace CardDesigner.Domain.Services
 {
     public class SettingsStore
     {
-        public double PrintCardScale { get => ReadDoubleSetting("PrintCardScale"); set => AddUpdateAppSettings("PrintCardScale", CropDouble(value,1).ToString()); }
+        public double PrintCardScale { get => ReadDoubleSetting("PrintCardScale"); set => AddUpdateAppSettings("PrintCardScale", CropDouble(value, 1).ToString()); }
         public double PrintPageOffsetX { get => ReadDoubleSetting("PrintPageOffsetX"); set => AddUpdateAppSettings("PrintPageOffsetX", CropDouble(value, 1).ToString()); }
 
         private double CropDouble(double value, int decimals)

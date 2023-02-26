@@ -5,11 +5,8 @@ using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 
