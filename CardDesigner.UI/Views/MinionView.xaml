@@ -9,6 +9,7 @@
     <UserControl.Resources>
         <Style x:Key="descriptionBox" BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
             <Setter Property="Margin" Value="3" />
+            <Setter Property="TextWrapping" Value="Wrap" />
             <Setter Property="MaxLines" Value="2" />
             <Setter Property="MinLines" Value="2" />
         </Style>
@@ -353,9 +354,11 @@
                                 HorizontalAlignment="Left"
                                 Content="Attributes: " />
                             <TextBox
+                                AcceptsReturn="True"
                                 MaxLines="15"
                                 MinLines="15"
-                                Text="{Binding DataContext.SelectedMinion.Attributes, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding DataContext.SelectedMinion.Attributes, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>
                     <Border Style="{StaticResource VisibleBorder}">
@@ -364,9 +367,11 @@
                                 HorizontalAlignment="Left"
                                 Content="Actions: " />
                             <TextBox
+                                AcceptsReturn="True"
                                 MaxLines="15"
                                 MinLines="15"
-                                Text="{Binding DataContext.SelectedMinion.Actions, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding DataContext.SelectedMinion.Actions, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>
                 </StackPanel>
