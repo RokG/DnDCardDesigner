@@ -21,6 +21,9 @@ namespace CardDesigner.Domain.Models
         public int Initiative { get; set; }
         public int PassivePerception { get; set; }
 
+        public string AvatarImagePath { get; set; } = string.Empty;
+        public string AvatarImageStretch { get; set; } = "Uniform";
+
         public int Strength { get; set; }
         public int Dexterity { get; set; }
         public int Constitution { get; set; }

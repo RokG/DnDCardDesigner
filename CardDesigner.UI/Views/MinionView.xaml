@@ -79,7 +79,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <!--  Minion  -->
@@ -388,6 +388,20 @@
                         </StackPanel>
                     </Border>
                 </StackPanel>
+
+                <Border
+                    Grid.Column="5"
+                    HorizontalAlignment="Stretch"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label Content="Avatar" />
+                        <controls:FilePicker
+                            Grid.Column="1"
+                            Margin="5"
+                            Text="{Binding DataContext.SelectedMinion.AvatarImagePath, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <controls:ImageControl ImageSource="{Binding DataContext.SelectedMinion.AvatarImagePath, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </Border>
             </Grid>
         </Border>
     </Grid>
