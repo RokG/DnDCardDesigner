@@ -82,11 +82,6 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <!--  Abilities  -->
-                <!--<Border>
-                    <controls:AbilitiesControl Abilities="{Binding DataContext.SelectedMinion.Abilities, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </Border>-->
-
                 <!--  Minion  -->
                 <StackPanel>
                     <Border Style="{StaticResource VisibleBorder}">
@@ -371,6 +366,24 @@
                                 MaxLines="15"
                                 MinLines="15"
                                 Text="{Binding DataContext.SelectedMinion.Actions, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="4"
+                    Width="300">
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Legendary actions: " />
+                            <TextBox
+                                AcceptsReturn="True"
+                                MaxLines="30"
+                                MinLines="30"
+                                Text="{Binding DataContext.SelectedMinion.LegendaryActions, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>

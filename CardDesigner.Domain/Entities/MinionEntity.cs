@@ -29,9 +29,9 @@ namespace CardDesigner.Domain.Entities
         public int Wisdom { get; set; }
         public int Charisma { get; set; }
 
-        //https://www.aidedd.org/dnd/monstres.php?vo=bullywug
-        public string Attributes { get; set; } // Better name? - Description 1
-        public string Actions { get; set; } // Descriptions of attacks - Description 2
+        public string Attributes { get; set; }
+        public string Actions { get; set; }
+        public string LegendaryActions { get; set; }
         public string SavingThrows { get; set; }
         public string SkillBonuses { get; set; }
         public string DamageImmunities { get; set; }
