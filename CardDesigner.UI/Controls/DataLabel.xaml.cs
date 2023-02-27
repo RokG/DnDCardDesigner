@@ -13,6 +13,15 @@ namespace CardDesigner.UI.Controls
             InitializeComponent();
         }
 
+        public Orientation Orientation
+        {
+            get => (Orientation)GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
+        }
+
+        public static readonly DependencyProperty OrientationProperty =
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DataLabel), new PropertyMetadata(Orientation.Horizontal));
+
         public string ValueName
         {
             get => (string)GetValue(ValueNameProperty);

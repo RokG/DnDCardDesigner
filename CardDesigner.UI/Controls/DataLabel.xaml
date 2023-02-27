@@ -4,23 +4,43 @@
     xmlns:local="clr-namespace:CardDesigner.UI.Controls"
     Margin="0"
     Padding="0">
-    <StackPanel Orientation="Horizontal">
+    <StackPanel Orientation="{Binding Orientation, ElementName=dataLabel}">
         <Label
             Margin="{Binding Margin, ElementName=dataLabel}"
             Padding="{Binding Padding, ElementName=dataLabel}"
             Content="{Binding ValueName, ElementName=dataLabel}"
             ContentStringFormat="{}{0}: " />
-        <Label
+        <TextBlock
             Margin="{Binding Margin, ElementName=dataLabel}"
             Padding="{Binding Padding, ElementName=dataLabel}"
-            Content="{Binding Value1, ElementName=dataLabel}" />
-        <Label
+            Text="{Binding Value1, ElementName=dataLabel}"
+            TextWrapping="Wrap" />
+        <TextBlock
             Margin="{Binding Margin, ElementName=dataLabel}"
             Padding="{Binding Padding, ElementName=dataLabel}"
-            Content="{Binding Value2, ElementName=dataLabel}" />
-        <Label
+            Text="{Binding Value2, ElementName=dataLabel}"
+            TextWrapping="Wrap" />
+        <TextBlock
             Margin="{Binding Margin, ElementName=dataLabel}"
             Padding="{Binding Padding, ElementName=dataLabel}"
-            Content="{Binding Value3, ElementName=dataLabel}" />
+            Text="{Binding Value3, ElementName=dataLabel}"
+            TextWrapping="Wrap" />
+        <StackPanel.Style>
+            <Style TargetType="{x:Type StackPanel}">
+                <Setter Property="Visibility" Value="Visible" />
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding Value1, ElementName=dataLabel}"
+                        Value="">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding Value1, ElementName=dataLabel}"
+                        Value="{x:Null}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </StackPanel.Style>
     </StackPanel>
 </UserControl>

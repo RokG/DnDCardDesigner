@@ -14,5 +14,7 @@ namespace CardDesigner.Domain.Entities
         public string Title { get; set; }
         public MinionEntity Minion { get; set; }
         public MinionCardType Type { get; set; }
+        public double TitleFontSize { get; set; } = 14;
+        public double DescriptionFontSize { get; set; } = 16;
     }
 }

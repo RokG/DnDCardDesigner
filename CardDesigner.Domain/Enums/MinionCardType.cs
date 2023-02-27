@@ -4,6 +4,8 @@
     {
         Avatar,
         Stats,
-        Abilities
+        Attributes,
+        Actions,
+        LegendaryActions
     }
 }

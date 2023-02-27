@@ -6,6 +6,31 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     BorderBrush="{StaticResource WindowBorder}"
     BorderThickness="3,0,0,0">
+    <UserControl.Resources>
+        <!--  Avatar template  -->
+        <ControlTemplate x:Key="AvatarTemplate">
+            <Grid Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Content="Avatar: " />
+                <controls:FilePicker
+                    Grid.Column="1"
+                    Margin="5"
+                    Text="{Binding DataContext.SelectedMinion.AvatarImagePath, ElementName=minionCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox
+                    Grid.Column="2"
+                    SelectedItem="{Binding DataContext.SelectedMinion.AvatarImageStretch, ElementName=minionCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <sys:String>None</sys:String>
+                    <sys:String>Fill</sys:String>
+                    <sys:String>Uniform</sys:String>
+                    <sys:String>Uniform To Fill</sys:String>
+                </ComboBox>
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -102,7 +127,7 @@
                                 MaxHeight="500"
                                 ItemsSource="{Binding Source={StaticResource MinionCardTypeEnum}}"
                                 SelectedItem="{Binding SelectedMinionCard.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <!--<TabControl.ContentTemplate>
+                                <TabControl.ContentTemplate>
                                     <DataTemplate>
                                         <StackPanel>
                                             <ContentControl>
@@ -114,23 +139,13 @@
                                                                 Value="Avatar">
                                                                 <Setter Property="Template" Value="{StaticResource AvatarTemplate}" />
                                                             </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding}"
-                                                                Value="Feats">
-                                                                <Setter Property="Template" Value="{StaticResource FeatsTemplate}" />
-                                                            </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding}"
-                                                                Value="Abilities">
-                                                                <Setter Property="Template" Value="{StaticResource AbilitiesTemplate}" />
-                                                            </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </ContentControl.Style>
                                             </ContentControl>
                                         </StackPanel>
                                     </DataTemplate>
-                                </TabControl.ContentTemplate>-->
+                                </TabControl.ContentTemplate>
                             </TabControl>
                         </StackPanel>
                     </Border>
@@ -138,13 +153,13 @@
                 </StackPanel>
 
                 <!--  Card view  -->
-                <!--<controls:MinionCardControl
+                <controls:MinionCardControl
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     CardDesign="{Binding SelectedMinionDeckDesign}"
+                    IsEditable="True"
                     Minion="{Binding SelectedMinion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    MinionCard="{Binding SelectedMinionCard, Mode=TwoWay}"
-                    IsEditable="True" />-->
+                    MinionCard="{Binding SelectedMinionCard, Mode=TwoWay}" />
             </Grid>
         </Border>
     </Grid>
