@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="Styles/WindowStyles.xaml" />
                 <ResourceDictionary Source="Styles/ListItemStyles.xaml" />
                 <ResourceDictionary Source="Styles/SliderStyles.xaml" />
+                <ResourceDictionary Source="Styles/ScrollBarStyles.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
 

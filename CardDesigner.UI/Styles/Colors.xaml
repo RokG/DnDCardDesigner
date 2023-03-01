@@ -110,6 +110,14 @@
     <SolidColorBrush x:Key="SliderDragFGND" Color="{StaticResource ThemeColorLGHT}" />
     <SolidColorBrush x:Key="SliderDragBRDR" Color="{StaticResource ThemeColorLGHT}" />
 
+    <!--  Scroll bar colors  -->
+    <SolidColorBrush x:Key="ScrollBarSliderBGND" Color="{StaticResource Color201}" />
+    <SolidColorBrush x:Key="ScrollBarSliderFGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="ScrollBarSliderBRDR" Color="{StaticResource ThemeColorDARK}" />
+    <SolidColorBrush x:Key="ScrollBarThumbBGND" Color="{StaticResource Color202}" />
+    <SolidColorBrush x:Key="ScrollBarThumbFGND" Color="{StaticResource Color303}" />
+    <SolidColorBrush x:Key="ScrollBarThumbBRDR" Color="{StaticResource ThemeColorDARK}" />
+
     <!--  List colors  -->
     <SolidColorBrush x:Key="ListAreaBGND" Color="{StaticResource Color203}" />
     <SolidColorBrush x:Key="ListAreaFGND" Color="{StaticResource ThemeColorNORM}" />

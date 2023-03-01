@@ -53,10 +53,12 @@
             </Grid.ColumnDefinitions>
 
             <!--  Character decks area  -->
-            <StackPanel
-                Grid.Column="0"
-                Orientation="Vertical">
-
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <!--  Manage decks  -->
                 <Border Style="{StaticResource VisibleBorder}">
                     <StackPanel>
                         <!--  Manage decks  -->
@@ -81,7 +83,7 @@
                     </StackPanel>
                 </Border>
                 <!--  Manage cards in decks  -->
-                <Border>
+                <Border Grid.Row="1">
                     <Border.Style>
                         <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -100,12 +102,15 @@
                         ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveCharacterCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
-            </StackPanel>
+            </Grid>
 
             <!--  Spell decks  -->
-            <StackPanel Grid.Column="1">
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
                 <!--  Manage decks  -->
-
                 <Border Style="{StaticResource VisibleBorder}">
                     <StackPanel>
                         <!--  Manage decks  -->
@@ -130,7 +135,7 @@
                     </StackPanel>
                 </Border>
                 <!--  Manage spell cards in decks  -->
-                <Border>
+                <Border Grid.Row="1">
                     <Border.Style>
                         <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -149,10 +154,14 @@
                         ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveSpellCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
-            </StackPanel>
+            </Grid>
 
             <!--  Item decks  -->
-            <StackPanel Grid.Column="2">
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
                 <!--  Manage decks  -->
                 <Border Style="{StaticResource VisibleBorder}">
                     <StackPanel>
@@ -178,7 +187,7 @@
                     </StackPanel>
                 </Border>
                 <!--  Manage item cards in deck  -->
-                <Border>
+                <Border Grid.Row="1">
                     <Border.Style>
                         <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -197,12 +206,15 @@
                         ItemsSource="{Binding AllItemCards, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveItemCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
-            </StackPanel>
+            </Grid>
 
             <!--  Minion decks  -->
-            <StackPanel Grid.Column="3">
+            <Grid Grid.Column="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
                 <!--  Manage decks  -->
-
                 <Border Style="{StaticResource VisibleBorder}">
                     <StackPanel>
                         <!--  Manage decks  -->
@@ -227,7 +239,7 @@
                     </StackPanel>
                 </Border>
                 <!--  Manage Minion cards in decks  -->
-                <Border>
+                <Border Grid.Row="1">
                     <Border.Style>
                         <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -246,7 +258,7 @@
                         ItemsSource="{Binding AllMinionCards, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveMinionCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
-            </StackPanel>
+            </Grid>
 
         </Grid>
 
@@ -291,14 +303,19 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <Label Content="Character decks" />
                     <controls:ItemTransferControl
+                        Grid.Row="1"
                         AddCommand="{Binding DataContext.AddCharacterDeckToCharacterCommand, ElementName=deckControl}"
                         ItemsDestination="{Binding CharacterCharacterDecks, Mode=TwoWay}"
                         ItemsSource="{Binding AllCharacterDecks, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveCharacterDeckFromCharacterCommand, ElementName=deckControl}" />
-                </StackPanel>
+                </Grid>
             </Border>
 
             <!--  Manage spell decks on character  -->
@@ -317,14 +334,19 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <Label Content="Spell decks" />
                     <controls:ItemTransferControl
+                        Grid.Row="1"
                         AddCommand="{Binding DataContext.AddSpellDeckToCharacterCommand, ElementName=deckControl}"
                         ItemsDestination="{Binding CharacterSpellDecks, Mode=TwoWay}"
                         ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveSpellDeckFromCharacterCommand, ElementName=deckControl}" />
-                </StackPanel>
+                </Grid>
             </Border>
 
             <!--  Manage item decks on character  -->
@@ -343,14 +365,19 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <Label Content="Item decks" />
                     <controls:ItemTransferControl
+                        Grid.Row="1"
                         AddCommand="{Binding DataContext.AddItemDeckToCharacterCommand, ElementName=deckControl}"
                         ItemsDestination="{Binding CharacterItemDecks, Mode=TwoWay}"
                         ItemsSource="{Binding AllItemDecks, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveItemDeckFromCharacterCommand, ElementName=deckControl}" />
-                </StackPanel>
+                </Grid>
             </Border>
 
             <!--  Manage Minion decks on character  -->
@@ -369,14 +396,19 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <Label Content="Minion decks" />
                     <controls:ItemTransferControl
+                        Grid.Row="1"
                         AddCommand="{Binding DataContext.AddMinionDeckToCharacterCommand, ElementName=deckControl}"
                         ItemsDestination="{Binding CharacterMinionDecks, Mode=TwoWay}"
                         ItemsSource="{Binding AllMinionDecks, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveMinionDeckFromCharacterCommand, ElementName=deckControl}" />
-                </StackPanel>
+                </Grid>
             </Border>
 
         </Grid>
