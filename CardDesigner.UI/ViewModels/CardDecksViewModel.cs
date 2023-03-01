@@ -170,6 +170,18 @@ namespace CardDesigner.UI.ViewModels
             SelectedCharacter = AllCharacters.FirstOrDefault();
         }
 
+        private void GetCharacterMinionDecks()
+        {
+            CharacterMinionDecks = new();
+            if (SelectedCharacter?.MinionDeckDescriptors != null)
+            {
+                foreach (MinionDeckDesignLinkerModel deckDescriptor in SelectedCharacter.MinionDeckDescriptors)
+                {
+                    CharacterMinionDecks.Add(AllMinionDecks.First(i => i.ID == deckDescriptor.MinionDeckID));
+                }
+            }
+        }
+
         private void GetCharacterSpellDecks()
         {
             CharacterSpellDecks = new();
@@ -257,6 +269,7 @@ namespace CardDesigner.UI.ViewModels
                     GetCharacterSpellDecks();
                     GetCharacterItemDecks();
                     GetCharacterCharacterDecks();
+                    GetCharacterMinionDecks();
                     break;
                 case DataChangeType.Deleted:
                     AllCharacters.Remove(SelectedCharacter);
@@ -352,6 +365,7 @@ namespace CardDesigner.UI.ViewModels
             GetCharacterSpellDecks();
             GetCharacterItemDecks();
             GetCharacterCharacterDecks();
+            GetCharacterMinionDecks();
         }
 
         #endregion

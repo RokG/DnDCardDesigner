@@ -352,6 +352,33 @@
                         RemoveCommand="{Binding DataContext.RemoveItemDeckFromCharacterCommand, ElementName=deckControl}" />
                 </StackPanel>
             </Border>
+
+            <!--  Manage Minion decks on character  -->
+            <Border
+                Grid.Column="3"
+                BorderThickness="1">
+                <Border.Style>
+                    <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SelectedCharacter}"
+                                Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel>
+                    <Label Content="Minion decks" />
+                    <controls:ItemTransferControl
+                        AddCommand="{Binding DataContext.AddMinionDeckToCharacterCommand, ElementName=deckControl}"
+                        ItemsDestination="{Binding CharacterMinionDecks, Mode=TwoWay}"
+                        ItemsSource="{Binding AllMinionDecks, Mode=TwoWay}"
+                        RemoveCommand="{Binding DataContext.RemoveMinionDeckFromCharacterCommand, ElementName=deckControl}" />
+                </StackPanel>
+            </Border>
+
         </Grid>
     </Grid>
 </UserControl>
