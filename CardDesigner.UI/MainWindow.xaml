@@ -67,7 +67,9 @@
                     Content="HOME"
                     DockPanel.Dock="Top"
                     IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.Home}}" />
-                <Border Style="{StaticResource VerticalSeparatorBorder}" />
+                <Border
+                    Margin="0,5"
+                    Style="{StaticResource VerticalSeparatorBorder}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
@@ -82,7 +84,9 @@
                     Content="Minion creator"
                     DockPanel.Dock="Top"
                     IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.MinionCreator}}" />
-                <Border Style="{StaticResource VerticalSeparatorBorder}" />
+                <Border
+                    Margin="0,5"
+                    Style="{StaticResource VerticalSeparatorBorder}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
@@ -111,7 +115,9 @@
                     Content="Item Card creator"
                     DockPanel.Dock="Top"
                     IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.ItemCardCreator}}" />
-                <Border Style="{StaticResource VerticalSeparatorBorder}" />
+                <Border
+                    Margin="0,5"
+                    Style="{StaticResource VerticalSeparatorBorder}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
@@ -119,7 +125,9 @@
                     Content="Deck creator"
                     DockPanel.Dock="Top"
                     IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.DeckCreator}}" />
-                <Border Style="{StaticResource VerticalSeparatorBorder}" />
+                <Border
+                    Margin="0,5"
+                    Style="{StaticResource VerticalSeparatorBorder}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"
@@ -127,7 +135,9 @@
                     Content="Design card"
                     DockPanel.Dock="Top"
                     IsChecked="{Binding CurrentViewModel.Type, Converter={converters:TypeComparisonConverter}, ConverterParameter={x:Static enums:ViewModelType.DeckDesigner}}" />
-                <Border Style="{StaticResource VerticalSeparatorBorder}" />
+                <Border
+                    Margin="0,5"
+                    Style="{StaticResource VerticalSeparatorBorder}" />
                 <RadioButton
                     Height="60"
                     Command="{Binding ChangeViewModelCommand}"

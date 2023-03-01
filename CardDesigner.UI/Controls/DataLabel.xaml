@@ -13,6 +13,7 @@
         <TextBlock
             Margin="{Binding Margin, ElementName=dataLabel}"
             Padding="{Binding Padding, ElementName=dataLabel}"
+            VerticalAlignment="Center"
             Text="{Binding Value1, ElementName=dataLabel}"
             TextWrapping="Wrap" />
         <TextBlock

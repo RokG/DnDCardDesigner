@@ -28,9 +28,58 @@
         <!--  Avatar content  -->
         <ControlTemplate x:Key="AvatarContentTemplate">
             <!--  Avatar icon  -->
-            <controls:ImageControl
-                ImageSource="{Binding Minion.AvatarImagePath, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                ImageStretch="{Binding Minion.AvatarImageStretch, ElementName=minionCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel>
+                <controls:ImageControl
+                    Height="175"
+                    ImageSource="{Binding Minion.AvatarImagePath, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ImageStretch="{Binding Minion.AvatarImageStretch, ElementName=minionCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                <Border
+                    Width="246"
+                    Padding="0,10,0,0"
+                    BorderBrush="{StaticResource CardLineColor}"
+                    BorderThickness="0,2,0,0">
+                    <StackPanel
+                        Grid.Row="1"
+                        Orientation="Horizontal">
+                        <local:AbilityBaseControl
+                            Margin="3,0"
+                            AbilityLevel="{Binding Minion.Strength, ElementName=minionCard}"
+                            AbilityLevelBonus="{Binding Minion.StrengthBonus, ElementName=minionCard}"
+                            AbilityName="STR"
+                            SwitchAbilityValueBonus="True" />
+                        <local:AbilityBaseControl
+                            Margin="4,0"
+                            AbilityLevel="{Binding Minion.Dexterity, ElementName=minionCard}"
+                            AbilityLevelBonus="{Binding Minion.DexterityBonus, ElementName=minionCard}"
+                            AbilityName="DEX"
+                            SwitchAbilityValueBonus="True" />
+                        <local:AbilityBaseControl
+                            Margin="4,0"
+                            AbilityLevel="{Binding Minion.Constitution, ElementName=minionCard}"
+                            AbilityLevelBonus="{Binding Minion.ConstitutionBonus, ElementName=minionCard}"
+                            AbilityName="CON"
+                            SwitchAbilityValueBonus="True" />
+                        <local:AbilityBaseControl
+                            Margin="4,0"
+                            AbilityLevel="{Binding Minion.Wisdom, ElementName=minionCard}"
+                            AbilityLevelBonus="{Binding Minion.WisdomBonus, ElementName=minionCard}"
+                            AbilityName="INT"
+                            SwitchAbilityValueBonus="True" />
+                        <local:AbilityBaseControl
+                            Margin="4,0"
+                            AbilityLevel="{Binding Minion.Inteligence, ElementName=minionCard}"
+                            AbilityLevelBonus="{Binding Minion.InteligenceBonus, ElementName=minionCard}"
+                            AbilityName="WIS"
+                            SwitchAbilityValueBonus="True" />
+                        <local:AbilityBaseControl
+                            Margin="4,0"
+                            AbilityLevel="{Binding Minion.Charisma, ElementName=minionCard}"
+                            AbilityLevelBonus="{Binding Minion.CharismaBonus, ElementName=minionCard}"
+                            AbilityName="CHA"
+                            SwitchAbilityValueBonus="True" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
         </ControlTemplate>
 
         <!--  Stats content  -->
@@ -43,6 +92,7 @@
                     Value1="{Binding Minion.SavingThrows, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ValueName="Saving Throws" />
                 <controls:DataLabel
+                    Margin="0"
                     Value1="{Binding Minion.SkillBonuses, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ValueName="Skill Bonuses" />
                 <controls:DataLabel
@@ -107,12 +157,6 @@
                     IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     TextColor="{Binding CardDesign.FooterTextColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Value="{Binding Minion.ArmourClass, ElementName=minionCard}" />
-                <controls:IconWithPropertyControl
-                    Height="30"
-                    Icon="{StaticResource Initiative}"
-                    IconColorFooter="{Binding CardDesign.FooterIconColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    TextColor="{Binding CardDesign.FooterTextColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Unit="{Binding Minion.ChalangeRating, ElementName=minionCard}" />
             </StackPanel>
         </ControlTemplate>
 
@@ -175,6 +219,7 @@
 
             <!--  Card contents  -->
             <Canvas>
+
                 <!--  Body lines  -->
                 <Border
                     Canvas.Top="35"
@@ -208,7 +253,7 @@
                 <!--  Content  -->
                 <ContentControl
                     Canvas.Left="2"
-                    Canvas.Top="50"
+                    Canvas.Top="37"
                     Width="246">
                     <ContentControl.Style>
                         <Style TargetType="{x:Type ContentControl}">
@@ -267,6 +312,40 @@
                     </ContentControl.Style>
                 </ContentControl>
 
+                <!--  Level  -->
+                <Border
+                    Canvas.Top="25"
+                    Canvas.Right="0"
+                    Width="25"
+                    Height="25"
+                    Margin="50,0,4,0"
+                    Background="{Binding CardDesign.HeaderColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderBrush="{Binding CardDesign.LineColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderThickness="2"
+                    CornerRadius="20"
+                    DockPanel.Dock="Right">
+                    <Label
+                        Margin="0"
+                        Padding="0"
+                        Background="Transparent"
+                        Content="{Binding Minion.ChalangeRating, ElementName=minionCard}"
+                        FontFamily="Arial"
+                        FontSize="14"
+                        FontWeight="DemiBold"
+                        Foreground="{Binding CardDesign.HeaderIconColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding MinionCard.Type, ElementName=minionCard}"
+                                    Value="{x:Static enums:MinionCardType.Avatar}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
 
             </Canvas>
             <!--  Card border  -->
