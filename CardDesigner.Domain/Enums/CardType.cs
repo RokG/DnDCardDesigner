@@ -4,6 +4,7 @@
     {
         Spell,
         Item,
-        Character
+        Character,
+        Minion
     }
 }

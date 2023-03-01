@@ -22,6 +22,7 @@ namespace CardDesigner.UI.ViewModels
 
         private List<ItemDeckDesignModel> AllItemDeckDesigns;
         private List<SpellDeckDesignModel> AllSpellDeckDesigns;
+        private List<MinionDeckDesignModel> AllMinionDeckDesigns;
         private List<CharacterDeckDesignModel> AllCharacterDeckDesigns;
 
         #endregion
@@ -62,6 +63,9 @@ namespace CardDesigner.UI.ViewModels
         private SpellDeckModel selectedSpellDeck;
 
         [ObservableProperty]
+        private MinionDeckModel selectedMinionDeck;
+
+        [ObservableProperty]
         private CharacterDeckModel selectedCharacterDeck;
 
         [ObservableProperty]
@@ -69,6 +73,9 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<SpellDeckModel> allSpellDecks;
+
+        [ObservableProperty]
+        private ObservableCollection<MinionDeckModel> allMinionDecks;
 
         [ObservableProperty]
         private ObservableCollection<ItemDeckModel> allItemDecks;
@@ -111,15 +118,18 @@ namespace CardDesigner.UI.ViewModels
 
             AllCharacters = _cardDesignerStore.Characters == null ? new() : new(_cardDesignerStore.Characters);
             AllSpellDecks = _cardDesignerStore.SpellDecks == null ? new() : new(_cardDesignerStore.SpellDecks);
+            AllMinionDecks = _cardDesignerStore.MinionDecks == null ? new() : new(_cardDesignerStore.MinionDecks);
             AllItemDecks = _cardDesignerStore.ItemDecks == null ? new() : new(_cardDesignerStore.ItemDecks);
             AllCharacterDecks = _cardDesignerStore.CharacterDecks == null ? new() : new(_cardDesignerStore.CharacterDecks);
 
             SelectedItemDeck = AllItemDecks.FirstOrDefault();
             SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
+            SelectedMinionDeck = AllMinionDecks.FirstOrDefault();
             SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault();
 
             AllItemDeckDesigns = _cardDesignerStore.ItemDeckDesigns.ToList();
             AllSpellDeckDesigns = _cardDesignerStore.SpellDeckDesigns.ToList();
+            AllMinionDeckDesigns = _cardDesignerStore.MinionDeckDesigns.ToList();
             AllCharacterDeckDesigns = _cardDesignerStore.CharacterDeckDesigns.ToList();
 
             SetSelectionFromNavigation();
@@ -184,6 +194,22 @@ namespace CardDesigner.UI.ViewModels
                         ParentID = character.ID
                     };
                     addedCharacter.Items.Add(addedSpellDeck);
+                }
+                
+                // Create Minion deck tree structure
+                foreach (MinionDeckDesignLinkerModel MinionDeckDescriptor in character.MinionDeckDescriptors)
+                {
+                    MinionDeckModel MinionDeck = AllMinionDecks.FirstOrDefault(id => id.ID == MinionDeckDescriptor.MinionDeckID);
+
+                    TreeItemModel addedMinionDeck = new()
+                    {
+                        Name = MinionDeck?.Name,
+                        Title = MinionDeck?.Title,
+                        ID = MinionDeck.ID,
+                        Item = MinionDeck,
+                        ParentID = character.ID
+                    };
+                    addedCharacter.Items.Add(addedMinionDeck);
                 }
 
                 // Create Character deck tree structure
@@ -256,6 +282,17 @@ namespace CardDesigner.UI.ViewModels
                 selectedCardDesign = AllSpellDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID) ?? new();
 
                 cardsInDeck.AddRange(SelectedSpellDeck.SpellCards);
+            }
+
+            if (selectableItem.Item is MinionDeckModel MinionCardModel)
+            {
+                SelectedMinionDeck = MinionCardModel;
+                SelectedDeck = SelectedMinionDeck;
+
+                int deckDesingID = SelectedCharacter.MinionDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == SelectedCharacter.ID && idd.MinionDeckID == SelectedMinionDeck.ID)?.DesignID ?? 0;
+                selectedCardDesign = AllMinionDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID) ?? new();
+
+                cardsInDeck.AddRange(SelectedMinionDeck.MinionCards);
             }
 
             if (selectableItem.Item is ItemDeckModel itemCardModel)
@@ -338,6 +375,7 @@ namespace CardDesigner.UI.ViewModels
                             SelectedCharacter = AllCharacters.FirstOrDefault(ic => ic.ID == _navigationStore.SelectedCharacter.ID);
                             SelectedItemDeck = _navigationStore.SelectedItemDeck;
                             SelectedSpellDeck = _navigationStore.SelectedSpellDeck;
+                            SelectedMinionDeck = _navigationStore.SelectedMinionDeck;
                             return;
                         default:
                             break;

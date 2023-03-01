@@ -16,6 +16,7 @@ namespace CardDesigner.Domain.Stores
         public CharacterCardModel SelectedCharacterCard;
         public ItemDeckModel SelectedItemDeck;
         public SpellDeckModel SelectedSpellDeck;
+        public MinionDeckModel SelectedMinionDeck;
         public CharacterDeckModel SelectedCharacterDeck;
         public CharacterModel SelectedCharacter;
         public DeckBackgroundDesignModel SelectedDeckBackgroundDesign;

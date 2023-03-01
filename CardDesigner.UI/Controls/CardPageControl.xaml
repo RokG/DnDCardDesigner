@@ -21,6 +21,13 @@
                 CardDesign="{Binding CardDesign, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SpellCard="{Binding}" />
         </ControlTemplate>
+        <ControlTemplate x:Key="cardsMinion">
+            <controls:MinionCardControl
+                Margin="0"
+                Padding="0"
+                CardDesign="{Binding CardDesign, ElementName=cardPageControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                MinionCard="{Binding}" />
+        </ControlTemplate>
         <ControlTemplate x:Key="cardsCharacter">
             <controls:CharacterCardControl
                 Margin="0"
@@ -65,6 +72,11 @@
                                     Binding="{Binding Converter={conv:TypeToStringConverter}}"
                                     Value="CharacterCardModel">
                                     <Setter Property="Template" Value="{StaticResource cardsCharacter}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding Converter={conv:TypeToStringConverter}}"
+                                    Value="MinionCardModel">
+                                    <Setter Property="Template" Value="{StaticResource cardsMinion}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
