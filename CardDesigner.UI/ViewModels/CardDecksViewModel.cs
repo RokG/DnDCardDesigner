@@ -100,6 +100,29 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
 
+        #region Minions
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateMinionDeckCommand))]
+        private string addedMinionDeckName;
+
+        [ObservableProperty]
+        private MinionDeckModel selectedMinionDeck;
+
+        [ObservableProperty]
+        private MinionCardModel selectedMinionCard;
+
+        [ObservableProperty]
+        private ObservableCollection<MinionCardModel> allMinionCards;
+
+        [ObservableProperty]
+        private ObservableCollection<MinionDeckModel> allMinionDecks;
+
+        [ObservableProperty]
+        private ObservableCollection<MinionDeckModel> characterMinionDecks;
+
+        #endregion
+
         #endregion
 
         #region Constructor
@@ -130,15 +153,18 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllSpellCards = new(_cardDesignerStore.SpellCards);
+            AllMinionCards = new(_cardDesignerStore.MinionCards);
             AllItemCards = new(_cardDesignerStore.ItemCards);
             AllCharacterCards = new(_cardDesignerStore.CharacterCards);
 
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
+            AllMinionDecks = new(_cardDesignerStore.MinionDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
             AllCharacterDecks = new(_cardDesignerStore.CharacterDecks);
             AllCharacters = new(_cardDesignerStore.Characters);
 
             SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
+            SelectedMinionDeck = AllMinionDecks.FirstOrDefault();
             SelectedItemDeck = AllItemDecks.FirstOrDefault();
             SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault();
             SelectedCharacter = AllCharacters.FirstOrDefault();
@@ -201,6 +227,7 @@ namespace CardDesigner.UI.ViewModels
             if (set)
             {
                 _cardDesignerStore.SpellDeckChanged += OnSpellDeckChanged;
+                _cardDesignerStore.MinionDeckChanged += OnMinionDeckChanged;
                 _cardDesignerStore.ItemDeckChanged += OnItemDeckChanged;
                 _cardDesignerStore.CharacterDeckChanged += OnCharacterDeckChanged;
                 _cardDesignerStore.CharacterChanged += OnCharacterChanged;
@@ -209,6 +236,7 @@ namespace CardDesigner.UI.ViewModels
             else
             {
                 _cardDesignerStore.SpellDeckChanged -= OnSpellDeckChanged;
+                _cardDesignerStore.MinionDeckChanged -= OnMinionDeckChanged;
                 _cardDesignerStore.ItemDeckChanged -= OnItemDeckChanged;
                 _cardDesignerStore.CharacterDeckChanged -= OnCharacterDeckChanged;
                 _cardDesignerStore.CharacterChanged -= OnCharacterChanged;
@@ -253,6 +281,26 @@ namespace CardDesigner.UI.ViewModels
                 case DataChangeType.Deleted:
                     AllSpellDecks.Remove(SelectedSpellDeck);
                     SelectedSpellDeck = AllSpellDecks.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OnMinionDeckChanged(MinionDeckModel MinionDeck, DataChangeType change)
+        {
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllMinionDecks.Add(MinionDeck);
+                    SelectedMinionDeck = MinionDeck;
+                    break;
+                case DataChangeType.Updated:
+                    SelectedMinionDeck = MinionDeck;
+                    break;
+                case DataChangeType.Deleted:
+                    AllMinionDecks.Remove(SelectedMinionDeck);
+                    SelectedMinionDeck = AllMinionDecks.FirstOrDefault();
                     break;
                 default:
                     break;
@@ -554,6 +602,73 @@ namespace CardDesigner.UI.ViewModels
         {
             CharacterDeckDesignLinkerModel toRemove = SelectedCharacter.CharacterDeckDescriptors.FirstOrDefault(sd => sd.CharacterDeckID == CharacterDeck.ID);
             SelectedCharacter.CharacterDeckDescriptors.Remove(toRemove);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        #endregion
+
+        #region MinionDecks
+
+        [RelayCommand(CanExecute = nameof(CanCreateMinionDeck))]
+        private async void CreateMinionDeck()
+        {
+            await _cardDesignerStore.CreateMinionDeck(new MinionDeckModel() { Name = AddedMinionDeckName, Title = AddedMinionDeckName });
+        }
+
+        private bool CanCreateMinionDeck()
+        {
+            bool noName = (AddedMinionDeckName == string.Empty || AddedMinionDeckName == null);
+            bool MinionDeckExists = AllMinionDecks == null ? false : AllMinionDecks.Where(c => c.Name == AddedMinionDeckName).Any();
+
+            return (!noName && !MinionDeckExists);
+        }
+
+        [RelayCommand]
+        private async void AddMinionCardToDeck(MinionCardModel MinionCard)
+        {
+            SelectedMinionDeck.MinionCards.Add(MinionCard);
+            await _cardDesignerStore.UpdateMinionDeck(SelectedMinionDeck);
+        }
+
+        [RelayCommand]
+        private async void RemoveMinionCardFromDeck(MinionCardModel MinionCard)
+        {
+            SelectedMinionDeck.MinionCards.Remove(MinionCard);
+            await _cardDesignerStore.UpdateMinionDeck(SelectedMinionDeck);
+        }
+
+        [RelayCommand]
+        private async void DeleteMinionDeck()
+        {
+            MinionDeckDesignLinkerModel toRemove = SelectedCharacter.MinionDeckDescriptors.FirstOrDefault(dd => dd.MinionDeckID == SelectedMinionDeck.ID);
+            if (toRemove != null)
+            {
+                SelectedCharacter.MinionDeckDescriptors.Remove(toRemove);
+            }
+
+            await _cardDesignerStore.DeleteMinionDeck(SelectedMinionDeck);
+
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand]
+        private async void AddMinionDeckToCharacter(MinionDeckModel MinionDeck)
+        {
+            if (!SelectedCharacter.MinionDeckDescriptors.Any(d => d.MinionDeckID == MinionDeck.ID))
+            {
+                SelectedCharacter.MinionDeckDescriptors.Add(new()
+                {
+                    MinionDeckID = MinionDeck.ID,
+                });
+                await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+            }
+        }
+
+        [RelayCommand]
+        private async void RemoveMinionDeckFromCharacter(MinionDeckModel MinionDeck)
+        {
+            MinionDeckDesignLinkerModel toRemove = SelectedCharacter.MinionDeckDescriptors.FirstOrDefault(sd => sd.MinionDeckID == MinionDeck.ID);
+            SelectedCharacter.MinionDeckDescriptors.Remove(toRemove);
             await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 

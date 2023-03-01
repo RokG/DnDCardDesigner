@@ -49,6 +49,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <!--  Character decks area  -->
@@ -125,7 +126,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedItemDeck.Title}" />
+                            Text="{Binding SelectedSpellDeck.Title}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage spell cards in decks  -->
@@ -173,7 +174,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedSpellDeck.Title}" />
+                            Text="{Binding SelectedItemDeck.Title}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage item cards in deck  -->
@@ -197,6 +198,56 @@
                         RemoveCommand="{Binding DataContext.RemoveItemCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
             </StackPanel>
+
+            <!--  Minion decks  -->
+            <StackPanel Grid.Column="3">
+                <!--  Manage decks  -->
+
+                <Border Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <!--  Manage decks  -->
+                        <controls:AddEditItem
+                            Title="Minion Deck"
+                            Margin="0"
+                            Padding="0"
+                            AddedItemName="{Binding AddedMinionDeckName, Mode=TwoWay}"
+                            BorderThickness="0"
+                            DeleteCommand="{Binding DeleteMinionDeckCommand}"
+                            ItemsSource="{Binding AllMinionDecks, Mode=TwoWay}"
+                            SaveCommand="{Binding CreateMinionDeckCommand}"
+                            SelectedItem="{Binding SelectedMinionDeck, Mode=TwoWay}"
+                            ViewOnly="False" />
+                        <Label
+                            Margin="5,0"
+                            Padding="0"
+                            Content="Deck name:" />
+                        <TextBox
+                            Margin="5,0"
+                            Text="{Binding SelectedMinionDeck.Title}" />
+                    </StackPanel>
+                </Border>
+                <!--  Manage Minion cards in decks  -->
+                <Border>
+                    <Border.Style>
+                        <Style BasedOn="{StaticResource VisibleBorder}" TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedMinionDeck}"
+                                    Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <controls:ItemTransferControl
+                        AddCommand="{Binding DataContext.AddMinionCardToDeckCommand, ElementName=deckControl}"
+                        ItemsDestination="{Binding SelectedMinionDeck.MinionCards, Mode=TwoWay}"
+                        ItemsSource="{Binding AllMinionCards, Mode=TwoWay}"
+                        RemoveCommand="{Binding DataContext.RemoveMinionCardFromDeckCommand, ElementName=deckControl}" />
+                </Border>
+            </StackPanel>
+
         </Grid>
 
         <Border
@@ -220,6 +271,7 @@
 
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
