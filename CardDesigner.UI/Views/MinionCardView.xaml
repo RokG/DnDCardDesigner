@@ -113,7 +113,7 @@
                     <controls:AddEditItem
                         Title="Minions"
                         ItemsSource="{Binding AllMinions, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedMinion, Mode=TwoWay}"
+                        SelectedItem="{Binding SelectedMinion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ViewOnly="True" />
                     <!--  Card Type  -->
                     <Border Style="{StaticResource VisibleBorder}">

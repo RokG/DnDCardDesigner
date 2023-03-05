@@ -142,6 +142,10 @@ namespace CardDesigner.DataAccess.DbContexts
                    .HasMany(c => c.CharacterDeckDescriptors)
                    .WithOne(e => e.Character);
 
+            modelBuilder.Entity<MinionEntity>()
+                .HasMany(c => c.MinionCards)
+                .WithOne(e => e.Minion);
+
             #region Deck-Cards
 
             // Spell Deck - Spell Card

@@ -58,8 +58,6 @@ namespace CardDesigner.UI.ViewModels
             SetUnsetDatabaseEvents(true);
 
             LoadData();
-
-            SelectedMinion = AllMinions.FirstOrDefault();
         }
 
         #endregion
@@ -71,9 +69,10 @@ namespace CardDesigner.UI.ViewModels
             await _cardDesignerStore.Load();
 
             AllMinions = new(_cardDesignerStore.Minions);
-            SelectedMinion = AllMinions.FirstOrDefault();
             AllMinionCards = new(_cardDesignerStore.MinionCards);
             SelectedMinionCard = AllMinionCards.FirstOrDefault();
+            //SelectedMinion = SelectedMinionCard.Minion ?? AllMinions.FirstOrDefault();
+            SelectedMinion = AllMinions.FirstOrDefault(m => m.ID == SelectedMinionCard?.Minion?.ID);
         }
 
         private void SetUnsetDatabaseEvents(bool set)
@@ -103,6 +102,11 @@ namespace CardDesigner.UI.ViewModels
             return viewModel;
         }
 
+        partial void OnSelectedMinionCardChanged(MinionCardModel value)
+        {
+            SelectedMinion = AllMinions.FirstOrDefault(m=>m.ID == value?.Minion?.ID);
+        }
+
         #endregion
 
         #region Database update methods
@@ -121,6 +125,7 @@ namespace CardDesigner.UI.ViewModels
                 case DataChangeType.Deleted:
                     AllMinionCards.Remove(SelectedMinionCard);
                     SelectedMinionCard = AllMinionCards.FirstOrDefault();
+                    SelectedMinion = AllMinions.FirstOrDefault(m => m.ID == minionCard?.Minion?.ID);
                     break;
                 default:
                     break;
@@ -156,6 +161,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void UpdateMinionCard()
         {
+            SelectedMinionCard.Minion = SelectedMinion;
             await _cardDesignerStore.UpdateMinionCard(SelectedMinionCard);
         }
 
@@ -164,7 +170,6 @@ namespace CardDesigner.UI.ViewModels
         {
             await _cardDesignerStore.DeleteMinionCard(SelectedMinionCard);
         }
-
 
         #endregion
     }

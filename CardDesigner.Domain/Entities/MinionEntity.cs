@@ -1,4 +1,5 @@
 ﻿using CardDesigner.Domain.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CardDesigner.Domain.Entities
@@ -7,6 +8,7 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
+        public ICollection<MinionCardEntity> MinionCards { get; set; }
 
         // Properties
         public string Name { get; set; }

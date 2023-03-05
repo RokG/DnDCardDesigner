@@ -58,6 +58,16 @@ namespace CardDesigner.DataAccess.Services
                     if (dbContext.Minions.Contains(minionEntity))
                     {
                         dbContext.Minions.Remove(minionEntity);
+
+                        // Delete minion from minion cards where it exists
+                        foreach (var minionCard in dbContext.MinionCards)
+                        {
+                            if (minionCard.Minion == minionEntity)
+                            {
+                                minionCard.Minion = null;
+                            }
+                        }
+
                         await dbContext.SaveChangesAsync();
                         return true;
                     }

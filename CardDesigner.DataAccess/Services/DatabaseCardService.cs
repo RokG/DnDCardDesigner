@@ -190,6 +190,7 @@ namespace CardDesigner.DataAccess.Services
                     IEnumerable<MinionCardEntity> minionCardEntities = await
                         context.MinionCards
                         .Include(sc => sc.MinionDecks)
+                        .Include(sc => sc.Minion)
                         .ToListAsync();
 
                     return (IEnumerable<T>)minionCardEntities.Select(c => _mapper.Map<MinionCardModel>(c));
