@@ -195,7 +195,7 @@ namespace CardDesigner.UI.ViewModels
                     };
                     addedCharacter.Items.Add(addedSpellDeck);
                 }
-                
+
                 // Create Minion deck tree structure
                 foreach (MinionDeckDesignLinkerModel MinionDeckDescriptor in character.MinionDeckDescriptors)
                 {
