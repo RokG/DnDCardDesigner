@@ -5,6 +5,7 @@ namespace CardDesigner.Domain.Models
 {
     public class MinionModel : ISelectableItem
     {
+        // Entity links
         public int ID { get; set; }
 
         // Properties

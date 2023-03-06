@@ -6,8 +6,11 @@ namespace CardDesigner.Domain.Models
 {
     public class CharacterAbilitiesModel
     {
+        // Entity links
         public int ID { get; set; }
         public CharacterModel Character { get; set; }
+
+        // Properties
 
         #region Abilities
 

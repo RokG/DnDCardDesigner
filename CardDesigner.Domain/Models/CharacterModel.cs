@@ -6,9 +6,11 @@ namespace CardDesigner.Domain.Models
 {
     public class CharacterModel : ISelectableItem
     {
+        // Entity links
         public int ID { get; set; }
         public CharacterModel Character { get; set; }
 
+        // Properties
         public string Name { get; set; }
         public string Title { get; set; }
         public List<SpellDeckDesignLinkerModel> SpellDeckDescriptors { get; set; } = new();

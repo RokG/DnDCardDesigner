@@ -5,7 +5,10 @@ namespace CardDesigner.Domain.Models
 {
     public class SpellCardModel : ICard, ISpell, ISelectableItem
     {
+        // Entity links
         public int ID { get; set; }
+
+        // Properties
         public string Name { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public double TitleFontSize { get; set; } = 14;

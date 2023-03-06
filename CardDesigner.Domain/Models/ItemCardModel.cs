@@ -5,7 +5,10 @@ namespace CardDesigner.Domain.Models
 {
     public class ItemCardModel : ICard, ISelectableItem
     {
+        // Entity links
         public int ID { get; set; }
+
+        // Properties
         public string Name { get; set; } = string.Empty;
         public string Title { get; set; }
         public double TitleFontSize { get; set; } = 14;

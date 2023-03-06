@@ -4,8 +4,8 @@ namespace CardDesigner.Domain.Models
 {
     public class CharacterClassModel
     {
+        // Entity links
         public int ID { get; set; }
-        public CharacterModel Character { get; set; }
 
         // Properties
         public int Level { get; set; }
