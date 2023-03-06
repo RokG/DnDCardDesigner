@@ -195,6 +195,20 @@
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:DataTypeConverter}}"
+                                    Value="{x:Type models:MinionCardModel}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <controls:MinionCardControl
+                                                    Grid.Column="1"
+                                                    CardDesign="{Binding SelectedCardDesign}"
+                                                    MinionCard="{Binding SelectedCard}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </ContentControl.Style>

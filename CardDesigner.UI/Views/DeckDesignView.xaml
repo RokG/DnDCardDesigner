@@ -263,36 +263,6 @@
                                             Title="Footer Icon Color"
                                             CurrentColor="{Binding SelectedCharacterDeckDesign.FooterIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </WrapPanel>
-                                    <Border Style="{StaticResource VisibleBorder}">
-                                        <StackPanel>
-                                            <DockPanel>
-                                                <Label
-                                                    Content="Border width:"
-                                                    DockPanel.Dock="Left" />
-                                                <Slider
-                                                    HorizontalAlignment="Stretch"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalContentAlignment="Stretch"
-                                                    DockPanel.Dock="Right"
-                                                    Maximum="20"
-                                                    Minimum="0"
-                                                    Value="{Binding SelectedCharacterDeckDesign.BackLineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                            </DockPanel>
-                                            <DockPanel>
-                                                <Label Content="Icon filepath:" />
-                                                <controls:FilePicker Text="{Binding SelectedCharacterDeckDesign.IconFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                            </DockPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Label Content="Icon stretch:" />
-                                                <ComboBox SelectedItem="{Binding SelectedCharacterDeckDesign.IconStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                                    <sys:String>None</sys:String>
-                                                    <sys:String>Fill</sys:String>
-                                                    <sys:String>Uniform</sys:String>
-                                                    <sys:String>Uniform To Fill</sys:String>
-                                                </ComboBox>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </Border>
                                 </StackPanel>
                                 <controls:CharacterCardControl
                                     Grid.Column="1"
@@ -537,6 +507,125 @@
                                     Height="860"
                                     CardDesign="{Binding SelectedItemDeckDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     ItemCard="{Binding TestItemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem
+                    FontSize="16"
+                    Header="Minion Card Foreground">
+                    <StackPanel>
+                        <!--  Selectors  -->
+                        <DockPanel>
+                            <Label
+                                Background="Transparent"
+                                Content="Deck:" />
+                            <controls:AddEditItem
+                                Margin="0"
+                                Padding="0"
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                ItemsSource="{Binding CharacterMinionDecks, Mode=TwoWay}"
+                                SelectedItem="{Binding SelectedMinionDeck, Mode=TwoWay}"
+                                ViewOnly="True" />
+                            <Label
+                                Background="Transparent"
+                                Content="Card:" />
+                            <controls:AddEditItem
+                                Margin="0"
+                                Padding="0"
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                ItemsSource="{Binding SelectedMinionDeck.MinionCards, Mode=TwoWay}"
+                                SelectedItem="{Binding TestMinionCard, Mode=TwoWay}"
+                                ViewOnly="True" />
+                            <Label
+                                Background="Transparent"
+                                Content="Design:" />
+                            <controls:AddEditItem
+                                Margin="0"
+                                Padding="0"
+                                VerticalAlignment="Center"
+                                AddedItemName="{Binding AddedMinionDeckDesignName, Mode=TwoWay}"
+                                BorderThickness="0"
+                                DeleteCommand="{Binding DeleteMinionDeckDesignCommand}"
+                                ItemsSource="{Binding AllMinionDeckDesigns, Mode=TwoWay}"
+                                Orientation="Horizontal"
+                                SaveCommand="{Binding CreateMinionDeckDesignCommand}"
+                                SelectedItem="{Binding SelectedMinionDeckDesign, Mode=TwoWay}"
+                                SelectionChanged="SelectedCardDesign_SelectionChanged"
+                                UpdateCommand="{Binding UpdateMinionDeckDesignCommand}"
+                                ViewOnly="False" />
+                        </DockPanel>
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding SelectedMinionDeck}"
+                                            Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding TestMinionCard}"
+                                            Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding SelectedMinionDeckDesign}"
+                                            Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <!--  Color pickers  -->
+                                <WrapPanel
+                                    VerticalAlignment="Top"
+                                    ItemWidth="200"
+                                    Orientation="Horizontal">
+                                    <controls:ColorPickerControl x:Name="FrontMinionHeaderColor"
+                                        Title="Header Background"
+                                        CurrentColor="{Binding SelectedMinionDeckDesign.HeaderColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontMinionHeaderTextColor"
+                                        Title="Header Text"
+                                        CurrentColor="{Binding SelectedMinionDeckDesign.HeaderTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontMinionHeaderIconColor"
+                                        Title="Header Level"
+                                        CurrentColor="{Binding SelectedMinionDeckDesign.HeaderIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <controls:ColorPickerControl x:Name="FrontMinionBackgroundColor"
+                                        Title="Background Color"
+                                        CurrentColor="{Binding SelectedMinionDeckDesign.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontMinionDescriptionTextColor"
+                                        Title="Description Color"
+                                        CurrentColor="{Binding SelectedMinionDeckDesign.DescriptionTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontMinionLineColor"
+                                        Title="Border Color"
+                                        CurrentColor="{Binding SelectedMinionDeckDesign.LineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <controls:ColorPickerControl x:Name="FrontMinionFooterColor"
+                                        Title="Footer Background"
+                                        CurrentColor="{Binding SelectedMinionDeckDesign.FooterColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontMinionFooterTextColor"
+                                        Title="Footer Text Color"
+                                        CurrentColor="{Binding SelectedMinionDeckDesign.FooterTextColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <controls:ColorPickerControl x:Name="FrontMinionFooterIconColor"
+                                        Title="Footer Icon Color"
+                                        CurrentColor="{Binding SelectedMinionDeckDesign.FooterIconColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </WrapPanel>
+                                <!--  Card  -->
+                                <controls:MinionCardControl
+                                    Grid.Column="1"
+                                    Height="860"
+                                    CardDesign="{Binding SelectedMinionDeckDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    MinionCard="{Binding TestMinionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                         </Border>
                     </StackPanel>

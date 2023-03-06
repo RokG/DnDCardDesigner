@@ -50,6 +50,13 @@ namespace CardDesigner.DataAccess.Services
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<CharacterDeckModel>(createdCharacterDeckEntity);
+                    case MinionDeckModel minionDeckModel:
+                        MinionDeckEntity minionDeckEntity = _mapper.Map<MinionDeckEntity>(minionDeckModel);
+                        MinionDeckEntity createdMinionDeckEntity = dbContext.MinionDecks.Add(minionDeckEntity).Entity;
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<MinionDeckModel>(createdMinionDeckEntity);
                     default:
                         return null;
                 }
@@ -151,6 +158,35 @@ namespace CardDesigner.DataAccess.Services
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<CharacterDeckModel>(characterDeckEntity);
+                    case MinionDeckModel minionDeckModel:
+                        // Get minion deck from database
+                        MinionDeckEntity minionDeckEntity = dbContext.MinionDecks
+                            .Include(sd => sd.MinionCards)
+                            .Single(sc => sc.ID == minionDeckModel.ID);
+
+                        // Loop over cards in source deck - ADD
+                        foreach (MinionCardModel minionCardModel in minionDeckModel.MinionCards)
+                        {
+                            // If any card is new, add it to the list
+                            if (!minionDeckEntity.MinionCards.Where(sd => sd.ID == minionCardModel.ID).Any())
+                            {
+                                MinionCardEntity minionCardEntity = _mapper.Map<MinionCardEntity>(minionCardModel);
+                                minionDeckEntity.MinionCards.Add(minionCardEntity);
+                            }
+                        }
+                        // Loop over cards in source deck - REMOVE
+                        foreach (MinionCardEntity minionCardEntity in minionDeckEntity.MinionCards)
+                        {
+                            // If any card is missing, remove it from the list
+                            if (!minionDeckModel.MinionCards.Any(id => id.ID == minionCardEntity.ID))
+                            {
+                                minionDeckEntity.MinionCards.Remove(minionCardEntity);
+                            }
+                        }
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<MinionDeckModel>(minionDeckEntity);
                     default:
                         return null;
                 }
@@ -186,6 +222,15 @@ namespace CardDesigner.DataAccess.Services
                         if (dbContext.CharacterDecks.Contains(characterDeckEntity))
                         {
                             dbContext.CharacterDecks.Remove(characterDeckEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
+                    case MinionDeckModel minionDeckModel:
+                        MinionDeckEntity minionDeckEntity = _mapper.Map<MinionDeckEntity>(minionDeckModel);
+                        if (dbContext.MinionDecks.Contains(minionDeckEntity))
+                        {
+                            dbContext.MinionDecks.Remove(minionDeckEntity);
                             await dbContext.SaveChangesAsync();
                             return true;
                         }
@@ -226,6 +271,16 @@ namespace CardDesigner.DataAccess.Services
                         .ToListAsync();
 
                     return (IEnumerable<T>)characterDeckEntities.Select(c => _mapper.Map<CharacterDeckModel>(c));
+                }
+                else if (typeof(T) == typeof(MinionDeckModel))
+                {
+                    IEnumerable<MinionDeckEntity> minionDeckEntities = await
+                        context.MinionDecks
+                        .Include(sd => sd.MinionCards)
+                        .ThenInclude(sd=>sd.Minion)
+                        .ToListAsync();
+
+                    return (IEnumerable<T>)minionDeckEntities.Select(c => _mapper.Map<MinionDeckModel>(c));
                 }
                 else
                 {

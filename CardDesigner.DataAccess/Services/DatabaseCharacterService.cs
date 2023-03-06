@@ -43,6 +43,7 @@ namespace CardDesigner.DataAccess.Services
                 CharacterEntity characterEntity = dbContext.Characters
                     .Include(c => c.SpellDeckDescriptors)
                     .Include(c => c.ItemDeckDescriptors)
+                    .Include(c => c.MinionDeckDescriptors)
                     .Include(c => c.CharacterDeckDescriptors)
                     .Include(c => c.Classes)
                     .Single(c => c.ID == characterModel.ID);
@@ -54,7 +55,6 @@ namespace CardDesigner.DataAccess.Services
                 characterEntity.Hitpoints = characterModel.Hitpoints;
                 characterEntity.Race = characterModel.Race;
                 characterEntity.Alignment = characterModel.Alignment;
-
 
                 // Update one-to-one bindings
                 characterEntity.Abilities = _mapper.Map<CharacterAbilitiesEntity>(characterModel.Abilities);
@@ -168,6 +168,33 @@ namespace CardDesigner.DataAccess.Services
                     dbContext.CharacterDeckDesignLinkers.Remove(removedCharacterDeckEntity);
                 }
 
+                // Add Minion Decks
+                foreach (MinionDeckDesignLinkerModel MinionDeckDesignLinkerModel in characterModel.MinionDeckDescriptors)
+                {
+                    MinionDeckDesignLinkerEntity matchingEntity = characterEntity.MinionDeckDescriptors
+                        .FirstOrDefault(c => c.Character.ID == characterModel.ID && c.MinionDeckID == MinionDeckDesignLinkerModel.MinionDeckID);
+                    //If any class is new, add it to the list
+                    if (matchingEntity == null)
+                    {
+                        MinionDeckDesignLinkerEntity characterClassEntity = _mapper.Map<MinionDeckDesignLinkerEntity>(MinionDeckDesignLinkerModel);
+                        characterEntity.MinionDeckDescriptors.Add(characterClassEntity);
+                    }
+                    // If any class exists, update it
+                    else
+                    {
+                        matchingEntity.DesignID = MinionDeckDesignLinkerModel.DesignID;
+                    }
+                }
+
+                // Remove Minion Decks
+                MinionDeckDesignLinkerEntity removedMinionDeckEntity = characterEntity.MinionDeckDescriptors
+                    .FirstOrDefault(p => characterModel.MinionDeckDescriptors.All(p2 => p2.MinionDeckID != p.MinionDeckID));
+                if (removedMinionDeckEntity != null)
+                {
+                    characterEntity.MinionDeckDescriptors.Remove(removedMinionDeckEntity);
+                    dbContext.MinionDeckDesignLinkers.Remove(removedMinionDeckEntity);
+                }
+
                 // Finaly, update character
                 CharacterEntity createdCharacterCardEntity = dbContext.Characters.Update(characterEntity).Entity;
 
@@ -223,6 +250,7 @@ namespace CardDesigner.DataAccess.Services
                     .Include(c => c.SpellDeckDescriptors)
                     .Include(c => c.ItemDeckDescriptors)
                     .Include(c => c.CharacterDeckDescriptors)
+                    .Include(c => c.MinionDeckDescriptors)
                     .Include(c => c.DeckBackgroundDesign)
                     .Include(c => c.Classes)
                     .Include(c => c.CasterStats)

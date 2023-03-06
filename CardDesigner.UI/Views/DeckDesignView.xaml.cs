@@ -43,6 +43,9 @@ namespace CardDesigner.UI.Views
                         case DeckBackgroundDesignModel characterDeckDesign:
                             SetBackgroundColors(characterDeckDesign);
                             break;
+                        case MinionDeckDesignModel minionDeckDesign:
+                            SetMinionCardColors(minionDeckDesign);
+                            break;
                         default:
                             break;
                     }
@@ -80,6 +83,19 @@ namespace CardDesigner.UI.Views
             SetStartingColors(FrontSpellHeaderIconColor, spellDeckDesign.HeaderIconColor);
             SetStartingColors(FrontSpellFooterIconColor, spellDeckDesign.FooterIconColor);
             SetStartingColors(FrontSpellHeaderColor, spellDeckDesign.HeaderColor);
+        }
+
+        private void SetMinionCardColors(MinionDeckDesignModel MinionDeckDesign)
+        {
+            SetStartingColors(FrontMinionLineColor, MinionDeckDesign.LineColor);
+            SetStartingColors(FrontMinionBackgroundColor, MinionDeckDesign.BackgroundColor);
+            SetStartingColors(FrontMinionFooterColor, MinionDeckDesign.FooterColor);
+            SetStartingColors(FrontMinionHeaderTextColor, MinionDeckDesign.HeaderTextColor);
+            SetStartingColors(FrontMinionFooterTextColor, MinionDeckDesign.FooterTextColor);
+            SetStartingColors(FrontMinionDescriptionTextColor, MinionDeckDesign.DescriptionTextColor);
+            SetStartingColors(FrontMinionHeaderIconColor, MinionDeckDesign.HeaderIconColor);
+            SetStartingColors(FrontMinionFooterIconColor, MinionDeckDesign.FooterIconColor);
+            SetStartingColors(FrontMinionHeaderColor, MinionDeckDesign.HeaderColor);
         }
 
         private void SetCharacterCardColors(CharacterDeckDesignModel characterDeckDesign)

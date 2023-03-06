@@ -1,4 +1,4 @@
-﻿namespace CardDesigner.Domain.Entities
+﻿namespace CardDesigner.Domain.Enums
 {
     public enum DataChangeType
     {

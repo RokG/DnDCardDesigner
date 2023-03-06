@@ -15,6 +15,7 @@ namespace CardDesigner.Domain.Entities
         public List<SpellDeckDesignLinkerEntity> SpellDeckDescriptors { get; set; }
         public List<ItemDeckDesignLinkerEntity> ItemDeckDescriptors { get; set; }
         public List<CharacterDeckDesignLinkerEntity> CharacterDeckDescriptors { get; set; }
+        public List<MinionDeckDesignLinkerEntity> MinionDeckDescriptors { get; set; }
         public DeckBackgroundDesignEntity DeckBackgroundDesign { get; set; }
         public List<CharacterClassEntity> Classes { get; set; }
         public CharacterAbilitiesEntity Abilities { get; set; }

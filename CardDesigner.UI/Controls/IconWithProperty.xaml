@@ -75,7 +75,17 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Visibility" Value="Visible" />
             <Setter Property="BorderBrush" Value="Transparent" />
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Value, ElementName=IconWithProperty}" Value="0" />
+                        <Condition Binding="{Binding Unit, ElementName=IconWithProperty}" Value="" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </MultiDataTrigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Style>
 </UserControl>

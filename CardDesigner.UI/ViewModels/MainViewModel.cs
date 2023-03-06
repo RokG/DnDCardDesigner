@@ -74,6 +74,12 @@ namespace CardDesigner.UI.ViewModels
                     case ViewModelType.CharacterCreator:
                         CurrentViewModel = new CharacterViewModel(_cardDesignerStore, _navigationStore, _settingsStore);
                         break;
+                    case ViewModelType.MinionCreator:
+                        CurrentViewModel = new MinionViewModel(_cardDesignerStore, _navigationStore, _settingsStore);
+                        break;
+                    case ViewModelType.MinionCardCreator:
+                        CurrentViewModel = new MinionCardViewModel(_cardDesignerStore, _navigationStore, _settingsStore);
+                        break;
                     case ViewModelType.DeckDesigner:
                         CurrentViewModel = new DeckDesignViewModel(_cardDesignerStore, _navigationStore, _settingsStore);
                         break;

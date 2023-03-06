@@ -1,5 +1,4 @@
-﻿using CardDesigner.Domain.Entities;
-using CardDesigner.Domain.Enums;
+﻿using CardDesigner.Domain.Enums;
 using CardDesigner.Domain.Models;
 using CardDesigner.Domain.Services;
 using CardDesigner.Domain.Stores;
@@ -36,6 +35,9 @@ namespace CardDesigner.UI.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<SpellDeckModel> characterSpellDecks;
+
+        [ObservableProperty]
+        private ObservableCollection<MinionDeckModel> characterMinionDecks;
 
         [ObservableProperty]
         private ObservableCollection<ItemDeckModel> characterItemDecks;
@@ -131,6 +133,29 @@ namespace CardDesigner.UI.ViewModels
 
         #endregion
 
+        #region MinionDecks
+
+        [ObservableProperty]
+        private MinionCardModel testMinionCard;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateMinionDeckDesignCommand))]
+        private string addedMinionDeckDesignName;
+
+        [ObservableProperty]
+        private MinionDeckDesignModel selectedMinionDeckDesign;
+
+        [ObservableProperty]
+        private MinionDeckModel selectedMinionDeck;
+
+        [ObservableProperty]
+        private ObservableCollection<MinionDeckDesignModel> allMinionDeckDesigns;
+
+        [ObservableProperty]
+        private ObservableCollection<MinionDeckModel> allMinionDecks;
+
+        #endregion
+
         #endregion
 
         #region Constructor
@@ -162,9 +187,11 @@ namespace CardDesigner.UI.ViewModels
 
             AllCharacters = new(_cardDesignerStore.Characters);
             AllSpellDecks = new(_cardDesignerStore.SpellDecks);
+            AllMinionDecks = new(_cardDesignerStore.MinionDecks);
             AllItemDecks = new(_cardDesignerStore.ItemDecks);
             AllCharacterDecks = new(_cardDesignerStore.CharacterDecks);
             AllSpellDeckDesigns = new(_cardDesignerStore.SpellDeckDesigns);
+            AllMinionDeckDesigns = new(_cardDesignerStore.MinionDeckDesigns);
             AllItemDeckDesigns = new(_cardDesignerStore.ItemDeckDesigns);
             AllCharacterDeckDesigns = new(_cardDesignerStore.CharacterDeckDesigns);
             AllDeckBackgroundDesigns = new(_cardDesignerStore.DeckBackgroundDesigns);
@@ -177,6 +204,7 @@ namespace CardDesigner.UI.ViewModels
                 _cardDesignerStore.CharacterChanged += OnCharacterChanged;
                 _cardDesignerStore.CharacterDeckDesignChanged += OnCharacterDeckDesignChanged;
                 _cardDesignerStore.SpellDeckDesignChanged += OnSpellDeckDesignChanged;
+                _cardDesignerStore.MinionDeckDesignChanged += OnMinionDeckDesignChanged;
                 _cardDesignerStore.ItemDeckDesignChanged += OnItemDeckDesignChanged;
                 _cardDesignerStore.DeckBackgroundDesignChanged += OnDeckBackgroundDesignChanged;
                 _navigationStore.CurrentViewModelChanged += OnNavigatingAway;
@@ -186,6 +214,7 @@ namespace CardDesigner.UI.ViewModels
                 _cardDesignerStore.CharacterChanged -= OnCharacterChanged;
                 _cardDesignerStore.CharacterDeckDesignChanged -= OnCharacterDeckDesignChanged;
                 _cardDesignerStore.SpellDeckDesignChanged -= OnSpellDeckDesignChanged;
+                _cardDesignerStore.MinionDeckDesignChanged -= OnMinionDeckDesignChanged;
                 _cardDesignerStore.ItemDeckDesignChanged -= OnItemDeckDesignChanged;
                 _cardDesignerStore.DeckBackgroundDesignChanged -= OnDeckBackgroundDesignChanged;
                 _navigationStore.CurrentViewModelChanged -= OnNavigatingAway;
@@ -210,6 +239,26 @@ namespace CardDesigner.UI.ViewModels
             SelectedSpellDeck = CharacterSpellDecks.FirstOrDefault(cd => cd.ID == selectedDeckID) ?? CharacterSpellDecks.FirstOrDefault();
             TestSpellCard = SelectedSpellDeck?.SpellCards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedSpellDeck?.SpellCards.FirstOrDefault();
             SelectedSpellDeckDesign = AllSpellDeckDesigns.FirstOrDefault(cd => cd.ID == selectedDesignID) ?? AllSpellDeckDesigns.FirstOrDefault();
+        }
+
+        private void GetCharacterMinionDecks()
+        {
+            int selectedDeckID = SelectedMinionDeck?.ID ?? -1;
+            int selectedCardID = TestMinionCard?.ID ?? -1;
+            int selectedDesignID = SelectedMinionDeckDesign?.ID ?? -1;
+
+            CharacterMinionDecks = new();
+            if (SelectedCharacter?.MinionDeckDescriptors != null)
+            {
+                foreach (MinionDeckDesignLinkerModel deckDescriptor in SelectedCharacter.MinionDeckDescriptors)
+                {
+                    CharacterMinionDecks.Add(AllMinionDecks.First(i => i.ID == deckDescriptor.MinionDeckID));
+                }
+            }
+
+            SelectedMinionDeck = CharacterMinionDecks.FirstOrDefault(cd => cd.ID == selectedDeckID) ?? CharacterMinionDecks.FirstOrDefault();
+            TestMinionCard = SelectedMinionDeck?.MinionCards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedMinionDeck?.MinionCards.FirstOrDefault();
+            SelectedMinionDeckDesign = AllMinionDeckDesigns.FirstOrDefault(cd => cd.ID == selectedDesignID) ?? AllMinionDeckDesigns.FirstOrDefault();
         }
 
         private void GetCharacterItemDecks()
@@ -280,6 +329,7 @@ namespace CardDesigner.UI.ViewModels
                 GetCharacterBackgroundDeck();
                 GetCharacterCharacterDecks();
                 GetCharacterSpellDecks();
+                GetCharacterMinionDecks();
                 GetCharacterItemDecks();
             }
         }
@@ -299,6 +349,9 @@ namespace CardDesigner.UI.ViewModels
                     break;
                 case 3:
                     GetCharacterItemDecks();
+                    break;
+                case 4:
+                    GetCharacterMinionDecks();
                     break;
                 default:
                     break;
@@ -393,6 +446,27 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
+        private void OnMinionDeckDesignChanged(MinionDeckDesignModel MinionDeckDesign, DataChangeType change)
+        {
+            switch (change)
+            {
+                case DataChangeType.Created:
+                    AllMinionDeckDesigns.Add(MinionDeckDesign);
+                    SelectedMinionDeckDesign = MinionDeckDesign;
+                    break;
+                case DataChangeType.Removed:
+                    break;
+                case DataChangeType.Updated:
+                    break;
+                case DataChangeType.Deleted:
+                    AllMinionDeckDesigns.Remove(MinionDeckDesign);
+                    SelectedMinionDeckDesign = AllMinionDeckDesigns.FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void OnCharacterChanged(CharacterModel character, DataChangeType change)
         {
             switch (change)
@@ -406,6 +480,7 @@ namespace CardDesigner.UI.ViewModels
                     GetCharacterSpellDecks();
                     GetCharacterItemDecks();
                     GetCharacterCharacterDecks();
+                    GetCharacterMinionDecks();
                     break;
                 case DataChangeType.Deleted:
                     AllCharacters.Remove(SelectedCharacter);
@@ -624,6 +699,58 @@ namespace CardDesigner.UI.ViewModels
             }
 
             await _cardDesignerStore.DeleteCardDesign(SelectedSpellDeckDesign);
+            SelectedCharacter = AllCharacters.First(c => c.ID == selectedCharacterID);
+        }
+
+        #endregion
+
+        #region MinionDecks
+
+        private bool CanCreateMinionDeckDesign()
+        {
+            bool noName = (AddedMinionDeckDesignName == string.Empty || AddedMinionDeckDesignName == null);
+
+            return !noName;
+        }
+
+        private bool CanAssignMinionDeckDesign()
+        {
+            return SelectedCharacter != null && SelectedMinionDeckDesign != null && SelectedMinionDeck != null;
+        }
+
+        [RelayCommand(CanExecute = nameof(CanCreateMinionDeckDesign))]
+        private async void CreateMinionDeckDesign()
+        {
+            await _cardDesignerStore.CreateCardDesign(new MinionDeckDesignModel() { Name = AddedMinionDeckDesignName });
+        }
+
+        [RelayCommand]
+        private async void UpdateMinionDeckDesign()
+        {
+            await _cardDesignerStore.UpdateCardDesign(SelectedMinionDeckDesign);
+            if (SelectedMinionDeckDesign != null)
+            {
+                SelectedCharacter.MinionDeckDescriptors.FirstOrDefault(c => c.MinionDeckID == SelectedMinionDeck.ID).DesignID = SelectedMinionDeckDesign.ID;
+            }
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand]
+        private async void DeleteMinionDeckDesign()
+        {
+            int selectedCharacterID = SelectedCharacter.ID;
+            foreach (CharacterModel character in AllCharacters)
+            {
+                System.Collections.Generic.IEnumerable<MinionDeckDesignLinkerModel> toRemove = character.MinionDeckDescriptors.Where(dd => dd.DesignID == SelectedMinionDeckDesign.ID);
+                foreach (MinionDeckDesignLinkerModel item in toRemove)
+                {
+                    item.DesignID = 0;
+                }
+
+                await _cardDesignerStore.UpdateCharacter(character);
+            }
+
+            await _cardDesignerStore.DeleteCardDesign(SelectedMinionDeckDesign);
             SelectedCharacter = AllCharacters.First(c => c.ID == selectedCharacterID);
         }
 

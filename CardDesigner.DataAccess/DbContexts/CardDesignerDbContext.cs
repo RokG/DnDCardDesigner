@@ -22,25 +22,43 @@ namespace CardDesigner.DataAccess.DbContexts
             _mapper = mapper;
         }
 
-        // Database objects
+        #region Database objects
 
+        // Character
         public DbSet<CharacterEntity> Characters { get; set; }
-        public DbSet<SpellDeckDesignEntity> SpellDeckDesigns { get; set; }
-        public DbSet<ItemDeckDesignEntity> ItemDeckDesigns { get; set; }
-        public DbSet<CharacterDeckDesignEntity> CharacterDeckDesigns { get; set; }
-        public DbSet<SpellDeckDesignLinkerEntity> SpellDeckDesignLinkers { get; set; }
-        public DbSet<ItemDeckDesignLinkerEntity> ItemDeckDesignLinkers { get; set; }
-        public DbSet<CharacterDeckDesignLinkerEntity> CharacterDeckDesignLinkers { get; set; }
         public DbSet<DeckBackgroundDesignEntity> DeckBackgroundDesigns { get; set; }
-        public DbSet<SpellDeckEntity> SpellDecks { get; set; }
-        public DbSet<ItemDeckEntity> ItemDecks { get; set; }
-        public DbSet<SpellCardEntity> SpellCards { get; set; }
-        public DbSet<ItemCardEntity> ItemCards { get; set; }
-        public DbSet<CharacterCardEntity> CharacterCards { get; set; }
-        public DbSet<CharacterDeckEntity> CharacterDecks { get; set; }
         public DbSet<CharacterClassEntity> CharacterClasses { get; set; }
         public DbSet<CharacterAbilitiesEntity> CharacterAbilities { get; set; }
         public DbSet<CasterStatsEntity> CasterStats { get; set; }
+
+        // Minions
+        public DbSet<MinionEntity> Minions { get; set; }
+
+        // Spell cards
+        public DbSet<SpellCardEntity> SpellCards { get; set; }
+        public DbSet<SpellDeckEntity> SpellDecks { get; set; }
+        public DbSet<SpellDeckDesignEntity> SpellDeckDesigns { get; set; }
+        public DbSet<SpellDeckDesignLinkerEntity> SpellDeckDesignLinkers { get; set; }
+
+        // Item cards
+        public DbSet<ItemCardEntity> ItemCards { get; set; }
+        public DbSet<ItemDeckEntity> ItemDecks { get; set; }
+        public DbSet<ItemDeckDesignEntity> ItemDeckDesigns { get; set; }
+        public DbSet<ItemDeckDesignLinkerEntity> ItemDeckDesignLinkers { get; set; }
+
+        // Character cards
+        public DbSet<CharacterCardEntity> CharacterCards { get; set; }
+        public DbSet<CharacterDeckEntity> CharacterDecks { get; set; }
+        public DbSet<CharacterDeckDesignEntity> CharacterDeckDesigns { get; set; }
+        public DbSet<CharacterDeckDesignLinkerEntity> CharacterDeckDesignLinkers { get; set; }
+
+        // Minion cards
+        public DbSet<MinionCardEntity> MinionCards { get; set; }
+        public DbSet<MinionDeckEntity> MinionDecks { get; set; }
+        public DbSet<MinionDeckDesignEntity> MinionDeckDesigns { get; set; }
+        public DbSet<MinionDeckDesignLinkerEntity> MinionDeckDesignLinkers { get; set; }
+
+        #endregion
 
         //https://stackoverflow.com/questions/19342908/how-to-create-a-many-to-many-mapping-in-entity-framework
 
@@ -50,20 +68,7 @@ namespace CardDesigner.DataAccess.DbContexts
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Character Spell deck descriptors
-            modelBuilder.Entity<SpellDeckDesignLinkerEntity>()
-                   .HasOne(c => c.Character)
-                   .WithMany(e => e.SpellDeckDescriptors);
-
-            // Character Item deck descriptors
-            modelBuilder.Entity<ItemDeckDesignLinkerEntity>()
-                   .HasOne(c => c.Character)
-                   .WithMany(e => e.ItemDeckDescriptors);
-
-            // Character Character deck descriptors
-            modelBuilder.Entity<CharacterDeckDesignLinkerEntity>()
-                   .HasOne(c => c.Character)
-                   .WithMany(e => e.CharacterDeckDescriptors);
+            #region Base
 
             // Character Classes
             modelBuilder.Entity<CharacterClassEntity>()
@@ -82,6 +87,39 @@ namespace CardDesigner.DataAccess.DbContexts
                    .WithOne(e => e.CasterStats)
                    .HasForeignKey<CharacterEntity>(b => b.ID);
 
+            // Minion - Minion card
+            modelBuilder.Entity<MinionEntity>()
+                .HasMany(c => c.MinionCards)
+                .WithOne(e => e.Minion);
+
+            #endregion
+
+            #region Deck descriptors
+
+            // Character Spell deck descriptors
+            modelBuilder.Entity<SpellDeckDesignLinkerEntity>()
+                   .HasOne(c => c.Character)
+                   .WithMany(e => e.SpellDeckDescriptors);
+
+            // Character Item deck descriptors
+            modelBuilder.Entity<ItemDeckDesignLinkerEntity>()
+                   .HasOne(c => c.Character)
+                   .WithMany(e => e.ItemDeckDescriptors);
+
+            // Character Character deck descriptors
+            modelBuilder.Entity<CharacterDeckDesignLinkerEntity>()
+                   .HasOne(c => c.Character)
+                   .WithMany(e => e.CharacterDeckDescriptors);
+
+            // Character Minion deck descriptors
+            modelBuilder.Entity<MinionDeckDesignLinkerEntity>()
+                   .HasOne(c => c.Character)
+                   .WithMany(e => e.MinionDeckDescriptors);
+
+            #endregion
+
+            #region Designs
+
             // Deck Background Design - Character
             modelBuilder.Entity<CharacterEntity>()
                    .HasOne(c => c.DeckBackgroundDesign)
@@ -97,10 +135,19 @@ namespace CardDesigner.DataAccess.DbContexts
                    .HasMany(c => c.ItemDeckDescriptors)
                    .WithOne(e => e.Character);
 
+            // Character, Minion Deck, Deck Design
+            modelBuilder.Entity<CharacterEntity>()
+                   .HasMany(c => c.MinionDeckDescriptors)
+                   .WithOne(e => e.Character);
+
             // Character, Character Deck, Deck Design
             modelBuilder.Entity<CharacterEntity>()
                    .HasMany(c => c.CharacterDeckDescriptors)
                    .WithOne(e => e.Character);
+
+            #endregion
+
+            #region Deck-Cards
 
             // Spell Deck - Spell Card
             modelBuilder.Entity<SpellCardEntity>()
@@ -162,6 +209,30 @@ namespace CardDesigner.DataAccess.DbContexts
                        j.HasKey(t => new { t.CharacterDeckID, t.CharacterCardID });
                    });
 
+            // Minion Deck - Minion Card
+            modelBuilder.Entity<MinionDeckMinionCard>()
+                .HasKey(t => new { t.MinionCardID, t.MinionDeckID });
+
+            modelBuilder.Entity<MinionCardEntity>()
+               .HasMany(c => c.MinionDecks)
+               .WithMany(c => c.MinionCards)
+               .UsingEntity<MinionDeckMinionCard>(
+                   j => j
+                       .HasOne(t => t.MinionDeck)
+                       .WithMany(c => c.MinionDeckMinionCards)
+                       .HasForeignKey(c => c.MinionDeckID),
+                   j => j
+                       .HasOne(t => t.MinionCard)
+                       .WithMany(c => c.MinionDeckMinionCards)
+                       .HasForeignKey(c => c.MinionCardID),
+                   j =>
+                   {
+                       j.HasKey(t => new { t.MinionDeckID, t.MinionCardID });
+                   });
+
+            #endregion
+
+
             Seed(modelBuilder);
         }
 
@@ -174,6 +245,75 @@ namespace CardDesigner.DataAccess.DbContexts
             SeedItemEntities(modelBuilder);
 
             SeedCharacterEntities(modelBuilder);
+
+            SeedMinionEntities(modelBuilder);
+        }
+
+        private void SeedMinionEntities(ModelBuilder modelBuilder)
+        {
+            MinionEntity minion = new()
+            {
+                ID = 1,
+                Name = "SampleMinion_1",
+                Title = "Abaraton",
+                Strength = 10,
+                Dexterity = 10,
+                Constitution = 10,
+                Inteligence = 10,
+                Wisdom = 10,
+                Charisma = 10,
+                ChalangeRating = "1/4",
+                ArmourClass = 12,
+                Actions = "Can do shit",
+                LegendaryActions = "Can do better shit",
+                Alignment = Alignment.ChaoticGood,
+                Appearance = "Small Humanoid",
+                Attributes = "Can walk on water like Jesus",
+                ClimbingSpeed = 30,
+                SwimingSpeed = 20,
+                Speed = 20,
+                FlyingSpeed = 30,
+                ConditionImmunities = "Blinded, Cursed",
+                DamageImmunities = "Blunt",
+                DamageResistances = "Fire",
+                PassivePerception = 12,
+                Hitpoints = 80,
+                Initiative = +1,
+                Languages = "archaic",
+                SavingThrows = "Strength, Dexterity",
+                Senses = "Keen senses",
+                SkillBonuses = "+1 Animal handling"
+            };
+            modelBuilder.Entity<MinionEntity>().HasData(minion);
+
+            modelBuilder.Entity<MinionCardEntity>().HasData(
+                new { ID = 1, Name = "SampleMinionCard_1", Title = "Abaraton - Stats", MinionID = minion.ID, Type = MinionCardType.Stats, DescriptionFontSize = 18.0, TitleFontSize = 14.0 },
+                new { ID = 2, Name = "SampleMinionCard_2", Title = "Abaraton - Actions", MinionID = minion.ID, Type = MinionCardType.Actions, DescriptionFontSize = 18.0, TitleFontSize = 14.0 },
+                new { ID = 3, Name = "SampleMinionCard_3", Title = "Abaraton - Attributes", MinionID = minion.ID, Type = MinionCardType.Attributes, DescriptionFontSize = 18.0, TitleFontSize = 14.0 }
+            );
+
+            MinionDeckDesignEntity minionDeckDesign = new MinionDeckDesignEntity() { ID = 1, Name = "SampleMinionDeckDesign_1" };
+            modelBuilder.Entity<MinionDeckDesignEntity>().HasData(minionDeckDesign);
+
+            MinionDeckEntity minionDeck = new MinionDeckEntity() { ID = 1, Name = "SampleMinionDeck_1", Title = "Sample Minion Deck" };
+            modelBuilder.Entity<MinionDeckEntity>().HasData(minionDeck);
+
+            modelBuilder.Entity<MinionDeckDesignLinkerEntity>().HasData(new
+            {
+                ID = 1,
+                MinionDeckID = 1,
+                DesignID = 1,
+                CharacterID = 1,
+            });
+
+            modelBuilder.Entity<MinionDeckEntity>().HasMany(p => p.MinionCards).WithMany(p => p.MinionDecks)
+            .UsingEntity(j => j
+            .ToTable("MinionDeckMinionCard")
+            .HasData(new[]
+            {
+                new { MinionCardID = 2, MinionDeckID = 1},
+                new { MinionCardID = 3, MinionDeckID = 1},
+            }));
         }
 
         /// <summary>

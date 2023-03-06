@@ -51,6 +51,14 @@ namespace CardDesigner.DataAccess.Services
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<CharacterCardModel>(createdCharacterCardEntity);
+                    case MinionCardModel minionCardModel:
+
+                        MinionCardEntity minionCardEntity = _mapper.Map<MinionCardEntity>(minionCardModel);
+                        MinionCardEntity createdMinionCardEntity = dbContext.MinionCards.Add(minionCardEntity).Entity;
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<MinionCardModel>(createdMinionCardEntity);
                     default:
                         return null;
                 }
@@ -84,6 +92,13 @@ namespace CardDesigner.DataAccess.Services
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<CharacterCardModel>(createdCharacterCardEntity);
+                    case MinionCardModel minionCardModel:
+                        MinionCardEntity minionCardEntity = _mapper.Map<MinionCardEntity>(minionCardModel);
+                        MinionCardEntity createdMinionCardEntity = dbContext.MinionCards.Update(minionCardEntity).Entity;
+
+                        await dbContext.SaveChangesAsync();
+
+                        return _mapper.Map<MinionCardModel>(createdMinionCardEntity);
                     default:
                         return null;
                 }
@@ -106,7 +121,6 @@ namespace CardDesigner.DataAccess.Services
                             return true;
                         }
                         return false;
-
                     case ItemCardModel itemCardModel:
                         ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCardModel);
                         if (dbContext.ItemCards.Contains(itemCardEntity))
@@ -121,6 +135,15 @@ namespace CardDesigner.DataAccess.Services
                         if (dbContext.CharacterCards.Contains(characterCardEntity))
                         {
                             dbContext.CharacterCards.Remove(characterCardEntity);
+                            await dbContext.SaveChangesAsync();
+                            return true;
+                        }
+                        return false;
+                    case MinionCardModel minionCardModel:
+                        MinionCardEntity minionCardEntity = _mapper.Map<MinionCardEntity>(minionCardModel);
+                        if (dbContext.MinionCards.Contains(minionCardEntity))
+                        {
+                            dbContext.MinionCards.Remove(minionCardEntity);
                             await dbContext.SaveChangesAsync();
                             return true;
                         }
@@ -161,6 +184,16 @@ namespace CardDesigner.DataAccess.Services
                         .ToListAsync();
 
                     return (IEnumerable<T>)characterCardEntities.Select(c => _mapper.Map<CharacterCardModel>(c));
+                }
+                else if (typeof(T) == typeof(MinionCardModel))
+                {
+                    IEnumerable<MinionCardEntity> minionCardEntities = await
+                        context.MinionCards
+                        .Include(sc => sc.MinionDecks)
+                        .Include(sc => sc.Minion)
+                        .ToListAsync();
+
+                    return (IEnumerable<T>)minionCardEntities.Select(c => _mapper.Map<MinionCardModel>(c));
                 }
                 else
                 {

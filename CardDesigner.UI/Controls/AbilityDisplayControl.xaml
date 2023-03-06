@@ -38,68 +38,11 @@
     <StackPanel
         Margin="4,2,4,2"
         Orientation="Horizontal">
-        <StackPanel Margin="0,0,4,0">
-            <Label
-                Margin="0"
-                Padding="0"
-                HorizontalContentAlignment="Center"
-                Content="{Binding AbilityName, ElementName=attributeView}"
-                FontSize="12"
-                FontWeight="Black" />
-            <Border
-                Width="30"
-                Height="30"
-                Background="#11000000"
-                BorderThickness="3"
-                CornerRadius="5">
-                <Label
-                    Padding="0"
-                    HorizontalContentAlignment="Center"
-                    FontSize="14">
-                    <Label.Style>
-                        <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
-                            <Setter Property="Content" Value="{Binding Ability.LevelBonus, ElementName=attributeView}" />
-                            <Setter Property="ContentStringFormat" Value="{}{0:+#;-#;' 0'} " />
-                            <Style.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding SwitchAbilityValueBonus, ElementName=attributeView}"
-                                    Value="True">
-                                    <Setter Property="Content" Value="{Binding Ability.Level, ElementName=attributeView}" />
-                                    <Setter Property="ContentStringFormat" Value="{} {0} " />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Label.Style>
-                </Label>
-            </Border>
-            <Border
-                Width="24"
-                Height="24"
-                VerticalAlignment="Bottom"
-                Background="#11000000"
-                BorderThickness="3"
-                CornerRadius="5">
-                <Label
-                    Padding="0"
-                    HorizontalContentAlignment="Center"
-                    FontSize="12">
-                    <Label.Style>
-                        <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
-                            <Setter Property="Content" Value="{Binding Ability.Level, ElementName=attributeView}" />
-                            <Setter Property="ContentStringFormat" Value="{}{0} " />
-                            <Style.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding SwitchAbilityValueBonus, ElementName=attributeView}"
-                                    Value="True">
-                                    <Setter Property="Content" Value="{Binding Ability.LevelBonus, ElementName=attributeView}" />
-                                    <Setter Property="ContentStringFormat" Value="{}{0:+#;-#;' 0'} " />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Label.Style>
-                </Label>
-            </Border>
-        </StackPanel>
+        <local:AbilityBaseControl
+            Margin="0,0,4,0"
+            AbilityLevel="{Binding Ability.Level, ElementName=attributeView}"
+            AbilityLevelBonus="{Binding Ability.LevelBonus, ElementName=attributeView}"
+            AbilityName="{Binding AbilityName, ElementName=attributeView}" />
         <StackPanel Margin="0,2,0,0">
             <StackPanel Orientation="Horizontal">
                 <Label

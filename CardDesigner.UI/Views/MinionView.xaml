@@ -1,0 +1,408 @@
+﻿<UserControl x:Class="CardDesigner.UI.Views.MinionView" x:Name="minionControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CardDesigner.UI.Controls"
+    xmlns:local="clr-namespace:CardDesigner.UI.Views"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    BorderBrush="{StaticResource WindowBorder}"
+    BorderThickness="3,0,0,0">
+    <UserControl.Resources>
+        <Style x:Key="descriptionBox" BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="MaxLines" Value="2" />
+            <Setter Property="MinLines" Value="2" />
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  header area  -->
+        <Border BorderThickness="0,0,0,3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Name}"
+                        ContentStringFormat="{}{0}s"
+                        FontSize="32" />
+                    <Label
+                        Margin="0,10"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Description}" />
+                </StackPanel>
+                <!--  Minion creation  -->
+                <controls:AddEditItem
+                    Title="Selected minion: "
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
+                    AddedItemName="{Binding AddedMinionName, Mode=TwoWay}"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    DeleteCommand="{Binding DeleteMinionCommand}"
+                    ItemsSource="{Binding AllMinions, Mode=TwoWay}"
+                    Orientation="Horizontal"
+                    SaveCommand="{Binding CreateMinionCommand}"
+                    SelectedItem="{Binding SelectedMinion, Mode=TwoWay}"
+                    UpdateCommand="{Binding UpdateMinionCommand}"
+                    ViewOnly="False" />
+            </Grid>
+        </Border>
+
+        <!--  body area  -->
+        <Border Grid.Row="1">
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectedMinion}"
+                            Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Minion  -->
+                <StackPanel>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Name: " />
+                                <TextBox
+                                    Margin="3"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.Title, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Alignment: " />
+                                <ComboBox
+                                    Width="150"
+                                    DockPanel.Dock="Right"
+                                    ItemsSource="{Binding Source={StaticResource AlignmentEnum}}"
+                                    SelectedItem="{Binding DataContext.SelectedMinion.Alignment, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Size: " />
+                                <TextBox
+                                    Margin="3"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.Appearance, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <DockPanel>
+                                <Label
+                                    Width="60"
+                                    Content="STR: " />
+                                <Slider
+                                    Margin="15,10"
+                                    HorizontalAlignment="Stretch"
+                                    DockPanel.Dock="Right"
+                                    Maximum="20"
+                                    Minimum="0"
+                                    Value="{Binding DataContext.SelectedMinion.Strength, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel>
+                                <Label
+                                    Width="60"
+                                    Content="DEX: " />
+                                <Slider
+                                    Margin="15,10"
+                                    HorizontalAlignment="Stretch"
+                                    DockPanel.Dock="Right"
+                                    Maximum="20"
+                                    Minimum="0"
+                                    Value="{Binding DataContext.SelectedMinion.Dexterity, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel>
+                                <Label
+                                    Width="60"
+                                    Content="CON: " />
+                                <Slider
+                                    Margin="15,10"
+                                    HorizontalAlignment="Stretch"
+                                    DockPanel.Dock="Right"
+                                    Maximum="20"
+                                    Minimum="0"
+                                    Value="{Binding DataContext.SelectedMinion.Constitution, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel>
+                                <Label
+                                    Width="60"
+                                    Content="INT: " />
+                                <Slider
+                                    Margin="15,10"
+                                    HorizontalAlignment="Stretch"
+                                    DockPanel.Dock="Right"
+                                    Maximum="20"
+                                    Minimum="0"
+                                    Value="{Binding DataContext.SelectedMinion.Inteligence, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel>
+                                <Label
+                                    Width="60"
+                                    Content="WIS: " />
+                                <Slider
+                                    Margin="15,10"
+                                    HorizontalAlignment="Stretch"
+                                    DockPanel.Dock="Right"
+                                    Maximum="20"
+                                    Minimum="0"
+                                    Value="{Binding DataContext.SelectedMinion.Wisdom, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel>
+                                <Label
+                                    Width="60"
+                                    Content="CHA: " />
+                                <Slider
+                                    Margin="15,10"
+                                    HorizontalAlignment="Stretch"
+                                    DockPanel.Dock="Right"
+                                    Maximum="20"
+                                    Minimum="0"
+                                    Value="{Binding DataContext.SelectedMinion.Charisma, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+                    <!--  Baic stats  -->
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Chalange Rating: " />
+                                <TextBox
+                                    Width="80"
+                                    MinWidth="40"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.ChalangeRating, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Passive Perception: " />
+                                <TextBox
+                                    Width="40"
+                                    MinWidth="40"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.PassivePerception, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Armour class: " />
+                                <TextBox
+                                    Width="40"
+                                    MinWidth="40"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.ArmourClass, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Hitpoints: " />
+                                <TextBox
+                                    Width="40"
+                                    MinWidth="40"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.Hitpoints, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Initiative: " />
+                                <TextBox
+                                    Width="40"
+                                    MinWidth="40"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.Initiative, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Speed: " />
+                                <TextBox
+                                    Width="80"
+                                    MinWidth="40"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.Speed, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Flying Speed: " />
+                                <TextBox
+                                    Width="80"
+                                    MinWidth="40"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.FlyingSpeed, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Climbing Speed: " />
+                                <TextBox
+                                    Width="80"
+                                    MinWidth="40"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.ClimbingSpeed, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                            <DockPanel LastChildFill="False">
+                                <Label Content="Swiming Speed: " />
+                                <TextBox
+                                    Width="80"
+                                    MinWidth="40"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding DataContext.SelectedMinion.SwimingSpeed, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="2"
+                    Width="300">
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Saving Throws: " />
+                            <TextBox
+                                Style="{StaticResource descriptionBox}"
+                                Text="{Binding DataContext.SelectedMinion.SavingThrows, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Skill Bonuses: " />
+                            <TextBox
+                                Style="{StaticResource descriptionBox}"
+                                Text="{Binding DataContext.SelectedMinion.SkillBonuses, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Senses: " />
+                            <TextBox
+                                Style="{StaticResource descriptionBox}"
+                                Text="{Binding DataContext.SelectedMinion.Senses, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Languages: " />
+                            <TextBox
+                                Style="{StaticResource descriptionBox}"
+                                Text="{Binding DataContext.SelectedMinion.Languages, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Damage Resistances: " />
+                            <TextBox
+                                Style="{StaticResource descriptionBox}"
+                                Text="{Binding DataContext.SelectedMinion.DamageResistances, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Damage Immunities: " />
+                            <TextBox
+                                Style="{StaticResource descriptionBox}"
+                                Text="{Binding DataContext.SelectedMinion.DamageImmunities, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Condition Immunities: " />
+                            <TextBox
+                                Style="{StaticResource descriptionBox}"
+                                Text="{Binding DataContext.SelectedMinion.ConditionImmunities, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="3"
+                    Width="300">
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Attributes: " />
+                            <TextBox
+                                AcceptsReturn="True"
+                                MaxLines="15"
+                                MinLines="15"
+                                Text="{Binding DataContext.SelectedMinion.Attributes, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Actions: " />
+                            <TextBox
+                                AcceptsReturn="True"
+                                MaxLines="15"
+                                MinLines="15"
+                                Text="{Binding DataContext.SelectedMinion.Actions, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="4"
+                    Width="300">
+                    <Border Style="{StaticResource VisibleBorder}">
+                        <StackPanel>
+                            <Label
+                                HorizontalAlignment="Left"
+                                Content="Legendary actions: " />
+                            <TextBox
+                                AcceptsReturn="True"
+                                MaxLines="30"
+                                MinLines="30"
+                                Text="{Binding DataContext.SelectedMinion.LegendaryActions, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <Border
+                    Grid.Column="5"
+                    HorizontalAlignment="Stretch"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label Content="Avatar" />
+                        <controls:FilePicker
+                            Grid.Column="1"
+                            Margin="5"
+                            Text="{Binding DataContext.SelectedMinion.AvatarImagePath, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <controls:ImageControl ImageSource="{Binding DataContext.SelectedMinion.AvatarImagePath, ElementName=minionControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -58,24 +58,40 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Speed">
+    <Viewbox x:Key="Speed"
+        x:Shared="False">
         <Canvas
-            Width="100"
-            Height="100">
+            Width="512"
+            Height="512">
             <Path
-                Data="M 70,88.392857 61.071428,85.178571 67.678571,64.821429 50,50 41.607143,66.785714 20.535714,68.571429 23.214285,79.821428"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
+                Data="M169.53 16.344L259.345 88 337 92.28l-1.03 18.657-161.376-8.906-118.78-4.905 227.28 68.03-197.72 246.75-14.53-17.655-49.22 96.625 248.69-202.78 51.81 11.592-38.78 40.594L270.5 329.5l-57.28 84.125L444.843 273.47 328 241.06l100.22-81.718c1.132.46 2.3.898 3.5 1.22 23.324 6.248 49.764-16.835 59.06-51.533 9.298-34.695-2.08-67.874-25.405-74.124-23.325-6.25-49.765 16.802-59.063 51.5-1.467 5.476-2.403 10.918-2.875 16.22L169.53 16.343z"
+                Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="FlyingSpeed">
+        <Canvas
+            Width="512"
+            Height="512">
             <Path
-                Data="M 50,50 56.071428,28.035715 65.701595,44.5562 84.464285,40.178572"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
+                Data="M24.928 23.108c8.025 58.99 116.646 113.317 197.394 132.7-51.69.28-128.258-5.556-185.43-22.678 24.43 47.073 109.81 60.78 187.105 67.028-57.808 15.162-109.87 21.8-173.96 19.956C82.1 255.192 166.16 254.14 236.62 242.794c-38.85 19.96-83.113 32.74-129.636 39.588 40.913 20.362 106.803 1.757 147.45-4.43-19.043 16.43-41.836 28.653-66.856 37.932 25.075 10.61 64.635 2.653 92.165-11.408-3.48 11.993-15.64 25.648-31.718 35.095 20.82 4.43 46.642.674 66.817-6.833 27.207 10.518 36.235 23.727 37.968 38.06-41.966 13.17-57.812 106.545 29.825 105.43-41.212-17.458-48.907-61.13-19.812-76.848 44.16-23.86 65.382 48.02 55.51 86.106 33.642-12.11 36.518-88.94-7.634-108.167 46.837.503 67.127 32.147 54.327 72.508 53.774-63.696 9.178-103.04-46.535-99.114-82.715-5.958-156.808-121.435-127.108-150.472 22.79-19.817 22.544-51.31-6.26-65.664-72.81-36.302-120.06-22.37-260.198-111.466z"
+                Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="SwimingSpeed">
+        <Canvas
+            Width="512"
+            Height="512">
             <Path
-                Data="m 56.071428,28.035715 -21.520485,5.997462 0.270485,19.716824"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
+                Data="M453.004 35.117c-65.314 46.61-189.755 41.018-213.559 125.426C184.41 101.41 98.625 83.031 21.771 63.209c6.532 139.103 71.38 147.437 192.44 194.547 23.71 25.786 29.786 49.93 19.254 82.705 46.403 5.1 71.504 15.468 106.754 27.742-.708-71.67-25.14-108.928-75.518-175.035 11.058 4.233 44.979 37.02 56.578 58.607 109.419-42.421 147.64-112.074 131.725-216.658zM180.178 353.9c-60.89-.24-114.034 19.49-158.426 74.221 167.075-48.84 292.003-13.21 471.893 7.895-118.936-38.752-224.474-81.763-313.467-82.116zm98.043 77.844c-99.28.255-206.34 18.738-256.866 63.139 168.002-26.61 356.801-28.408 470.8-4.967 1.102-35.337-101.418-58.46-213.934-58.172z"
+                Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="ClimbingSpeed">
+        <Canvas
+            Width="512"
+            Height="512">
             <Path
-                Data="m 67.428786,19.229431 a 9.1964283,9.2857141 0 0 1 -9.196428,9.285714 9.1964283,9.2857141 0 0 1 -9.196428,-9.285714 9.1964283,9.2857141 0 0 1 9.196428,-9.2857137 9.1964283,9.2857141 0 0 1 9.196428,9.2857137 z"
+                Data="M121 17v30h270V17H121zm16 48v46h30V65h-30zm208 0v46h30V65h-30zm-224 64v30h270v-30H121zm16 48v46h30v-46h-30zm208 0v46h30v-46h-30zm-224 64v30h270v-30H121zm16 48v46h30v-46h-30zm208 0v46h30v-46h-30zm-224 64v30h270v-30H121zm16 48v46h30v-46h-30zm208 0v46h30v-46h-30zm-224 64v30h270v-30H121z"
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
@@ -102,41 +118,10 @@
     </Viewbox>
     <Viewbox x:Key="Age">
         <Canvas
-            Width="100"
-            Height="100">
+            Width="512"
+            Height="512">
             <Path
-                Data="M 57.660608,82.87501 63.847792,65.449878 61.322411,49.918783 70.161245,64.060919 68.014671,82.622472"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="M 61.322411,49.918783 C 59.286036,41.848692 53.884835,27.080027 67.955664,26.417162"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="m 60.956868,28.480919 6.704377,12.402511 13.581041,1.527919"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="M 82.030538,82.748741 81.20956,45.712213 c -0.690638,-7.665111 4.214652,-5.71105 5.240395,-4.000919"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="m 80.20196,25.917716 a 8.3337584,8.4600277 0 0 1 -8.333758,8.460027 8.3337584,8.4600277 0 0 1 -8.333758,-8.460027 8.3337584,8.4600277 0 0 1 8.333758,-8.460028 8.3337584,8.4600277 0 0 1 8.333758,8.460028 z"
-                Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
-            <Path
-                Data="M 27.861107,75.172597 27.356031,58.252542"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="m 13.340165,82.243665 14.520942,-7.071068 14.015868,7.197336"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="M 13.718972,64.565995 42.003244,63.555843"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="m 36.447404,49.034899 a 9.2176418,8.7125654 0 0 1 -9.217642,8.712565 9.2176418,8.7125654 0 0 1 -9.217642,-8.712565 9.2176418,8.7125654 0 0 1 9.217642,-8.712566 9.2176418,8.7125654 0 0 1 9.217642,8.712566 z"
+                Data="M360 73c-14.43 0-27.79 7.71-38.055 21.395-10.263 13.684-16.943 33.2-16.943 54.94 0 21.74 6.68 41.252 16.943 54.936 10.264 13.686 23.625 21.396 38.055 21.396s27.79-7.71 38.055-21.395C408.318 190.588 415 171.075 415 149.335c0-21.74-6.682-41.255-16.945-54.94C387.79 80.71 374.43 73 360 73zm-240 96c-10.012 0-19.372 5.32-26.74 15.145C85.892 193.968 81 208.15 81 224c0 15.85 4.892 30.032 12.26 39.855C100.628 273.68 109.988 279 120 279c10.012 0 19.374-5.32 26.742-15.145 7.368-9.823 12.256-24.006 12.256-39.855 0-15.85-4.888-30.032-12.256-39.855C139.374 174.32 130.012 169 120 169zm188.805 47.674c-1.625 1.26-3.208 2.58-4.737 3.974-13.716 12.524-23.816 31.052-31.53 54.198-14.59 43.765-20.404 103.306-30.063 164.154h235.05c-9.66-60.848-15.476-120.39-30.064-164.154-7.714-23.146-17.812-41.674-31.528-54.198-1.53-1.396-3.112-2.715-4.737-3.974-12.84 16.293-30.942 26.994-51.195 26.994s-38.355-10.7-51.195-26.994zM81.27 277.658c-.573.485-1.143.978-1.702 1.488-9.883 9.024-17.315 22.554-23.03 39.7-10.6 31.8-15.045 75.344-22.063 120.154h171.048c-7.017-44.81-11.462-88.354-22.062-120.154-5.714-17.146-13.145-30.676-23.028-39.7-.56-.51-1.127-1.003-1.702-1.488C148.853 289.323 135.222 297 120 297c-15.222 0-28.852-7.678-38.73-19.342z"
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
@@ -155,37 +140,10 @@
     </Viewbox>
     <Viewbox x:Key="Height">
         <Canvas
-            Width="100"
-            Height="100">
+            Width="512"
+            Height="512">
             <Path
-                Data="m 24.514834,88.041148 4.821429,-15.892857 3.928571,15.714286"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="m 29.336263,72.148291 0,-16.25"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="m 20.943406,65.362577 8.392857,-9.464286 6.964286,8.214286"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="m 36.181928,47.402985 a 6.7857141,7.2321429 0 0 1 -6.785714,7.232143 6.7857141,7.2321429 0 0 1 -6.785715,-7.232143 6.7857141,7.2321429 0 0 1 6.785715,-7.232143 6.7857141,7.2321429 0 0 1 6.785714,7.232143 z"
-                Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
-            <Path
-                Data="m 63.800548,87.505434 4.821429,-27.142857 3.928571,26.964286"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="m 68.621977,60.362577 0,-32.321428"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="M 59.157692,48.755434 68.621978,28.041148 78.979121,49.826862"
-                Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"
-                StrokeThickness="5" />
-            <Path
-                Data="m 75.467642,19.545842 a 6.7857141,7.2321429 0 0 1 -6.785714,7.232143 6.7857141,7.2321429 0 0 1 -6.785714,-7.232143 6.7857141,7.2321429 0 0 1 6.785714,-7.232143 6.7857141,7.2321429 0 0 1 6.785714,7.232143 z"
+                Data="M384 22.545L307.271 99.27l25.458 25.458L366 91.457v329.086l-33.271-33.272-25.458 25.458L384 489.455l76.729-76.726-25.458-25.458L402 420.543V91.457l33.271 33.272L460.73 99.27 384 22.545zm-242.443.258c-23.366 3.035-44.553 30.444-44.553 65.935 0 19.558 6.771 36.856 16.695 48.815l11.84 14.263-18.217 3.424c-12.9 2.425-22.358 9.24-30.443 20.336-8.085 11.097-14.266 26.558-18.598 44.375-7.843 32.28-9.568 71.693-9.842 106.436h42.868l11.771 157.836c29.894 6.748 61.811 6.51 90.602.025l10.414-157.861h40.816c-.027-35.168-.477-75.125-7.584-107.65-3.918-17.933-9.858-33.371-18.04-44.342-8.185-10.97-18.08-17.745-32.563-19.989l-18.592-2.88 11.736-14.704c9.495-11.897 15.932-28.997 15.932-48.082 0-37.838-23.655-65.844-49.399-65.844l-4.843-.093z"
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
