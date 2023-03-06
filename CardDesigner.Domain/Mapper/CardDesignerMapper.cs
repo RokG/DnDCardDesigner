@@ -45,8 +45,10 @@ namespace CardDesigner.Domain.Mapper
                 cfg.CreateMap<MinionModel, MinionEntity>();
 
                 // Minion
-                cfg.CreateMap<MinionDeckModel, MinionDeckEntity>();
                 cfg.CreateMap<MinionCardModel, MinionCardEntity>();
+                cfg.CreateMap<MinionDeckModel, MinionDeckEntity>();
+                //cfg.CreateMap<MinionDeckModel, MinionDeckEntity>().ForMember(dest => dest.MinionCards, act => act.MapFrom(src => src.MinionCards));
+                //cfg.CreateMap<MinionDeckModel, MinionDeckEntity>().ForMember(dest => dest.MinionCards, act => act.MapFrom(src => src.MinionCards.Select(f => f.Minion)));
                 cfg.CreateMap<MinionDeckDesignModel, MinionDeckDesignEntity>();
                 cfg.CreateMap<MinionDeckDesignLinkerModel, MinionDeckDesignLinkerEntity>();
 
@@ -83,8 +85,10 @@ namespace CardDesigner.Domain.Mapper
                 cfg.CreateMap<MinionEntity, MinionModel>();
 
                 // Minion
-                cfg.CreateMap<MinionDeckEntity, MinionDeckModel>();
                 cfg.CreateMap<MinionCardEntity, MinionCardModel>();
+                cfg.CreateMap<MinionDeckEntity, MinionDeckModel>();
+                //cfg.CreateMap<MinionDeckEntity, MinionDeckModel>().ForMember(dest => dest.MinionCards, act => act.MapFrom(src => src.MinionCards));
+                //cfg.CreateMap<MinionDeckEntity, MinionDeckModel>().ForMember(dest => dest.MinionCards, act => act.MapFrom(src => src.MinionCards.Select(f=>f.Minion)));
                 cfg.CreateMap<MinionDeckDesignLinkerEntity, MinionDeckDesignLinkerModel>();
                 cfg.CreateMap<MinionDeckDesignEntity, MinionDeckDesignModel>();
 

@@ -87,6 +87,11 @@ namespace CardDesigner.DataAccess.DbContexts
                    .WithOne(e => e.CasterStats)
                    .HasForeignKey<CharacterEntity>(b => b.ID);
 
+            // Minion - Minion card
+            modelBuilder.Entity<MinionEntity>()
+                .HasMany(c => c.MinionCards)
+                .WithOne(e => e.Minion);
+
             #endregion
 
             #region Deck descriptors
@@ -135,16 +140,12 @@ namespace CardDesigner.DataAccess.DbContexts
                    .HasMany(c => c.MinionDeckDescriptors)
                    .WithOne(e => e.Character);
 
-            #endregion
-
             // Character, Character Deck, Deck Design
             modelBuilder.Entity<CharacterEntity>()
                    .HasMany(c => c.CharacterDeckDescriptors)
                    .WithOne(e => e.Character);
 
-            modelBuilder.Entity<MinionEntity>()
-                .HasMany(c => c.MinionCards)
-                .WithOne(e => e.Minion);
+            #endregion
 
             #region Deck-Cards
 
@@ -244,6 +245,75 @@ namespace CardDesigner.DataAccess.DbContexts
             SeedItemEntities(modelBuilder);
 
             SeedCharacterEntities(modelBuilder);
+
+            SeedMinionEntities(modelBuilder);
+        }
+
+        private void SeedMinionEntities(ModelBuilder modelBuilder)
+        {
+            MinionEntity minion = new()
+            {
+                ID = 1,
+                Name = "SampleMinion_1",
+                Title = "Abaraton",
+                Strength = 10,
+                Dexterity = 10,
+                Constitution = 10,
+                Inteligence = 10,
+                Wisdom = 10,
+                Charisma = 10,
+                ChalangeRating = "1/4",
+                ArmourClass = 12,
+                Actions = "Can do shit",
+                LegendaryActions = "Can do better shit",
+                Alignment = Alignment.ChaoticGood,
+                Appearance = "Small Humanoid",
+                Attributes = "Can walk on water like Jesus",
+                ClimbingSpeed = 30,
+                SwimingSpeed = 20,
+                Speed = 20,
+                FlyingSpeed = 30,
+                ConditionImmunities = "Blinded, Cursed",
+                DamageImmunities = "Blunt",
+                DamageResistances = "Fire",
+                PassivePerception = 12,
+                Hitpoints = 80,
+                Initiative = +1,
+                Languages = "archaic",
+                SavingThrows = "Strength, Dexterity",
+                Senses = "Keen senses",
+                SkillBonuses = "+1 Animal handling"
+            };
+            modelBuilder.Entity<MinionEntity>().HasData(minion);
+
+            modelBuilder.Entity<MinionCardEntity>().HasData(
+                new { ID = 1, Name = "SampleMinionCard_1", Title = "Abaraton - Stats", MinionID = minion.ID, Type = MinionCardType.Stats, DescriptionFontSize = 18.0, TitleFontSize = 14.0 },
+                new { ID = 2, Name = "SampleMinionCard_2", Title = "Abaraton - Actions", MinionID = minion.ID, Type = MinionCardType.Actions, DescriptionFontSize = 18.0, TitleFontSize = 14.0 },
+                new { ID = 3, Name = "SampleMinionCard_3", Title = "Abaraton - Attributes", MinionID = minion.ID, Type = MinionCardType.Attributes, DescriptionFontSize = 18.0, TitleFontSize = 14.0 }
+            );
+
+            MinionDeckDesignEntity minionDeckDesign = new MinionDeckDesignEntity() { ID = 1, Name = "SampleMinionDeckDesign_1" };
+            modelBuilder.Entity<MinionDeckDesignEntity>().HasData(minionDeckDesign);
+
+            MinionDeckEntity minionDeck = new MinionDeckEntity() { ID = 1, Name = "SampleMinionDeck_1", Title = "Sample Minion Deck" };
+            modelBuilder.Entity<MinionDeckEntity>().HasData(minionDeck);
+
+            modelBuilder.Entity<MinionDeckDesignLinkerEntity>().HasData(new
+            {
+                ID = 1,
+                MinionDeckID = 1,
+                DesignID = 1,
+                CharacterID = 1,
+            });
+
+            modelBuilder.Entity<MinionDeckEntity>().HasMany(p => p.MinionCards).WithMany(p => p.MinionDecks)
+            .UsingEntity(j => j
+            .ToTable("MinionDeckMinionCard")
+            .HasData(new[]
+            {
+                new { MinionCardID = 2, MinionDeckID = 1},
+                new { MinionCardID = 3, MinionDeckID = 1},
+            }));
         }
 
         /// <summary>
