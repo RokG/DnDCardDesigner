@@ -9,26 +9,32 @@
         <local:AbilityDisplayControl
             Ability="{Binding Abilities.Strength, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
             AbilityName="STR"
+            Foreground="{Binding Foreground, ElementName=attributesDisplay}"
             SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
         <local:AbilityDisplayControl
             Ability="{Binding Abilities.Dexterity, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
             AbilityName="DEX"
+            Foreground="{Binding Foreground, ElementName=attributesDisplay}"
             SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
         <local:AbilityDisplayControl
             Ability="{Binding Abilities.Constitution, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
             AbilityName="CON"
+            Foreground="{Binding Foreground, ElementName=attributesDisplay}"
             SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
         <local:AbilityDisplayControl
             Ability="{Binding Abilities.Inteligence, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
             AbilityName="INT"
+            Foreground="{Binding Foreground, ElementName=attributesDisplay}"
             SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
         <local:AbilityDisplayControl
             Ability="{Binding Abilities.Wisdom, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
             AbilityName="WIS"
+            Foreground="{Binding Foreground, ElementName=attributesDisplay}"
             SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
         <local:AbilityDisplayControl
             Ability="{Binding Abilities.Charisma, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}"
             AbilityName="CHA"
+            Foreground="{Binding Foreground, ElementName=attributesDisplay}"
             SwitchAbilityValueBonus="{Binding SwitchAbilityValueBonus, ElementName=attributesDisplay, UpdateSourceTrigger=PropertyChanged}" />
     </WrapPanel>
 </UserControl>

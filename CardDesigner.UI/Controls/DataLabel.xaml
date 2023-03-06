@@ -9,21 +9,25 @@
             Margin="{Binding Margin, ElementName=dataLabel}"
             Padding="{Binding Padding, ElementName=dataLabel}"
             Content="{Binding ValueName, ElementName=dataLabel}"
-            ContentStringFormat="{}{0}: " />
+            ContentStringFormat="{}{0}: "
+            Foreground="{Binding Foreground, ElementName=dataLabel}" />
         <TextBlock
             Margin="{Binding Margin, ElementName=dataLabel}"
             Padding="{Binding Padding, ElementName=dataLabel}"
             VerticalAlignment="Center"
+            Foreground="{Binding Foreground, ElementName=dataLabel}"
             Text="{Binding Value1, ElementName=dataLabel}"
             TextWrapping="Wrap" />
         <TextBlock
             Margin="{Binding Margin, ElementName=dataLabel}"
             Padding="{Binding Padding, ElementName=dataLabel}"
+            Foreground="{Binding Foreground, ElementName=dataLabel}"
             Text="{Binding Value2, ElementName=dataLabel}"
             TextWrapping="Wrap" />
         <TextBlock
             Margin="{Binding Margin, ElementName=dataLabel}"
             Padding="{Binding Padding, ElementName=dataLabel}"
+            Foreground="{Binding Foreground, ElementName=dataLabel}"
             Text="{Binding Value3, ElementName=dataLabel}"
             TextWrapping="Wrap" />
         <StackPanel.Style>
