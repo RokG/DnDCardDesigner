@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -139,10 +138,6 @@ namespace CardDesigner.UI.Controls
                     CurrentHueValue = GetColorFromRectangle(rectangle, 0, Hue);
                     CurrentColor = GetColorFromRectangle(levelSaturationRectangle, Saturation, Value);
                 }
-
-                Debug.WriteLine("H:" + Hue);
-                Debug.WriteLine("S:" + Saturation);
-                Debug.WriteLine("V:" + Value);
 
                 ColorChanged?.Invoke(this, new RoutedEventArgs());
             }

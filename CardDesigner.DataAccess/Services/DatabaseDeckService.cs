@@ -92,14 +92,14 @@ namespace CardDesigner.DataAccess.Services
                             // If any card is missing, remove it from the list
                             if (!spellDeckModel.Cards.Any(id => id.ID == spellCard.ID))
                             {
-                                SpellCardEntity spellCardEntity = _mapper.Map<SpellCardEntity>(spellCard);
-                                spellDeckEntity.Cards.Remove(spellCardEntity);
+                                spellDeckEntity.Cards.Remove(spellCard);
                             }
                         }
 
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<SpellDeckModel>(spellDeckEntity);
+
                     case ItemDeckModel itemDeckModel:
                         // Get item deck from database
                         ItemDeckEntity itemDeckEntity = dbContext.ItemDecks
@@ -107,28 +107,30 @@ namespace CardDesigner.DataAccess.Services
                             .Single(sc => sc.ID == itemDeckModel.ID);
 
                         // Loop over cards in source deck - ADD
-                        foreach (ItemCardModel itemCardModel in itemDeckModel.Cards)
+                        foreach (ItemCardModel itemCard in itemDeckModel.Cards)
                         {
                             // If any card is new, add it to the list
-                            if (!itemDeckEntity.Cards.Where(sd => sd.ID == itemCardModel.ID).Any())
+                            if (!itemDeckEntity.Cards.Where(sd => sd.ID == itemCard.ID).Any())
                             {
-                                ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCardModel);
+                                ItemCardEntity itemCardEntity = _mapper.Map<ItemCardEntity>(itemCard);
                                 itemDeckEntity.Cards.Add(itemCardEntity);
                             }
                         }
+
                         // Loop over cards in source deck - REMOVE
-                        foreach (ItemCardEntity itemCardEntity in itemDeckEntity.Cards)
+                        foreach (ItemCardEntity itemCard in itemDeckEntity.Cards)
                         {
                             // If any card is missing, remove it from the list
-                            if (!itemDeckModel.Cards.Any(id => id.ID == itemCardEntity.ID))
+                            if (!itemDeckModel.Cards.Any(id => id.ID == itemCard.ID))
                             {
-                                itemDeckEntity.Cards.Remove(itemCardEntity);
+                                itemDeckEntity.Cards.Remove(itemCard);
                             }
                         }
 
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<ItemDeckModel>(itemDeckEntity);
+
                     case CharacterDeckModel characterDeckModel:
                         // Get character deck from database
                         CharacterDeckEntity characterDeckEntity = dbContext.CharacterDecks
@@ -136,28 +138,30 @@ namespace CardDesigner.DataAccess.Services
                             .Single(sc => sc.ID == characterDeckModel.ID);
 
                         // Loop over cards in source deck - ADD
-                        foreach (CharacterCardModel characterCardModel in characterDeckModel.Cards)
+                        foreach (CharacterCardModel characterCard in characterDeckModel.Cards)
                         {
                             // If any card is new, add it to the list
-                            if (!characterDeckEntity.Cards.Where(sd => sd.ID == characterCardModel.ID).Any())
+                            if (!characterDeckEntity.Cards.Where(sd => sd.ID == characterCard.ID).Any())
                             {
-                                CharacterCardEntity characterCardEntity = _mapper.Map<CharacterCardEntity>(characterCardModel);
+                                CharacterCardEntity characterCardEntity = _mapper.Map<CharacterCardEntity>(characterCard);
                                 characterDeckEntity.Cards.Add(characterCardEntity);
                             }
                         }
+
                         // Loop over cards in source deck - REMOVE
-                        foreach (CharacterCardEntity characterCardEntity in characterDeckEntity.Cards)
+                        foreach (CharacterCardEntity characterCard in characterDeckEntity.Cards)
                         {
                             // If any card is missing, remove it from the list
-                            if (!characterDeckModel.Cards.Any(id => id.ID == characterCardEntity.ID))
+                            if (!characterDeckModel.Cards.Any(id => id.ID == characterCard.ID))
                             {
-                                characterDeckEntity.Cards.Remove(characterCardEntity);
+                                characterDeckEntity.Cards.Remove(characterCard);
                             }
                         }
 
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<CharacterDeckModel>(characterDeckEntity);
+
                     case MinionDeckModel minionDeckModel:
                         // Get minion deck from database
                         MinionDeckEntity minionDeckEntity = dbContext.MinionDecks
@@ -165,28 +169,29 @@ namespace CardDesigner.DataAccess.Services
                             .Single(sc => sc.ID == minionDeckModel.ID);
 
                         // Loop over cards in source deck - ADD
-                        foreach (MinionCardModel minionCardModel in minionDeckModel.Cards)
+                        foreach (MinionCardModel minionCard in minionDeckModel.Cards)
                         {
                             // If any card is new, add it to the list
-                            if (!minionDeckEntity.Cards.Where(sd => sd.ID == minionCardModel.ID).Any())
+                            if (!minionDeckEntity.Cards.Where(sd => sd.ID == minionCard.ID).Any())
                             {
-                                MinionCardEntity minionCardEntity = _mapper.Map<MinionCardEntity>(minionCardModel);
+                                MinionCardEntity minionCardEntity = _mapper.Map<MinionCardEntity>(minionCard);
                                 minionDeckEntity.Cards.Add(minionCardEntity);
                             }
                         }
                         // Loop over cards in source deck - REMOVE
-                        foreach (MinionCardEntity minionCardEntity in minionDeckEntity.Cards)
+                        foreach (MinionCardEntity minionCard in minionDeckEntity.Cards)
                         {
                             // If any card is missing, remove it from the list
-                            if (!minionDeckModel.Cards.Any(id => id.ID == minionCardEntity.ID))
+                            if (!minionDeckModel.Cards.Any(id => id.ID == minionCard.ID))
                             {
-                                minionDeckEntity.Cards.Remove(minionCardEntity);
+                                minionDeckEntity.Cards.Remove(minionCard);
                             }
                         }
 
                         await dbContext.SaveChangesAsync();
 
                         return _mapper.Map<MinionDeckModel>(minionDeckEntity);
+
                     default:
                         return null;
                 }
