@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -53,7 +52,7 @@ namespace CardDesigner.UI.Controls
         {
             if (d is ColorPickerControl colorPicker && e.NewValue is double hueValue)
             {
-                colorPicker.CurrentHueValue = colorPicker.GetColorFromRectangle(colorPicker.hueRectangle, 0, hueValue);
+                colorPicker.CurrentHueValue = GetColorFromRectangle(colorPicker.hueRectangle, 0, hueValue);
             }
         }
 
@@ -84,7 +83,7 @@ namespace CardDesigner.UI.Controls
         public static readonly DependencyProperty CurrentColorProperty =
             DependencyProperty.Register(nameof(CurrentColor), typeof(string), typeof(ColorPickerControl), new PropertyMetadata("#ff0000"));
 
-        private string GetColorFromRectangle(Rectangle rectangle, double X, double Y)
+        private static string GetColorFromRectangle(Rectangle rectangle, double X, double Y)
         {
             // Create imagesource from rectangle
             int width = (int)rectangle.Width;
@@ -140,14 +139,7 @@ namespace CardDesigner.UI.Controls
                     CurrentColor = GetColorFromRectangle(levelSaturationRectangle, Saturation, Value);
                 }
 
-                Debug.WriteLine("H:" + Hue);
-                Debug.WriteLine("S:" + Saturation);
-                Debug.WriteLine("V:" + Value);
-
-                if (ColorChanged != null)
-                {
-                    ColorChanged(this, new RoutedEventArgs());
-                }
+                ColorChanged?.Invoke(this, new RoutedEventArgs());
             }
         }
 
@@ -157,15 +149,15 @@ namespace CardDesigner.UI.Controls
             {
                 return null;
             }
-            RenderTargetBitmap bmp = new RenderTargetBitmap((int)Math.Ceiling(width),
+            RenderTargetBitmap bmp = new((int)Math.Ceiling(width),
                 (int)Math.Ceiling(height), 96, 96, PixelFormats.Pbgra32);
 
             if (undoTransformation)
             {
-                DrawingVisual dv = new DrawingVisual();
+                DrawingVisual dv = new();
                 using (DrawingContext dc = dv.RenderOpen())
                 {
-                    VisualBrush vb = new VisualBrush(visualToRender);
+                    VisualBrush vb = new(visualToRender);
                     dc.DrawRectangle(vb, null, new Rect(new Point(), new Size(width, height)));
                 }
                 bmp.Render(dv);

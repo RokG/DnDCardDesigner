@@ -42,7 +42,8 @@
             Margin="0,0,4,0"
             AbilityLevel="{Binding Ability.Level, ElementName=attributeView}"
             AbilityLevelBonus="{Binding Ability.LevelBonus, ElementName=attributeView}"
-            AbilityName="{Binding AbilityName, ElementName=attributeView}" />
+            AbilityName="{Binding AbilityName, ElementName=attributeView}"
+            Foreground="{Binding Foreground, ElementName=attributeView}" />
         <StackPanel Margin="0,2,0,0">
             <StackPanel Orientation="Horizontal">
                 <Label
@@ -50,11 +51,13 @@
                     BorderThickness="0"
                     Content="{Binding Ability.SavingThrowsBonus, ElementName=attributeView}"
                     ContentStringFormat="{}{0:+#;-#;'+0'} "
+                    Foreground="{Binding Foreground, ElementName=attributeView}"
                     Style="{StaticResource attributeLabelStyle}" />
                 <Label
                     Height="12"
                     Padding="0"
                     Content="Saving throws"
+                    Foreground="{Binding Foreground, ElementName=attributeView}"
                     Style="{StaticResource attributeLabelStyle}" />
             </StackPanel>
             <ListBox
@@ -74,10 +77,12 @@
                                 Padding="0"
                                 Content="{Binding Bonus}"
                                 ContentStringFormat="{}{0:+#;-#;'+0'} "
+                                Foreground="{Binding Foreground, ElementName=attributeView}"
                                 Style="{StaticResource skillLabelStyle}" />
                             <Label
                                 Padding="0"
                                 Content="{Binding Type}"
+                                Foreground="{Binding Foreground, ElementName=attributeView}"
                                 Style="{StaticResource skillLabelStyle}" />
                         </StackPanel>
                     </DataTemplate>

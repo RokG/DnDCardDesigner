@@ -5,6 +5,7 @@ namespace CardDesigner.Domain.Models
 {
     public class MinionModel : ISelectableItem
     {
+        // Entity links
         public int ID { get; set; }
 
         // Properties
@@ -37,9 +38,9 @@ namespace CardDesigner.Domain.Models
         public int WisdomBonus => (Wisdom - 10) / 2;
         public int CharismaBonus => (Charisma - 10) / 2;
 
-        public string Attributes { get; set; } 
-        public string Actions { get; set; } 
-        public string LegendaryActions { get; set; } 
+        public string Attributes { get; set; }
+        public string Actions { get; set; }
+        public string LegendaryActions { get; set; }
         public string SavingThrows { get; set; }
         public string SkillBonuses { get; set; }
         public string DamageImmunities { get; set; }

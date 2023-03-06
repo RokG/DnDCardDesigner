@@ -23,7 +23,7 @@
                     IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
                 <ItemsControl
                     Canvas.Top="25"
-                    Canvas.Right="5"
+                    Canvas.Right="3"
                     ItemsSource="{Binding Character.Classes, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -58,7 +58,11 @@
                                         Padding="0"
                                         HorizontalAlignment="Center"
                                         Background="Transparent"
-                                        Content="{Binding Level}" />
+                                        Content="{Binding Level}"
+                                        FontFamily="Arial"
+                                        FontSize="16"
+                                        FontWeight="Black"
+                                        Foreground="{Binding CardDesign.HeaderIconColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </Border>
                             </StackPanel>
                         </DataTemplate>
@@ -99,6 +103,7 @@
         <ControlTemplate x:Key="AbilitiesContentTemplate">
             <controls:AbilitiesDisplayControl
                 Abilities="{Binding Character.Abilities, ElementName=characterCard, UpdateSourceTrigger=PropertyChanged}"
+                Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SwitchAbilityValueBonus="True" />
         </ControlTemplate>
         <!--  Avatar content  -->
@@ -112,12 +117,15 @@
         <ControlTemplate x:Key="StatsContentTemplate">
             <StackPanel Margin="10,0">
                 <controls:DataLabel
+                    Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Value1="{Binding Character.Proficiency, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ValueName="Proficiency" />
                 <controls:DataLabel
+                    Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Value1="{Binding Character.PassivePerception, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ValueName="Passive Perception" />
                 <controls:DataLabel
+                    Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Value1="{Binding Character.PassiveInsight, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ValueName="Passive Insight" />
                 <DockPanel

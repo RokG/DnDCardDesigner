@@ -165,7 +165,7 @@ namespace CardDesigner.DataAccess.Services
                         .Include(sc => sc.SpellDecks)
                         .ToListAsync();
 
-                    return (IEnumerable<T>)spellCardEntities.Select(c => _mapper.Map<SpellCardModel>(c));
+                    return (IEnumerable<T>)spellCardEntities.Select(_mapper.Map<SpellCardModel>);
                 }
                 else if (typeof(T) == typeof(ItemCardModel))
                 {
@@ -174,7 +174,7 @@ namespace CardDesigner.DataAccess.Services
                         .Include(sc => sc.ItemDecks)
                         .ToListAsync();
 
-                    return (IEnumerable<T>)itemCardEntities.Select(c => _mapper.Map<ItemCardModel>(c));
+                    return (IEnumerable<T>)itemCardEntities.Select(_mapper.Map<ItemCardModel>);
                 }
                 else if (typeof(T) == typeof(CharacterCardModel))
                 {
@@ -183,7 +183,7 @@ namespace CardDesigner.DataAccess.Services
                         .Include(sc => sc.CharacterDecks)
                         .ToListAsync();
 
-                    return (IEnumerable<T>)characterCardEntities.Select(c => _mapper.Map<CharacterCardModel>(c));
+                    return (IEnumerable<T>)characterCardEntities.Select(_mapper.Map<CharacterCardModel>);
                 }
                 else if (typeof(T) == typeof(MinionCardModel))
                 {
@@ -193,7 +193,7 @@ namespace CardDesigner.DataAccess.Services
                         .Include(sc => sc.Minion)
                         .ToListAsync();
 
-                    return (IEnumerable<T>)minionCardEntities.Select(c => _mapper.Map<MinionCardModel>(c));
+                    return (IEnumerable<T>)minionCardEntities.Select(_mapper.Map<MinionCardModel>);
                 }
                 else
                 {

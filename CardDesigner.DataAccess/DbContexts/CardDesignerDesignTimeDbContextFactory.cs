@@ -13,7 +13,7 @@ namespace CardDesigner.DataAccess.DbContexts
                 .UseSqlite("Data Source=carddesign.db")
                 .Options;
 
-            return new CardDesignerDbContext(options, CardDesignerMapper.CreateMapper());
+            return new CardDesignerDbContext(options);
         }
     }
 }

@@ -237,7 +237,7 @@ namespace CardDesigner.UI.ViewModels
             }
 
             SelectedSpellDeck = CharacterSpellDecks.FirstOrDefault(cd => cd.ID == selectedDeckID) ?? CharacterSpellDecks.FirstOrDefault();
-            TestSpellCard = SelectedSpellDeck?.SpellCards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedSpellDeck?.SpellCards.FirstOrDefault();
+            TestSpellCard = SelectedSpellDeck?.Cards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedSpellDeck?.Cards.FirstOrDefault();
             SelectedSpellDeckDesign = AllSpellDeckDesigns.FirstOrDefault(cd => cd.ID == selectedDesignID) ?? AllSpellDeckDesigns.FirstOrDefault();
         }
 
@@ -257,7 +257,7 @@ namespace CardDesigner.UI.ViewModels
             }
 
             SelectedMinionDeck = CharacterMinionDecks.FirstOrDefault(cd => cd.ID == selectedDeckID) ?? CharacterMinionDecks.FirstOrDefault();
-            TestMinionCard = SelectedMinionDeck?.MinionCards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedMinionDeck?.MinionCards.FirstOrDefault();
+            TestMinionCard = SelectedMinionDeck?.Cards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedMinionDeck?.Cards.FirstOrDefault();
             SelectedMinionDeckDesign = AllMinionDeckDesigns.FirstOrDefault(cd => cd.ID == selectedDesignID) ?? AllMinionDeckDesigns.FirstOrDefault();
         }
 
@@ -277,7 +277,7 @@ namespace CardDesigner.UI.ViewModels
             }
 
             SelectedItemDeck = CharacterItemDecks.FirstOrDefault(cd => cd.ID == selectedDeckID) ?? CharacterItemDecks.FirstOrDefault();
-            TestItemCard = SelectedItemDeck?.ItemCards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedItemDeck?.ItemCards.FirstOrDefault();
+            TestItemCard = SelectedItemDeck?.Cards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedItemDeck?.Cards.FirstOrDefault();
             SelectedItemDeckDesign = AllItemDeckDesigns.FirstOrDefault(cd => cd.ID == selectedDesignID) ?? AllItemDeckDesigns.FirstOrDefault();
         }
 
@@ -297,7 +297,7 @@ namespace CardDesigner.UI.ViewModels
             }
 
             SelectedCharacterDeck = CharacterCharacterDecks.FirstOrDefault(cd => cd.ID == selectedDeckID) ?? CharacterCharacterDecks.FirstOrDefault();
-            TestCharacterCard = SelectedCharacterDeck?.CharacterCards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedCharacterDeck?.CharacterCards.FirstOrDefault();
+            TestCharacterCard = SelectedCharacterDeck?.Cards.FirstOrDefault(cc => cc.ID == selectedCardID) ?? SelectedCharacterDeck?.Cards.FirstOrDefault();
             SelectedCharacterDeckDesign = AllCharacterDeckDesigns.FirstOrDefault(cd => cd.ID == selectedDesignID) ?? AllCharacterDeckDesigns.FirstOrDefault();
         }
 

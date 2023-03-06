@@ -1,4 +1,4 @@
-﻿namespace CardDesigner.Domain.Enums
+﻿namespace CardDesigner.Domain.HelperEnums
 {
     public class EnumPropertyObject
     {

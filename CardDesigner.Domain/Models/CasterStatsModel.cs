@@ -2,9 +2,10 @@
 {
     public class CasterStatsModel
     {
+        // Entity links
         public int ID { get; set; }
-        public CharacterModel Character { get; set; }
 
+        // Properties
         public int SpellAttackBonus { get; set; }
         public int SpellSaveDC { get; set; }
         public int KnownSpells { get; set; }

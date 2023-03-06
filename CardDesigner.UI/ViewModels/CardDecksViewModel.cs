@@ -141,7 +141,7 @@ namespace CardDesigner.UI.ViewModels
 
             LoadData();
 
-            SetSelectionFromNavigation();
+            //SetSelectionFromNavigation();
         }
 
         #endregion
@@ -439,14 +439,14 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void AddSpellCardToDeck(SpellCardModel spellCard)
         {
-            SelectedSpellDeck.SpellCards.Add(spellCard);
+            SelectedSpellDeck.Cards.Add(spellCard);
             await _cardDesignerStore.UpdateSpellDeck(SelectedSpellDeck);
         }
 
         [RelayCommand]
         private async void RemoveSpellCardFromDeck(SpellCardModel spellCard)
         {
-            SelectedSpellDeck.SpellCards.Remove(spellCard);
+            SelectedSpellDeck.Cards.Remove(spellCard);
             await _cardDesignerStore.UpdateSpellDeck(SelectedSpellDeck);
         }
 
@@ -465,6 +465,14 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
+        private async void RemoveSpellDeckFromCharacter(SpellDeckModel spellDeck)
+        {
+            SpellDeckDesignLinkerModel toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(sd => sd.SpellDeckID == spellDeck.ID);
+            SelectedCharacter.SpellDeckDescriptors.Remove(toRemove);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand]
         private async void AddSpellDeckToCharacter(SpellDeckModel spellDeck)
         {
             if (!SelectedCharacter.SpellDeckDescriptors.Any(d => d.SpellDeckID == spellDeck.ID))
@@ -475,14 +483,6 @@ namespace CardDesigner.UI.ViewModels
                 });
                 await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
             }
-        }
-
-        [RelayCommand]
-        private async void RemoveSpellDeckFromCharacter(SpellDeckModel spellDeck)
-        {
-            SpellDeckDesignLinkerModel toRemove = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(sd => sd.SpellDeckID == spellDeck.ID);
-            SelectedCharacter.SpellDeckDescriptors.Remove(toRemove);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         #endregion
@@ -506,14 +506,14 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void AddItemCardToDeck(ItemCardModel itemCard)
         {
-            SelectedItemDeck.ItemCards.Add(itemCard);
+            SelectedItemDeck.Cards.Add(itemCard);
             await _cardDesignerStore.UpdateItemDeck(SelectedItemDeck);
         }
 
         [RelayCommand]
         private async void RemoveItemCardFromDeck(ItemCardModel itemCard)
         {
-            SelectedItemDeck.ItemCards.Remove(itemCard);
+            SelectedItemDeck.Cards.Remove(itemCard);
             await _cardDesignerStore.UpdateItemDeck(SelectedItemDeck);
         }
 
@@ -573,14 +573,14 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void AddCharacterCardToDeck(CharacterCardModel characterCard)
         {
-            SelectedCharacterDeck.CharacterCards.Add(characterCard);
+            SelectedCharacterDeck.Cards.Add(characterCard);
             await _cardDesignerStore.UpdateCharacterDeck(SelectedCharacterDeck);
         }
 
         [RelayCommand]
         private async void RemoveCharacterCardFromDeck(CharacterCardModel characterCard)
         {
-            SelectedCharacterDeck.CharacterCards.Remove(characterCard);
+            SelectedCharacterDeck.Cards.Remove(characterCard);
             await _cardDesignerStore.UpdateCharacterDeck(SelectedCharacterDeck);
         }
 
@@ -599,6 +599,14 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
+        private async void RemoveCharacterDeckFromCharacter(CharacterDeckModel CharacterDeck)
+        {
+            CharacterDeckDesignLinkerModel toRemove = SelectedCharacter.CharacterDeckDescriptors.FirstOrDefault(sd => sd.CharacterDeckID == CharacterDeck.ID);
+            SelectedCharacter.CharacterDeckDescriptors.Remove(toRemove);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand]
         private async void AddCharacterDeckToCharacter(CharacterDeckModel CharacterDeck)
         {
             if (!SelectedCharacter.CharacterDeckDescriptors.Any(d => d.CharacterDeckID == CharacterDeck.ID))
@@ -609,14 +617,6 @@ namespace CardDesigner.UI.ViewModels
                 });
                 await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
             }
-        }
-
-        [RelayCommand]
-        private async void RemoveCharacterDeckFromCharacter(CharacterDeckModel CharacterDeck)
-        {
-            CharacterDeckDesignLinkerModel toRemove = SelectedCharacter.CharacterDeckDescriptors.FirstOrDefault(sd => sd.CharacterDeckID == CharacterDeck.ID);
-            SelectedCharacter.CharacterDeckDescriptors.Remove(toRemove);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         #endregion
@@ -640,14 +640,14 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand]
         private async void AddMinionCardToDeck(MinionCardModel MinionCard)
         {
-            SelectedMinionDeck.MinionCards.Add(MinionCard);
+            SelectedMinionDeck.Cards.Add(MinionCard);
             await _cardDesignerStore.UpdateMinionDeck(SelectedMinionDeck);
         }
 
         [RelayCommand]
         private async void RemoveMinionCardFromDeck(MinionCardModel MinionCard)
         {
-            SelectedMinionDeck.MinionCards.Remove(MinionCard);
+            SelectedMinionDeck.Cards.Remove(MinionCard);
             await _cardDesignerStore.UpdateMinionDeck(SelectedMinionDeck);
         }
 
@@ -666,6 +666,14 @@ namespace CardDesigner.UI.ViewModels
         }
 
         [RelayCommand]
+        private async void RemoveMinionDeckFromCharacter(MinionDeckModel MinionDeck)
+        {
+            MinionDeckDesignLinkerModel toRemove = SelectedCharacter.MinionDeckDescriptors.FirstOrDefault(sd => sd.MinionDeckID == MinionDeck.ID);
+            SelectedCharacter.MinionDeckDescriptors.Remove(toRemove);
+            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
+        }
+
+        [RelayCommand]
         private async void AddMinionDeckToCharacter(MinionDeckModel MinionDeck)
         {
             if (!SelectedCharacter.MinionDeckDescriptors.Any(d => d.MinionDeckID == MinionDeck.ID))
@@ -676,14 +684,6 @@ namespace CardDesigner.UI.ViewModels
                 });
                 await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
             }
-        }
-
-        [RelayCommand]
-        private async void RemoveMinionDeckFromCharacter(MinionDeckModel MinionDeck)
-        {
-            MinionDeckDesignLinkerModel toRemove = SelectedCharacter.MinionDeckDescriptors.FirstOrDefault(sd => sd.MinionDeckID == MinionDeck.ID);
-            SelectedCharacter.MinionDeckDescriptors.Remove(toRemove);
-            await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
         }
 
         #endregion

@@ -9,17 +9,20 @@
             HorizontalContentAlignment="Center"
             Content="{Binding AbilityName, ElementName=abilityBaseControl}"
             FontSize="12"
-            FontWeight="Black" />
+            FontWeight="Black"
+            Foreground="{Binding Foreground, ElementName=abilityBaseControl}" />
         <Border
             Width="30"
             Height="30"
             Background="#11000000"
+            BorderBrush="{Binding Foreground, ElementName=abilityBaseControl}"
             BorderThickness="3"
             CornerRadius="5">
             <Label
                 Padding="0"
                 HorizontalContentAlignment="Center"
-                FontSize="14">
+                FontSize="14"
+                Foreground="{Binding Foreground, ElementName=abilityBaseControl}">
                 <Label.Style>
                     <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
                         <Setter Property="Content" Value="{Binding AbilityLevelBonus, ElementName=abilityBaseControl}" />
@@ -41,12 +44,15 @@
             Height="24"
             VerticalAlignment="Bottom"
             Background="#11000000"
+            BorderBrush="{Binding Foreground, ElementName=abilityBaseControl}"
             BorderThickness="3"
             CornerRadius="5">
             <Label
+                Margin="2,0,0,0"
                 Padding="0"
-                HorizontalContentAlignment="Center"
-                FontSize="12">
+                HorizontalAlignment="Center"
+                FontSize="12"
+                Foreground="{Binding Foreground, ElementName=abilityBaseControl}">
                 <Label.Style>
                     <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
                         <Setter Property="Content" Value="{Binding AbilityLevel, ElementName=abilityBaseControl}" />

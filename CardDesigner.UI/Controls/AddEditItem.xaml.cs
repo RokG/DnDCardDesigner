@@ -153,10 +153,7 @@ namespace CardDesigner.UI.Controls
                 IsEditEnabled = true;
             }
 
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, new RoutedEventArgs());
-            }
+            SelectionChanged?.Invoke(this, new RoutedEventArgs());
         }
 
         #endregion

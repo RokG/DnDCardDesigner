@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Viewbox x:Key="KnownSpells">
+    <Viewbox x:Key="KnownSpells"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -10,7 +11,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="PreparedSpells">
+    <Viewbox x:Key="PreparedSpells"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -19,7 +21,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="SpellSave">
+    <Viewbox x:Key="SpellSave"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -28,7 +31,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="SpellAttack">
+    <Viewbox x:Key="SpellAttack"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -40,7 +44,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="ArmourClass">
+    <Viewbox x:Key="ArmourClass"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -49,7 +54,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="HealthPoints">
+    <Viewbox x:Key="HealthPoints"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -68,7 +74,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="FlyingSpeed">
+    <Viewbox x:Key="FlyingSpeed"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -77,7 +84,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="SwimingSpeed">
+    <Viewbox x:Key="SwimingSpeed"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -86,7 +94,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="ClimbingSpeed">
+    <Viewbox x:Key="ClimbingSpeed"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -95,7 +104,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Initiative">
+    <Viewbox x:Key="Initiative"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -116,7 +126,8 @@
                 StrokeThickness="5" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Age">
+    <Viewbox x:Key="Age"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">
@@ -125,7 +136,8 @@
                 Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Weight">
+    <Viewbox x:Key="Weight"
+        x:Shared="False">
         <Canvas
             Width="100"
             Height="100">
@@ -138,7 +150,8 @@
                 StrokeThickness="5" />
         </Canvas>
     </Viewbox>
-    <Viewbox x:Key="Height">
+    <Viewbox x:Key="Height"
+        x:Shared="False">
         <Canvas
             Width="512"
             Height="512">

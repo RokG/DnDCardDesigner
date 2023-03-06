@@ -1,4 +1,5 @@
 ﻿using CardDesigner.Domain.Enums;
+using CardDesigner.Domain.HelperEnums;
 using System;
 using System.Globalization;
 using System.Windows.Data;

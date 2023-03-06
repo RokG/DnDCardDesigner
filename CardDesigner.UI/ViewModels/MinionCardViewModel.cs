@@ -104,7 +104,7 @@ namespace CardDesigner.UI.ViewModels
 
         partial void OnSelectedMinionCardChanged(MinionCardModel value)
         {
-            SelectedMinion = AllMinions.FirstOrDefault(m=>m.ID == value?.Minion?.ID);
+            SelectedMinion = AllMinions.FirstOrDefault(m => m.ID == value?.Minion?.ID);
         }
 
         #endregion

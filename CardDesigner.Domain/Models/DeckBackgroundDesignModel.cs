@@ -4,7 +4,10 @@ namespace CardDesigner.Domain.Models
 {
     public class DeckBackgroundDesignModel : ISelectableItem, ICardDesign
     {
+        // Entity links
         public int ID { get; set; }
+
+        // Properties
         public string Name { get; set; }
         public string HeaderColor { get; set; } = "#d5b895";
         public string HeaderTextColor { get; set; } = "#222222";

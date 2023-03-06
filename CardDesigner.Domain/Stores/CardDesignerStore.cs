@@ -377,7 +377,7 @@ namespace CardDesigner.Domain.Stores
         {
             if (await _deckService.UpdateDeck(itemDeck) is ItemDeckModel updatedItemDeck)
             {
-                await UpdateSpellDecksFromDb();
+                await UpdateItemDecksFromDb();
                 ItemDeckChanged?.Invoke(updatedItemDeck, DataChangeType.Updated);
             }
         }
@@ -386,7 +386,7 @@ namespace CardDesigner.Domain.Stores
         {
             if (await _deckService.UpdateDeck(characterDeck) is CharacterDeckModel updatedCharacterDeck)
             {
-                await UpdateSpellDecksFromDb();
+                await UpdateCharacterDecksFromDb();
                 CharacterDeckChanged?.Invoke(updatedCharacterDeck, DataChangeType.Updated);
             }
         }
@@ -395,7 +395,7 @@ namespace CardDesigner.Domain.Stores
         {
             if (await _deckService.UpdateDeck(minionDeck) is MinionDeckModel updatedMinionDeck)
             {
-                await UpdateSpellDecksFromDb();
+                await UpdateMinionDecksFromDb();
                 MinionDeckChanged?.Invoke(updatedMinionDeck, DataChangeType.Updated);
             }
         }
@@ -755,7 +755,7 @@ namespace CardDesigner.Domain.Stores
         {
             foreach (ItemDeckModel itemDeck in itemDecks)
             {
-                AssignItemsToCards(itemDeck.ItemCards);
+                AssignItemsToCards(itemDeck.Cards);
             }
         }
 
