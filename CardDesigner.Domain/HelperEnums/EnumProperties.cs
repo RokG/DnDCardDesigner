@@ -1,4 +1,6 @@
-﻿namespace CardDesigner.Domain.Enums
+﻿using CardDesigner.Domain.Enums;
+
+namespace CardDesigner.Domain.HelperEnums
 {
     public static class EnumProperties
     {
