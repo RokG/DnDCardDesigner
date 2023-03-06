@@ -229,8 +229,7 @@ namespace CardDesigner.DataAccess.DbContexts
 
             #endregion
 
-
-            Seed(modelBuilder);
+            //Seed(modelBuilder);
         }
 
         private void Seed(ModelBuilder modelBuilder)
