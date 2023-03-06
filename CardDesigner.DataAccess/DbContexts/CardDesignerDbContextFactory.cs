@@ -32,7 +32,7 @@ namespace CardDesigner.DataAccess.DbContexts
             DbContextOptions options = new DbContextOptionsBuilder()
                 .UseSqlite(_connectionString).Options;
 
-            return new CardDesignerDbContext(options, _mapper);
+            return new CardDesignerDbContext(options);
         }
     }
 }

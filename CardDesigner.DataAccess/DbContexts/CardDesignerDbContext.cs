@@ -10,16 +10,13 @@ namespace CardDesigner.DataAccess.DbContexts
     // add-migration Initial -context CardDesignerDbContext
     public class CardDesignerDbContext : DbContext
     {
-        private readonly IMapper _mapper;
-
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="options">Database context options</param>
         /// <param name="mapper">Mapper object</param>
-        public CardDesignerDbContext(DbContextOptions options, IMapper mapper) : base(options)
+        public CardDesignerDbContext(DbContextOptions options) : base(options)
         {
-            _mapper = mapper;
         }
 
         #region Database objects
