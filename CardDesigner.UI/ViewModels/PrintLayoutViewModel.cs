@@ -270,7 +270,7 @@ namespace CardDesigner.UI.ViewModels
                 int deckDesingID = SelectedCharacter.CharacterDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == SelectedCharacter.ID && idd.CharacterDeckID == SelectedCharacterDeck.ID)?.DesignID ?? 0;
                 selectedCardDesign = AllCharacterDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID) ?? new();
 
-                cardsInDeck.AddRange(SelectedCharacterDeck.CharacterCards);
+                cardsInDeck.AddRange(SelectedCharacterDeck.Cards);
             }
 
             if (selectableItem.Item is SpellDeckModel spellCardModel)
@@ -281,7 +281,7 @@ namespace CardDesigner.UI.ViewModels
                 int deckDesingID = SelectedCharacter.SpellDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == SelectedCharacter.ID && idd.SpellDeckID == SelectedSpellDeck.ID)?.DesignID ?? 0;
                 selectedCardDesign = AllSpellDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID) ?? new();
 
-                cardsInDeck.AddRange(SelectedSpellDeck.SpellCards);
+                cardsInDeck.AddRange(SelectedSpellDeck.Cards);
             }
 
             if (selectableItem.Item is MinionDeckModel MinionCardModel)
@@ -292,7 +292,7 @@ namespace CardDesigner.UI.ViewModels
                 int deckDesingID = SelectedCharacter.MinionDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == SelectedCharacter.ID && idd.MinionDeckID == SelectedMinionDeck.ID)?.DesignID ?? 0;
                 selectedCardDesign = AllMinionDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID) ?? new();
 
-                cardsInDeck.AddRange(SelectedMinionDeck.MinionCards);
+                cardsInDeck.AddRange(SelectedMinionDeck.Cards);
             }
 
             if (selectableItem.Item is ItemDeckModel itemCardModel)
@@ -303,7 +303,7 @@ namespace CardDesigner.UI.ViewModels
                 int deckDesingID = SelectedCharacter.ItemDeckDescriptors.FirstOrDefault(idd => idd.Character.ID == SelectedCharacter.ID && idd.ItemDeckID == SelectedItemDeck.ID)?.DesignID ?? 0;
                 selectedCardDesign = AllItemDeckDesigns.FirstOrDefault(dd => dd.ID == deckDesingID) ?? new();
 
-                cardsInDeck.AddRange(SelectedItemDeck.ItemCards);
+                cardsInDeck.AddRange(SelectedItemDeck.Cards);
             }
 
             // Populate card pages

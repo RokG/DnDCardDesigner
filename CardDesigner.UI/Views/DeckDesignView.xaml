@@ -178,7 +178,7 @@
                                 Padding="0"
                                 VerticalAlignment="Center"
                                 BorderThickness="0"
-                                ItemsSource="{Binding SelectedCharacterDeck.CharacterCards, Mode=TwoWay}"
+                                ItemsSource="{Binding SelectedCharacterDeck.Cards, Mode=TwoWay}"
                                 SelectedItem="{Binding TestCharacterCard, Mode=TwoWay}"
                                 ViewOnly="True" />
                             <Label
@@ -299,7 +299,7 @@
                                 Padding="0"
                                 VerticalAlignment="Center"
                                 BorderThickness="0"
-                                ItemsSource="{Binding SelectedSpellDeck.SpellCards, Mode=TwoWay}"
+                                ItemsSource="{Binding SelectedSpellDeck.Cards, Mode=TwoWay}"
                                 SelectedItem="{Binding TestSpellCard, Mode=TwoWay}"
                                 ViewOnly="True" />
                             <Label
@@ -417,7 +417,7 @@
                                 Padding="0"
                                 VerticalAlignment="Center"
                                 BorderThickness="0"
-                                ItemsSource="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay}"
+                                ItemsSource="{Binding SelectedItemDeck.Cards, Mode=TwoWay}"
                                 SelectedItem="{Binding TestItemCard, Mode=TwoWay}"
                                 ViewOnly="True" />
                             <Label
@@ -536,7 +536,7 @@
                                 Padding="0"
                                 VerticalAlignment="Center"
                                 BorderThickness="0"
-                                ItemsSource="{Binding SelectedMinionDeck.MinionCards, Mode=TwoWay}"
+                                ItemsSource="{Binding SelectedMinionDeck.Cards, Mode=TwoWay}"
                                 SelectedItem="{Binding TestMinionCard, Mode=TwoWay}"
                                 ViewOnly="True" />
                             <Label

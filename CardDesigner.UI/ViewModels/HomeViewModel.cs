@@ -196,7 +196,7 @@ namespace CardDesigner.UI.ViewModels
                         ParentID = character.ID
                     };
 
-                    foreach (ItemCardModel itemCard in itemDeck.ItemCards)
+                    foreach (ItemCardModel itemCard in itemDeck.Cards)
                     {
                         TreeItemModel addedItemCard = new()
                         {
@@ -225,7 +225,7 @@ namespace CardDesigner.UI.ViewModels
                         ParentID = character.ID
                     };
 
-                    foreach (SpellCardModel spellCard in spellDeck.SpellCards)
+                    foreach (SpellCardModel spellCard in spellDeck.Cards)
                     {
                         TreeItemModel addedSpellCard = new()
                         {
@@ -254,7 +254,7 @@ namespace CardDesigner.UI.ViewModels
                         ParentID = character.ID
                     };
 
-                    foreach (MinionCardModel MinionCard in MinionDeck.MinionCards)
+                    foreach (MinionCardModel MinionCard in MinionDeck.Cards)
                     {
                         TreeItemModel addedMinionCard = new()
                         {
@@ -283,7 +283,7 @@ namespace CardDesigner.UI.ViewModels
                         ParentID = character.ID
                     };
 
-                    foreach (CharacterCardModel characterCard in characterDeck.CharacterCards)
+                    foreach (CharacterCardModel characterCard in characterDeck.Cards)
                     {
                         TreeItemModel addedCharacterCard = new()
                         {

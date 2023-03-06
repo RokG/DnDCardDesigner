@@ -7,7 +7,7 @@ namespace CardDesigner.Domain.Entities
     {
         [Key]
         public int ID { get; set; }
-        public ICollection<ItemCardEntity> ItemCards { get; set; }
+        public ICollection<ItemCardEntity> Cards { get; set; }
         public List<ItemDeckItemCard> ItemDeckItemCards { get; set; }
 
         // Properties

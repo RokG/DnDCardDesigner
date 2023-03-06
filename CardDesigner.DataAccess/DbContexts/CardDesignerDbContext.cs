@@ -152,7 +152,7 @@ namespace CardDesigner.DataAccess.DbContexts
             // Spell Deck - Spell Card
             modelBuilder.Entity<SpellCardEntity>()
                 .HasMany(c => c.SpellDecks)
-                .WithMany(c => c.SpellCards)
+                .WithMany(c => c.Cards)
                 .UsingEntity<SpellDeckSpellCard>(
                     j => j
                         .HasOne(t => t.SpellDeck)
@@ -173,7 +173,7 @@ namespace CardDesigner.DataAccess.DbContexts
 
             modelBuilder.Entity<ItemCardEntity>()
                .HasMany(c => c.ItemDecks)
-               .WithMany(c => c.ItemCards)
+               .WithMany(c => c.Cards)
                .UsingEntity<ItemDeckItemCard>(
                    j => j
                        .HasOne(t => t.ItemDeck)
@@ -194,7 +194,7 @@ namespace CardDesigner.DataAccess.DbContexts
 
             modelBuilder.Entity<CharacterCardEntity>()
                .HasMany(c => c.CharacterDecks)
-               .WithMany(c => c.CharacterCards)
+               .WithMany(c => c.Cards)
                .UsingEntity<CharacterDeckCharacterCard>(
                    j => j
                        .HasOne(t => t.CharacterDeck)
@@ -215,7 +215,7 @@ namespace CardDesigner.DataAccess.DbContexts
 
             modelBuilder.Entity<MinionCardEntity>()
                .HasMany(c => c.MinionDecks)
-               .WithMany(c => c.MinionCards)
+               .WithMany(c => c.Cards)
                .UsingEntity<MinionDeckMinionCard>(
                    j => j
                        .HasOne(t => t.MinionDeck)
@@ -306,7 +306,7 @@ namespace CardDesigner.DataAccess.DbContexts
                 CharacterID = 1,
             });
 
-            modelBuilder.Entity<MinionDeckEntity>().HasMany(p => p.MinionCards).WithMany(p => p.MinionDecks)
+            modelBuilder.Entity<MinionDeckEntity>().HasMany(p => p.Cards).WithMany(p => p.MinionDecks)
             .UsingEntity(j => j
             .ToTable("MinionDeckMinionCard")
             .HasData(new[]
@@ -364,7 +364,7 @@ namespace CardDesigner.DataAccess.DbContexts
                 CharacterID = 1,
             });
 
-            modelBuilder.Entity<CharacterDeckEntity>().HasMany(p => p.CharacterCards).WithMany(p => p.CharacterDecks)
+            modelBuilder.Entity<CharacterDeckEntity>().HasMany(p => p.Cards).WithMany(p => p.CharacterDecks)
             .UsingEntity(j => j
             .ToTable("CharacterDeckCharacterCard")
             .HasData(new[]
@@ -373,7 +373,7 @@ namespace CardDesigner.DataAccess.DbContexts
                 new { CharacterCardID = 3, CharacterDeckID = 1},
             }));
 
-            modelBuilder.Entity<CharacterDeckEntity>().HasMany(p => p.CharacterCards).WithMany(p => p.CharacterDecks)
+            modelBuilder.Entity<CharacterDeckEntity>().HasMany(p => p.Cards).WithMany(p => p.CharacterDecks)
            .UsingEntity(j => j
            .ToTable("CharacterDeckCharacterCard")
            .HasData(new[]
@@ -519,7 +519,7 @@ namespace CardDesigner.DataAccess.DbContexts
                 CharacterID = 1,
             });
 
-            modelBuilder.Entity<ItemDeckEntity>().HasMany(p => p.ItemCards).WithMany(p => p.ItemDecks)
+            modelBuilder.Entity<ItemDeckEntity>().HasMany(p => p.Cards).WithMany(p => p.ItemDecks)
             .UsingEntity(j => j
             .ToTable("ItemDeckItemCard")
             .HasData(new[]
@@ -568,7 +568,7 @@ namespace CardDesigner.DataAccess.DbContexts
                 CharacterID = 1,
             });
 
-            modelBuilder.Entity<SpellDeckEntity>().HasMany(p => p.SpellCards).WithMany(p => p.SpellDecks)
+            modelBuilder.Entity<SpellDeckEntity>().HasMany(p => p.Cards).WithMany(p => p.SpellDecks)
             .UsingEntity(j => j
             .ToTable("SpellDeckSpellCard")
             .HasData(new[]

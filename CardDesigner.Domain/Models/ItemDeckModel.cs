@@ -11,6 +11,6 @@ namespace CardDesigner.Domain.Models
         // Properties
         public string Name { get; set; }
         public string Title { get; set; }
-        public List<ItemCardModel> ItemCards { get; set; }
+        public List<ItemCardModel> Cards { get; set; }
     }
 }

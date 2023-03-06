@@ -755,7 +755,7 @@ namespace CardDesigner.Domain.Stores
         {
             foreach (ItemDeckModel itemDeck in itemDecks)
             {
-                AssignItemsToCards(itemDeck.ItemCards);
+                AssignItemsToCards(itemDeck.Cards);
             }
         }
 

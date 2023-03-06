@@ -98,7 +98,7 @@
                     </Border.Style>
                     <controls:ItemTransferControl
                         AddCommand="{Binding DataContext.AddCharacterCardToDeckCommand, ElementName=deckControl}"
-                        ItemsDestination="{Binding SelectedCharacterDeck.CharacterCards, Mode=TwoWay}"
+                        ItemsDestination="{Binding SelectedCharacterDeck.Cards, Mode=TwoWay}"
                         ItemsSource="{Binding AllCharacterCards, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveCharacterCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
@@ -150,7 +150,7 @@
                     </Border.Style>
                     <controls:ItemTransferControl
                         AddCommand="{Binding DataContext.AddSpellCardToDeckCommand, ElementName=deckControl}"
-                        ItemsDestination="{Binding SelectedSpellDeck.SpellCards, Mode=TwoWay}"
+                        ItemsDestination="{Binding SelectedSpellDeck.Cards, Mode=TwoWay}"
                         ItemsSource="{Binding AllSpellCards, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveSpellCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
@@ -202,7 +202,7 @@
                     </Border.Style>
                     <controls:ItemTransferControl
                         AddCommand="{Binding DataContext.AddItemCardToDeckCommand, ElementName=deckControl}"
-                        ItemsDestination="{Binding SelectedItemDeck.ItemCards, Mode=TwoWay}"
+                        ItemsDestination="{Binding SelectedItemDeck.Cards, Mode=TwoWay}"
                         ItemsSource="{Binding AllItemCards, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveItemCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
@@ -254,7 +254,7 @@
                     </Border.Style>
                     <controls:ItemTransferControl
                         AddCommand="{Binding DataContext.AddMinionCardToDeckCommand, ElementName=deckControl}"
-                        ItemsDestination="{Binding SelectedMinionDeck.MinionCards, Mode=TwoWay}"
+                        ItemsDestination="{Binding SelectedMinionDeck.Cards, Mode=TwoWay}"
                         ItemsSource="{Binding AllMinionCards, Mode=TwoWay}"
                         RemoveCommand="{Binding DataContext.RemoveMinionCardFromDeckCommand, ElementName=deckControl}" />
                 </Border>
