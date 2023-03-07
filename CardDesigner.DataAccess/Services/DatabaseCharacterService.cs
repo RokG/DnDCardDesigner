@@ -48,6 +48,7 @@ namespace CardDesigner.DataAccess.Services
                     .Include(c => c.Classes)
                     .Single(c => c.ID == characterModel.ID);
 
+                // TODO: This whole update is messed up...
                 characterEntity.Title = characterModel.Title;
                 characterEntity.Weight = characterModel.Weight;
                 characterEntity.Height = characterModel.Height;
@@ -55,6 +56,19 @@ namespace CardDesigner.DataAccess.Services
                 characterEntity.Hitpoints = characterModel.Hitpoints;
                 characterEntity.Race = characterModel.Race;
                 characterEntity.Alignment = characterModel.Alignment;
+                characterEntity.ArmourClass = characterModel.ArmourClass;
+                characterEntity.Initiative = characterModel.Initiative;
+                characterEntity.Speed = characterModel.Speed;
+                characterEntity.IsLightArmourProficiency = characterModel.IsLightArmourProficiency;
+                characterEntity.IsMediumArmourProficient = characterModel.IsMediumArmourProficient;
+                characterEntity.IsHeavyArmourProficient = characterModel.IsHeavyArmourProficient;
+                characterEntity.IsSimpleWeaponProficient = characterModel.IsSimpleWeaponProficient;
+                characterEntity.IsMartialWeaponProficient = characterModel.IsMartialWeaponProficient;
+                characterEntity.IsShieldProficient = characterModel.IsShieldProficient;
+                characterEntity.PassiveInsight = characterModel.PassiveInsight;
+                characterEntity.PassivePerception = characterModel.PassivePerception;
+                characterEntity.Proficiency = characterModel.Proficiency;
+                characterEntity.OtherProficiencies = characterModel.OtherProficiencies;
 
                 // Update one-to-one bindings
                 characterEntity.Abilities = _mapper.Map<CharacterAbilitiesEntity>(characterModel.Abilities);
