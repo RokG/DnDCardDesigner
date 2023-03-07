@@ -72,6 +72,7 @@
                             ItemsSource="{Binding AllCharacterDecks, Mode=TwoWay}"
                             SaveCommand="{Binding CreateCharacterDeckCommand}"
                             SelectedItem="{Binding SelectedCharacterDeck, Mode=TwoWay}"
+                            UpdateCommand="{Binding UpdateCharacterDeckCommand}"
                             ViewOnly="False" />
                         <Label
                             Margin="5,0"
@@ -79,7 +80,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedCharacterDeck.Title}" />
+                            Text="{Binding SelectedCharacterDeck.Name}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage cards in decks  -->
@@ -124,6 +125,7 @@
                             ItemsSource="{Binding AllSpellDecks, Mode=TwoWay}"
                             SaveCommand="{Binding CreateSpellDeckCommand}"
                             SelectedItem="{Binding SelectedSpellDeck, Mode=TwoWay}"
+                            UpdateCommand="{Binding UpdateSpellDeckCommand}"
                             ViewOnly="False" />
                         <Label
                             Margin="5,0"
@@ -131,7 +133,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedSpellDeck.Title}" />
+                            Text="{Binding SelectedSpellDeck.Name}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage spell cards in decks  -->
@@ -176,6 +178,7 @@
                             ItemsSource="{Binding AllItemDecks, Mode=TwoWay}"
                             SaveCommand="{Binding CreateItemDeckCommand}"
                             SelectedItem="{Binding SelectedItemDeck, Mode=TwoWay}"
+                            UpdateCommand="{Binding UpdateItemDeckCommand}"
                             ViewOnly="False" />
                         <Label
                             Margin="5,0"
@@ -183,7 +186,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedItemDeck.Title}" />
+                            Text="{Binding SelectedItemDeck.Name}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage item cards in deck  -->
@@ -228,6 +231,7 @@
                             ItemsSource="{Binding AllMinionDecks, Mode=TwoWay}"
                             SaveCommand="{Binding CreateMinionDeckCommand}"
                             SelectedItem="{Binding SelectedMinionDeck, Mode=TwoWay}"
+                            UpdateCommand="{Binding UpdateMinionDeckCommand}"
                             ViewOnly="False" />
                         <Label
                             Margin="5,0"
@@ -235,7 +239,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedMinionDeck.Title}" />
+                            Text="{Binding SelectedMinionDeck.Name}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage Minion cards in decks  -->
