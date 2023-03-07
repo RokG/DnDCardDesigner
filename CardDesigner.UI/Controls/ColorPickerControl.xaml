@@ -102,7 +102,9 @@
             </Viewbox>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Hex:" />
-                <TextBox Text="{Binding CurrentColor, ElementName=colorPickerControl}" />
+                <TextBox
+                    KeyDown="TextBoxColor_KeyDown"
+                    Text="{Binding CurrentColor, ElementName=colorPickerControl}" />
             </StackPanel>
         </StackPanel>
     </Border>
