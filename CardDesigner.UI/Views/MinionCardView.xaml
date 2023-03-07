@@ -22,7 +22,7 @@
                     Text="{Binding DataContext.SelectedMinion.AvatarImagePath, ElementName=minionCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <ComboBox
                     Grid.Column="2"
-                    SelectedItem="{Binding DataContext.SelectedMinion.AvatarImageStretch, ElementName=minionCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    SelectedItem="{Binding DataContext.SelectedMinionCard.AvatarImageStretch, ElementName=minionCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <sys:String>None</sys:String>
                     <sys:String>Fill</sys:String>
                     <sys:String>Uniform</sys:String>

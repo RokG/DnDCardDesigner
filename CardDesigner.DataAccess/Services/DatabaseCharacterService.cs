@@ -69,6 +69,7 @@ namespace CardDesigner.DataAccess.Services
                 characterEntity.PassivePerception = characterModel.PassivePerception;
                 characterEntity.Proficiency = characterModel.Proficiency;
                 characterEntity.OtherProficiencies = characterModel.OtherProficiencies;
+                characterEntity.AvatarImagePath = characterModel.AvatarImagePath;
 
                 // Update one-to-one bindings
                 characterEntity.Abilities = _mapper.Map<CharacterAbilitiesEntity>(characterModel.Abilities);

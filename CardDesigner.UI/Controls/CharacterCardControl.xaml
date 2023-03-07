@@ -111,7 +111,7 @@
             <!--  Item icon  -->
             <controls:ImageControl
                 ImageSource="{Binding Character.AvatarImagePath, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                ImageStretch="{Binding Character.AvatarImageStretch, ElementName=characterCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                ImageStretch="{Binding CharacterCard.AvatarImageStretch, ElementName=characterCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
         </ControlTemplate>
         <!--  Stats content  -->
         <ControlTemplate x:Key="StatsContentTemplate">
@@ -182,6 +182,7 @@
             <controls:TextBoxWithPlaceholderControl
                 Width="246"
                 MaxHeight="300"
+                Margin="0,10,0,0"
                 Background="Transparent"
                 FontSize="{Binding CharacterCard.DescriptionFontSize, ElementName=characterCard, Mode=TwoWay}"
                 Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -426,8 +427,9 @@
                 <!--  Content  -->
                 <ContentControl
                     Canvas.Left="2"
-                    Canvas.Top="50"
-                    Width="246">
+                    Canvas.Top="37"
+                    Width="246"
+                    Height="276">
                     <ContentControl.Style>
                         <Style TargetType="{x:Type ContentControl}">
                             <Style.Triggers>

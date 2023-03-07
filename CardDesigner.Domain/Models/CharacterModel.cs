@@ -26,7 +26,6 @@ namespace CardDesigner.Domain.Models
         public Alignment Alignment { get; set; }
 
         public string AvatarImagePath { get; set; } = string.Empty;
-        public string AvatarImageStretch { get; set; } = "Uniform";
 
         public string Height { get; set; }
         public string Weight { get; set; }

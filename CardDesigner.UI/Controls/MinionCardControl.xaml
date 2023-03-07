@@ -32,7 +32,7 @@
                 <controls:ImageControl
                     Height="175"
                     ImageSource="{Binding MinionCard.Minion.AvatarImagePath, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ImageStretch="{Binding MinionCard.Minion.AvatarImageStretch, ElementName=minionCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                    ImageStretch="{Binding MinionCard.AvatarImageStretch, ElementName=minionCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
                 <Border
                     Width="246"
                     Padding="0,10,0,0"
