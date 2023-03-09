@@ -101,7 +101,7 @@
                     Padding="0"
                     VerticalAlignment="Center"
                     Background="Transparent"
-                    Content="AC: "
+                    Content="{StaticResource ArmourClass}"
                     FontSize="12"
                     Foreground="{Binding CardDesign.FooterIconColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Label
