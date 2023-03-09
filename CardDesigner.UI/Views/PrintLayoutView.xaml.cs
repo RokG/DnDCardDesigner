@@ -80,7 +80,10 @@ namespace CardDesigner.UI.Views
                 AllowUIToUpdate();
                 UIElement control = FindChild<CardPageControl>(cardPages, "cardPageControl");
                 collator.Write(control);
-                collator.Write(cardBackgroundPages);
+                if (printBackside.IsChecked == true)
+                { 
+                    collator.Write(cardBackgroundPages);
+                }
                 list.Add(control);
             }
             collator.EndBatchWrite();
