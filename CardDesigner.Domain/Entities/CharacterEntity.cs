@@ -25,7 +25,6 @@ namespace CardDesigner.Domain.Entities
         public Alignment Alignment { get; set; }
 
         public string AvatarImagePath { get; set; }
-        public string AvatarImageStretch { get; set; }
 
         public string Height { get; set; }
         public string Weight { get; set; }

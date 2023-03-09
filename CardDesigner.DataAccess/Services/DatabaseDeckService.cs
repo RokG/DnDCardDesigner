@@ -75,6 +75,8 @@ namespace CardDesigner.DataAccess.Services
                             .Include(sd => sd.Cards)
                             .Single(sc => sc.ID == spellDeckModel.ID);
 
+                        spellDeckEntity.Name = spellDeckModel.Name;
+
                         // Loop over cards in source deck - ADD
                         foreach (SpellCardModel spellCard in spellDeckModel.Cards)
                         {
@@ -96,15 +98,19 @@ namespace CardDesigner.DataAccess.Services
                             }
                         }
 
+                        SpellDeckEntity createdSpellDeckEntity = dbContext.SpellDecks.Update(spellDeckEntity).Entity;
+
                         await dbContext.SaveChangesAsync();
 
-                        return _mapper.Map<SpellDeckModel>(spellDeckEntity);
+                        return _mapper.Map<SpellDeckModel>(createdSpellDeckEntity);
 
                     case ItemDeckModel itemDeckModel:
                         // Get item deck from database
                         ItemDeckEntity itemDeckEntity = dbContext.ItemDecks
                             .Include(sd => sd.Cards)
                             .Single(sc => sc.ID == itemDeckModel.ID);
+
+                        itemDeckEntity.Name = itemDeckModel.Name;
 
                         // Loop over cards in source deck - ADD
                         foreach (ItemCardModel itemCard in itemDeckModel.Cards)
@@ -127,15 +133,19 @@ namespace CardDesigner.DataAccess.Services
                             }
                         }
 
+                        ItemDeckEntity createdItemDeckEntity = dbContext.ItemDecks.Update(itemDeckEntity).Entity;
+
                         await dbContext.SaveChangesAsync();
 
-                        return _mapper.Map<ItemDeckModel>(itemDeckEntity);
+                        return _mapper.Map<ItemDeckModel>(createdItemDeckEntity);
 
                     case CharacterDeckModel characterDeckModel:
                         // Get character deck from database
                         CharacterDeckEntity characterDeckEntity = dbContext.CharacterDecks
                             .Include(sd => sd.Cards)
                             .Single(sc => sc.ID == characterDeckModel.ID);
+
+                        characterDeckEntity.Name = characterDeckModel.Name;
 
                         // Loop over cards in source deck - ADD
                         foreach (CharacterCardModel characterCard in characterDeckModel.Cards)
@@ -158,15 +168,19 @@ namespace CardDesigner.DataAccess.Services
                             }
                         }
 
+                        CharacterDeckEntity createdCharacterDeckEntity = dbContext.CharacterDecks.Update(characterDeckEntity).Entity;
+
                         await dbContext.SaveChangesAsync();
 
-                        return _mapper.Map<CharacterDeckModel>(characterDeckEntity);
+                        return _mapper.Map<CharacterDeckModel>(createdCharacterDeckEntity);
 
                     case MinionDeckModel minionDeckModel:
                         // Get minion deck from database
                         MinionDeckEntity minionDeckEntity = dbContext.MinionDecks
                             .Include(sd => sd.Cards)
                             .Single(sc => sc.ID == minionDeckModel.ID);
+
+                        minionDeckEntity.Name = minionDeckModel.Name;
 
                         // Loop over cards in source deck - ADD
                         foreach (MinionCardModel minionCard in minionDeckModel.Cards)
@@ -188,9 +202,11 @@ namespace CardDesigner.DataAccess.Services
                             }
                         }
 
+                        MinionDeckEntity createdMinionDeckEntity = dbContext.MinionDecks.Update(minionDeckEntity).Entity;
+
                         await dbContext.SaveChangesAsync();
 
-                        return _mapper.Map<MinionDeckModel>(minionDeckEntity);
+                        return _mapper.Map<MinionDeckModel>(createdMinionDeckEntity);
 
                     default:
                         return null;

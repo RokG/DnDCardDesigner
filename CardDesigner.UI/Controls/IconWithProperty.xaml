@@ -66,6 +66,17 @@
                         </Style>
                     </Label.Style>
                 </Label>
+                <StackPanel.Style>
+                    <Style TargetType="{x:Type StackPanel}">
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Icon, ElementName=IconWithProperty}"
+                                Value="">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
             </StackPanel>
         </StackPanel>
     </Viewbox>

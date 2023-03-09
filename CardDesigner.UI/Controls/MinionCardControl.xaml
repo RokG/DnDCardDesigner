@@ -19,8 +19,9 @@
                     Width="246"
                     Background="Transparent"
                     FontSize="{Binding MinionCard.TitleFontSize, ElementName=minionCard, Mode=TwoWay}"
+                    FontWeight="Bold"
                     Foreground="{Binding CardDesign.HeaderTextColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    InputText="{Binding MinionCard.Minion.Title, ElementName=minionCard, Mode=TwoWay}"
+                    InputText="{Binding MinionCard.Minion.Title, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsEnabled="{Binding IsEditable, ElementName=minionCard}" />
             </Canvas>
         </ControlTemplate>
@@ -32,7 +33,7 @@
                 <controls:ImageControl
                     Height="175"
                     ImageSource="{Binding MinionCard.Minion.AvatarImagePath, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ImageStretch="{Binding MinionCard.Minion.AvatarImageStretch, ElementName=minionCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                    ImageStretch="{Binding MinionCard.AvatarImageStretch, ElementName=minionCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
                 <Border
                     Width="246"
                     Padding="0,10,0,0"
@@ -64,15 +65,15 @@
                             SwitchAbilityValueBonus="True" />
                         <local:AbilityBaseControl
                             Margin="4,0"
-                            AbilityLevel="{Binding MinionCard.Minion.Wisdom, ElementName=minionCard}"
-                            AbilityLevelBonus="{Binding MinionCard.Minion.WisdomBonus, ElementName=minionCard}"
+                            AbilityLevel="{Binding MinionCard.Minion.Inteligence, ElementName=minionCard}"
+                            AbilityLevelBonus="{Binding MinionCard.Minion.InteligenceBonus, ElementName=minionCard}"
                             AbilityName="INT"
                             Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SwitchAbilityValueBonus="True" />
                         <local:AbilityBaseControl
                             Margin="4,0"
-                            AbilityLevel="{Binding MinionCard.Minion.Inteligence, ElementName=minionCard}"
-                            AbilityLevelBonus="{Binding MinionCard.Minion.InteligenceBonus, ElementName=minionCard}"
+                            AbilityLevel="{Binding MinionCard.Minion.Wisdom, ElementName=minionCard}"
+                            AbilityLevelBonus="{Binding MinionCard.Minion.WisdomBonus, ElementName=minionCard}"
                             AbilityName="WIS"
                             Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SwitchAbilityValueBonus="True" />
@@ -129,23 +130,29 @@
 
         <!--  Actions content  -->
         <ControlTemplate x:Key="AttributesContentTemplate">
-            <StackPanel Margin="10,0">
-                <controls:DataLabel
+            <StackPanel>
+                <controls:TextBoxWithPlaceholderControl
+                    Width="246"
+                    Background="Transparent"
+                    FontSize="{Binding MinionCard.DescriptionFontSize, ElementName=minionCard, Mode=TwoWay}"
+                    FontWeight="Normal"
                     Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Orientation="Vertical"
-                    Value1="{Binding MinionCard.Minion.Attributes, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ValueName="Attributes" />
+                    InputText="{Binding MinionCard.Minion.Attributes, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsEnabled="True" />
             </StackPanel>
         </ControlTemplate>
 
         <!--  Actions content  -->
         <ControlTemplate x:Key="ActionsContentTemplate">
-            <StackPanel Margin="10,0">
-                <controls:DataLabel
+            <StackPanel>
+                <controls:TextBoxWithPlaceholderControl
+                    Width="246"
+                    Background="Transparent"
+                    FontSize="{Binding MinionCard.DescriptionFontSize, ElementName=minionCard, Mode=TwoWay}"
+                    FontWeight="Normal"
                     Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Orientation="Vertical"
-                    Value1="{Binding MinionCard.Minion.Actions, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ValueName="Actions" />
+                    InputText="{Binding MinionCard.Minion.Actions, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsEnabled="True" />
             </StackPanel>
         </ControlTemplate>
 
@@ -344,6 +351,7 @@
                     <Label
                         Margin="0"
                         Padding="0"
+                        HorizontalContentAlignment="Center"
                         Background="Transparent"
                         Content="{Binding MinionCard.Minion.ChalangeRating, ElementName=minionCard}"
                         FontFamily="Arial"

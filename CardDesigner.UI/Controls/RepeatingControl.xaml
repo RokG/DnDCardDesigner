@@ -14,7 +14,8 @@
             Padding="0"
             VerticalAlignment="Center"
             Content="{Binding Title, ElementName=repeatingControl}"
-            FontSize="10" />
+            FontSize="10"
+            Foreground="{Binding Foreground, ElementName=repeatingControl}" />
         <ListView
             Grid.Column="1"
             Height="22"
@@ -28,6 +29,7 @@
                         Width="15"
                         Height="15"
                         Margin="1"
+                        BorderBrush="{Binding Foreground, ElementName=repeatingControl}"
                         CornerRadius="7"
                         Style="{StaticResource VisibleBorder}" />
                 </DataTemplate>

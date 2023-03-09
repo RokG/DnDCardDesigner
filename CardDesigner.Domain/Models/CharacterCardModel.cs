@@ -16,5 +16,7 @@ namespace CardDesigner.Domain.Models
         public string Description { get; set; } = string.Empty;
         public double DescriptionFontSize { get; set; } = 16;
         public CharacterCardType Type { get; set; }
+        public string AvatarImageStretch { get; set; } = "Uniform";
+
     }
 }

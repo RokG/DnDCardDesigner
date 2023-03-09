@@ -14,17 +14,12 @@
             <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Content="Avatar: " />
-                <controls:FilePicker
-                    Grid.Column="1"
-                    Margin="5"
-                    Text="{Binding DataContext.SelectedCharacter.AvatarImagePath, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Image Stretch: " />
                 <ComboBox
-                    Grid.Column="2"
-                    SelectedItem="{Binding DataContext.SelectedCharacter.AvatarImageStretch, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    Grid.Column="1"
+                    SelectedItem="{Binding DataContext.SelectedCharacterCard.AvatarImageStretch, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <sys:String>None</sys:String>
                     <sys:String>Fill</sys:String>
                     <sys:String>Uniform</sys:String>
@@ -54,11 +49,6 @@
                         Maximum="20"
                         Minimum="0"
                         Value="{Binding DataContext.SelectedCharacterCard.Level, ElementName=characterCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </DockPanel>
-                <DockPanel HorizontalAlignment="Stretch">
-                    <Label
-                        Background="Transparent"
-                        Content="Class: " />
                 </DockPanel>
             </StackPanel>
         </ControlTemplate>

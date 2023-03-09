@@ -154,6 +154,7 @@
                     Width="246"
                     Background="Transparent"
                     FontSize="{Binding SpellCard.TitleFontSize, ElementName=spellCard, Mode=TwoWay}"
+                    FontWeight="Black"
                     Foreground="{Binding CardDesign.HeaderTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     InputText="{Binding SpellCard.Title, ElementName=spellCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
@@ -161,11 +162,12 @@
                 <!--  Description textbox  -->
                 <controls:TextBoxWithPlaceholderControl
                     Canvas.Left="2"
-                    Canvas.Top="50"
+                    Canvas.Top="45"
                     Width="246"
-                    MaxHeight="300"
+                    MaxHeight="238"
                     Background="Transparent"
-                    FontSize="{Binding SpellCard.DescriptionFontSize, ElementName=spellCard, Mode=TwoWay}"
+                    FontSize="{Binding SpellCard.DescriptionFontSize, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    FontWeight="Normal"
                     Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     InputText="{Binding SpellCard.Description, ElementName=spellCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=spellCard}" />
@@ -224,6 +226,7 @@
                         Width="150"
                         Background="Transparent"
                         FontSize="10"
+                        FontWeight="Normal"
                         Foreground="{Binding CardDesign.FooterTextColor, ElementName=spellCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         InputText="{Binding SpellCard.Target, ElementName=spellCard, Mode=TwoWay}"
                         IsEnabled="{Binding IsEditable, ElementName=spellCard}" />

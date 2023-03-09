@@ -45,7 +45,10 @@ namespace CardDesigner.UI.ViewModels
         private double pageOffsetX = 0;
 
         [ObservableProperty]
-        private int selectedPageIndex = 0;
+        private bool printBackside = true;
+
+        [ObservableProperty]
+        private int selectedPageIndex = -1;
 
         [ObservableProperty]
         private ICardDesign selectedCardDesign;
@@ -104,6 +107,7 @@ namespace CardDesigner.UI.ViewModels
 
             CardScale = _settingsStore.PrintCardScale;
             PageOffsetX = _settingsStore.PrintPageOffsetX;
+            PrintBackside = _settingsStore.PrintBackside;
 
             GenerateCharacterTree();
         }
@@ -357,6 +361,11 @@ namespace CardDesigner.UI.ViewModels
         partial void OnPageOffsetXChanged(double value)
         {
             _settingsStore.PrintPageOffsetX = value;
+        }
+
+        partial void OnPrintBacksideChanged(bool value)
+        {
+            _settingsStore.PrintBackside = value;
         }
 
         #endregion

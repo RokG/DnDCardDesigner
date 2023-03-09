@@ -289,7 +289,8 @@ namespace CardDesigner.UI.ViewModels
                     SelectedSpellDeck = spellDeck;
                     break;
                 case DataChangeType.Updated:
-                    SelectedSpellDeck = spellDeck;
+                    AllSpellDecks = new(_cardDesignerStore.SpellDecks);
+                    SelectedSpellDeck = AllSpellDecks.FirstOrDefault(d => d.ID == spellDeck.ID);
                     break;
                 case DataChangeType.Deleted:
                     AllSpellDecks.Remove(SelectedSpellDeck);
@@ -300,16 +301,17 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
-        private void OnMinionDeckChanged(MinionDeckModel MinionDeck, DataChangeType change)
+        private void OnMinionDeckChanged(MinionDeckModel minionDeck, DataChangeType change)
         {
             switch (change)
             {
                 case DataChangeType.Created:
-                    AllMinionDecks.Add(MinionDeck);
-                    SelectedMinionDeck = MinionDeck;
+                    AllMinionDecks.Add(minionDeck);
+                    SelectedMinionDeck = minionDeck;
                     break;
                 case DataChangeType.Updated:
-                    SelectedMinionDeck = MinionDeck;
+                    AllMinionDecks = new(_cardDesignerStore.MinionDecks);
+                    SelectedMinionDeck = AllMinionDecks.FirstOrDefault(d => d.ID == minionDeck.ID);
                     break;
                 case DataChangeType.Deleted:
                     AllMinionDecks.Remove(SelectedMinionDeck);
@@ -329,7 +331,8 @@ namespace CardDesigner.UI.ViewModels
                     SelectedItemDeck = itemDeck;
                     break;
                 case DataChangeType.Updated:
-                    SelectedItemDeck = itemDeck;
+                    AllItemDecks = new(_cardDesignerStore.ItemDecks);
+                    SelectedItemDeck = AllItemDecks.FirstOrDefault(d => d.ID == itemDeck.ID);
                     break;
                 case DataChangeType.Deleted:
                     AllItemDecks.Remove(SelectedItemDeck);
@@ -349,7 +352,8 @@ namespace CardDesigner.UI.ViewModels
                     SelectedCharacterDeck = characterDeck;
                     break;
                 case DataChangeType.Updated:
-                    SelectedCharacterDeck = characterDeck;
+                    AllCharacterDecks = new(_cardDesignerStore.CharacterDecks);
+                    SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault(d=>d.ID == characterDeck.ID);
                     break;
                 case DataChangeType.Deleted:
                     AllCharacterDecks.Remove(SelectedCharacterDeck);
@@ -485,6 +489,12 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
+        [RelayCommand]
+        private async void UpdateSpellDeck()
+        {
+            await _cardDesignerStore.UpdateSpellDeck(SelectedSpellDeck);
+        }
+
         #endregion
 
         #region ItemDecks
@@ -550,6 +560,12 @@ namespace CardDesigner.UI.ViewModels
                 });
                 await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
             }
+        }
+
+        [RelayCommand]
+        private async void UpdateItemDeck()
+        {
+            await _cardDesignerStore.UpdateItemDeck(SelectedItemDeck);
         }
 
         #endregion
@@ -619,6 +635,12 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
+        [RelayCommand]
+        private async void UpdateCharacterDeck()
+        {
+            await _cardDesignerStore.UpdateCharacterDeck(SelectedCharacterDeck);
+        }
+
         #endregion
 
         #region MinionDecks
@@ -684,6 +706,12 @@ namespace CardDesigner.UI.ViewModels
                 });
                 await _cardDesignerStore.UpdateCharacter(SelectedCharacter);
             }
+        }
+
+        [RelayCommand]
+        private async void UpdateMinionDeck()
+        {
+            await _cardDesignerStore.UpdateMinionDeck(SelectedMinionDeck);
         }
 
         #endregion

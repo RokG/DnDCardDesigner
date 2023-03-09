@@ -2,12 +2,13 @@
 {
     public enum Alignment
     {
+        Unaligned,
         ChaoticEvil,
         ChaoticNeutral,
         ChaoticGood,
-        Evil,
-        Neutral,
-        Good,
+        TrueEvil,
+        TrueNeutral,
+        TrueGood,
         LawfulEvil,
         LawfulNeutral,
         LawfulGood

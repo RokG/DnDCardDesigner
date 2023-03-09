@@ -7,6 +7,7 @@ namespace CardDesigner.Domain.Services
     {
         public double PrintCardScale { get => ReadDoubleSetting("PrintCardScale"); set => AddUpdateAppSettings("PrintCardScale", CropDouble(value, 1).ToString()); }
         public double PrintPageOffsetX { get => ReadDoubleSetting("PrintPageOffsetX"); set => AddUpdateAppSettings("PrintPageOffsetX", CropDouble(value, 1).ToString()); }
+        public bool PrintBackside { get => ReadBoolSetting("PrintBackside"); set => AddUpdateAppSettings("PrintBackside",value.ToString()); }
 
         private double CropDouble(double value, int decimals)
         {
@@ -14,6 +15,19 @@ namespace CardDesigner.Domain.Services
             return Math.Floor(value * factor) / factor;
         }
 
+        private static bool ReadBoolSetting(string key)
+        {
+            try
+            {
+                System.Collections.Specialized.NameValueCollection appSettings = ConfigurationManager.AppSettings;
+                string result = appSettings[key];
+                return Convert.ToBoolean(result);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                return false;
+            }
+        }
 
         private static int ReadIntSetting(string key)
         {

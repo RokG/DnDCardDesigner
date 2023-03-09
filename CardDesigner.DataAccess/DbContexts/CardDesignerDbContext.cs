@@ -229,8 +229,7 @@ namespace CardDesigner.DataAccess.DbContexts
 
             #endregion
 
-
-            Seed(modelBuilder);
+            //Seed(modelBuilder);
         }
 
         private void Seed(ModelBuilder modelBuilder)
@@ -379,7 +378,7 @@ namespace CardDesigner.DataAccess.DbContexts
                 new { CharacterCardID = 3, CharacterDeckID = 2},
            }));
 
-            CharacterEntity character = new() { ID = 1, AvatarImageStretch = "Uniform", AvatarImagePath = "/Resources/Images/sampleimageavatar.png", Name = "SampleCharacter_1", Weight = "100 kg", Age = "25 y", Alignment = Alignment.ChaoticNeutral, ArmourClass = 12, Height = "6 ft", Hitpoints = 40, Initiative = -1, IsHeavyArmourProficient = false, IsLightArmourProficiency = true, IsMartialWeaponProficient = true, IsMediumArmourProficient = false, IsShieldProficient = false, IsSimpleWeaponProficient = false, Proficiency = 2, OtherProficiencies = "Healing kit, Blacksmith tools", PassiveInsight = 14, PassivePerception = 12, Race = Race.HalfOrc, Speed = 25, Title = "Waltung Kremis" };
+            CharacterEntity character = new() { ID = 1, AvatarImagePath = "/Resources/Images/sampleimageavatar.png", Name = "SampleCharacter_1", Weight = "100 kg", Age = "25 y", Alignment = Alignment.ChaoticNeutral, ArmourClass = 12, Height = "6 ft", Hitpoints = 40, Initiative = -1, IsHeavyArmourProficient = false, IsLightArmourProficiency = true, IsMartialWeaponProficient = true, IsMediumArmourProficient = false, IsShieldProficient = false, IsSimpleWeaponProficient = false, Proficiency = 2, OtherProficiencies = "Healing kit, Blacksmith tools", PassiveInsight = 14, PassivePerception = 12, Race = Race.HalfOrc, Speed = 25, Title = "Waltung Kremis" };
             modelBuilder.Entity<CharacterEntity>().HasData(character);
 
             modelBuilder.Entity<CharacterClassEntity>().HasData(new

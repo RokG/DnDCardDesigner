@@ -2,6 +2,7 @@
 {
     public enum AreaOfEffect
     {
+        None,
         Sphere,
         Square,
         Cone,

@@ -18,6 +18,7 @@
                     Width="246"
                     Background="Transparent"
                     FontSize="{Binding CharacterCard.TitleFontSize, ElementName=characterCard, Mode=TwoWay}"
+                    FontWeight="Black"
                     Foreground="{Binding CardDesign.HeaderTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     InputText="{Binding Character.Title, ElementName=characterCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
@@ -77,12 +78,13 @@
                     Width="246"
                     Background="Transparent"
                     FontSize="{Binding CharacterCard.TitleFontSize, ElementName=characterCard, Mode=TwoWay}"
+                    FontWeight="Black"
                     Foreground="{Binding CardDesign.HeaderTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     InputText="{Binding CharacterCard.Title, ElementName=characterCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
                 <Border
                     Canvas.Top="25"
-                    Canvas.Right="5"
+                    Canvas.Right="3"
                     Width="25"
                     Height="25"
                     Margin="2,0,0,0"
@@ -94,7 +96,11 @@
                         Padding="0"
                         HorizontalAlignment="Center"
                         Background="Transparent"
-                        Content="{Binding CharacterCard.Level, ElementName=characterCard, Mode=TwoWay}" />
+                        Content="{Binding CharacterCard.Level, ElementName=characterCard, Mode=TwoWay}"
+                        FontFamily="Arial"
+                        FontSize="16"
+                        FontWeight="Black"
+                        Foreground="{Binding CardDesign.HeaderIconColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Border>
             </Canvas>
         </ControlTemplate>
@@ -111,7 +117,7 @@
             <!--  Item icon  -->
             <controls:ImageControl
                 ImageSource="{Binding Character.AvatarImagePath, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                ImageStretch="{Binding Character.AvatarImageStretch, ElementName=characterCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                ImageStretch="{Binding CharacterCard.AvatarImageStretch, ElementName=characterCard, Mode=TwoWay, Converter={converters:StringToStretchConverter}, UpdateSourceTrigger=PropertyChanged}" />
         </ControlTemplate>
         <!--  Stats content  -->
         <ControlTemplate x:Key="StatsContentTemplate">
@@ -136,7 +142,8 @@
                             Margin="0"
                             Padding="0"
                             Content="Proficiencies:"
-                            FontSize="12" />
+                            FontSize="12"
+                            Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <ListBox Style="{StaticResource AbilityListboxStyle}">
                             <ListBoxItem
                                 Content="Light armour"
@@ -169,7 +176,8 @@
                             Margin="0"
                             Padding="0"
                             Content="Other proficiencies: "
-                            FontSize="12" />
+                            FontSize="12"
+                            Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <ListBox
                             ItemsSource="{Binding Character.OtherProficiencies, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:SplitStringToListConverter}}"
                             Style="{StaticResource AbilityListboxStyle}" />
@@ -182,8 +190,10 @@
             <controls:TextBoxWithPlaceholderControl
                 Width="246"
                 MaxHeight="300"
+                Margin="0,10,0,0"
                 Background="Transparent"
                 FontSize="{Binding CharacterCard.DescriptionFontSize, ElementName=characterCard, Mode=TwoWay}"
+                FontWeight="Normal"
                 Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 InputText="{Binding CharacterCard.Description, ElementName=characterCard, Mode=TwoWay}"
                 IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
@@ -193,45 +203,57 @@
             <StackPanel Margin="10,0">
                 <Label
                     Padding="0,0,0,10"
-                    Content="Cantrips and spell slots" />
+                    Content="Cantrips and spell slots"
+                    Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <StackPanel Margin="10,0">
                     <StackPanel Orientation="Horizontal">
                         <Label
                             Width="100"
                             Padding="0,0,0,5"
                             Content="Cantrips known:"
-                            FontSize="10" />
+                            FontSize="10"
+                            Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Label
                             Padding="0"
                             Content="{Binding Character.CasterStats.CantripsKnown, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            FontSize="10" />
+                            FontSize="10"
+                            Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <controls:RepeatingControl
                         Title="Level 1 Spell slots: "
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         RepeatAmount="{Binding Character.CasterStats.SpellSlotsLevel1, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <controls:RepeatingControl
                         Title="Level 2 Spell slots: "
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         RepeatAmount="{Binding Character.CasterStats.SpellSlotsLevel2, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <controls:RepeatingControl
                         Title="Level 3 Spell slots: "
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         RepeatAmount="{Binding Character.CasterStats.SpellSlotsLevel3, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <controls:RepeatingControl
                         Title="Level 4 Spell slots: "
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         RepeatAmount="{Binding Character.CasterStats.SpellSlotsLevel4, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <controls:RepeatingControl
                         Title="Level 5 Spell slots: "
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         RepeatAmount="{Binding Character.CasterStats.SpellSlotsLevel5, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <controls:RepeatingControl
                         Title="Level 6 Spell slots: "
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         RepeatAmount="{Binding Character.CasterStats.SpellSlotsLevel6, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <controls:RepeatingControl
                         Title="Level 7 Spell slots: "
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         RepeatAmount="{Binding Character.CasterStats.SpellSlotsLevel7, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <controls:RepeatingControl
                         Title="Level 8 Spell slots: "
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         RepeatAmount="{Binding Character.CasterStats.SpellSlotsLevel8, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <controls:RepeatingControl
                         Title="Level 9 Spell slots: "
+                        Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         RepeatAmount="{Binding Character.CasterStats.SpellSlotsLevel9, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </StackPanel>
@@ -404,30 +426,12 @@
                     Height="276"
                     Background="Transparent" />
 
-                <!--  Header  -->
-                <ContentControl
-                    Canvas.Left="2"
-                    Width="248"
-                    Margin="0,0,5,0">
-                    <ContentControl.Style>
-                        <Style TargetType="{x:Type ContentControl}">
-                            <Setter Property="Template" Value="{StaticResource CharacterHeaderTemplate}" />
-                            <Style.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
-                                    Value="{x:Static enums:CharacterCardType.Feats}">
-                                    <Setter Property="Template" Value="{StaticResource FeatHeaderTemplate}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-
                 <!--  Content  -->
                 <ContentControl
                     Canvas.Left="2"
-                    Canvas.Top="50"
-                    Width="246">
+                    Canvas.Top="37"
+                    Width="246"
+                    Height="276">
                     <ContentControl.Style>
                         <Style TargetType="{x:Type ContentControl}">
                             <Style.Triggers>
@@ -455,6 +459,25 @@
                                     Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
                                     Value="{x:Static enums:CharacterCardType.Caster}">
                                     <Setter Property="Template" Value="{StaticResource CasterContentTemplate}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+
+                <!--  Header  -->
+                <ContentControl
+                    Canvas.Left="2"
+                    Width="248"
+                    Margin="0,0,5,0">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Setter Property="Template" Value="{StaticResource CharacterHeaderTemplate}" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding CharacterCard.Type, ElementName=characterCard}"
+                                    Value="{x:Static enums:CharacterCardType.Feats}">
+                                    <Setter Property="Template" Value="{StaticResource FeatHeaderTemplate}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

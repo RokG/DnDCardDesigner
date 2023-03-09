@@ -32,7 +32,7 @@ namespace CardDesigner.Domain.Models
         public int Wisdom { get; set; }
         public int Charisma { get; set; }
         public int StrengthBonus => (Strength - 10) / 2;
-        public int DexterityBonus => (Strength - 10) / 2;
+        public int DexterityBonus => (Dexterity - 10) / 2;
         public int ConstitutionBonus => (Constitution - 10) / 2;
         public int InteligenceBonus => (Inteligence - 10) / 2;
         public int WisdomBonus => (Wisdom - 10) / 2;

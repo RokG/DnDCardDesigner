@@ -71,7 +71,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <!--  Abilities  -->
@@ -109,6 +109,16 @@
                         </DockPanel>
 
                         <!--  Character visuals  -->
+                        <DockPanel LastChildFill="False">
+                            <Label Content="Avatar: " />
+                            <controls:FilePicker
+                                Grid.Column="1"
+                                Width="200"
+                                Margin="5"
+                                DockPanel.Dock="Right"
+                                Text="{Binding DataContext.SelectedCharacter.AvatarImagePath, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+
                         <DockPanel LastChildFill="False">
                             <Label Content="Height: " />
                             <TextBox
@@ -258,7 +268,7 @@
                                         Width="40"
                                         MinWidth="40"
                                         DockPanel.Dock="Right"
-                                        Text="{Binding DataContext.SelectedCharacter.Abilities.Proficiency, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        Text="{Binding DataContext.SelectedCharacter.Proficiency, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </DockPanel>
                                 <DockPanel LastChildFill="False">
                                     <Label Content="Passive Insight: " />
@@ -334,6 +344,7 @@
                     </StackPanel>
                 </Border>
 
+                <!--  Caster  -->
                 <Border
                     Grid.Column="4"
                     Style="{StaticResource VisibleBorder}">
@@ -458,6 +469,17 @@
                                 Minimum="0"
                                 Value="{Binding DataContext.SelectedCharacter.CasterStats.SpellSlotsLevel9, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border
+                    Grid.Column="5"
+                    Style="{StaticResource VisibleBorder}">
+                    <StackPanel>
+                        <Label Content="Avatar:" />
+                        <controls:ImageControl
+                            ImageSource="{Binding DataContext.SelectedCharacter.AvatarImagePath, ElementName=characterControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ImageStretch="Uniform" />
                     </StackPanel>
                 </Border>
             </Grid>

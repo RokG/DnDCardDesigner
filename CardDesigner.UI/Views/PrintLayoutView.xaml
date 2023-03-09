@@ -74,9 +74,10 @@
 
         <!--  Settings  -->
         <StackPanel Grid.Column="1">
-            <Button
-                Click="Button_Click"
-                Content="Create PDF" />
+            <Label
+                Content="PDF settings"
+                FontSize="24" />
+            <Border Style="{StaticResource VerticalSeparatorBorder}" />
             <DockPanel>
                 <Label Content="Card size [%]" />
                 <Slider
@@ -92,6 +93,28 @@
                     Minimum="0"
                     Value="{Binding PageOffsetX}" />
             </DockPanel>
+            <CheckBox x:Name="printBackside"
+                Margin="5"
+                Content="Print Backside"
+                IsChecked="{Binding PrintBackside}" />
+            <Border Style="{StaticResource VerticalSeparatorBorder}" />
+            <Button
+                HorizontalAlignment="Center"
+                Click="Button_Click"
+                Content="Create PDF">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SelectedDeck, UpdateSourceTrigger=PropertyChanged}"
+                                Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
 
         <!--  Card back  -->

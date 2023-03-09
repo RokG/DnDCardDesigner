@@ -19,5 +19,6 @@ namespace CardDesigner.Domain.Entities
         public string Description { get; set; }
         public double DescriptionFontSize { get; set; }
         public CharacterCardType Type { get; set; }
+        public string AvatarImageStretch { get; set; }
     }
 }

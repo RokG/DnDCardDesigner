@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -20,6 +21,8 @@ namespace CardDesigner.UI.Controls
         }
 
         public event RoutedEventHandler ColorChanged;
+
+        #region Properties
 
         public double Saturation
         {
@@ -48,14 +51,6 @@ namespace CardDesigner.UI.Controls
         public static readonly DependencyProperty HXProperty =
             DependencyProperty.Register(nameof(Hue), typeof(double), typeof(ColorPickerControl), new PropertyMetadata(50.0, SetHue));
 
-        private static void SetHue(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is ColorPickerControl colorPicker && e.NewValue is double hueValue)
-            {
-                colorPicker.CurrentHueValue = GetColorFromRectangle(colorPicker.hueRectangle, 0, hueValue);
-            }
-        }
-
         public string Title
         {
             get => (string)GetValue(TitleProperty);
@@ -81,7 +76,39 @@ namespace CardDesigner.UI.Controls
         }
 
         public static readonly DependencyProperty CurrentColorProperty =
-            DependencyProperty.Register(nameof(CurrentColor), typeof(string), typeof(ColorPickerControl), new PropertyMetadata("#ff0000"));
+            DependencyProperty.Register(nameof(CurrentColor), typeof(string), typeof(ColorPickerControl), new PropertyMetadata("#ff0000", SetCurrentColor));
+
+        #endregion
+
+        #region Methods
+
+        private static void SetHue(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ColorPickerControl colorPicker && e.NewValue is double hueValue)
+            {
+                colorPicker.CurrentHueValue = GetColorFromRectangle(colorPicker.hueRectangle, 0, hueValue);
+            }
+        }
+
+        private static void SetCurrentColor(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ColorPickerControl colorPicker && e.NewValue is string color)
+            {
+                if (color.Length == 9)
+                { 
+                    color = "#" + color.Substring(3).PadRight(6);
+                }
+                if (color.Length < 7) 
+                {
+                    color = color.PadRight(7,'0');
+                }
+                colorPicker.CurrentColor = color;
+                ColorHSV colorHSV = colorPicker.GetHSV(color);
+                colorPicker.Hue = colorHSV.Hue;
+                colorPicker.Saturation = colorHSV.Saturation;
+                colorPicker.Value = colorHSV.Value;
+            }
+        }
 
         private static string GetColorFromRectangle(Rectangle rectangle, double X, double Y)
         {
@@ -108,6 +135,28 @@ namespace CardDesigner.UI.Controls
 
             // Finaly output color
             return Color.FromArgb(a, r, g, b).ToString();
+        }
+        private struct ColorHSV
+        {
+            public double Hue, Saturation, Value;
+        }
+        private ColorHSV GetHSV(string colorHexRGB)
+        {
+            //https://www.codeproject.com/Questions/996265/RGB-to-HSV-conversion
+            int argb = int.Parse(colorHexRGB.Replace("#", ""), NumberStyles.HexNumber);
+            System.Drawing.Color colorRGB = System.Drawing.Color.FromArgb(argb);
+
+            double max = Math.Max(colorRGB.R, Math.Max(colorRGB.G, colorRGB.B));
+            double min = Math.Min(colorRGB.R, Math.Min(colorRGB.G, colorRGB.B));
+
+            ColorHSV colorHSV = new()
+            {
+                Hue = Math.Round(colorRGB.GetHue() * 100 / 360, 3),
+                Saturation = Math.Round(((max == 0) ? 0 : 1d - (1d * min / max)) * 100, 3),
+                Value = Math.Round(100 - ((max / 255d) * 100), 3)
+            };
+
+            return colorHSV;
         }
 
         private void Rectangle_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -167,6 +216,19 @@ namespace CardDesigner.UI.Controls
                 bmp.Render(visualToRender);
             }
             return bmp;
+        }
+
+        #endregion
+
+        private void TextBoxColor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (sender is TextBox tb)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    tb.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
+            }
         }
     }
 }

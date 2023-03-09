@@ -7,6 +7,8 @@
         Fire,
         Physical,
         Magical,
+        Bludgeoning,
+        Posion,
         Lightning,
         Thunder
     }

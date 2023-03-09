@@ -16,7 +16,7 @@ namespace CardDesigner.Domain.Models
         public List<SpellDeckDesignLinkerModel> SpellDeckDescriptors { get; set; } = new();
         public List<ItemDeckDesignLinkerModel> ItemDeckDescriptors { get; set; } = new();
         public List<CharacterDeckDesignLinkerModel> CharacterDeckDescriptors { get; set; } = new();
-        public List<MinionDeckDesignLinkerModel> MinionDeckDescriptors { get; set; }
+        public List<MinionDeckDesignLinkerModel> MinionDeckDescriptors { get; set; } = new();
         public DeckBackgroundDesignModel DeckBackgroundDesign { get; set; } = new();
         public List<CharacterClassModel> Classes { get; set; } = new();
         public CharacterAbilitiesModel Abilities { get; set; } = new();
@@ -26,7 +26,6 @@ namespace CardDesigner.Domain.Models
         public Alignment Alignment { get; set; }
 
         public string AvatarImagePath { get; set; } = string.Empty;
-        public string AvatarImageStretch { get; set; } = "Uniform";
 
         public string Height { get; set; }
         public string Weight { get; set; }
