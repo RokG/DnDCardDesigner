@@ -70,9 +70,9 @@ namespace CardDesigner.UI.ViewModels
 
             AllMinions = new(_cardDesignerStore.Minions);
             AllMinionCards = new(_cardDesignerStore.MinionCards);
-            SelectedMinionCard = AllMinionCards.FirstOrDefault();
             //SelectedMinion = SelectedMinionCard.Minion ?? AllMinions.FirstOrDefault();
             SelectedMinion = AllMinions.FirstOrDefault(m => m.ID == SelectedMinionCard?.Minion?.ID);
+            SelectedMinionCard = AllMinionCards.FirstOrDefault();
         }
 
         private void SetUnsetDatabaseEvents(bool set)
@@ -107,6 +107,12 @@ namespace CardDesigner.UI.ViewModels
             SelectedMinion = AllMinions.FirstOrDefault(m => m.ID == value?.Minion?.ID);
         }
 
+        partial void OnSelectedMinionChanged(MinionModel value)
+        {
+            SelectedMinionCard.Minion = SelectedMinion;
+            _cardDesignerStore.UpdateMinionCard(SelectedMinionCard);
+        }
+
         #endregion
 
         #region Database update methods
@@ -120,7 +126,8 @@ namespace CardDesigner.UI.ViewModels
                     SelectedMinionCard = minionCard;
                     break;
                 case DataChangeType.Updated:
-                    SelectedMinionCard = minionCard;
+                    AllMinionCards = new(_cardDesignerStore.MinionCards);
+                    SelectedMinionCard = AllMinionCards.FirstOrDefault(mc => mc.ID == minionCard.ID);
                     break;
                 case DataChangeType.Deleted:
                     AllMinionCards.Remove(SelectedMinionCard);

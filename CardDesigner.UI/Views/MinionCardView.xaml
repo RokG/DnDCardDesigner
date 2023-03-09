@@ -12,14 +12,9 @@
             <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Content="Avatar: " />
-                <controls:FilePicker
-                    Grid.Column="1"
-                    Margin="5"
-                    Text="{Binding DataContext.SelectedMinion.AvatarImagePath, ElementName=minionCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Avatar image stretch: " />
                 <ComboBox
                     Grid.Column="2"
                     SelectedItem="{Binding DataContext.SelectedMinionCard.AvatarImageStretch, ElementName=minionCardControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -58,7 +53,7 @@
                 </StackPanel>
                 <!--  Minion creation  -->
                 <controls:AddEditItem
-                    Title="Selected character card: "
+                    Title="Selected minion card: "
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Right"
