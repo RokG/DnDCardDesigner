@@ -18,6 +18,7 @@
                     Width="246"
                     Background="Transparent"
                     FontSize="{Binding CharacterCard.TitleFontSize, ElementName=characterCard, Mode=TwoWay}"
+                    FontWeight="Black"
                     Foreground="{Binding CardDesign.HeaderTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     InputText="{Binding Character.Title, ElementName=characterCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
@@ -77,6 +78,7 @@
                     Width="246"
                     Background="Transparent"
                     FontSize="{Binding CharacterCard.TitleFontSize, ElementName=characterCard, Mode=TwoWay}"
+                    FontWeight="Black"
                     Foreground="{Binding CardDesign.HeaderTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     InputText="{Binding CharacterCard.Title, ElementName=characterCard, Mode=TwoWay}"
                     IsEnabled="{Binding IsEditable, ElementName=characterCard}" />
@@ -191,6 +193,7 @@
                 Margin="0,10,0,0"
                 Background="Transparent"
                 FontSize="{Binding CharacterCard.DescriptionFontSize, ElementName=characterCard, Mode=TwoWay}"
+                FontWeight="Normal"
                 Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=characterCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 InputText="{Binding CharacterCard.Description, ElementName=characterCard, Mode=TwoWay}"
                 IsEnabled="{Binding IsEditable, ElementName=characterCard}" />

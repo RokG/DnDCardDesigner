@@ -42,9 +42,17 @@ namespace CardDesigner.Domain.HelperEnums
                     _ => new(string.Empty, -1, -1, false),
                 };
             }
-            else if (enumObject is AreaOfEffect)
+            else if (enumObject is AreaOfEffect areaOfEffect)
             {
-                return new("ft", 0, 100, true);
+                return areaOfEffect switch
+                {
+                    AreaOfEffect.None => new("", 0, 100, false),
+                    AreaOfEffect.Sphere => new("ft", 0, 100, true),
+                    AreaOfEffect.Square => new("ft", 0, 100, true),
+                    AreaOfEffect.Cone => new("ft", 0, 100, true),
+                    AreaOfEffect.Line => new("ft", 0, 100, true),
+                    _ => new(string.Empty, -1, -1, false),
+                };
             }
             else if (enumObject is MagicDamageType)
             {
@@ -52,14 +60,18 @@ namespace CardDesigner.Domain.HelperEnums
             }
             else if (enumObject is DiceType diceType)
             {
-                if (diceType == DiceType.d100 || diceType == DiceType.d20)
+                return diceType switch
                 {
-                    return new(string.Empty, 1, 10, false);
-                }
-                else
-                {
-                    return new(string.Empty, 1, 10, true);
-                }
+                    DiceType.None => new(string.Empty, 0, 0, false),
+                    DiceType.d4 => new(string.Empty, 1, 10, true),
+                    DiceType.d6 => new(string.Empty, 1, 10, true),
+                    DiceType.d8 => new(string.Empty, 1, 10, true),
+                    DiceType.d10 => new(string.Empty, 1, 10, true),
+                    DiceType.d12 => new(string.Empty, 1, 10, true),
+                    DiceType.d20 => new(string.Empty, 1, 10, false),
+                    DiceType.d100 => new(string.Empty, 1, 10, false),
+                    _ => new(string.Empty, -1, -1, false),
+                };
             }
             else if (enumObject is TargetType targetType)
             {

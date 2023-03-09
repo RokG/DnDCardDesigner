@@ -2,6 +2,7 @@
 {
     public enum DiceType
     {
+        None,
         d4,
         d6,
         d8,

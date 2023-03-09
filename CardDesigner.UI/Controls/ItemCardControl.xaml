@@ -343,6 +343,7 @@
                         MaxHeight="160"
                         Background="Transparent"
                         FontSize="{Binding ItemCard.DescriptionFontSize, Mode=TwoWay, ElementName=itemCard}"
+                        FontWeight="Normal"
                         Foreground="{Binding CardDesign.DescriptionTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         InputText="{Binding ItemCard.Description, ElementName=itemCard, Mode=TwoWay}"
                         IsEnabled="{Binding IsEditable, ElementName=itemCard}" />
@@ -383,11 +384,13 @@
                 </ContentControl>
 
                 <Border>
+                    <!--  Title  -->
                     <controls:TextBoxWithPlaceholderControl
                         Canvas.Left="2"
                         Width="246"
                         Background="Transparent"
                         FontSize="{Binding ItemCard.TitleFontSize, Mode=TwoWay, ElementName=itemCard, UpdateSourceTrigger=PropertyChanged}"
+                        FontWeight="Bold"
                         Foreground="{Binding CardDesign.HeaderTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         InputText="{Binding ItemCard.Title, ElementName=itemCard, Mode=TwoWay}"
                         IsEnabled="{Binding IsEditable, ElementName=itemCard}" />
