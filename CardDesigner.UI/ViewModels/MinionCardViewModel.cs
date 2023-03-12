@@ -109,9 +109,12 @@ namespace CardDesigner.UI.ViewModels
 
         partial void OnSelectedMinionChanged(MinionModel value)
         {
-            SelectedMinionCard.Minion = SelectedMinion;
-            // TODO: Had to do it like this to prevent warnings on unawaited calls
-            Task.Run(async () => { await _cardDesignerStore.UpdateMinionCard(SelectedMinionCard); });
+            if (value != null)
+            {
+                SelectedMinionCard.Minion = SelectedMinion;
+                // TODO: Had to do it like this to prevent warnings on unawaited calls
+                Task.Run(async () => { await _cardDesignerStore.UpdateMinionCard(SelectedMinionCard); });
+            }
         }
 
         #endregion

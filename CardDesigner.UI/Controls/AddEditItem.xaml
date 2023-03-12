@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:CardDesigner.UI.Converters"
     xmlns:local="clr-namespace:CardDesigner.UI.Controls"
-    xmlns:validators="clr-namespace:CardDesigner.UI.Validators"
     Margin="3"
     Padding="3"
     BorderBrush="{StaticResource WindowBorder}"

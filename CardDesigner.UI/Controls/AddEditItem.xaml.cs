@@ -1,4 +1,7 @@
 ﻿using CardDesigner.Domain.Interfaces;
+using CardDesigner.UI.Behaviours;
+using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -15,6 +18,20 @@ namespace CardDesigner.UI.Controls
         public AddEditItem()
         {
             InitializeComponent();
+            Loaded += InitalizeSetup;
+            InputBindingBehavior.SetPropagateInputBindingsToWindow(this, true);
+        }
+
+        private void InitalizeSetup(object sender, EventArgs e)
+        {
+            if (!ViewOnly)
+            {
+                InputBindings.Clear();
+                InputBindings.Add(new KeyBinding(SaveChangesCommand, Key.S, ModifierKeys.Control));
+                InputBindings.Add(new KeyBinding(OpenEditModeCommand, Key.N, ModifierKeys.Control));
+                InputBindings.Add(new KeyBinding(CloseEditModeCommand, Key.Escape, ModifierKeys.None));
+                InputBindings.Add(new KeyBinding(CreateItemCommand, Key.Enter, ModifierKeys.None));
+            }
         }
 
         #region Events
@@ -139,6 +156,7 @@ namespace CardDesigner.UI.Controls
             {
                 AddedItemName = string.Empty;
             }
+            NameField.Focus();
         }
 
         private void CloseEditMode(object sender, RoutedEventArgs e)
@@ -154,6 +172,47 @@ namespace CardDesigner.UI.Controls
             }
 
             SelectionChanged?.Invoke(this, new RoutedEventArgs());
+        }
+
+        #endregion
+
+        #region Shortcut commands
+
+        [RelayCommand]
+        public void OpenEditMode()
+        {
+            if (!ViewOnly)
+            {
+                OpenEditMode(AddButton, new());
+            }
+        }
+
+        [RelayCommand]
+        public void SaveChanges()
+        {
+            if (!ViewOnly)
+            {
+                UpdateCommand.Execute(this);
+            }
+        }
+
+        [RelayCommand]
+        public void CloseEditMode()
+        {
+            if (!ViewOnly)
+            {
+                CloseEditMode(this, new());
+            }
+        }
+
+        [RelayCommand]
+        public void CreateItem()
+        {
+            if (!ViewOnly && EditMode == Visibility.Visible)
+            {
+                SaveCommand.Execute(this);
+                CloseEditMode();
+            }
         }
 
         #endregion
