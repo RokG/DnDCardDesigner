@@ -9,7 +9,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Data;
 
 namespace CardDesigner.UI.ViewModels
@@ -96,7 +95,7 @@ namespace CardDesigner.UI.ViewModels
 
         public ItemCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            Name = Regex.Replace(nameof(ItemCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = ModuleNameRegex().Replace(nameof(ItemCardViewModel).Replace("ViewModel", ""), " $1");
             Description = "Create, view and edit Item Cards";
             Type = ViewModelType.ItemCardCreator;
 
@@ -164,11 +163,10 @@ namespace CardDesigner.UI.ViewModels
             //your logicComplexFilter
             ArmourModel arm = (ArmourModel)obj;
             return
-                ArmourSearchFilter == null ? false :
-               arm.Name.Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
+                ArmourSearchFilter != null && (arm.Name.Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
             || arm.EquipmentSlot.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
             || arm.ArmourClass.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
-            || arm.ArmourType.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase);
+            || arm.ArmourType.ToString().Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase));
         }
 
         private bool WeaponFilter(object obj)
@@ -176,13 +174,12 @@ namespace CardDesigner.UI.ViewModels
             //your logicComplexFilter
             WeaponModel weapon = (WeaponModel)obj;
             return
-                WeaponSearchFilter == null ? false :
-               weapon.Name.Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
+                WeaponSearchFilter != null && (weapon.Name.Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
             || weapon.EquipmentSlot.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
             || weapon.WeaponType.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
             || weapon.DiceType.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
             || weapon.PhysicalDamageType.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
-            || weapon.DamageModifier.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase);
+            || weapon.DamageModifier.ToString().Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase));
         }
 
         private bool UsablesFilter(object obj)
@@ -190,11 +187,10 @@ namespace CardDesigner.UI.ViewModels
             //your logicComplexFilter
             UsableModel usables = (UsableModel)obj;
             return
-                WeaponSearchFilter == null ? false :
-               usables.Name.Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
+                WeaponSearchFilter != null && (usables.Name.Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
             || usables.Uses.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
             || usables.UseTimeType.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
-            || usables.UseTimeValue.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase);
+            || usables.UseTimeValue.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase));
         }
 
 
@@ -203,10 +199,9 @@ namespace CardDesigner.UI.ViewModels
             //your logicComplexFilter
             ClothingModel clothings = (ClothingModel)obj;
             return
-                ClothingSearchFilter == null ? false :
-               clothings.Name.Contains(ClothingSearchFilter, StringComparison.OrdinalIgnoreCase)
+                ClothingSearchFilter != null && (clothings.Name.Contains(ClothingSearchFilter, StringComparison.OrdinalIgnoreCase)
             || clothings.ArmourType.ToString().Contains(ClothingSearchFilter, StringComparison.OrdinalIgnoreCase)
-            || clothings.EquipmentSlot.ToString().Contains(ClothingSearchFilter, StringComparison.OrdinalIgnoreCase);
+            || clothings.EquipmentSlot.ToString().Contains(ClothingSearchFilter, StringComparison.OrdinalIgnoreCase));
         }
 
         private bool ConsumablesFilter(object obj)
@@ -214,11 +209,10 @@ namespace CardDesigner.UI.ViewModels
             //your logicComplexFilter
             ConsumableModel consumables = (ConsumableModel)obj;
             return
-                ConsumableSearchFilter == null ? false :
-               consumables.Name.Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase)
+                ConsumableSearchFilter != null && (consumables.Name.Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase)
             || consumables.Doses.ToString().Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase)
             || consumables.UseTimeType.ToString().Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase)
-            || consumables.UseTimeValue.ToString().Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase);
+            || consumables.UseTimeValue.ToString().Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase));
         }
         #endregion
 

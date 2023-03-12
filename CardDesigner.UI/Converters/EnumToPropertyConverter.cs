@@ -14,19 +14,14 @@ namespace CardDesigner.UI.Converters
             EnumPropertyObject props = EnumProperties.GetEnumProperties(value);
             if (props != null && parameter != null)
             {
-                switch (parameter)
+                return parameter switch
                 {
-                    case nameof(EnumPropertyTypes.Minimum):
-                        return props.Minimum;
-                    case nameof(EnumPropertyTypes.Maximum):
-                        return props.Maximum;
-                    case nameof(EnumPropertyTypes.Unit):
-                        return props.Unit;
-                    case nameof(EnumPropertyTypes.HasSetValue):
-                        return props.HasSetValue;
-                    default:
-                        return Binding.DoNothing;
-                }
+                    nameof(EnumPropertyTypes.Minimum) => props.Minimum,
+                    nameof(EnumPropertyTypes.Maximum) => props.Maximum,
+                    nameof(EnumPropertyTypes.Unit) => props.Unit,
+                    nameof(EnumPropertyTypes.HasSetValue) => props.HasSetValue,
+                    _ => Binding.DoNothing,
+                };
             }
             else
             {

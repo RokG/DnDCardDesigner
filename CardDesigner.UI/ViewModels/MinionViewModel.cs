@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -38,7 +37,7 @@ namespace CardDesigner.UI.ViewModels
 
         public MinionViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            Name = Regex.Replace(nameof(MinionViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = ModuleNameRegex().Replace(nameof(MinionViewModel).Replace("ViewModel", ""), " $1");
             Description = "Create, view and edit Minions";
             Type = ViewModelType.MinionCreator;
 
@@ -137,7 +136,7 @@ namespace CardDesigner.UI.ViewModels
         private bool CanCreateMinion()
         {
             bool noName = (AddedMinionName == string.Empty || AddedMinionName == null);
-            bool spellDeckExists = AllMinions == null ? false : AllMinions.Where(c => c.Name == AddedMinionName).Any();
+            bool spellDeckExists = AllMinions != null && AllMinions.Where(c => c.Name == AddedMinionName).Any();
 
             return (!noName && !spellDeckExists);
         }

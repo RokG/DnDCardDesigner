@@ -11,7 +11,7 @@
             FontSize="{Binding FontSize, ElementName=TextBoxWithPlaceholder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             FontWeight="{Binding FontWeight, ElementName=TextBoxWithPlaceholder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Foreground="{Binding Foreground, ElementName=TextBoxWithPlaceholder}"
-            PreviewMouseWheel="inputTextBox_PreviewMouseWheel"
+            PreviewMouseWheel="InputTextBox_PreviewMouseWheel"
             Style="{StaticResource TransparentTextBox}"
             Text="{Binding InputText, ElementName=TextBoxWithPlaceholder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             TextAlignment="Justify"

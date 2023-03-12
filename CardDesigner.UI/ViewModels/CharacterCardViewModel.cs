@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -47,7 +46,7 @@ namespace CardDesigner.UI.ViewModels
 
         public CharacterCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            Name = Regex.Replace(nameof(CharacterCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = ModuleNameRegex().Replace(nameof(CharacterCardViewModel).Replace("ViewModel", ""), " $1");
             Description = "Create, view and edit Character Cards";
             Type = ViewModelType.CharacterCardCreator;
 

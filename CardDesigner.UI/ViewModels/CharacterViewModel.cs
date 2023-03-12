@@ -7,7 +7,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -53,7 +52,7 @@ namespace CardDesigner.UI.ViewModels
 
         public CharacterViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            Name = Regex.Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = ModuleNameRegex().Replace(nameof(CharacterViewModel).Replace("ViewModel", ""), " $1");
             Description = "Create, view and edit Characters";
             Type = ViewModelType.CharacterCreator;
 
@@ -171,7 +170,7 @@ namespace CardDesigner.UI.ViewModels
 
         private bool CanAddClassToCharacter()
         {
-            return (SelectedClass != null) && (SelectedCharacter == null ? false : SelectedCharacter.Classes.Count < 3);
+            return (SelectedClass != null) && (SelectedCharacter != null && SelectedCharacter.Classes.Count < 3);
         }
 
         [RelayCommand(CanExecute = nameof(CanRemoveClassFromCharacter))]
@@ -193,7 +192,7 @@ namespace CardDesigner.UI.ViewModels
 
         private bool CanRemoveClassFromCharacter()
         {
-            return SelectedCharacter == null ? false : SelectedCharacter.Classes.Count > 0;
+            return SelectedCharacter != null && SelectedCharacter.Classes.Count > 0;
         }
 
         [RelayCommand(CanExecute = nameof(CanCreateCharacter))]
@@ -205,7 +204,7 @@ namespace CardDesigner.UI.ViewModels
         private bool CanCreateCharacter()
         {
             bool noName = (AddedCharacterName == string.Empty || AddedCharacterName == null);
-            bool spellDeckExists = AllCharacters == null ? false : AllCharacters.Where(c => c.Name == AddedCharacterName).Any();
+            bool spellDeckExists = AllCharacters != null && AllCharacters.Where(c => c.Name == AddedCharacterName).Any();
 
             return (!noName && !spellDeckExists);
         }

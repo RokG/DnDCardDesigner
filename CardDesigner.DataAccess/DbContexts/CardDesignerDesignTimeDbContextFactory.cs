@@ -1,5 +1,4 @@
-﻿using CardDesigner.Domain.Mapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace CardDesigner.DataAccess.DbContexts

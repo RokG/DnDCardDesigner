@@ -156,67 +156,57 @@ namespace CardDesigner.DataAccess.Services
 
         public async Task<IEnumerable<SpellDeckDesignModel>> GetAllSpellDeckDesigns()
         {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
-            {
-                IEnumerable<SpellDeckDesignEntity> cardDesignEntities = await
-                    context.SpellDeckDesigns
-                    .Include(c => c.Characters)
-                    .ToListAsync();
+            using CardDesignerDbContext context = _dbContextFactory.CreateDbContext();
+            IEnumerable<SpellDeckDesignEntity> cardDesignEntities = await
+                context.SpellDeckDesigns
+                .Include(c => c.Characters)
+                .ToListAsync();
 
-                return cardDesignEntities.Select(c => _mapper.Map<SpellDeckDesignModel>(c));
-            }
+            return cardDesignEntities.Select(c => _mapper.Map<SpellDeckDesignModel>(c));
         }
 
         public async Task<IEnumerable<ItemDeckDesignModel>> GetAllItemDeckDesigns()
         {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
-            {
-                IEnumerable<ItemDeckDesignEntity> cardDesignEntities = await
-                    context.ItemDeckDesigns
-                    .Include(c => c.Characters)
-                    .ToListAsync();
+            using CardDesignerDbContext context = _dbContextFactory.CreateDbContext();
+            IEnumerable<ItemDeckDesignEntity> cardDesignEntities = await
+                context.ItemDeckDesigns
+                .Include(c => c.Characters)
+                .ToListAsync();
 
-                return cardDesignEntities.Select(c => _mapper.Map<ItemDeckDesignModel>(c));
-            }
+            return cardDesignEntities.Select(c => _mapper.Map<ItemDeckDesignModel>(c));
         }
 
         public async Task<IEnumerable<CharacterDeckDesignModel>> GetAllCharacterDeckDesigns()
         {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
-            {
-                IEnumerable<CharacterDeckDesignEntity> cardDesignEntities = await
-                    context.CharacterDeckDesigns
-                    .Include(c => c.Characters)
-                    .ToListAsync();
+            using CardDesignerDbContext context = _dbContextFactory.CreateDbContext();
+            IEnumerable<CharacterDeckDesignEntity> cardDesignEntities = await
+                context.CharacterDeckDesigns
+                .Include(c => c.Characters)
+                .ToListAsync();
 
-                return cardDesignEntities.Select(c => _mapper.Map<CharacterDeckDesignModel>(c));
-            }
+            return cardDesignEntities.Select(c => _mapper.Map<CharacterDeckDesignModel>(c));
         }
 
         public async Task<IEnumerable<MinionDeckDesignModel>> GetAllMinionDeckDesigns()
         {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
-            {
-                IEnumerable<MinionDeckDesignEntity> cardDesignEntities = await
-                    context.MinionDeckDesigns
-                    .Include(c => c.Characters)
-                    .ToListAsync();
+            using CardDesignerDbContext context = _dbContextFactory.CreateDbContext();
+            IEnumerable<MinionDeckDesignEntity> cardDesignEntities = await
+                context.MinionDeckDesigns
+                .Include(c => c.Characters)
+                .ToListAsync();
 
-                return cardDesignEntities.Select(c => _mapper.Map<MinionDeckDesignModel>(c));
-            }
+            return cardDesignEntities.Select(c => _mapper.Map<MinionDeckDesignModel>(c));
         }
 
         public async Task<IEnumerable<DeckBackgroundDesignModel>> GetAllBackgroundDeckDesigns()
         {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
-            {
-                IEnumerable<DeckBackgroundDesignEntity> cardDesignEntities = await
-                    context.DeckBackgroundDesigns
-                    .Include(c => c.Characters)
-                    .ToListAsync();
+            using CardDesignerDbContext context = _dbContextFactory.CreateDbContext();
+            IEnumerable<DeckBackgroundDesignEntity> cardDesignEntities = await
+                context.DeckBackgroundDesigns
+                .Include(c => c.Characters)
+                .ToListAsync();
 
-                return cardDesignEntities.Select(c => _mapper.Map<DeckBackgroundDesignModel>(c));
-            }
+            return cardDesignEntities.Select(c => _mapper.Map<DeckBackgroundDesignModel>(c));
         }
     }
 }

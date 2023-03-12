@@ -156,49 +156,47 @@ namespace CardDesigner.DataAccess.Services
 
         public async Task<IEnumerable<T>> GetAllCards<T>()
         {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
+            using CardDesignerDbContext context = _dbContextFactory.CreateDbContext();
+            if (typeof(T) == typeof(SpellCardModel))
             {
-                if (typeof(T) == typeof(SpellCardModel))
-                {
-                    IEnumerable<SpellCardEntity> spellCardEntities = await
-                        context.SpellCards
-                        .Include(sc => sc.SpellDecks)
-                        .ToListAsync();
+                IEnumerable<SpellCardEntity> spellCardEntities = await
+                    context.SpellCards
+                    .Include(sc => sc.SpellDecks)
+                    .ToListAsync();
 
-                    return (IEnumerable<T>)spellCardEntities.Select(_mapper.Map<SpellCardModel>);
-                }
-                else if (typeof(T) == typeof(ItemCardModel))
-                {
-                    IEnumerable<ItemCardEntity> itemCardEntities = await
-                        context.ItemCards
-                        .Include(sc => sc.ItemDecks)
-                        .ToListAsync();
+                return (IEnumerable<T>)spellCardEntities.Select(_mapper.Map<SpellCardModel>);
+            }
+            else if (typeof(T) == typeof(ItemCardModel))
+            {
+                IEnumerable<ItemCardEntity> itemCardEntities = await
+                    context.ItemCards
+                    .Include(sc => sc.ItemDecks)
+                    .ToListAsync();
 
-                    return (IEnumerable<T>)itemCardEntities.Select(_mapper.Map<ItemCardModel>);
-                }
-                else if (typeof(T) == typeof(CharacterCardModel))
-                {
-                    IEnumerable<CharacterCardEntity> characterCardEntities = await
-                        context.CharacterCards
-                        .Include(sc => sc.CharacterDecks)
-                        .ToListAsync();
+                return (IEnumerable<T>)itemCardEntities.Select(_mapper.Map<ItemCardModel>);
+            }
+            else if (typeof(T) == typeof(CharacterCardModel))
+            {
+                IEnumerable<CharacterCardEntity> characterCardEntities = await
+                    context.CharacterCards
+                    .Include(sc => sc.CharacterDecks)
+                    .ToListAsync();
 
-                    return (IEnumerable<T>)characterCardEntities.Select(_mapper.Map<CharacterCardModel>);
-                }
-                else if (typeof(T) == typeof(MinionCardModel))
-                {
-                    IEnumerable<MinionCardEntity> minionCardEntities = await
-                        context.MinionCards
-                        .Include(sc => sc.MinionDecks)
-                        .Include(sc => sc.Minion)
-                        .ToListAsync();
+                return (IEnumerable<T>)characterCardEntities.Select(_mapper.Map<CharacterCardModel>);
+            }
+            else if (typeof(T) == typeof(MinionCardModel))
+            {
+                IEnumerable<MinionCardEntity> minionCardEntities = await
+                    context.MinionCards
+                    .Include(sc => sc.MinionDecks)
+                    .Include(sc => sc.Minion)
+                    .ToListAsync();
 
-                    return (IEnumerable<T>)minionCardEntities.Select(_mapper.Map<MinionCardModel>);
-                }
-                else
-                {
-                    return null;
-                }
+                return (IEnumerable<T>)minionCardEntities.Select(_mapper.Map<MinionCardModel>);
+            }
+            else
+            {
+                return null;
             }
         }
     }

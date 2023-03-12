@@ -48,7 +48,7 @@ namespace CardDesigner.UI.Views
                 }
             }
 
-            SaveFileDialog dialog = new SaveFileDialog
+            SaveFileDialog dialog = new()
             {
                 AddExtension = true,
                 DefaultExt = "pdf",
@@ -61,9 +61,9 @@ namespace CardDesigner.UI.Views
                 return;
             }
 
-            MemoryStream lMemoryStream = new MemoryStream();
+            MemoryStream lMemoryStream = new();
             Package package = Package.Open(lMemoryStream, FileMode.Create);
-            XpsDocument doc = new XpsDocument(package);
+            XpsDocument doc = new(package);
             XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
 
             System.Windows.Documents.Serialization.SerializerWriterCollator collator = writer.CreateVisualsCollator();
@@ -73,7 +73,7 @@ namespace CardDesigner.UI.Views
 
             // Loop over tab elements and write all pages
             collator.BeginBatchWrite();
-            List<UIElement> list = new List<UIElement>();
+            List<UIElement> list = new();
             for (int i = 0; i < tabs; i++)
             {
                 cardPages.SelectedIndex = i;
@@ -81,7 +81,7 @@ namespace CardDesigner.UI.Views
                 UIElement control = FindChild<CardPageControl>(cardPages, "cardPageControl");
                 collator.Write(control);
                 if (printBackside.IsChecked == true)
-                { 
+                {
                     collator.Write(cardBackgroundPages);
                 }
                 list.Add(control);
@@ -95,11 +95,11 @@ namespace CardDesigner.UI.Views
             package.Close();
 
             // Convert 
-            MemoryStream outStream = new MemoryStream();
+            MemoryStream outStream = new();
             PdfSharp.Xps.XpsConverter.Convert(lMemoryStream, outStream, false);
 
             // Write pdf file
-            FileStream fileStream = new FileStream(dialog.FileName, FileMode.Create);
+            FileStream fileStream = new(dialog.FileName, FileMode.Create);
             outStream.CopyTo(fileStream);
 
             // Clean up
@@ -139,8 +139,7 @@ namespace CardDesigner.UI.Views
             {
                 DependencyObject child = VisualTreeHelper.GetChild(parent, i);
                 // If the child is not of the request child type child
-                T childType = child as T;
-                if (childType == null)
+                if (child is not T)
                 {
                     // recursively drill down the tree
                     foundChild = FindChild<T>(child, childName);
@@ -153,9 +152,8 @@ namespace CardDesigner.UI.Views
                 }
                 else if (!string.IsNullOrEmpty(childName))
                 {
-                    FrameworkElement frameworkElement = child as FrameworkElement;
                     // If the child's name is set for search
-                    if (frameworkElement != null && frameworkElement.Name == childName)
+                    if (child is FrameworkElement frameworkElement && frameworkElement.Name == childName)
                     {
                         // if the child's name is of the request name
                         foundChild = (T)child;

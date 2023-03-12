@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CardDesigner.DataAccess.DbContexts
 {
@@ -8,7 +7,6 @@ namespace CardDesigner.DataAccess.DbContexts
         #region Private fields
 
         private readonly string _connectionString;
-        private readonly IMapper _mapper;
 
         #endregion
 
@@ -17,10 +15,9 @@ namespace CardDesigner.DataAccess.DbContexts
         /// </summary>
         /// <param name="connectionString">Connection string</param>
         /// <param name="mapper">Mapper object</param>
-        public CardDesignerDbContextFactory(string connectionString, IMapper mapper)
+        public CardDesignerDbContextFactory(string connectionString)
         {
             _connectionString = connectionString;
-            _mapper = mapper;
         }
 
         /// <summary>

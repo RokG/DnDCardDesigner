@@ -33,7 +33,7 @@ namespace CardDesigner.UI.Controls
         public static readonly DependencyProperty PlaceholderTextProperty =
             DependencyProperty.Register(nameof(PlaceholderText), typeof(string), typeof(TextBoxWithPlaceholderControl), new PropertyMetadata("Enter text.. (Ctrl+Wheel to resize)"));
 
-        private void inputTextBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void InputTextBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (Keyboard.Modifiers == ModifierKeys.Control)
             {

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CardDesigner.DataAccess.DbContexts;
+﻿using CardDesigner.DataAccess.DbContexts;
 using CardDesigner.Domain.Mapper;
 using CardDesigner.Domain.Services;
 using CardDesigner.UI.HostBuilder;
@@ -36,7 +35,7 @@ namespace CardDesigner.UI
                     services.AddSingleton(CardDesignerMapper.CreateMapper());
 
                     // register db context
-                    services.AddSingleton((s) => new CardDesignerDbContextFactory(connectionString, s.GetRequiredService<IMapper>()));
+                    services.AddSingleton((s) => new CardDesignerDbContextFactory(connectionString));
 
                     // register main view
                     services.AddSingleton(s => new MainWindow()

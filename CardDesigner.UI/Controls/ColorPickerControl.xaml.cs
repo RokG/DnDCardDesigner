@@ -95,15 +95,15 @@ namespace CardDesigner.UI.Controls
             if (d is ColorPickerControl colorPicker && e.NewValue is string color)
             {
                 if (color.Length == 9)
-                { 
-                    color = "#" + color.Substring(3).PadRight(6);
-                }
-                if (color.Length < 7) 
                 {
-                    color = color.PadRight(7,'0');
+                    color = "#" + color[3..].PadRight(6);
+                }
+                if (color.Length < 7)
+                {
+                    color = color.PadRight(7, '0');
                 }
                 colorPicker.CurrentColor = color;
-                ColorHSV colorHSV = colorPicker.GetHSV(color);
+                ColorHSV colorHSV = GetHSV(color);
                 colorPicker.Hue = colorHSV.Hue;
                 colorPicker.Saturation = colorHSV.Saturation;
                 colorPicker.Value = colorHSV.Value;
@@ -140,7 +140,7 @@ namespace CardDesigner.UI.Controls
         {
             public double Hue, Saturation, Value;
         }
-        private ColorHSV GetHSV(string colorHexRGB)
+        private static ColorHSV GetHSV(string colorHexRGB)
         {
             //https://www.codeproject.com/Questions/996265/RGB-to-HSV-conversion
             int argb = int.Parse(colorHexRGB.Replace("#", ""), NumberStyles.HexNumber);

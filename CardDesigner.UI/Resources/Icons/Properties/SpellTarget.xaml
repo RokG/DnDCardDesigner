@@ -1,9 +1,10 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Canvas x:Shared="False" x:Key="SpellTarget"
+    <Canvas x:Key="SpellTarget"
         Width="100"
-        Height="100">
+        Height="100"
+        x:Shared="False">
         <Path
             Data="M 87.558117 50.751774 A 36.806343 36.806343 0 0 1 50.751774 87.558117 36.806343 36.806343 0 0 1 13.945431 50.751774 36.806343 36.806343 0 0 1 50.751774 13.945431 36.806343 36.806343 0 0 1 87.558117 50.751774 Z"
             Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type Label}}, Path=Foreground}"

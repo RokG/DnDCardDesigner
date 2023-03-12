@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -47,7 +47,7 @@ namespace CardDesigner.UI.ViewModels
 
         public MinionCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            Name = Regex.Replace(nameof(MinionCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = ModuleNameRegex().Replace(nameof(MinionCardViewModel).Replace("ViewModel", ""), " $1");
             Description = "Create, view and edit Minions";
             Type = ViewModelType.MinionCardCreator;
 
@@ -110,7 +110,8 @@ namespace CardDesigner.UI.ViewModels
         partial void OnSelectedMinionChanged(MinionModel value)
         {
             SelectedMinionCard.Minion = SelectedMinion;
-            _cardDesignerStore.UpdateMinionCard(SelectedMinionCard);
+            // TODO: Had to do it like this to prevent warnings on unawaited calls
+            Task.Run(async () => { await _cardDesignerStore.UpdateMinionCard(SelectedMinionCard); });
         }
 
         #endregion
