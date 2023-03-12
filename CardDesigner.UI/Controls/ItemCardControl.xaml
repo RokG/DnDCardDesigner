@@ -390,7 +390,7 @@
                         Width="246"
                         Background="Transparent"
                         FontSize="{Binding ItemCard.TitleFontSize, Mode=TwoWay, ElementName=itemCard, UpdateSourceTrigger=PropertyChanged}"
-                        FontWeight="Bold"
+                        FontWeight="Black"
                         Foreground="{Binding CardDesign.HeaderTextColor, ElementName=itemCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         InputText="{Binding ItemCard.Title, ElementName=itemCard, Mode=TwoWay}"
                         IsEnabled="{Binding IsEditable, ElementName=itemCard}" />

@@ -148,19 +148,33 @@ namespace CardDesigner.UI.ViewModels
             }
         }
 
-        partial void OnArmourSearchFilterChanged(string bookingDate)
+        partial void OnArmourSearchFilterChanged(string filterValue)
         {
             AllArmoursCollectionView.Filter = new Predicate<object>(ArmourFilter);
         }
 
-        partial void OnWeaponSearchFilterChanged(string bookingDate)
+        partial void OnWeaponSearchFilterChanged(string filterValue)
         {
             AllWeaponsCollectionView.Filter = new Predicate<object>(WeaponFilter);
         }
 
+        partial void OnUsableSearchFilterChanged(string filterValue)
+        {
+            AllUsablesCollectionView.Filter = new Predicate<object>(UsablesFilter);
+        }
+
+        partial void OnClothingSearchFilterChanged(string filterValue)
+        {
+            AllClothingCollectionView.Filter = new Predicate<object>(ClothingFilter);
+        }
+
+        partial void OnConsumableSearchFilterChanged(string filterValue)
+        {
+            AllConsumablesCollectionView.Filter = new Predicate<object>(ConsumablesFilter);
+        }
+
         private bool ArmourFilter(object obj)
         {
-            //your logicComplexFilter
             ArmourModel arm = (ArmourModel)obj;
             return
                 ArmourSearchFilter != null && (arm.Name.Contains(ArmourSearchFilter, StringComparison.OrdinalIgnoreCase)
@@ -171,7 +185,6 @@ namespace CardDesigner.UI.ViewModels
 
         private bool WeaponFilter(object obj)
         {
-            //your logicComplexFilter
             WeaponModel weapon = (WeaponModel)obj;
             return
                 WeaponSearchFilter != null && (weapon.Name.Contains(WeaponSearchFilter, StringComparison.OrdinalIgnoreCase)
@@ -184,19 +197,16 @@ namespace CardDesigner.UI.ViewModels
 
         private bool UsablesFilter(object obj)
         {
-            //your logicComplexFilter
             UsableModel usables = (UsableModel)obj;
             return
-                WeaponSearchFilter != null && (usables.Name.Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
+                UsableSearchFilter != null && (usables.Name.Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
             || usables.Uses.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
             || usables.UseTimeType.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase)
             || usables.UseTimeValue.ToString().Contains(UsableSearchFilter, StringComparison.OrdinalIgnoreCase));
         }
 
-
         private bool ClothingFilter(object obj)
         {
-            //your logicComplexFilter
             ClothingModel clothings = (ClothingModel)obj;
             return
                 ClothingSearchFilter != null && (clothings.Name.Contains(ClothingSearchFilter, StringComparison.OrdinalIgnoreCase)
@@ -206,7 +216,6 @@ namespace CardDesigner.UI.ViewModels
 
         private bool ConsumablesFilter(object obj)
         {
-            //your logicComplexFilter
             ConsumableModel consumables = (ConsumableModel)obj;
             return
                 ConsumableSearchFilter != null && (consumables.Name.Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase)
@@ -214,6 +223,7 @@ namespace CardDesigner.UI.ViewModels
             || consumables.UseTimeType.ToString().Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase)
             || consumables.UseTimeValue.ToString().Contains(ConsumableSearchFilter, StringComparison.OrdinalIgnoreCase));
         }
+
         #endregion
 
         #region Public methods
