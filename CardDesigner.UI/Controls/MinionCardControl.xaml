@@ -19,7 +19,7 @@
                     Width="246"
                     Background="Transparent"
                     FontSize="{Binding MinionCard.TitleFontSize, ElementName=minionCard, Mode=TwoWay}"
-                    FontWeight="Bold"
+                    FontWeight="Black"
                     Foreground="{Binding CardDesign.HeaderTextColor, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     InputText="{Binding MinionCard.Minion.Title, ElementName=minionCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsEnabled="{Binding IsEditable, ElementName=minionCard}" />
