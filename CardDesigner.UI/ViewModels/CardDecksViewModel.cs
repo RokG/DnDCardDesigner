@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -129,7 +128,7 @@ namespace CardDesigner.UI.ViewModels
 
         public CardDecksViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            Name = Regex.Replace(nameof(CardDecksViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = ModuleNameRegex().Replace(nameof(CardDecksViewModel).Replace("ViewModel", ""), " $1");
             Description = "Create, view and edit Spell Decks";
             Type = ViewModelType.DeckCreator;
 
@@ -353,7 +352,7 @@ namespace CardDesigner.UI.ViewModels
                     break;
                 case DataChangeType.Updated:
                     AllCharacterDecks = new(_cardDesignerStore.CharacterDecks);
-                    SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault(d=>d.ID == characterDeck.ID);
+                    SelectedCharacterDeck = AllCharacterDecks.FirstOrDefault(d => d.ID == characterDeck.ID);
                     break;
                 case DataChangeType.Deleted:
                     AllCharacterDecks.Remove(SelectedCharacterDeck);
@@ -435,7 +434,7 @@ namespace CardDesigner.UI.ViewModels
         private bool CanCreateSpellDeck()
         {
             bool noName = (AddedSpellDeckName == string.Empty || AddedSpellDeckName == null);
-            bool spellDeckExists = AllSpellDecks == null ? false : AllSpellDecks.Where(c => c.Name == AddedSpellDeckName).Any();
+            bool spellDeckExists = AllSpellDecks != null && AllSpellDecks.Where(c => c.Name == AddedSpellDeckName).Any();
 
             return (!noName && !spellDeckExists);
         }
@@ -508,7 +507,7 @@ namespace CardDesigner.UI.ViewModels
         private bool CanCreateItemDeck()
         {
             bool noName = (AddedItemDeckName == string.Empty || AddedItemDeckName == null);
-            bool itemDeckExists = AllItemDecks == null ? false : AllItemDecks.Where(c => c.Name == AddedItemDeckName).Any();
+            bool itemDeckExists = AllItemDecks != null && AllItemDecks.Where(c => c.Name == AddedItemDeckName).Any();
 
             return (!noName && !itemDeckExists);
         }
@@ -581,7 +580,7 @@ namespace CardDesigner.UI.ViewModels
         private bool CanCreateCharacterDeck()
         {
             bool noName = (AddedCharacterDeckName == string.Empty || AddedCharacterDeckName == null);
-            bool characterDeckExists = AllCharacterDecks == null ? false : AllCharacterDecks.Where(c => c.Name == AddedCharacterDeckName).Any();
+            bool characterDeckExists = AllCharacterDecks != null && AllCharacterDecks.Where(c => c.Name == AddedCharacterDeckName).Any();
 
             return (!noName && !characterDeckExists);
         }
@@ -654,7 +653,7 @@ namespace CardDesigner.UI.ViewModels
         private bool CanCreateMinionDeck()
         {
             bool noName = (AddedMinionDeckName == string.Empty || AddedMinionDeckName == null);
-            bool MinionDeckExists = AllMinionDecks == null ? false : AllMinionDecks.Where(c => c.Name == AddedMinionDeckName).Any();
+            bool MinionDeckExists = AllMinionDecks != null && AllMinionDecks.Where(c => c.Name == AddedMinionDeckName).Any();
 
             return (!noName && !MinionDeckExists);
         }

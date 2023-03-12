@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -80,7 +79,7 @@ namespace CardDesigner.UI.ViewModels
 
         public HomeViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            Name = Regex.Replace(nameof(HomeViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = ModuleNameRegex().Replace(nameof(HomeViewModel).Replace("ViewModel", ""), " $1");
             Description = "Home screen";
             Type = ViewModelType.Home;
 

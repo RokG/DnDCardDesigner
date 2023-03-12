@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -44,7 +43,7 @@ namespace CardDesigner.UI.ViewModels
 
         public SpellCardViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            Name = Regex.Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = ModuleNameRegex().Replace(nameof(SpellCardViewModel).Replace("ViewModel", ""), " $1");
             Description = "Create, view and edit Spell Cards";
             Type = ViewModelType.SpellCardCreator;
 

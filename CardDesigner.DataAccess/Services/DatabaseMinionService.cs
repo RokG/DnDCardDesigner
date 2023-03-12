@@ -82,14 +82,12 @@ namespace CardDesigner.DataAccess.Services
 
         public async Task<IEnumerable<MinionModel>> GetAllMinions()
         {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
-            {
-                IEnumerable<MinionEntity> minionEntities = await
-                    context.Minions
-                    .ToListAsync();
+            using CardDesignerDbContext context = _dbContextFactory.CreateDbContext();
+            IEnumerable<MinionEntity> minionEntities = await
+                context.Minions
+                .ToListAsync();
 
-                return minionEntities.Select(c => _mapper.Map<MinionModel>(c));
-            }
+            return minionEntities.Select(c => _mapper.Map<MinionModel>(c));
         }
     }
 }

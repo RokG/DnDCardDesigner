@@ -111,7 +111,7 @@ namespace CardDesigner.UI.Views
             SetStartingColors(FrontCharacterHeaderColor, characterDeckDesign.HeaderColor);
         }
 
-        private void SetStartingColors(ColorPickerControl colorPickerControl, string hexValue)
+        private static void SetStartingColors(ColorPickerControl colorPickerControl, string hexValue)
         {
             ColorHSV color = GetHSV(hexValue);
 
@@ -122,7 +122,7 @@ namespace CardDesigner.UI.Views
             colorPickerControl.CurrentHueValue = ColorFromHSV(color.Hue, 1, 1);
         }
 
-        private ColorHSV GetHSV(string colorHexRGB)
+        private static ColorHSV GetHSV(string colorHexRGB)
         {
             //https://www.codeproject.com/Questions/996265/RGB-to-HSV-conversion
             int argb = int.Parse(colorHexRGB.Replace("#", ""), NumberStyles.HexNumber);
@@ -147,7 +147,7 @@ namespace CardDesigner.UI.Views
             int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
             double f = hue / 60 - Math.Floor(hue / 60);
 
-            value = value * 255;
+            value *= 255;
             string v = Convert.ToInt32(value).ToString("X2");
             string p = Convert.ToInt32(value * (1 - saturation)).ToString("X2");
             string q = Convert.ToInt32(value * (1 - f * saturation)).ToString("X2");

@@ -8,7 +8,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace CardDesigner.UI.ViewModels
 {
@@ -95,7 +94,7 @@ namespace CardDesigner.UI.ViewModels
 
         public PrintLayoutViewModel(CardDesignerStore cardDesignerStore, NavigationStore navigationStore, SettingsStore settingsStore)
         {
-            Name = Regex.Replace(nameof(PrintLayoutViewModel).Replace("ViewModel", ""), "(\\B[A-Z])", " $1");
+            Name = ModuleNameRegex().Replace(nameof(PrintLayoutViewModel).Replace("ViewModel", ""), " $1");
             Description = "Print layout";
             Type = ViewModelType.PrintLayout;
 
@@ -105,9 +104,9 @@ namespace CardDesigner.UI.ViewModels
 
             LoadData();
 
-            CardScale = _settingsStore.PrintCardScale;
-            PageOffsetX = _settingsStore.PrintPageOffsetX;
-            PrintBackside = _settingsStore.PrintBackside;
+            CardScale = SettingsStore.PrintCardScale;
+            PageOffsetX = SettingsStore.PrintPageOffsetX;
+            PrintBackside = SettingsStore.PrintBackside;
 
             GenerateCharacterTree();
         }
@@ -355,17 +354,17 @@ namespace CardDesigner.UI.ViewModels
 
         partial void OnCardScaleChanged(double value)
         {
-            _settingsStore.PrintCardScale = value;
+            SettingsStore.PrintCardScale = value;
         }
 
         partial void OnPageOffsetXChanged(double value)
         {
-            _settingsStore.PrintPageOffsetX = value;
+            SettingsStore.PrintPageOffsetX = value;
         }
 
         partial void OnPrintBacksideChanged(bool value)
         {
-            _settingsStore.PrintBackside = value;
+            SettingsStore.PrintBackside = value;
         }
 
         #endregion

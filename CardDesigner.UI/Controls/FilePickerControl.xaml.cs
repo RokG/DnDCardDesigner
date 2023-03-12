@@ -37,16 +37,13 @@ namespace CardDesigner.UI.Controls
 
         private void BrowseFolder(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            OpenFileDialog openFileDialog = new();
 
             if (openFileDialog.ShowDialog() == true)
             {
                 Text = openFileDialog.FileName;
                 BindingExpression be = GetBindingExpression(TextProperty);
-                if (be != null)
-                {
-                    be.UpdateSource();
-                }
+                be?.UpdateSource();
             }
         }
     }

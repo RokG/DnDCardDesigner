@@ -5,11 +5,11 @@ namespace CardDesigner.Domain.Services
 {
     public class SettingsStore
     {
-        public double PrintCardScale { get => ReadDoubleSetting("PrintCardScale"); set => AddUpdateAppSettings("PrintCardScale", CropDouble(value, 1).ToString()); }
-        public double PrintPageOffsetX { get => ReadDoubleSetting("PrintPageOffsetX"); set => AddUpdateAppSettings("PrintPageOffsetX", CropDouble(value, 1).ToString()); }
-        public bool PrintBackside { get => ReadBoolSetting("PrintBackside"); set => AddUpdateAppSettings("PrintBackside",value.ToString()); }
+        public static double PrintCardScale { get => ReadDoubleSetting("PrintCardScale"); set => AddUpdateAppSettings("PrintCardScale", CropDouble(value, 1).ToString()); }
+        public static double PrintPageOffsetX { get => ReadDoubleSetting("PrintPageOffsetX"); set => AddUpdateAppSettings("PrintPageOffsetX", CropDouble(value, 1).ToString()); }
+        public static bool PrintBackside { get => ReadBoolSetting("PrintBackside"); set => AddUpdateAppSettings("PrintBackside", value.ToString()); }
 
-        private double CropDouble(double value, int decimals)
+        private static double CropDouble(double value, int decimals)
         {
             double factor = Math.Pow(10, decimals);
             return Math.Floor(value * factor) / factor;

@@ -48,7 +48,7 @@ namespace CardDesigner.UI.Controls
                     if (imageControl.ImageSource != null)
                     {
                         // Uri was changed but image did not yet load
-                        BitmapImage image = new BitmapImage(imageControl.ImageSource);
+                        BitmapImage image = new(imageControl.ImageSource);
                         imageWidth = image.Width;
                         imageHeight = image.Height;
                     }

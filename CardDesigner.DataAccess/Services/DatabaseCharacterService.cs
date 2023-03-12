@@ -258,22 +258,20 @@ namespace CardDesigner.DataAccess.Services
 
         public async Task<IEnumerable<CharacterModel>> GetAllCharacters()
         {
-            using (CardDesignerDbContext context = _dbContextFactory.CreateDbContext())
-            {
-                IEnumerable<CharacterEntity> characterEntities = await
-                    context.Characters
-                    .Include(c => c.SpellDeckDescriptors)
-                    .Include(c => c.ItemDeckDescriptors)
-                    .Include(c => c.CharacterDeckDescriptors)
-                    .Include(c => c.MinionDeckDescriptors)
-                    .Include(c => c.DeckBackgroundDesign)
-                    .Include(c => c.Classes)
-                    .Include(c => c.CasterStats)
-                    .Include(c => c.Abilities)
-                    .ToListAsync();
+            using CardDesignerDbContext context = _dbContextFactory.CreateDbContext();
+            IEnumerable<CharacterEntity> characterEntities = await
+                context.Characters
+                .Include(c => c.SpellDeckDescriptors)
+                .Include(c => c.ItemDeckDescriptors)
+                .Include(c => c.CharacterDeckDescriptors)
+                .Include(c => c.MinionDeckDescriptors)
+                .Include(c => c.DeckBackgroundDesign)
+                .Include(c => c.Classes)
+                .Include(c => c.CasterStats)
+                .Include(c => c.Abilities)
+                .ToListAsync();
 
-                return characterEntities.Select(c => _mapper.Map<CharacterModel>(c));
-            }
+            return characterEntities.Select(c => _mapper.Map<CharacterModel>(c));
         }
     }
 }
