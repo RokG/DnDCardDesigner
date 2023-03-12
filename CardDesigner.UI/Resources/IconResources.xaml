@@ -6,7 +6,6 @@
         <ResourceDictionary Source="EnumDataProviders.xaml" />
 
         <!--  Icons  -->
-        <ResourceDictionary Source="Icons/EditButton.xaml" />
         <ResourceDictionary Source="Icons/WindowButtons.xaml" />
 
         <ResourceDictionary Source="Icons/Items/EquipmentSlots.xaml" />

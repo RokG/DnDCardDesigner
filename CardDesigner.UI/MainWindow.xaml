@@ -148,9 +148,6 @@
                 <Grid
                     Background="Transparent"
                     DockPanel.Dock="Bottom">
-                    <Label
-                        HorizontalAlignment="Center"
-                        Content="{StaticResource EditIcon}" />
                     <Image
                         Width="200"
                         Height="200"
