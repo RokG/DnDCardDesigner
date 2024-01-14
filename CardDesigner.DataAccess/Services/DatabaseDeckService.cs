@@ -75,7 +75,7 @@ namespace CardDesigner.DataAccess.Services
                             .Include(sd => sd.Cards)
                             .Single(sc => sc.ID == spellDeckModel.ID);
 
-                        spellDeckEntity.Name = spellDeckModel.Name;
+                        spellDeckEntity.Title = spellDeckModel.Title;
 
                         // Loop over cards in source deck - ADD
                         foreach (SpellCardModel spellCard in spellDeckModel.Cards)
@@ -110,7 +110,7 @@ namespace CardDesigner.DataAccess.Services
                             .Include(sd => sd.Cards)
                             .Single(sc => sc.ID == itemDeckModel.ID);
 
-                        itemDeckEntity.Name = itemDeckModel.Name;
+                        itemDeckEntity.Title = itemDeckModel.Title;
 
                         // Loop over cards in source deck - ADD
                         foreach (ItemCardModel itemCard in itemDeckModel.Cards)
@@ -145,7 +145,7 @@ namespace CardDesigner.DataAccess.Services
                             .Include(sd => sd.Cards)
                             .Single(sc => sc.ID == characterDeckModel.ID);
 
-                        characterDeckEntity.Name = characterDeckModel.Name;
+                        characterDeckEntity.Title = characterDeckModel.Title;
 
                         // Loop over cards in source deck - ADD
                         foreach (CharacterCardModel characterCard in characterDeckModel.Cards)
@@ -180,7 +180,7 @@ namespace CardDesigner.DataAccess.Services
                             .Include(sd => sd.Cards)
                             .Single(sc => sc.ID == minionDeckModel.ID);
 
-                        minionDeckEntity.Name = minionDeckModel.Name;
+                        minionDeckEntity.Title = minionDeckModel.Title;
 
                         // Loop over cards in source deck - ADD
                         foreach (MinionCardModel minionCard in minionDeckModel.Cards)
