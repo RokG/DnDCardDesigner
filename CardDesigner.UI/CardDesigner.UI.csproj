@@ -7,6 +7,7 @@
     <UseWPF>true</UseWPF>
     <OutputPath>$(SolutionDir.Substring(0,3))Coding\CardDesigner\Output\</OutputPath>
     <ApplicationIcon>Resources\Images\Untitled-2.ico</ApplicationIcon>
+    <AssemblyName>CardDesigner</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -126,5 +127,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <PropertyGroup>
+    <ReadmeFile>$(SolutionDir.Substring(0,3))Coding\CardDesigner\README.md</ReadmeFile>
+  </PropertyGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(ReadmeFile)&quot; &quot;$(OutputPath)&quot;" />
+  </Target>
 
 </Project>

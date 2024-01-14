@@ -80,7 +80,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedCharacterDeck.Name}" />
+                            Text="{Binding SelectedCharacterDeck.Title}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage cards in decks  -->
@@ -133,7 +133,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedSpellDeck.Name}" />
+                            Text="{Binding SelectedSpellDeck.Title}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage spell cards in decks  -->
@@ -186,7 +186,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedItemDeck.Name}" />
+                            Text="{Binding SelectedItemDeck.Title}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage item cards in deck  -->
@@ -239,7 +239,7 @@
                             Content="Deck name:" />
                         <TextBox
                             Margin="5,0"
-                            Text="{Binding SelectedMinionDeck.Name}" />
+                            Text="{Binding SelectedMinionDeck.Title}" />
                     </StackPanel>
                 </Border>
                 <!--  Manage Minion cards in decks  -->

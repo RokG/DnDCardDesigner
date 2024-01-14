@@ -5,56 +5,57 @@
     <SolidColorBrush x:Key="NecromancyColor" Color="DarkGray" />
     <Canvas x:Key="MagicSchoolNecromancyIcon"
         Width="250"
-        Height="250">
+        Height="250"
+        x:Shared="False">
         <Path
             Data="M 224.5109 124.82573 A 99.256531 99.256531 0 0 1 125.25437 224.08226 99.256531 99.256531 0 0 1 25.997844 124.82573 99.256531 99.256531 0 0 1 125.25437 25.569212 99.256531 99.256531 0 0 1 224.5109 124.82573 Z"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="M 117.55638 96.850175 A 28.538849 28.538849 0 0 1 89.017533 125.38901 28.538849 28.538849 0 0 1 60.478686 96.850175 28.538849 28.538849 0 0 1 89.017533 68.311324 28.538849 28.538849 0 0 1 117.55638 96.850175 Z"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="M 190.03005 96.850175 A 28.538849 28.538849 0 0 1 161.4912 125.38901 28.538849 28.538849 0 0 1 132.95235 96.850175 28.538849 28.538849 0 0 1 161.4912 68.311324 28.538849 28.538849 0 0 1 190.03005 96.850175 Z"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 67.050134 205.18515 0 -27.78782"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 105.85295 222.26148 0 -25.91027"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 125.25435 224.01863 0 -25.91027"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 86.451554 216.01055 0 -25.91027"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 183.45858 205.18515 0 -27.78782"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 144.65576 222.26148 0 -25.91027"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 164.05716 216.01055 0 -25.91027"
             Stroke="{StaticResource NecromancyColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 125.44686 157.58626 16.39056 0 -16.39056 -27.3098 z"
             Stroke="{StaticResource NecromancyColor}"
             StrokeLineJoin="Bevel"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 125.06185 157.58626 -16.39056 0 16.39056 -27.3098 z"
             Stroke="{StaticResource NecromancyColor}"
             StrokeLineJoin="Bevel"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
     </Canvas>
 </ResourceDictionary>

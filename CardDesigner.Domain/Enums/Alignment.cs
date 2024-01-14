@@ -6,9 +6,9 @@
         ChaoticEvil,
         ChaoticNeutral,
         ChaoticGood,
-        TrueEvil,
+        NeutralEvil,
         TrueNeutral,
-        TrueGood,
+        NeutralGood,
         LawfulEvil,
         LawfulNeutral,
         LawfulGood

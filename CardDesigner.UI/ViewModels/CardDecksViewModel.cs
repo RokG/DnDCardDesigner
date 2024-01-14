@@ -428,7 +428,7 @@ namespace CardDesigner.UI.ViewModels
         [RelayCommand(CanExecute = nameof(CanCreateSpellDeck))]
         private async void CreateSpellDeck()
         {
-            await _cardDesignerStore.CreateSpellDeck(new SpellDeckModel() { Name = AddedSpellDeckName, Title = AddedSpellDeckName });
+            await _cardDesignerStore.CreateSpellDeck(new SpellDeckModel() { Name = AddedSpellDeckName, Title = "Enter name" });
         }
 
         private bool CanCreateSpellDeck()
