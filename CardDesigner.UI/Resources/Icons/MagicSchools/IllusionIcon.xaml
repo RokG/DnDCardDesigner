@@ -5,18 +5,19 @@
     <SolidColorBrush x:Key="IllusionColor" Color="Purple" />
     <Canvas x:Key="MagicSchoolIllusionIcon"
         Width="250"
-        Height="250">
+        Height="250"
+        x:Shared="False">
         <Path
             Data="M 181.64411 125.00001 A 56.644117 56.644117 0 0 1 125 181.64412 56.644117 56.644117 0 0 1 68.355887 125.00001 56.644117 56.644117 0 0 1 125 68.355882 56.644117 56.644117 0 0 1 181.64411 125.00001 Z"
             Stroke="{StaticResource IllusionColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 125.25436 181.80358 c -37.793171 0 -80.509953 -25.2332 -99.404682 -56.97778 18.894729 -31.744575 61.611511 -56.977779 99.404682 -56.977779 37.79317 0 80.50996 25.233204 99.40469 56.977779 -18.89473 31.74458 -61.61152 56.97778 -99.40469 56.97778 z"
             Stroke="{StaticResource IllusionColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 125 82.999393 12.34366 25.011017 27.6013 4.01069 -19.97249 19.46837 4.71486 27.48976 L 125 146.00032 l -24.68735 12.97891 4.71486 -27.48976 -19.972464 -19.46837 27.601284 -4.01069 z"
             Stroke="{StaticResource IllusionColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
     </Canvas>
 </ResourceDictionary>

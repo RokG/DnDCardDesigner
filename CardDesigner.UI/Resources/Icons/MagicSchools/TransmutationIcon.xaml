@@ -4,30 +4,31 @@
     <SolidColorBrush x:Key="TransmutationColor" Color="Gold" />
     <Canvas x:Key="MagicSchoolTransmutationIcon"
         Width="250"
-        Height="250">
+        Height="250"
+        x:Shared="False">
         <Path
             Data="m 82.839787 201.23004 a 24.034315 24.034315 0 0 1 -33.989657 0 24.034315 24.034315 0 0 1 3e-6 -33.98965 24.034315 24.034315 0 0 1 33.98965 -1e-5 24.034315 24.034315 0 0 1 4e-6 33.98966 z"
             Stroke="{StaticResource TransmutationColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 166.60078 48.879396 16.95663 5.243671 14.50637 -10.226886 0.25289 17.747076 14.20909 10.636088 -16.80038 5.724713 -5.72468 16.800347 -10.63609 -14.209088 -17.74708 -0.252886 10.22689 -14.506368 z"
             Stroke="{StaticResource TransmutationColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 210.17617 92.526689 c 12.30287 32.403551 5.40549 70.430891 -20.6923 96.528681 -26.0978 26.0978 -64.12514 32.99518 -96.528674 20.69231"
             Stroke="{StaticResource TransmutationColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 204.77628 112.81058 5.39989 -20.283891 14.86658 14.818261"
             Stroke="{StaticResource TransmutationColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="M 40.332496 157.12502 C 28.029631 124.72147 34.92701 86.69413 61.024804 60.596334 87.1226 34.498539 125.14993 27.60116 157.55348 39.904026"
             Stroke="{StaticResource TransmutationColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="M 45.732388 136.84113 40.332496 157.12502 25.465924 142.30677"
             Stroke="{StaticResource TransmutationColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
     </Canvas>
 </ResourceDictionary>

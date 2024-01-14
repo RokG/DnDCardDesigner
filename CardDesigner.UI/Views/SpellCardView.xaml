@@ -146,6 +146,24 @@
                                 SelectedValueType="{Binding SelectedSpellCard.RangeType, Mode=TwoWay}"
                                 ValueTypes="{Binding Source={StaticResource RangeTypeEnum}}"
                                 Value="{Binding SelectedSpellCard.RangeValue, Mode=TwoWay}" />
+                            <controls:SliderControl
+                                Title="Area of effect:"
+                                SelectedValueType="{Binding SelectedSpellCard.AreaOfEffect, Mode=TwoWay}"
+                                ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
+                                Value="{Binding SelectedSpellCard.AreaOfEffectValue, Mode=TwoWay}">
+                                <controls:SliderControl.Style>
+                                    <Style TargetType="{x:Type UserControl}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding SelectedSpellCard.RangeType}"
+                                                Value="{x:Static enums:RangeType.Distance}">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </controls:SliderControl.Style>
+                            </controls:SliderControl>
 
                             <controls:SliderControl
                                 Title="Duration:"
@@ -158,25 +176,6 @@
                                 SelectedValueType="{Binding SelectedSpellCard.CastingTimeType, Mode=TwoWay}"
                                 ValueTypes="{Binding Source={StaticResource CastingTimeEnum}}"
                                 Value="{Binding SelectedSpellCard.CastingTimeValue, Mode=TwoWay}" />
-                            <ContentControl>
-                                <controls:SliderControl
-                                    Title="Area of effect:"
-                                    SelectedValueType="{Binding SelectedSpellCard.AreaOfEffect, Mode=TwoWay}"
-                                    ValueTypes="{Binding Source={StaticResource AreaOfEffectEnum}}"
-                                    Value="{Binding SelectedSpellCard.AreaOfEffectValue, Mode=TwoWay}" />
-                                <ContentControl.Style>
-                                    <Style TargetType="{x:Type ContentControl}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                        <Style.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding SelectedSpellCard.RangeType}"
-                                                Value="{x:Static enums:RangeType.Distance}">
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ContentControl.Style>
-                            </ContentControl>
 
                             <controls:SliderControl
                                 Title="Roll:"

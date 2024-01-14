@@ -4,30 +4,31 @@
     <SolidColorBrush x:Key="EnchantmentColor" Color="Goldenrod" />
     <Canvas x:Key="MagicSchoolEnchantmentIcon"
         Width="250"
-        Height="250">
+        Height="250"
+        x:Shared="False">
         <Path
             Data="m 192.27272 134.09955 a 66.9104 66.9104 0 0 1 -66.9104 66.9104 66.9104 66.9104 0 0 1 -66.91039 -66.9104 66.9104 66.9104 0 0 1 66.91039 -66.910388 66.9104 66.9104 0 0 1 66.9104 66.910388 z"
             Stroke="{StaticResource EnchantmentColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 208.14994 90.804804 5.20652 9.868196 10.99411 1.90226 -7.77631 8.00113 1.58822 11.04384 -10.01254 -4.92322 -10.01254 4.92322 1.58821 -11.04384 -7.7763 -8.00114 10.99411 -1.90225 z"
             Stroke="{StaticResource EnchantmentColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 176.48664 188.25439 5.20652 9.86819 10.99411 1.90226 -7.77631 8.00114 1.58822 11.04385 -10.01254 -4.92322 -10.01254 4.92322 1.58821 -11.04385 -7.7763 -8.00114 10.99411 -1.90226 z"
             Stroke="{StaticResource EnchantmentColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 74.022109 188.25439 5.206519 9.86819 10.994111 1.90226 -7.776303 8.00114 1.588212 11.04385 -10.01254 -4.92322 -10.012541 4.92322 1.588213 -11.04385 -7.776303 -8.00114 10.994109 -1.90226 z"
             Stroke="{StaticResource EnchantmentColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 42.358803 90.804827 5.206521 9.868193 10.99411 1.90226 -7.776303 8.00113 1.588212 11.04384 -10.01254 -4.92322 -10.01254 4.92322 1.588213 -11.04384 -7.776303 -8.00113 10.994109 -1.90226 z"
             Stroke="{StaticResource EnchantmentColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
         <Path
             Data="m 125.25435 30.786406 5.20653 9.86819 10.99411 1.902258 -7.77631 8.001133 1.58821 11.04385 -10.01254 -4.923217 -10.01254 4.923217 1.58822 -11.04385 -7.77631 -8.001134 10.99411 -1.902257 z"
             Stroke="{StaticResource EnchantmentColor}"
-            StrokeThickness="5" />
+            StrokeThickness="10" />
     </Canvas>
 </ResourceDictionary>
