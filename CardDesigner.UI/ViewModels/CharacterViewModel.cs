@@ -150,7 +150,7 @@ namespace CardDesigner.UI.ViewModels
             {
                 Class = classModel,
                 ClassID = classModel.ID,
-                ClassSpecialization = classModel.Specializations.FirstOrDefault()
+                ClassSpecialization = classModel.Specializations.FirstOrDefault(c=>c == SelectedSpecialization)
             };
 
             if (SelectedCharacter.Classes == null)
