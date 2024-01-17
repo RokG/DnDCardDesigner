@@ -38,7 +38,7 @@
   {
     "ID": "class7",
     "Name": "Paladin",
-    "Specializations": [ "A2", "B3", "C4" ],
+    "Specializations": [ "Oath of Conquest", "Oath of Devotion", "Oath of Glory", "Oath of Redemption", "Oath of the Ancients", "Oath of the Crown", "Oath of the Watchers", "Oath of Vengeance", "Oathbreaker" ],
     "DiceType": "d10"
   },
   {

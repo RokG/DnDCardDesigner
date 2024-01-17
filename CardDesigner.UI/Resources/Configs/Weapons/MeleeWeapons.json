@@ -31,5 +31,16 @@
       "PhysicalDamageType": "Crushing",
       "MagicDamageType": "None",
       "DamageModifier": "0"
+    },
+    {
+      "ID": "melee4",
+      "Name": "Morningstar",
+      "WeaponType": "Melee",
+      "EquipmentSlot": "OneHanded",
+      "DiceValue": "1",
+      "DiceType": "d8",
+      "PhysicalDamageType": "Piercing",
+      "MagicDamageType": "None",
+      "DamageModifier": "0"
     }
   ]

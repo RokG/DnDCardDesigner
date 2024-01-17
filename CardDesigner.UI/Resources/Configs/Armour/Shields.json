@@ -5,5 +5,12 @@
     "EquipmentSlot": "Shield",
     "ArmourType": "Medium",
     "ArmourClass": "1"
+  },
+  {
+    "ID": "shield2",
+    "Name": "Shield",
+    "EquipmentSlot": "Shield",
+    "ArmourType": "Medium",
+    "ArmourClass": "2"
   }
 ]

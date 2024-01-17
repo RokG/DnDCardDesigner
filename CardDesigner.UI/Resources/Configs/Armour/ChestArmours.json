@@ -3,8 +3,8 @@
       "ID": "chest1",
       "Name": "Chain mail",
       "EquipmentSlot": "Torso",
-      "ArmourType" : "Medium",
-      "ArmourClass" : "12"
+      "ArmourType" : "Heavy",
+      "ArmourClass" : "16"
     },
     {
       "ID": "chest2",
